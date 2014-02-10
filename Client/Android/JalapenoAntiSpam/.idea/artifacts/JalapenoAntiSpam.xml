@@ -1,0 +1,23 @@
+<component name="ArtifactManager">
+  <artifact type="apk" build-on-make="true" name="JalapenoAntiSpam">
+    <output-path>$PROJECT_DIR$/../Artifacts/APK</output-path>
+    <properties id="android-properties">
+      <options>
+        <option name="keyAlias" value="JalapenoKeyStore" />
+        <option name="keyPassword" value="WVZzN280YUd1dGlY" />
+        <option name="keyStorePassword" value="czNXWXFvR1ViREtZ" />
+        <option name="keyStoreUrl" value="file://$PROJECT_DIR$/../Artifacts/key/key.jks" />
+        <option name="proGuardCfgFiles">
+          <list>
+            <option value="file://%MODULE_SDK_HOME%/tools/proguard/proguard-android.txt" />
+            <option value="file://$PROJECT_DIR$/../Artifacts/ProGuard/proGuard.txt" />
+          </list>
+        </option>
+        <option name="signingMode" value="RELEASE_SIGNED" />
+      </options>
+    </properties>
+    <root id="archive" name="JalapenoAntiSpam.apk">
+      <element id="android-final-package" facet="JalapenoAntiSpam/android/Android" />
+    </root>
+  </artifact>
+</component>

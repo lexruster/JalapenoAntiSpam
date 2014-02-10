@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">JalapenoAntiSpam</string>
+    <string name="SettingsTitle">Settings</string>
+    <string name="KnownSpammerList">Known spammer list</string>
+    <string name="SoundSettings">Sound settings</string>
+    <string name="SpammerList">Spammer list</string>
+    <string name="DebugActivity">Debug activity</string>
+    <string name="EmptySpamerList">List is Empty</string>
+</resources>

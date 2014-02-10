@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="su.Jalapeno.AntiSpam"
+          android:versionCode="1"
+          android:versionName="0.1">
+    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="15"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!--<uses-permission android:name="android.permission.BROADCAST_SMS"/>-->
+
+    <!--android:theme="@android:style/Theme.Translucent"-->
+
+
+    <application
+            android:name=".MyApplication"
+            android:label="@string/app_name"
+            android:icon="@drawable/ic_launcher"
+            android:theme="@android:style/Theme.Holo.Light">
+        <meta-data android:name="com.google.android.gms.version"
+                   android:value="@integer/google_play_services_version"/>
+        <activity android:name=".Activities.Settings"
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <receiver android:name=".SystemService.SmsBroadcastReceiver" android:exported="true">
+            <intent-filter android:priority="1000">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
+        <activity android:name=".Activities.Debug"/>
+        <activity android:name=".Activities.SpamerList"/>
+    </application>
+</manifest>
