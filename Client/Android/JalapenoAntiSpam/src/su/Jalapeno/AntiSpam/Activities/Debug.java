@@ -230,6 +230,7 @@ public class Debug extends JalapenoActivity {
                 */
                 //String token = null;
                 try {
+                    
                     Log.i(TAG, "Scope: " + SCOPE);
                     Log.i(TAG, "Email: " + accountName);
                     token = GoogleAuthUtil.getToken(mActivity, accountName, SCOPE);
