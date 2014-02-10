@@ -1,0 +1,1257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayoutPreviewToolWindow">
+    <option name="state">
+      <GlobalState />
+    </option>
+  </component>
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" readonly="true" id="60ddd1b0-9157-4993-97d0-cec626c6c9f3" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/JalapenoAntiSpam.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project.properties" afterPath="$PROJECT_DIR$/project.properties" />
+    </list>
+    <list id="5b15d239-8ff7-4415-8ff1-796aca9a67e3" name="ignore-on-commit" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test Results - Test.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
+    <ignored path="JalapenoAntiSpam.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="DebuggerManager">
+    <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint url="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/SmsReceive/SmsReceiver.java" line="22" class="su.Jalapeno.AntiSpam.Services.SmsReceive.SmsReceiver" package="su.Jalapeno.AntiSpam.Services.SmsReceive">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/DAL/DAO/SpamerPhoneDAO.java" line="37" class="su.Jalapeno.AntiSpam.DAL.DAO.SpamerPhoneDAO" package="su.Jalapeno.AntiSpam.DAL.DAO">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/SystemService/SmsBroadcastReceiver.java" line="30" class="su.Jalapeno.AntiSpam.SystemService.SmsBroadcastReceiver" package="su.Jalapeno.AntiSpam.SystemService">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/SystemService/SmsBroadcastReceiver.java" line="28" class="su.Jalapeno.AntiSpam.SystemService.SmsBroadcastReceiver" package="su.Jalapeno.AntiSpam.SystemService">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/SmsReceive/SmsReceiverWrapper.java" line="12" class="su.Jalapeno.AntiSpam.Services.SmsReceive.SmsReceiverWrapper" package="su.Jalapeno.AntiSpam.Services.SmsReceive">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/SmsService.java" line="33" class="su.Jalapeno.AntiSpam.Services.SmsService" package="su.Jalapeno.AntiSpam.Services">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/DAL/DAO/SpamerPhoneDAO.java" line="41" class="su.Jalapeno.AntiSpam.DAL.DAO.SpamerPhoneDAO" package="su.Jalapeno.AntiSpam.DAL.DAO">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/Tests/src/su/Jalapeno/AntiSpam/AntiSpamTest/ServicesTests/RestTest/RestTest.java" line="19" class="su.Jalapeno.AntiSpam.AntiSpamTest.ServicesTests.RestTest.RestTest" package="su.Jalapeno.AntiSpam.AntiSpamTest.ServicesTests.RestTest">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Activities/Debug.java" line="330" class="su.Jalapeno.AntiSpam.Activities.Debug" package="su.Jalapeno.AntiSpam.Activities">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Activities/Debug.java" line="175" class="su.Jalapeno.AntiSpam.Activities.Debug$11" package="su.Jalapeno.AntiSpam.Activities">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Activities/Debug.java" line="233" class="su.Jalapeno.AntiSpam.Activities.Debug$13" package="su.Jalapeno.AntiSpam.Activities">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Activities/Debug.java" line="200" class="su.Jalapeno.AntiSpam.Activities.Debug" package="su.Jalapeno.AntiSpam.Activities">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Activities/Debug.java" line="202" class="su.Jalapeno.AntiSpam.Activities.Debug" package="su.Jalapeno.AntiSpam.Activities">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Activities/Debug.java" line="235" class="su.Jalapeno.AntiSpam.Activities.Debug$13" package="su.Jalapeno.AntiSpam.Activities">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </line_breakpoints>
+    <breakpoint_rules />
+    <ui_properties />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="ExportTestResults" outputFolder="$PROJECT_DIR$" openResultsInEditor="true" userTempatePath="" />
+  <component name="FavoritesManager">
+    <favorites_list name="JalapenoAntiSpam" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="Debug.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Activities/Debug.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="346" column="34" selection-start="13135" selection-end="13135" vertical-scroll-proportion="8.587992" vertical-offset="0" max-vertical-offset="5321">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SmsBroadcastReceiver.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/SystemService/SmsBroadcastReceiver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="43" column="39" selection-start="1591" selection-end="1591" vertical-scroll-proportion="0.0" vertical-offset="731" max-vertical-offset="1105">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AsyncTask.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://D:/System/Program/Mobile/adt-bundle-windows-x86_64-20131030/sdk/sources/android-15/android/os/AsyncTask.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="276" column="45" selection-start="11185" selection-end="11185" vertical-scroll-proportion="0.0" vertical-offset="4692" max-vertical-offset="10948">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Intent.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://D:/System/Program/Mobile/adt-bundle-windows-x86_64-20131030/sdk/sources/android-15/android/content/Intent.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3037" column="0" selection-start="142294" selection-end="142294" vertical-scroll-proportion="0.0" vertical-offset="51629" max-vertical-offset="106046">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="18" column="0" selection-start="1009" selection-end="1009" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="833">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="version.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://D:/System/Program/Mobile/adt-bundle-windows-x86_64-20131030/sdk/extras/google/google_play_services/libproject/google-play-services_lib/res/values/version.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="56" selection-start="100" selection-end="107" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="170">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RepositoryFactory.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/DAL/RepositoryFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="22" column="0" selection-start="550" selection-end="550" vertical-scroll-proportion="0.0" vertical-offset="374" max-vertical-offset="476">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SpamerPhoneDAO.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/DAL/DAO/SpamerPhoneDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="34" column="0" selection-start="1023" selection-end="1023" vertical-scroll-proportion="0.0" vertical-offset="578" max-vertical-offset="1360">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SettingsTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Tests/src/su/Jalapeno/AntiSpam/AntiSpamTest/SettingsTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="22" column="8" selection-start="769" selection-end="769" vertical-scroll-proportion="0.0" vertical-offset="374" max-vertical-offset="952">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/ContactsService.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/DAL/Domain/SpamerPhone.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/RequestQueue.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/UserValidateService.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/MyApplication.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/SettingsService.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Util/UI/JalapenoActivity.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Util/UI/JalapenoListActivity.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Util/UI/UiControlsUtil.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Util/Config.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Util/PhoneNumberNormalizer.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/DAL/Repository.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/DAL/DAO/SpamerPhoneDAO.java" />
+        <option value="$USER_HOME$/.IdeaIC13/system/compile-server/jalapenoantispam_8a6a6d5c/targets/java-production/JalapenoAntiSpam/android/generated_sources/aapt/su/Jalapeno/AntiSpam/R.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Activities/SpamerList.java" />
+        <option value="$PROJECT_DIR$/res/layout/spamer_list.xml" />
+        <option value="$PROJECT_DIR$/res/layout/lay_test.xml" />
+        <option value="$PROJECT_DIR$/../JalapenoAntiSpam.Tests/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Activities/Settings.java" />
+        <option value="$PROJECT_DIR$/res/values/styles.xml" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/SystemService/SystemService.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/SMSReceiver.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/SystemService/SMSBroadcastReceiver.java" />
+        <option value="$PROJECT_DIR$/../JalapenoAntiSpam.Tests/src/su/Jalapeno/AntiSpam/Activities/ServicesTests/SmsReceiverTests.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/SmsReceive/SmsReceiverWrapper.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/SmsService.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Util/DebugMessage.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/SmsReceive/SmsReceiver.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/LocalSpamBaseService.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/SystemService/SmsBroadcastReceiver.java" />
+        <option value="$PROJECT_DIR$/../JalapenoAntiSpam.Tests/src/su/Jalapeno/AntiSpam/Activities/ServicesTests/PhoneNumberNormalizerTests.java" />
+        <option value="$PROJECT_DIR$/../JalapenoAntiSpam.Tests/src/su/Jalapeno/AntiSpam/Activities/SettingsTest.java" />
+        <option value="$PROJECT_DIR$/Tests/src/su/Jalapeno/AntiSpam/Activities/SettingsTest.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/PhoneNumberNormalizer.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/JalapenoHttpService.java" />
+        <option value="$PROJECT_DIR$/Tests/src/su/Jalapeno/AntiSpam/AntiSpamTest/ServicesTests/RestTest/GitRest.java" />
+        <option value="$PROJECT_DIR$/Tests/src/su/Jalapeno/AntiSpam/AntiSpamTest/ServicesTests/RestTest/Repo.java" />
+        <option value="$PROJECT_DIR$/Tests/src/su/Jalapeno/AntiSpam/AntiSpamTest/ServicesTests/RestTest/GitRestImpl.java" />
+        <option value="$PROJECT_DIR$/Tests/src/su/Jalapeno/AntiSpam/AntiSpamTest/ServicesTests/RestTest.java" />
+        <option value="$PROJECT_DIR$/Tests/src/su/Jalapeno/AntiSpam/AntiSpamTest/ServicesTests/PhoneNumberNormalizerTests.java" />
+        <option value="$PROJECT_DIR$/Tests/src/su/Jalapeno/AntiSpam/AntiSpamTest/ServicesTests/SmsReceiverTests.java" />
+        <option value="$PROJECT_DIR$/Tests/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/Tests/src/su/Jalapeno/AntiSpam/AntiSpamTest/ServicesTests/JalapenoHttpServiceTests.java" />
+        <option value="$PROJECT_DIR$/Tests/src/su/Jalapeno/AntiSpam/AntiSpamTest/ServicesTests/RestTest/RestTest.java" />
+        <option value="$PROJECT_DIR$/Tests/src/su/Jalapeno/AntiSpam/AntiSpamTest/SettingsTest.java" />
+        <option value="$PROJECT_DIR$/res/layout/debug.xml" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/Token/GetAuthTokenCallback.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/EmailSender.java" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/DAL/RepositoryFactory.java" />
+        <option value="$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Activities/Debug.java" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="2" id="Add" />
+    <ConfirmationsSetting value="2" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JalapenoAntiSpam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="google-play-services" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JalapenoAntiSpam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JalapenoAntiSpam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JalapenoAntiSpam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="options.lastSelected" value="vcs.Subversion" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+    <property name="recentsLimit" value="5" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="true" />
+    <property name="LayoutCode.rearrangeEntriesJava" value="true" />
+    <property name="last_opened_file_path" value="D:/System/Program/Mobile/adt-bundle-windows-x86_64-20131030/sdk/extras/google/google_play_services/libproject/google-play-services_lib/libs" />
+    <property name="FullScreen" value="false" />
+    <property name="LayoutCode.rearrangeEntriesXML" value="false" />
+    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager2.WIDTH" value="318" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="OverrideImplement.overriding.sorted" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="su.Jalapeno.AntiSpam.AntiSpamTest.ServicesTests" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Document\Project\JalapenoAntiSpam\trunk\Sourse\Client\Android\JalapenoAntiSpam\Tests\src\su\Jalapeno\AntiSpam\AntiSpamTest" />
+      <recent name="D:\Document\Project\JalapenoAntiSpam\trunk\Sourse\Client\Android\JalapenoAntiSpam\libs" />
+      <recent name="D:\Document\BUISNES\Coding\JalapenoAntiSpam\Sourse\Client\Android\JalapenoAntiSpam\res\raw" />
+      <recent name="D:\Document\BUISNES\Coding\JalapenoAntiSpam\Sourse\Client\Android\JalapenoAntiSpam\res\drawable" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="su.Jalapeno.AntiSpam.Services.Token" />
+      <recent name="su.Jalapeno.AntiSpam.AntiSpamTest.ServicesTests.RestTest" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="su.Jalapeno.AntiSpam" />
+      <recent name="com.Jalapeno.AntiSpam" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Android Application.UsbDevice">
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin" singleton="true">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="false" name="JalapenoAntiSpam" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="JalapenoAntiSpam" />
+      <option name="ACTIVITY_CLASS" value="su.Jalapeno.AntiSpam.Activities.Settings" />
+      <option name="MODE" value="specific_activity" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="NexusOne403" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <RunnerSettings RunnerId="AndroidDebugRunner" />
+      <ConfigurationWrapper RunnerId="AndroidDebugRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="UsbDevice" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="JalapenoAntiSpam" />
+      <option name="ACTIVITY_CLASS" value="su.Jalapeno.AntiSpam.Activities.Settings" />
+      <option name="MODE" value="specific_activity" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="USB_DEVICE" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <RunnerSettings RunnerId="AndroidDebugRunner" />
+      <ConfigurationWrapper RunnerId="AndroidDebugRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="All Tests" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <RunnerSettings RunnerId="AndroidDebugRunner" />
+      <ConfigurationWrapper RunnerId="AndroidDebugRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Test" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="Test" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="true" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <RunnerSettings RunnerId="AndroidDebugRunner" />
+      <ConfigurationWrapper RunnerId="AndroidDebugRunner" />
+      <method />
+    </configuration>
+    <list size="4">
+      <item index="0" class="java.lang.String" itemvalue="Android Application.JalapenoAntiSpam" />
+      <item index="1" class="java.lang.String" itemvalue="Android Application.UsbDevice" />
+      <item index="2" class="java.lang.String" itemvalue="Android Tests.All Tests" />
+      <item index="3" class="java.lang.String" itemvalue="Android Tests.Test" />
+    </list>
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
+      <Host>localhost</Host>
+      <Port>5050</Port>
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="true" SSL_PROTOCOLS="all">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <configuration useDefault="false">C:\Users\alexander.kiryushkin\AppData\Roaming\Subversion</configuration>
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\Document\Project\JalapenoAntiSpam\trunk\Sourse\Client\Android\JalapenoAntiSpam" />
+          <option name="myCopyRoot" value="D:\Document\Project\JalapenoAntiSpam\trunk\Sourse\Client\Android\JalapenoAntiSpam" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\Document\Project\JalapenoAntiSpam\trunk\Sourse\Client\Android\JalapenoAntiSpam\.idea" />
+          <option name="myCopyRoot" value="D:\Document\Project\JalapenoAntiSpam\trunk\Sourse\Client\Android\JalapenoAntiSpam\.idea" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\Document\Project\JalapenoAntiSpam\trunk\Sourse\Client\Android\JalapenoAntiSpam\Tests" />
+          <option name="myCopyRoot" value="D:\Document\Project\JalapenoAntiSpam\trunk\Sourse\Client\Android\JalapenoAntiSpam\Tests" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\Document\Project\JalapenoAntiSpam\trunk\Sourse\Client\Android\JalapenoAntiSpam" />
+          <option name="myCopyRoot" value="D:\Document\Project\JalapenoAntiSpam\trunk\Sourse\Client\Android\JalapenoAntiSpam" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="60ddd1b0-9157-4993-97d0-cec626c6c9f3" name="Default" comment="" />
+      <created>1387200186065</created>
+      <updated>1387200186065</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32929292" sideWeight="0.37864584" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3831579" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3694737" sideWeight="0.41666666" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30105263" sideWeight="0.675" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.46421054" sideWeight="0.5833333" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29010418" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32526317" sideWeight="0.76666665" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296875" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32842106" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USERS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://D:/System/Program/Mobile/adt-bundle-windows-x86_64-20131030/sdk/sources/android-15/junit/framework/TestResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="13" selection-start="483" selection-end="483" vertical-scroll-proportion="0.3322884" vertical-offset="9" max-vertical-offset="2839" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/DAL/Domain/SpamerPhone.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="13" selection-start="285" selection-end="285" vertical-scroll-proportion="0.23981191" vertical-offset="0" max-vertical-offset="638" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Activities/Settings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="82" column="10" selection-start="2258" selection-end="2264" vertical-scroll-proportion="0.0" vertical-offset="739" max-vertical-offset="1377" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="0" selection-start="1472" selection-end="1472" vertical-scroll-proportion="0.80763793" vertical-offset="109" max-vertical-offset="816" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/SmsReceive/SmsReceiverWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="24" selection-start="275" selection-end="275" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/System/Program/Mobile/adt-bundle-windows-x86_64-20131030/sdk/extras/google/google_play_services/libproject/google-play-services_lib/libs/google-play-services.jar!/com/google/android/gms/common/annotation/KeepName.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="49" selection-start="168" selection-end="168" vertical-scroll-proportion="0.08585858" vertical-offset="0" max-vertical-offset="594" />
+      </provider>
+    </entry>
+    <entry file="file://D:/System/Program/Mobile/adt-bundle-windows-x86_64-20131030/sdk/sources/android-15/junit/framework/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="17" selection-start="128" selection-end="128" vertical-scroll-proportion="0.18829113" vertical-offset="0" max-vertical-offset="632" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/SmsReceive/SmsReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="12" selection-start="358" selection-end="358" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/ContactsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="17" selection-start="98" selection-end="98" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/LocalSpamBaseService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="32" selection-start="826" selection-end="826" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="782" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/SettingsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="18" selection-start="239" selection-end="254" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="986" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/SmsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="12" selection-start="406" selection-end="406" vertical-scroll-proportion="0.0" vertical-offset="16" max-vertical-offset="1071">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/UserValidateService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="13" selection-start="94" selection-end="94" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/RequestQueue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="9" selection-start="446" selection-end="446" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="578" />
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/libs/retrofit-1.3.0.jar!/retrofit/Callback.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="1" selection-end="1" vertical-scroll-proportion="0.028006589" vertical-offset="0" max-vertical-offset="607" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/PhoneNumberNormalizer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="13" selection-start="94" selection-end="94" vertical-scroll-proportion="0.13731825" vertical-offset="0" max-vertical-offset="619" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/src/su/Jalapeno/AntiSpam/AntiSpamTest/ServicesTests/RestTest/Repo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="13" selection-start="136" selection-end="136" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="272" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/MyApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="26" selection-start="316" selection-end="316" vertical-scroll-proportion="0.3306321" vertical-offset="0" max-vertical-offset="617" />
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/libs/ormlite-android-4.48.jar!/com/j256/ormlite/android/apptools/OpenHelperManager.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="104" selection-start="1117" selection-end="1117" vertical-scroll-proportion="0.34767643" vertical-offset="121" max-vertical-offset="816" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="8" selection-start="766" selection-end="766" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="493" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/src/su/Jalapeno/AntiSpam/AntiSpamTest/ServicesTests/SmsReceiverTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="0" selection-start="282" selection-end="282" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="442" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/src/su/Jalapeno/AntiSpam/AntiSpamTest/ServicesTests/JalapenoHttpServiceTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="0" selection-start="743" selection-end="743" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/src/su/Jalapeno/AntiSpam/AntiSpamTest/ServicesTests/PhoneNumberNormalizerTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="0" selection-start="497" selection-end="497" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="629" />
+      </provider>
+    </entry>
+    <entry file="file://D:/System/Program/Mobile/adt-bundle-windows-x86_64-20131030/sdk/sources/android-15/junit/framework/Assert.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="153" column="23" selection-start="5698" selection-end="5698" vertical-scroll-proportion="0.33279485" vertical-offset="2395" max-vertical-offset="5049" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/src/su/Jalapeno/AntiSpam/AntiSpamTest/ServicesTests/RestTest/GitRest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="17" selection-start="238" selection-end="238" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/src/su/Jalapeno/AntiSpam/AntiSpamTest/ServicesTests/RestTest/RestTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="47" selection-start="236" selection-end="236" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="595">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/System/Program/Mobile/adt-bundle-windows-x86_64-20131030/sdk/sources/android-15/android/test/ActivityInstrumentationTestCase2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="22" selection-start="1772" selection-end="1848" vertical-scroll-proportion="0.0" vertical-offset="593" max-vertical-offset="3060" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/JalapenoHttpService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="0" selection-start="870" selection-end="870" vertical-scroll-proportion="0.0" vertical-offset="163" max-vertical-offset="1105" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/settings.xml">
+      <provider editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="748" />
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/debug.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="63" selection-start="2642" selection-end="2642" vertical-scroll-proportion="-10.88" vertical-offset="408" max-vertical-offset="2193" />
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://D:/System/Program/Mobile/adt-bundle-windows-x86_64-20131030/sdk/sources/android-15/android/accounts/AccountManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="904" column="40" selection-start="42580" selection-end="42580" vertical-scroll-proportion="0.0" vertical-offset="14278" max-vertical-offset="31926" />
+      </provider>
+    </entry>
+    <entry file="file://D:/System/Program/Mobile/adt-bundle-windows-x86_64-20131030/sdk/sources/android-15/android/app/Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3187" column="16" selection-start="134111" selection-end="134111" vertical-scroll-proportion="0.33274648" vertical-offset="52392" max-vertical-offset="77418" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Util/DebugMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="23" selection-start="245" selection-end="245" vertical-scroll-proportion="0.29929578" vertical-offset="0" max-vertical-offset="568" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/DAL/Repository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="4" selection-start="552" selection-end="619" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1343" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Services/EmailSender.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="12" selection-start="881" selection-end="952" vertical-scroll-proportion="0.0" vertical-offset="95" max-vertical-offset="663" />
+      </provider>
+    </entry>
+    <entry file="file://D:/System/Program/Mobile/adt-bundle-windows-x86_64-20131030/sdk/sources/android-15/com/android/internal/os/RuntimeInit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="292" column="8" selection-start="10470" selection-end="10470" vertical-scroll-proportion="0.3321918" vertical-offset="4175" max-vertical-offset="6681" />
+      </provider>
+    </entry>
+    <entry file="file://D:/System/Program/Mobile/adt-bundle-windows-x86_64-20131030/sdk/sources/android-15/android/content/ComponentName.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="0" selection-start="1861" selection-end="1861" vertical-scroll-proportion="0.0" vertical-offset="374" max-vertical-offset="4692" />
+      </provider>
+    </entry>
+    <entry file="file://D:/System/Program/Mobile/adt-bundle-windows-x86_64-20131030/sdk/sources/android-15/android/content/Intent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3037" column="0" selection-start="142294" selection-end="142294" vertical-scroll-proportion="0.0" vertical-offset="50745" max-vertical-offset="104907">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/System/Program/Mobile/adt-bundle-windows-x86_64-20131030/sdk/sources/android-15/android/os/AsyncTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="276" column="45" selection-start="11185" selection-end="11185" vertical-scroll-proportion="0.0" vertical-offset="3961" max-vertical-offset="10353">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/System/Program/Mobile/adt-bundle-windows-x86_64-20131030/sdk/extras/google/google_play_services/libproject/google-play-services_lib/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="655" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/DAL/RepositoryFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="0" selection-start="550" selection-end="550" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/System/Program/Mobile/adt-bundle-windows-x86_64-20131030/sdk/extras/google/google_play_services/libproject/google-play-services_lib/res/values/version.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="56" selection-start="100" selection-end="107" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="170">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/System/Program/Mobile/adt-bundle-windows-x86_64-20131030/sdk/extras/google/google_play_services/libproject/google-play-services_lib/libs/google-play-services.jar!/com/google/android/gms/auth/GoogleAuthUtil.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="35" selection-start="1055" selection-end="1055" vertical-scroll-proportion="0.33271027" vertical-offset="162" max-vertical-offset="833" />
+      </provider>
+    </entry>
+    <entry file="jar://D:/System/Program/Mobile/adt-bundle-windows-x86_64-20131030/sdk/extras/google/google_play_services/libproject/google-play-services_lib/libs/google-play-services.jar!/com/google/android/gms/common/Scopes.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="41" selection-start="327" selection-end="327" vertical-scroll-proportion="0.21715328" vertical-offset="0" max-vertical-offset="548" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/SystemService/SmsBroadcastReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="39" selection-start="1591" selection-end="1591" vertical-scroll-proportion="0.0" vertical-offset="731" max-vertical-offset="1105">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/DAL/DAO/SpamerPhoneDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="0" selection-start="1023" selection-end="1023" vertical-scroll-proportion="0.0" vertical-offset="489" max-vertical-offset="1173">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="0" selection-start="1009" selection-end="1009" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="833">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Research/Android/Example/photo-sharing-demo-1.2/src/com/google/cloud/demo/ServletUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="72" selection-start="920" selection-end="920" vertical-scroll-proportion="-0.5822511" vertical-offset="929" max-vertical-offset="1853" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Research/Android/Example/photo-sharing-demo-1.2/src/com/google/cloud/demo/AppContext.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="92" column="66" selection-start="3306" selection-end="3320" vertical-scroll-proportion="0.6781737" vertical-offset="717" max-vertical-offset="1615" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/src/su/Jalapeno/AntiSpam/AntiSpamTest/SettingsTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="8" selection-start="769" selection-end="769" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="901">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/su/Jalapeno/AntiSpam/Activities/Debug.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="346" column="34" selection-start="13135" selection-end="13135" vertical-scroll-proportion="8.587992" vertical-offset="0" max-vertical-offset="5321">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>JalapenoAntiSpam</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Android (Test)|Android</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>Android SDK</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>Android|JalapenoAntiSpam</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>google-play-services</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
+
