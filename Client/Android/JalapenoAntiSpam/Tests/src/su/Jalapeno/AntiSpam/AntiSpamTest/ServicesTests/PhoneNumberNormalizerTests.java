@@ -1,5 +1,7 @@
 package su.Jalapeno.AntiSpam.AntiSpamTest.ServicesTests;
 
+import java.io.Console;
+
 import android.test.AndroidTestCase;
 import junit.framework.Assert;
 import su.Jalapeno.AntiSpam.Services.PhoneNumberNormalizer;
@@ -28,6 +30,7 @@ public class PhoneNumberNormalizerTests extends AndroidTestCase {
         String result = phoneNumberNormalizer.NormalizePhoneNumber("dsfsdf");
 
         Assert.assertEquals(result, sourse);
+        
     }
 }
 
