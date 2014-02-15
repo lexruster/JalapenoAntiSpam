@@ -9,3 +9,5 @@ Client/Android/JalapenoAntiSpam/gen/*
 Client/Android/JalapenoAntiSpam/Tests/bin/*
 Client/JalapenoAntiSpamTestsTest/bin/*
 Client/JalapenoAntiSpamTestsTest/gen/*
+Client/Android/JalapenoAntiSpamTests/bin/*
+Client/Android/JalapenoAntiSpamTests/gen/*

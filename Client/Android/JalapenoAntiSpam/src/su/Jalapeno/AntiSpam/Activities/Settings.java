@@ -2,10 +2,12 @@ package su.Jalapeno.AntiSpam.Activities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.ToggleButton;
+import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Util.Config;
@@ -13,11 +15,19 @@ import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
 import su.Jalapeno.AntiSpam.Util.UI.UiControlsUtil;
 
 import java.util.ResourceBundle;
+
+import com.google.inject.Inject;
 //import com.google.android.gms.*;
 
 
 //public class Settings extends Activity {
 public class Settings extends JalapenoActivity {
+	
+	  // system service
+	  @Inject
+	  LocationManager loc;
+	  
+	  
     //protected UiControlsUtil UiUtils;
     ToggleButton toogleButton;
     SettingsService settingsService;
