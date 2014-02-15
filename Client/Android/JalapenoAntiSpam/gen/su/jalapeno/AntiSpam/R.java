@@ -12,6 +12,9 @@ public final class R {
         public static final int list_layout_controller=0x7f040000;
         public static final int scale=0x7f040001;
     }
+    public static final class array {
+        public static final int roboguice_modules=0x7f0a0000;
+    }
     public static final class attr {
         /** 
     The size of the ad. It must be one of BANNER, FULL_BANNER, LEADERBOARD,
@@ -216,20 +219,22 @@ containing a value of this type.
         public static final int jalapeno=0x7f02001d;
     }
     public static final class id {
+        public static final int button7968InCont=0x7f070012;
+        public static final int button8968InCont=0x7f070013;
         public static final int buttonAuthorization=0x7f07000a;
         public static final int buttonClearSpam=0x7f07000d;
-        public static final int buttonDebug=0x7f070017;
+        public static final int buttonDebug=0x7f070019;
         public static final int buttonFillSpam=0x7f07000e;
         public static final int buttonInfo=0x7f07000b;
-        public static final int buttonLocalhostRequest=0x7f070012;
+        public static final int buttonLocalhostRequest=0x7f070014;
         public static final int buttonNewSms=0x7f070008;
         public static final int buttonRecieve8888=0x7f070011;
         public static final int buttonRecieve9999=0x7f070010;
         public static final int buttonSendTokenToEmail=0x7f07000c;
-        public static final int buttonSettingsTest=0x7f070013;
+        public static final int buttonSettingsTest=0x7f070015;
         public static final int buttonSmsSpam=0x7f070009;
-        public static final int buttonSoundSettings=0x7f070016;
-        public static final int buttonSpammerList=0x7f070015;
+        public static final int buttonSoundSettings=0x7f070018;
+        public static final int buttonSpammerList=0x7f070017;
         public static final int buttonTestInBaseSpam=0x7f07000f;
         public static final int hybrid=0x7f070004;
         public static final int imageView=0x7f070005;
@@ -239,7 +244,7 @@ containing a value of this type.
         public static final int scrollView=0x7f070007;
         public static final int terrain=0x7f070003;
         public static final int textView=0x7f070006;
-        public static final int toggleEnabled=0x7f070014;
+        public static final int toggleEnabled=0x7f070016;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f090000;
@@ -357,13 +362,13 @@ containing a value of this type.
         public static final int common_signin_button_text_long=0x7f080013;
     }
     public static final class style {
-        public static final int BaseControl=0x7f0a0000;
-        public static final int BaseControl_Button=0x7f0a0002;
-        public static final int BaseControl_Button_Debug=0x7f0a0003;
-        public static final int BaseControl_ListGroup=0x7f0a0006;
-        public static final int BaseControl_ListView=0x7f0a0005;
-        public static final int BaseControl_TextHeader=0x7f0a0004;
-        public static final int BaseLayout=0x7f0a0001;
+        public static final int BaseControl=0x7f0b0000;
+        public static final int BaseControl_Button=0x7f0b0002;
+        public static final int BaseControl_Button_Debug=0x7f0b0003;
+        public static final int BaseControl_ListGroup=0x7f0b0006;
+        public static final int BaseControl_ListView=0x7f0b0005;
+        public static final int BaseControl_TextHeader=0x7f0b0004;
+        public static final int BaseLayout=0x7f0b0001;
     }
     public static final class styleable {
         /** Attributes that can be used with a AdsAttrs.

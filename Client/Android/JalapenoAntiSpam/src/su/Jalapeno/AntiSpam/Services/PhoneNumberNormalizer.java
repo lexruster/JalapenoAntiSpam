@@ -1,14 +1,38 @@
 package su.Jalapeno.AntiSpam.Services;
 
+import java.util.ArrayList;
+
+import com.google.inject.Inject;
+
 /**
  * Created by Kseny on 06.01.14.
  */
 public class PhoneNumberNormalizer {
-    public PhoneNumberNormalizer() {
 
-    }
+	@Inject
+	public PhoneNumberNormalizer() {
 
-    public static String NormalizePhoneNumber(String phone) {
-        return phone;
-    }
+	}
+
+	public String NormalizePhoneNumber(String phone) {
+		return phone;
+	}
+
+	public boolean PhoneNumberInStandartForm(String phone) {
+		return true;
+	}
+
+	public String GetSignificantPartOfStandartNumber(String phone) {
+		return phone;
+	}
+
+	public ArrayList<String> GetNormalizePhones(ArrayList<String> phones) {
+		ArrayList<String> normalized = new ArrayList<String>();
+
+		for (String phone : phones) {
+			String normalPhone = NormalizePhoneNumber(phone);
+			normalized.add(normalPhone);
+		}
+		return normalized;
+	}
 }
