@@ -191,7 +191,7 @@ public class Debug extends JalapenoActivity {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						InContacts();
+						InContacts("+79689264552");
 					}
 				});
 		
@@ -199,14 +199,21 @@ public class Debug extends JalapenoActivity {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						InContactsWrong();
+						InContacts("89689264552");
+					}
+				});
+		UiUtils.SetTapForButton(R.id.button32424InCont,
+				new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						InContacts("545454654564");
 					}
 				});
 	}
 
-	protected void InContacts() {
-		boolean InC = contactsService.PhoneInContact("+79689264552");
-		DebugMessage.Debug(mActivity, String.format("+79689264552 In cont: %s", InC));
+	protected void InContacts(String ph) {
+		boolean InC = contactsService.PhoneInContact(ph);
+		DebugMessage.Debug(mActivity, String.format("%s In cont: %s",ph, InC));
 	}
 
 	protected void InContactsWrong() {
