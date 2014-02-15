@@ -18,8 +18,7 @@ public class ContactServiceTest extends AndroidTestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		_context = getContext();
-		contactService = new ContactsService(_context,
-				new PhoneNumberNormalizer());
+		contactService = new ContactsService(_context);
 	}
 
 	public void testContact() {

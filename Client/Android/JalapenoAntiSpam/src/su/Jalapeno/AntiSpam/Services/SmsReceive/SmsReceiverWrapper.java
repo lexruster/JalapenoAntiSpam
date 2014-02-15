@@ -13,7 +13,7 @@ public class SmsReceiverWrapper {
         SettingsService settingsService = new SettingsService(context);
         JalapenoHttpService jalapenoHttpService = new JalapenoHttpService(context);
         
-        ContactsService contactsService=new ContactsService(context, new PhoneNumberNormalizer());
+        ContactsService contactsService=new ContactsService(context);
         SmsService smsService = new SmsService(contactsService, jalapenoHttpService, new UserValidateService(),
                 new LocalSpamBaseService(RepositoryFactory.getRepository()), new RequestQueue(jalapenoHttpService), settingsService);
 
