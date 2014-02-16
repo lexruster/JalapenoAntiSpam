@@ -8,18 +8,20 @@ import com.j256.ormlite.table.DatabaseTable;
  * Created by alexander.kiryushkin on 09.01.14.
  */
 
-@DatabaseTable(tableName = "SpamerPhone")
-public class SpamerPhone {
-
-    public static final String PHONE_FIELD_NAME = "Phone";
+@DatabaseTable(tableName = "Senders")
+public class Sender {
+    public static final String SENDER_FIELD_NAME = "SenderId";
+    
     @DatabaseField(generatedId = true)
     private int Id;
-    @DatabaseField(canBeNull = false, dataType = DataType.STRING, index = true, columnName = PHONE_FIELD_NAME)
-    public String Phone;
+    
+    @DatabaseField(canBeNull = false, dataType = DataType.STRING, index = true, columnName = SENDER_FIELD_NAME)
+    public String SenderId;
+    
     @DatabaseField(canBeNull = false, dataType = DataType.BOOLEAN)
-    public boolean IsTrusted;
+    public boolean IsSpammer;
 
-    public SpamerPhone() {
+    public Sender() {
 
     }
 }

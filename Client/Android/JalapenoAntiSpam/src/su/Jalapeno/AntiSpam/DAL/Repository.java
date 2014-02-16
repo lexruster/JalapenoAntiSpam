@@ -3,8 +3,11 @@ package su.Jalapeno.AntiSpam.DAL;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import su.Jalapeno.AntiSpam.DAL.DAO.SpamerPhoneDAO;
-import su.Jalapeno.AntiSpam.DAL.Domain.SpamerPhone;
+import su.Jalapeno.AntiSpam.DAL.DAO.SenderDao;
+import su.Jalapeno.AntiSpam.DAL.DAO.SmsHashDao;
+import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
+import su.Jalapeno.AntiSpam.DAL.Domain.SmsHash;
+
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
@@ -16,67 +19,68 @@ import java.sql.SQLException;
  */
 public class Repository extends OrmLiteSqliteOpenHelper {
 
-    private static final String TAG = Repository.class.getSimpleName();
-    private static final String DATABASE_NAME = "jalapeno.db";
-    private static final int DATABASE_VERSION = 1;
+	private static final String TAG = Repository.class.getSimpleName();
+	private static final String DATABASE_NAME = "jalapeno.db";
+	private static final int DATABASE_VERSION = 1;
 
-    //ссылки на DAO соответсвующие сущностям, хранимым в БД
-    private SpamerPhoneDAO spamerPhoneDao = null;
+	private SenderDao senderDao = null;
+	private SmsHashDao smsHashDao = null;
 
+	public Repository(Context context) {
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+	}
 
-    public Repository(Context context){
-        super(context,DATABASE_NAME, null, DATABASE_VERSION);
-    }
+	@Override
+	public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
+		try {
+			TableUtils.createTable(connectionSource, Sender.class);
+			TableUtils.createTable(connectionSource, SmsHash.class);
+		} catch (SQLException e) {
+			Log.e(TAG, "error creating DB " + DATABASE_NAME);
+			throw new RuntimeException(e);
+		}
+	}
 
-    //Выполняется, когда файл с БД не найден на устройстве
-    @Override
-    public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource){
-        try
-        {
-            TableUtils.createTable(connectionSource, SpamerPhone.class);
-            //TableUtils.createTable(connectionSource, Role.class);
-        }
-        catch (SQLException e){
-            Log.e(TAG, "error creating DB " + DATABASE_NAME);
-            throw new RuntimeException(e);
-        }
-    }
+	@Override
+	public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVer, int newVer) {
+		try {
+			TableUtils.dropTable(connectionSource, Sender.class, true);
+			TableUtils.dropTable(connectionSource, SmsHash.class, true);
+			onCreate(db, connectionSource);
+		} catch (SQLException e) {
+			Log.e(TAG, "error upgrading db " + DATABASE_NAME + "from ver " + oldVer);
+			throw new RuntimeException(e);
+		}
+	}
 
-    //Выполняется, когда БД имеет версию отличную от текущей
-    @Override
-    public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVer,
-                          int newVer){
-        try{
-            //Так делают ленивые, гораздо предпочтительнее не удаляя БД аккуратно вносить изменения
-            TableUtils.dropTable(connectionSource, SpamerPhone.class, true);
-            onCreate(db, connectionSource);
-        }
-        catch (SQLException e){
-            Log.e(TAG,"error upgrading db "+DATABASE_NAME+"from ver "+oldVer);
-            throw new RuntimeException(e);
-        }
-    }
+	public SenderDao getSenderDao() {
+		if (senderDao == null) {
+			try {
+				senderDao = new SenderDao(getConnectionSource(), Sender.class);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
-    //синглтон для GoalDAO
-    public SpamerPhoneDAO getSpamerPhoneDAO(){
-        if(spamerPhoneDao == null){
-            try {
-                spamerPhoneDao = new SpamerPhoneDAO(getConnectionSource(), SpamerPhone.class);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+		return senderDao;
+	}
 
-        return spamerPhoneDao;
-    }
+	public SmsHashDao getSmsHashDao() {
+		if (smsHashDao == null) {
+			try {
+				smsHashDao = new SmsHashDao(getConnectionSource(), SmsHash.class);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
+		return smsHashDao;
+	}
 
-    //выполняется при закрытии приложения
-    @Override
-    public void close(){
-        super.close();
-        spamerPhoneDao = null;
-    }
+	@Override
+	public void close() {
+		super.close();
+		senderDao = null;
+		smsHashDao = null;
+	}
 }
-
-

@@ -7,8 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.util.Log;
-import su.Jalapeno.AntiSpam.DAL.DAO.SpamerPhoneDAO;
-import su.Jalapeno.AntiSpam.DAL.Domain.SpamerPhone;
+import su.Jalapeno.AntiSpam.DAL.DAO.SenderDao;
+import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
 import su.Jalapeno.AntiSpam.DAL.Repository;
 import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
 
@@ -27,28 +27,28 @@ public class LocalSpamBaseService {
     }
 
     public boolean PhoneInLocalSpamBase(String phone){
-        return RepositoryFactory.getRepository().getSpamerPhoneDAO().PhoneInLocalSpamBase(phone);
+        return RepositoryFactory.getRepository().getSenderDao().PhoneIsSpammer(phone);
     }
 
     public void AddAddressToLocalSpamBase(String phone)  {
-        RepositoryFactory.getRepository().getSpamerPhoneDAO().AddPhoneToLocalSpamBase(phone);
+        RepositoryFactory.getRepository().getSenderDao().AddSenderToLocalBase(phone, true);
     }
 
     public ArrayList<String> GetAll()  {
-        List<SpamerPhone> listSpamer = _repository.getSpamerPhoneDAO().GetAll();
+        List<Sender> listSpamer = _repository.getSenderDao().GetAll();
         ArrayList<String> listPhone = new ArrayList<String>();
-        for (SpamerPhone spamerPhone : listSpamer) {
-            listPhone.add(spamerPhone.Phone);
+        for (Sender spamerPhone : listSpamer) {
+            listPhone.add(spamerPhone.SenderId);
         }
 
         return listPhone;
     }
 
-    public List<SpamerPhone> GetAllSpamerPhone()  {
-        return _repository.getSpamerPhoneDAO().GetAll();
+    public List<Sender> GetAllSpamerPhone()  {
+        return _repository.getSenderDao().GetAll();
     }
 
     public void Clear() {
-        _repository.getSpamerPhoneDAO().Clear();
+        _repository.getSenderDao().Clear();
     }
 }
