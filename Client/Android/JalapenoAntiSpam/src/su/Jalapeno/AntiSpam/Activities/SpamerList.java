@@ -1,81 +1,92 @@
 package su.Jalapeno.AntiSpam.Activities;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import su.Jalapeno.AntiSpam.R;
+import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
+import su.Jalapeno.AntiSpam.Services.LocalSpamBaseService;
+import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
-import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
-import su.Jalapeno.AntiSpam.R;
-import su.Jalapeno.AntiSpam.Services.LocalSpamBaseService;
-import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import com.google.inject.Inject;
 
-/**
- * Created by Alexander on 23.12.13.
- */
 public class SpamerList extends JalapenoListActivity {
 
-    final String[] catnames = new String[]{"Р С‹Р¶РёРє", "Р‘Р°СЂСЃРёРє", "РњСѓСЂР·РёРє",
-            "РњСѓСЂРєР°", "Р’Р°СЃСЊРєР°", "РўРѕРјР°СЃРёРЅР°", "Р‘РѕР±РёРє", "РљСЂРёСЃС‚РёРЅР°", "РџСѓС€РѕРє",
-            "Р”С‹РјРєР°", "РљСѓР·СЏ", "РљРёС‚С‚Рё", "Р‘Р°СЂР±РѕСЃ", "РњР°СЃСЏРЅСЏ", "РЎРёРјР±Р°"};
-    ArrayList<String> list;
-    private ArrayAdapter<String> adapter;
+	final String ATTRIBUTE_NAME_SENDER_ID = "SenderId";
+	final String ATTRIBUTE_NAME_IS_SPAMER = "IsSpamer";
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.spamer_list);
+	Context _context;
 
-        Init();
-    }
+	@Inject
+	LocalSpamBaseService _localSpamBaseService;
+	ArrayList<Map<String, Object>> _list;
 
-    private void Init() {
-        //list = new ArrayList<String>(Arrays.asList(catnames));
-        list = new ArrayList<String>();
-        Context context = this.getApplicationContext();
-        LocalSpamBaseService localSpamBaseService = new LocalSpamBaseService(RepositoryFactory.getRepository());
-        ArrayList<String> phoneList = localSpamBaseService.GetAll();
-        list.addAll(phoneList);
-        LoadList();
-    }
+	private SimpleAdapter _adapter;
 
-    private void LoadList() {
-        adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, list);
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.spamer_list);
 
-        // РїСЂРёСЃРІР°РёРІР°РµРј Р°РґР°РїС‚РµСЂ СЃРїРёСЃРєСѓ
-        setListAdapter(adapter);
-        /*LayoutAnimationController controller = AnimationUtils
-                .loadLayoutAnimation(this, R.anim.list_layout_controller);
-        getListView().setLayoutAnimation(controller);*/
+		Init();
+	}
 
-    }
+	private void Init() {
+		_context = this.getApplicationContext();
+		LoadList();
+	}
 
-    @Override
-    protected void onListItemClick(android.widget.ListView adapterView, View view, int position, long id) {
-        super.onListItemClick(adapterView, view, position, id);
+	private void LoadList() {
+		List<Sender> data = _localSpamBaseService.GetAllSenders();
 
-        OnSpamerListItemClick(adapterView, view, position, id);
-    }
+		_list = new ArrayList<Map<String, Object>>(data.size());
+		Map<String, Object> m;
 
-    ;
+		for (int i = 0; i < data.size(); i++) {
+			m = new HashMap<String, Object>();
+			m.put(ATTRIBUTE_NAME_SENDER_ID, data.get(i).SenderId);
+			m.put(ATTRIBUTE_NAME_IS_SPAMER, data.get(i).IsSpammer);
+			_list.add(m);
+		}
 
-    private void OnSpamerListItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        String old = adapterView.getItemAtPosition(position).toString();
-        String newString = String.format("%s -1", old);
-        //list.remove(adapterView.getItemAtPosition(position));
-        //list.re
-        list.set(position, newString);
+		// массив имен атрибутов, из которых будут читаться данные
+		String[] from = { ATTRIBUTE_NAME_SENDER_ID, ATTRIBUTE_NAME_IS_SPAMER };
+		// массив ID View-компонентов, в которые будут вставлять данные
+		int[] to = { R.id.tvSenderId, R.id.cbIsSender };
 
-        adapter.notifyDataSetChanged();
-        //LoadList();
-    }
+		// создаем адаптер
+		_adapter = new SimpleAdapter(this, _list, R.layout.sender_list_item, from, to);
+
+		/*ListView lvMain = (ListView) findViewById(R.id.listSender);
+		lvMain.setAdapter(_adapter);*/
+		 setListAdapter(_adapter);
+	}
+
+	@Override
+	protected void onListItemClick(android.widget.ListView adapterView, View view, int position, long id) {
+		super.onListItemClick(adapterView, view, position, id);
+
+		OnSpamerListItemClick(adapterView, view, position, id);
+	}
+	
+	private void OnSpamerListItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+		Object old = adapterView.getItemAtPosition(position);
+		String newString = String.format("%s -1", old);
+		// list.remove(adapterView.getItemAtPosition(position));
+		// list.re
+		// _list.set(position, newString);
+
+		_adapter.notifyDataSetChanged();
+		// LoadList();
+	}
 }

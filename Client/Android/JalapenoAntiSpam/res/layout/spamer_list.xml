@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical"
-              style="@style/BaseLayout">
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BaseLayout"
+    android:orientation="vertical" >
+
     <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:id="@+id/imageView" android:src="@drawable/jalapeno"/>
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:src="@drawable/jalapeno" />
+
     <TextView
-            style="@style/BaseControl.TextHeader"
-            android:text="@string/SpammerList"
-            android:id="@+id/textView" />
+        android:id="@+id/textView"
+        style="@style/BaseControl.TextHeader"
+        android:text="@string/SpammerList" />
 
     <ListView
-            style="@style/BaseControl.ListView"
-            android:id="@android:id/list"
-            tools:listitem="@android:layout/simple_list_item_1" android:textFilterEnabled="false"/>
-    <TextView
-            android:id="@android:id/empty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/EmptySpamerList" />
+        android:id="@android:id/list"
+        style="@style/BaseControl.ListView"
+        android:textFilterEnabled="false" />
 
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/EmptySpamerList" />
 
 </LinearLayout>
-

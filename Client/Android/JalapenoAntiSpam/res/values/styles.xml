@@ -31,7 +31,12 @@
     </style>
 
     <style name="BaseControl.ListView">
-        <item name="android:background">@android:color/holo_orange_dark</item>
+        
+    </style>
+    <style name="BaseControl.ListItem">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_gravity">right</item>
+        <item name="android:layout_marginRight">20dp</item>
     </style>
 
 

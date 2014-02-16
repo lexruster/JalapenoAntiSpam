@@ -171,6 +171,12 @@ containing a value of this type.
         public static final int zOrderOnTop=0x7f010010;
     }
     public static final class color {
+        public static final int Bckgr=0x7f06000a;
+        public static final int Black=0x7f06000e;
+        public static final int DarkGrey=0x7f06000f;
+        public static final int Green=0x7f06000d;
+        public static final int Orange=0x7f06000c;
+        public static final int Red=0x7f06000b;
         public static final int common_action_bar_splitter=0x7f060009;
         /**  Sign-in Button Colors 
          */
@@ -183,8 +189,8 @@ containing a value of this type.
         public static final int common_signin_btn_light_text_disabled=0x7f060006;
         public static final int common_signin_btn_light_text_focused=0x7f060007;
         public static final int common_signin_btn_light_text_pressed=0x7f060005;
-        public static final int common_signin_btn_text_dark=0x7f06000a;
-        public static final int common_signin_btn_text_light=0x7f06000b;
+        public static final int common_signin_btn_text_dark=0x7f060010;
+        public static final int common_signin_btn_text_light=0x7f060011;
     }
     public static final class drawable {
         public static final int common_signin_btn_icon_dark=0x7f020000;
@@ -224,7 +230,7 @@ containing a value of this type.
         public static final int button8968InCont=0x7f070013;
         public static final int buttonAuthorization=0x7f07000a;
         public static final int buttonClearSpam=0x7f07000d;
-        public static final int buttonDebug=0x7f07001a;
+        public static final int buttonDebug=0x7f07001c;
         public static final int buttonFillSpam=0x7f07000e;
         public static final int buttonInfo=0x7f07000b;
         public static final int buttonLocalhostRequest=0x7f070015;
@@ -234,9 +240,10 @@ containing a value of this type.
         public static final int buttonSendTokenToEmail=0x7f07000c;
         public static final int buttonSettingsTest=0x7f070016;
         public static final int buttonSmsSpam=0x7f070009;
-        public static final int buttonSoundSettings=0x7f070019;
-        public static final int buttonSpammerList=0x7f070018;
+        public static final int buttonSoundSettings=0x7f07001b;
+        public static final int buttonSpammerList=0x7f07001a;
         public static final int buttonTestInBaseSpam=0x7f07000f;
+        public static final int cbIsSender=0x7f070017;
         public static final int hybrid=0x7f070004;
         public static final int imageView=0x7f070005;
         public static final int none=0x7f070000;
@@ -245,15 +252,17 @@ containing a value of this type.
         public static final int scrollView=0x7f070007;
         public static final int terrain=0x7f070003;
         public static final int textView=0x7f070006;
-        public static final int toggleEnabled=0x7f070017;
+        public static final int toggleEnabled=0x7f070019;
+        public static final int tvSenderId=0x7f070018;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f090000;
     }
     public static final class layout {
         public static final int debug=0x7f030000;
-        public static final int settings=0x7f030001;
-        public static final int spamer_list=0x7f030002;
+        public static final int sender_list_item=0x7f030001;
+        public static final int settings=0x7f030002;
+        public static final int spamer_list=0x7f030003;
     }
     public static final class raw {
         public static final int cartoon003=0x7f050000;
@@ -366,7 +375,8 @@ containing a value of this type.
         public static final int BaseControl=0x7f0b0000;
         public static final int BaseControl_Button=0x7f0b0002;
         public static final int BaseControl_Button_Debug=0x7f0b0003;
-        public static final int BaseControl_ListGroup=0x7f0b0006;
+        public static final int BaseControl_ListGroup=0x7f0b0007;
+        public static final int BaseControl_ListItem=0x7f0b0006;
         public static final int BaseControl_ListView=0x7f0b0005;
         public static final int BaseControl_TextHeader=0x7f0b0004;
         public static final int BaseLayout=0x7f0b0001;
