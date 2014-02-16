@@ -27,7 +27,7 @@ public class JalapenoHttpService {
     }
 
     public boolean IsSpamer(String address) {
-        return true;
+        return false;
     }
 
     public boolean TryComplain(String phone) {
@@ -36,7 +36,6 @@ public class JalapenoHttpService {
 
     public String SendLocalTestRequest()
     {
-
         return SendRequest("http://localhost/TestWeb/");
     }
 
