@@ -1,5 +1,23 @@
 package su.Jalapeno.AntiSpam.Activities;
 
+import java.io.IOException;
+import java.util.Random;
+
+import su.Jalapeno.AntiSpam.R;
+import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
+import su.Jalapeno.AntiSpam.Services.ContactsService;
+import su.Jalapeno.AntiSpam.Services.EmailSender;
+import su.Jalapeno.AntiSpam.Services.JalapenoHttpService;
+import su.Jalapeno.AntiSpam.Services.LocalSpamBaseService;
+import su.Jalapeno.AntiSpam.Services.PhoneNumberNormalizer;
+import su.Jalapeno.AntiSpam.Services.RequestQueue;
+import su.Jalapeno.AntiSpam.Services.SettingsService;
+import su.Jalapeno.AntiSpam.Services.SmsService;
+import su.Jalapeno.AntiSpam.Services.UserValidateService;
+import su.Jalapeno.AntiSpam.Services.SmsReceive.SmsReceiver;
+import su.Jalapeno.AntiSpam.Util.Config;
+import su.Jalapeno.AntiSpam.Util.DebugMessage;
+import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
 import android.accounts.AccountManager;
 import android.app.Dialog;
 import android.content.Context;
@@ -8,34 +26,18 @@ import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.GooglePlayServicesAvailabilityException;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.AccountPicker;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-
-import android.util.Log;
-import android.view.View;
-import android.view.Window;
-import android.widget.Toast;
-
-import com.google.android.gms.common.Scopes;
 import com.google.inject.Inject;
-
-import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
-import su.Jalapeno.AntiSpam.R;
-import su.Jalapeno.AntiSpam.Services.*;
-import su.Jalapeno.AntiSpam.Services.SmsReceive.SmsReceiver;
-import su.Jalapeno.AntiSpam.Util.Config;
-import su.Jalapeno.AntiSpam.Services.PhoneNumberNormalizer;
-import su.Jalapeno.AntiSpam.Util.DebugMessage;
-import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
-
-import java.io.IOException;
-import java.util.Random;
 
 public class Debug extends JalapenoActivity {
 	@Inject
@@ -52,7 +54,6 @@ public class Debug extends JalapenoActivity {
 	private String normalPhone = "+78888";
 	private int ACCOUNT_CODE = 16307;
 	private String SCOPE_BASE = "audience:server:client_id:";
-	private static final int AUTH_REQUEST_CODE = 1;
 	private String SCOPE;
 	private String CLIENT_ID = "140853970719-l2mlr63jvg2h0lrosvnl7sj2t6fi4df0.apps.googleusercontent.com";
 	private Debug mActivity;
@@ -86,22 +87,19 @@ public class Debug extends JalapenoActivity {
 		_phoneNumberNormalizer = new PhoneNumberNormalizer();
 		_settingsService = new SettingsService(_context);
 		jalapenoHttpService = new JalapenoHttpService(_context);
-		_smsService = new SmsService(contactsService, jalapenoHttpService,
-				new UserValidateService(), new LocalSpamBaseService(
-						RepositoryFactory.getRepository()), new RequestQueue(
-						jalapenoHttpService), _settingsService);
+		_smsService = new SmsService(contactsService, jalapenoHttpService, new UserValidateService(), new LocalSpamBaseService(
+				RepositoryFactory.getRepository()), new RequestQueue(jalapenoHttpService), _settingsService);
 		_smsReceiver = new SmsReceiver(_settingsService, _smsService);
 		mActivity = this;
 	}
 
 	private void SetEvent() {
-		UiUtils.SetTapForButton(R.id.buttonAuthorization,
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Authorization();
-					}
-				});
+		UiUtils.SetTapForButton(R.id.buttonAuthorization, new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Authorization();
+			}
+		});
 
 		UiUtils.SetTapForButton(R.id.buttonInfo, new View.OnClickListener() {
 			@Override
@@ -124,96 +122,85 @@ public class Debug extends JalapenoActivity {
 			}
 		});
 
-		UiUtils.SetTapForButton(R.id.buttonClearSpam,
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						ClearSpam();
-					}
-				});
+		UiUtils.SetTapForButton(R.id.buttonClearSpam, new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				ClearSpam();
+			}
+		});
 
-		UiUtils.SetTapForButton(R.id.buttonFillSpam,
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						FillSpam();
-					}
-				});
+		UiUtils.SetTapForButton(R.id.buttonFillSpam, new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				FillSpam();
+			}
+		});
 
-		UiUtils.SetTapForButton(R.id.buttonTestInBaseSpam,
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						TestInSpam();
-					}
-				});
+		UiUtils.SetTapForButton(R.id.buttonTestInBaseSpam, new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				TestInSpam();
+			}
+		});
 
-		UiUtils.SetTapForButton(R.id.buttonRecieve9999,
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Receive9999();
-					}
-				});
+		UiUtils.SetTapForButton(R.id.buttonRecieve9999, new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Receive9999();
+			}
+		});
 
-		UiUtils.SetTapForButton(R.id.buttonRecieve8888,
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Receive8888();
-					}
-				});
+		UiUtils.SetTapForButton(R.id.buttonRecieve8888, new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Receive8888();
+			}
+		});
 
-		UiUtils.SetTapForButton(R.id.buttonLocalhostRequest,
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						LocalhostRequest();
-					}
-				});
-		UiUtils.SetTapForButton(R.id.buttonSendTokenToEmail,
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						SentTokenEmail();
-					}
-				});
+		UiUtils.SetTapForButton(R.id.buttonLocalhostRequest, new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				LocalhostRequest();
+			}
+		});
+		UiUtils.SetTapForButton(R.id.buttonSendTokenToEmail, new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				SentTokenEmail();
+			}
+		});
 
-		UiUtils.SetTapForButton(R.id.buttonSettingsTest,
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						SettingsTest();
-					}
-				});
+		UiUtils.SetTapForButton(R.id.buttonSettingsTest, new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				SettingsTest();
+			}
+		});
 
-		UiUtils.SetTapForButton(R.id.button7968InCont,
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						InContacts("+79689264552");
-					}
-				});
-		
-		UiUtils.SetTapForButton(R.id.button8968InCont,
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						InContacts("89689264552");
-					}
-				});
-		UiUtils.SetTapForButton(R.id.button32424InCont,
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						InContacts("545454654564");
-					}
-				});
+		UiUtils.SetTapForButton(R.id.button7968InCont, new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				InContacts("+79689264552");
+			}
+		});
+
+		UiUtils.SetTapForButton(R.id.button8968InCont, new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				InContacts("89689264552");
+			}
+		});
+		UiUtils.SetTapForButton(R.id.button32424InCont, new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				InContacts("545454654564");
+			}
+		});
 	}
 
 	protected void InContacts(String ph) {
 		boolean InC = contactsService.PhoneInContact(ph);
-		DebugMessage.Debug(mActivity, String.format("%s In cont: %s",ph, InC));
+		DebugMessage.Debug(mActivity, String.format("%s In cont: %s", ph, InC));
 	}
 
 	protected void InContactsWrong() {
@@ -222,8 +209,7 @@ public class Debug extends JalapenoActivity {
 	}
 
 	private void SentTokenEmail() {
-		Intent intent = AccountPicker.newChooseAccountIntent(null, null,
-				new String[] { "com.google" }, false, null, null, null, null);
+		Intent intent = AccountPicker.newChooseAccountIntent(null, null, new String[] { "com.google" }, false, null, null, null, null);
 		startActivityForResult(intent, ACCOUNT_CODE);
 	}
 
@@ -262,12 +248,10 @@ public class Debug extends JalapenoActivity {
 
 					Log.i(TAG, "Scope: " + SCOPE);
 					Log.i(TAG, "Email: " + accountName);
-					token = GoogleAuthUtil.getToken(mActivity, accountName,
-							SCOPE);
+					token = GoogleAuthUtil.getToken(mActivity, accountName, SCOPE);
 				} catch (GooglePlayServicesAvailabilityException playEx) {
 					error[0] = playEx.getMessage();
-					Dialog dialog = GooglePlayServicesUtil.getErrorDialog(
-							playEx.getConnectionStatusCode(), Debug.this, 1);
+					Dialog dialog = GooglePlayServicesUtil.getErrorDialog(playEx.getConnectionStatusCode(), Debug.this, 1);
 					// Use the dialog to present to the user.
 				} catch (UserRecoverableAuthException recoverableException) {
 					error[0] = recoverableException.getMessage();
@@ -277,17 +261,13 @@ public class Debug extends JalapenoActivity {
 					Debug.this.startActivityForResult(recoveryIntent, 2);
 				} catch (GoogleAuthException authEx) {
 					// This is likely unrecoverable.
-					error[0] = "Unrecoverable authentication exception: "
-							+ authEx.getMessage();
-					Log.e(TAG, "Unrecoverable authentication exception: "
-							+ authEx.getMessage(), authEx);
+					error[0] = "Unrecoverable authentication exception: " + authEx.getMessage();
+					Log.e(TAG, "Unrecoverable authentication exception: " + authEx.getMessage(), authEx);
 
 					return "";
 				} catch (IOException ioEx) {
-					error[0] = "transient error encountered: "
-							+ ioEx.getMessage();
-					Log.i(TAG,
-							"transient error encountered: " + ioEx.getMessage());
+					error[0] = "transient error encountered: " + ioEx.getMessage();
+					Log.i(TAG, "transient error encountered: " + ioEx.getMessage());
 
 					// doExponentialBackoff();
 					return "";
@@ -324,8 +304,7 @@ public class Debug extends JalapenoActivity {
 
 	void getAndUseAuthTokenBlocking(String token) {
 		EmailSender emailSender = new EmailSender(this);
-		emailSender.SendEmail("lexruster@gmail.com;timur.khodzhaev@gmail.com;",
-				"Token", "Token:" + token);
+		emailSender.SendEmail("lexruster@gmail.com;timur.khodzhaev@gmail.com;", "Token", "Token:" + token);
 	}
 
 	private void SettingsTest() {
@@ -340,21 +319,16 @@ public class Debug extends JalapenoActivity {
 		ss.SaveSettings(set);
 
 		Config set2 = ss.LoadSettings();
-		Toast.makeText(
-				this,
-				String.format("Old key %s, new key %s", old.toString(),
-						set2.PublicKey.toString()), Toast.LENGTH_LONG).show();
+		Toast.makeText(this, String.format("Old key %s, new key %s", old.toString(), set2.PublicKey.toString()), Toast.LENGTH_LONG).show();
 	}
 
 	private void LocalhostRequest() {
 		boolean avail = jalapenoHttpService.ServiceIsAvailable();
-		Toast.makeText(this, String.format("Available: %s", avail),
-				Toast.LENGTH_LONG).show();
+		Toast.makeText(this, String.format("Available: %s", avail), Toast.LENGTH_LONG).show();
 
 		String resp = jalapenoHttpService.SendLocalTestRequest();
 
-		Toast.makeText(this, String.format("Responce: %s", resp.toString()),
-				Toast.LENGTH_LONG).show();
+		Toast.makeText(this, String.format("Responce: %s", resp.toString()), Toast.LENGTH_LONG).show();
 	}
 
 	private void Receive(String phone, String body) {
@@ -370,16 +344,13 @@ public class Debug extends JalapenoActivity {
 	}
 
 	private void TestInSpam() {
-		LocalSpamBaseService spamBase = new LocalSpamBaseService(
-				RepositoryFactory.getRepository());
+		LocalSpamBaseService spamBase = new LocalSpamBaseService(RepositoryFactory.getRepository());
 		Boolean testResult = spamBase.PhoneInLocalSpamBase(spamPhone);
-		Toast.makeText(this, String.format("Test: %s", testResult.toString()),
-				Toast.LENGTH_LONG).show();
+		Toast.makeText(this, String.format("Test: %s", testResult.toString()), Toast.LENGTH_LONG).show();
 	}
 
 	private void FillSpam() {
-		LocalSpamBaseService spamBase = new LocalSpamBaseService(
-				RepositoryFactory.getRepository());
+		LocalSpamBaseService spamBase = new LocalSpamBaseService(RepositoryFactory.getRepository());
 		Random rnd = new Random();
 		for (int i = 0; i < 20; ++i) {
 			int random = rnd.nextInt();
@@ -388,14 +359,13 @@ public class Debug extends JalapenoActivity {
 			}
 			String phone = String.format("+7%d", random);
 			String normalPhone = phone;
-			spamBase.AddAddressToLocalSpamBase(normalPhone);
+			spamBase.AddSender(normalPhone, true);
 		}
-		spamBase.AddAddressToLocalSpamBase(spamPhone);
+		spamBase.AddSender(spamPhone, true);
 	}
 
 	private void ClearSpam() {
-		LocalSpamBaseService spamBase = new LocalSpamBaseService(
-				RepositoryFactory.getRepository());
+		LocalSpamBaseService spamBase = new LocalSpamBaseService(RepositoryFactory.getRepository());
 		spamBase.Clear();
 	}
 
@@ -404,29 +374,23 @@ public class Debug extends JalapenoActivity {
 		String number = tm.getLine1Number();
 
 		String imei = tm.getDeviceId();
-		Toast.makeText(this, String.format("%s - %s", number, imei),
-				Toast.LENGTH_LONG).show();
+		Toast.makeText(this, String.format("%s - %s", number, imei), Toast.LENGTH_LONG).show();
 	}
 
 	private void Authorization() {
-		Intent intent = com.google.android.gms.common.AccountPicker
-				.newChooseAccountIntent(null, null,
-						new String[] { "com.google" }, false, null, null, null,
-						null);
+		Intent intent = com.google.android.gms.common.AccountPicker.newChooseAccountIntent(null, null, new String[] { "com.google" },
+				false, null, null, null, null);
 		startActivityForResult(intent, 13);
 	}
 
-	protected void onActivityResult(final int requestCode,
-			final int resultCode, final Intent data) {
+	protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
 		if (requestCode == 13 && resultCode == RESULT_OK) {
-			String accountName = data
-					.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
+			String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
 			Toast.makeText(this, accountName, Toast.LENGTH_LONG).show();
 		}
 
 		if (requestCode == ACCOUNT_CODE && resultCode == RESULT_OK) {
-			String accountName = data
-					.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
+			String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
 			SentTokenEmail2(accountName);
 		}
 	}
