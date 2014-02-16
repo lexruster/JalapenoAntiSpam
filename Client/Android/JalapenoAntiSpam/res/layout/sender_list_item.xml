@@ -17,6 +17,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:text="IsSpamer"
+            android:focusableInTouchMode="false"
             android:focusable="false">
         </CheckBox>
 

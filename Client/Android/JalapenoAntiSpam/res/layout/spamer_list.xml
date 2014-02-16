@@ -18,7 +18,9 @@
     <ListView
         android:id="@android:id/list"
         style="@style/BaseControl.ListView"
-        android:textFilterEnabled="false" />
+        android:textFilterEnabled="false"
+        android:choiceMode="singleChoice" 
+        />
 
     <TextView
         android:id="@android:id/empty"
