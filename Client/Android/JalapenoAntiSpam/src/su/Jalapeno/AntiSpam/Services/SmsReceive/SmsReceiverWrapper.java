@@ -15,7 +15,7 @@ public class SmsReceiverWrapper {
         
         ContactsService contactsService=new ContactsService(context);
         SmsService smsService = new SmsService(contactsService, jalapenoHttpService, new UserValidateService(),
-                new LocalSpamBaseService(RepositoryFactory.getRepository()), new RequestQueue(jalapenoHttpService), settingsService);
+                new SenderService(RepositoryFactory.getRepository()), new RequestQueue(jalapenoHttpService), settingsService);
 
         SmsReceiver smsReceiver = new SmsReceiver(settingsService, smsService);
         return smsReceiver.Receive(phone, message, context);

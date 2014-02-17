@@ -9,12 +9,12 @@ public class SmsService {
 	private ContactsService contactsService;
 	private JalapenoHttpService jalapenoHttpService;
 	private UserValidateService userValidateService;
-	private LocalSpamBaseService localSpamBaseService;
+	private SenderService localSpamBaseService;
 	private RequestQueue requestQueue;
 	private SettingsService _settingsService;
 
 	public SmsService(ContactsService contactsService, JalapenoHttpService jalapenoHttpService, UserValidateService userValidateService,
-			LocalSpamBaseService localSpamBaseService, RequestQueue requestQueue, SettingsService settingsService) {
+			SenderService localSpamBaseService, RequestQueue requestQueue, SettingsService settingsService) {
 		this.contactsService = contactsService;
 		this.jalapenoHttpService = jalapenoHttpService;
 		this.userValidateService = userValidateService;
@@ -39,13 +39,13 @@ public class SmsService {
 		}
 
 		if (jalapenoHttpService.IsSpamer(phone)) {
-			localSpamBaseService.AddSender(phone, true);
+			localSpamBaseService.AddOrUpdateSender(phone, true);
 			return false;
 		}
 
 		boolean validationResult = userValidateService.SmsIsValid(message, phone);
 		if (!validationResult) {
-			localSpamBaseService.AddSender(phone, true);
+			localSpamBaseService.AddOrUpdateSender(phone, true);
 			requestQueue.ComplainRequest(phone);
 
 			return false;

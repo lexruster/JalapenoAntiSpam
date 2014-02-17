@@ -1,17 +1,16 @@
 package su.Jalapeno.AntiSpam.DAL.DAO;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
+
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by alexander.kiryushkin on 09.01.14.
@@ -57,7 +56,7 @@ public class SenderDao extends BaseDaoImpl<Sender, Integer> {
 		return null;
 	}
 
-	public void AddSenderToLocalBase(String phone, Boolean isSpamer) {
+	public void AddOrUpdateSender(String phone, Boolean isSpamer) {
 		Sender sender = FindSender(phone);
 		if (sender == null) {
 			sender = new Sender();

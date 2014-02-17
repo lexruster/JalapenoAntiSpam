@@ -4,16 +4,13 @@ package su.Jalapeno.AntiSpam.SystemService;
  * Created by alexander.kiryushkin on 13.01.14.
  */
 
+import su.Jalapeno.AntiSpam.Services.SmsReceive.SmsReceiverWrapper;
 import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
-import android.widget.Toast;
-import su.Jalapeno.AntiSpam.Services.SmsReceive.SmsReceiver;
-import su.Jalapeno.AntiSpam.Services.SmsReceive.SmsReceiverWrapper;
 
 
 public class SmsBroadcastReceiver extends BroadcastReceiver {

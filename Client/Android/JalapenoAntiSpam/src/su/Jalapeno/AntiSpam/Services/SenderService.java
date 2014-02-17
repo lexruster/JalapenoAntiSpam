@@ -9,24 +9,31 @@ import su.Jalapeno.AntiSpam.DAL.Repository;
 import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
 
-public class LocalSpamBaseService {
+public class SenderService {
 	private Repository _repository;
-	
+
 	@Inject
-	public LocalSpamBaseService() {
+	public SenderService() {
 		this(RepositoryFactory.getRepository());
 	}
-	
-	public LocalSpamBaseService(Repository repository) {
+
+	public SenderService(Repository repository) {
 		_repository = repository;
 	}
 
 	public boolean PhoneInLocalSpamBase(String phone) {
-		return RepositoryFactory.getRepository().getSenderDao().PhoneIsSpammer(phone);
+		return RepositoryFactory.getRepository().getSenderDao()
+				.PhoneIsSpammer(phone);
 	}
 
-	public void AddSender(String phone, boolean isSpamer) {
-		RepositoryFactory.getRepository().getSenderDao().AddSenderToLocalBase(phone, isSpamer);
+	public void AddOrUpdateSender(String phone, boolean isSpamer) {
+		RepositoryFactory.getRepository().getSenderDao()
+				.AddOrUpdateSender(phone, isSpamer);
+	}
+
+	public void AddOrUpdateSender(Sender sender) {
+		RepositoryFactory.getRepository().getSenderDao()
+				.AddOrUpdateSender(sender.SenderId, sender.IsSpammer);
 	}
 
 	public ArrayList<String> GetAllSpamerPhones() {
@@ -48,4 +55,5 @@ public class LocalSpamBaseService {
 	public void Clear() {
 		_repository.getSenderDao().Clear();
 	}
+
 }
