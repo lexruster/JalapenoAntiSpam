@@ -8,7 +8,7 @@ import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
 import su.Jalapeno.AntiSpam.Services.ContactsService;
 import su.Jalapeno.AntiSpam.Services.EmailSender;
 import su.Jalapeno.AntiSpam.Services.JalapenoHttpService;
-import su.Jalapeno.AntiSpam.Services.LocalSpamBaseService;
+import su.Jalapeno.AntiSpam.Services.SenderService;
 import su.Jalapeno.AntiSpam.Services.PhoneNumberNormalizer;
 import su.Jalapeno.AntiSpam.Services.RequestQueue;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
@@ -87,7 +87,7 @@ public class Debug extends JalapenoActivity {
 		_phoneNumberNormalizer = new PhoneNumberNormalizer();
 		_settingsService = new SettingsService(_context);
 		jalapenoHttpService = new JalapenoHttpService(_context);
-		_smsService = new SmsService(contactsService, jalapenoHttpService, new UserValidateService(), new LocalSpamBaseService(
+		_smsService = new SmsService(contactsService, jalapenoHttpService, new UserValidateService(), new SenderService(
 				RepositoryFactory.getRepository()), new RequestQueue(jalapenoHttpService), _settingsService);
 		_smsReceiver = new SmsReceiver(_settingsService, _smsService);
 		mActivity = this;
@@ -344,13 +344,13 @@ public class Debug extends JalapenoActivity {
 	}
 
 	private void TestInSpam() {
-		LocalSpamBaseService spamBase = new LocalSpamBaseService(RepositoryFactory.getRepository());
+		SenderService spamBase = new SenderService(RepositoryFactory.getRepository());
 		Boolean testResult = spamBase.PhoneInLocalSpamBase(spamPhone);
 		Toast.makeText(this, String.format("Test: %s", testResult.toString()), Toast.LENGTH_LONG).show();
 	}
 
 	private void FillSpam() {
-		LocalSpamBaseService spamBase = new LocalSpamBaseService(RepositoryFactory.getRepository());
+		SenderService spamBase = new SenderService(RepositoryFactory.getRepository());
 		Random rnd = new Random();
 		for (int i = 0; i < 20; ++i) {
 			int random = rnd.nextInt();
@@ -359,13 +359,13 @@ public class Debug extends JalapenoActivity {
 			}
 			String phone = String.format("+7%d", random);
 			String normalPhone = phone;
-			spamBase.AddSender(normalPhone, true);
+			spamBase.AddOrUpdateSender(normalPhone, true);
 		}
-		spamBase.AddSender(spamPhone, true);
+		spamBase.AddOrUpdateSender(spamPhone, true);
 	}
 
 	private void ClearSpam() {
-		LocalSpamBaseService spamBase = new LocalSpamBaseService(RepositoryFactory.getRepository());
+		SenderService spamBase = new SenderService(RepositoryFactory.getRepository());
 		spamBase.Clear();
 	}
 

@@ -1,7 +1,5 @@
 package su.Jalapeno.AntiSpam.Services;
 
-import android.database.Cursor;
-import android.net.Uri;
 
 public class PhoneSmsService {
 

@@ -1,20 +1,11 @@
 package su.Jalapeno.AntiSpam.Services;
 
-import java.text.Normalizer;
-import java.util.ArrayList;
-
-import com.google.inject.Inject;
-
-import su.Jalapeno.AntiSpam.MyApplication;
-import android.app.Application;
-import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.provider.Contacts.People;
-import android.provider.Contacts.People.Phones;
-import android.provider.ContactsContract;
 import android.provider.ContactsContract.PhoneLookup;
+
+import com.google.inject.Inject;
 
 public class ContactsService {
 

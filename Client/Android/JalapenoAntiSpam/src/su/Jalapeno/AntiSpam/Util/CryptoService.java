@@ -1,7 +1,6 @@
 package su.Jalapeno.AntiSpam.Util;
 
 import java.math.BigInteger;
-import java.nio.charset.Charset;
 import java.security.MessageDigest;
 
 public class CryptoService {

@@ -1,9 +1,8 @@
 package su.Jalapeno.AntiSpam.Services;
 
+import su.Jalapeno.AntiSpam.Util.DebugMessage;
 import android.app.Activity;
 import android.content.Intent;
-import android.widget.Toast;
-import su.Jalapeno.AntiSpam.Util.DebugMessage;
 
 /**
  * Created by alexander.kiryushkin on 21.01.14.

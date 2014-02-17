@@ -243,7 +243,7 @@ containing a value of this type.
         public static final int buttonSoundSettings=0x7f07001b;
         public static final int buttonSpammerList=0x7f07001a;
         public static final int buttonTestInBaseSpam=0x7f07000f;
-        public static final int cbIsSender=0x7f070017;
+        public static final int cbIsSender=0x7f070018;
         public static final int hybrid=0x7f070004;
         public static final int imageView=0x7f070005;
         public static final int none=0x7f070000;
@@ -253,7 +253,7 @@ containing a value of this type.
         public static final int terrain=0x7f070003;
         public static final int textView=0x7f070006;
         public static final int toggleEnabled=0x7f070019;
-        public static final int tvSenderId=0x7f070018;
+        public static final int tvSenderId=0x7f070017;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f090000;
@@ -269,13 +269,13 @@ containing a value of this type.
         public static final int cartoon010=0x7f050001;
     }
     public static final class string {
-        public static final int DebugActivity=0x7f08001f;
-        public static final int EmptySpamerList=0x7f080020;
-        public static final int KnownSpammerList=0x7f08001c;
-        public static final int SettingsTitle=0x7f08001b;
-        public static final int SoundSettings=0x7f08001d;
-        public static final int SpammerList=0x7f08001e;
-        public static final int app_name=0x7f08001a;
+        public static final int DebugActivity=0x7f080020;
+        public static final int EmptySpamerList=0x7f080021;
+        public static final int KnownSpammerList=0x7f08001d;
+        public static final int SettingsTitle=0x7f08001c;
+        public static final int SoundSettings=0x7f08001e;
+        public static final int SpammerList=0x7f08001f;
+        public static final int app_name=0x7f08001b;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
@@ -370,16 +370,17 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f080013;
+        public static final int isspamer=0x7f08001a;
     }
     public static final class style {
         public static final int BaseControl=0x7f0b0000;
         public static final int BaseControl_Button=0x7f0b0002;
         public static final int BaseControl_Button_Debug=0x7f0b0003;
         public static final int BaseControl_ListGroup=0x7f0b0007;
-        public static final int BaseControl_ListItem=0x7f0b0006;
         public static final int BaseControl_ListView=0x7f0b0005;
         public static final int BaseControl_TextHeader=0x7f0b0004;
         public static final int BaseLayout=0x7f0b0001;
+        public static final int ListItem=0x7f0b0006;
     }
     public static final class styleable {
         /** Attributes that can be used with a AdsAttrs.

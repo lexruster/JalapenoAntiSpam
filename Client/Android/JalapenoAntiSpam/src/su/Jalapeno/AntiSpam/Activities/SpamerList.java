@@ -7,8 +7,10 @@ import java.util.Map;
 
 import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
-import su.Jalapeno.AntiSpam.Services.LocalSpamBaseService;
+import su.Jalapeno.AntiSpam.Services.SenderService;
+import su.Jalapeno.AntiSpam.Util.DebugMessage;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;
+import su.JalapenoAntiSpam.UI.SenderAdapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -26,11 +28,11 @@ public class SpamerList extends JalapenoListActivity {
 
 	Context _context;
 
+	//@Inject
+	//SenderService _senderService;
+	
 	@Inject
-	LocalSpamBaseService _localSpamBaseService;
-	ArrayList<Map<String, Object>> _list;
-
-	private SimpleAdapter _adapter;
+	SenderAdapter _senderAdapter; 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -47,35 +49,14 @@ public class SpamerList extends JalapenoListActivity {
 	}
 
 	private void LoadList() {
-		List<Sender> data = _localSpamBaseService.GetAllSenders();
-
-		_list = new ArrayList<Map<String, Object>>(data.size());
-		Map<String, Object> m;
-
-		for (int i = 0; i < data.size(); i++) {
-			m = new HashMap<String, Object>();
-			m.put(ATTRIBUTE_NAME_SENDER_ID, data.get(i).SenderId);
-			m.put(ATTRIBUTE_NAME_IS_SPAMER, data.get(i).IsSpammer);
-			_list.add(m);
-		}
-
-		// массив имен атрибутов, из которых будут читаться данные
-		String[] from = { ATTRIBUTE_NAME_SENDER_ID, ATTRIBUTE_NAME_IS_SPAMER };
-		// массив ID View-компонентов, в которые будут вставлять данные
-		int[] to = { R.id.tvSenderId, R.id.cbIsSender };
-
-		// создаем адаптер
-		_adapter = new SimpleAdapter(this, _list, R.layout.sender_list_item, from, to);
-
-		/*ListView lvMain = (ListView) findViewById(R.id.listSender);
-		lvMain.setAdapter(_adapter);*/
-		 setListAdapter(_adapter);
+		 setListAdapter(_senderAdapter);
 	}
 
 	@Override
 	protected void onListItemClick(android.widget.ListView adapterView, View view, int position, long id) {
 		super.onListItemClick(adapterView, view, position, id);
 
+		DebugMessage.Debug(_context, "Click");
 		OnSpamerListItemClick(adapterView, view, position, id);
 	}
 	
@@ -86,7 +67,7 @@ public class SpamerList extends JalapenoListActivity {
 		// list.re
 		// _list.set(position, newString);
 
-		_adapter.notifyDataSetChanged();
+		_senderAdapter.notifyDataSetChanged();
 		// LoadList();
 	}
 }
