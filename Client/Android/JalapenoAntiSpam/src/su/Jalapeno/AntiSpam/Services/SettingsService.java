@@ -1,9 +1,8 @@
 package su.Jalapeno.AntiSpam.Services;
 
-import android.app.Activity;
+import su.Jalapeno.AntiSpam.Util.Config;
 import android.content.Context;
 import android.content.SharedPreferences;
-import su.Jalapeno.AntiSpam.Util.Config;
 
 /**
  * Created by Kseny on 30.12.13.

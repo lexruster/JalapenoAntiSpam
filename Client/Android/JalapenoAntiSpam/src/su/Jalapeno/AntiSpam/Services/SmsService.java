@@ -1,26 +1,37 @@
 package su.Jalapeno.AntiSpam.Services;
 
+import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
 import su.Jalapeno.AntiSpam.Util.Config;
 
 /**
  * Created by Kseny on 30.12.13.
  */
 public class SmsService {
-	private ContactsService contactsService;
-	private JalapenoHttpService jalapenoHttpService;
-	private UserValidateService userValidateService;
-	private SenderService localSpamBaseService;
-	private RequestQueue requestQueue;
+	private ContactsService _contactsService;
+	private JalapenoHttpService _jalapenoHttpService;
+	private UserValidateService _userValidateService;
+	private SenderService _senderService;
+	private RequestQueue _requestQueue;
 	private SettingsService _settingsService;
+	private RingtoneService _ringtoneService;
+	private SmsHashService _smsHashService;
 
-	public SmsService(ContactsService contactsService, JalapenoHttpService jalapenoHttpService, UserValidateService userValidateService,
-			SenderService localSpamBaseService, RequestQueue requestQueue, SettingsService settingsService) {
-		this.contactsService = contactsService;
-		this.jalapenoHttpService = jalapenoHttpService;
-		this.userValidateService = userValidateService;
-		this.localSpamBaseService = localSpamBaseService;
-		this.requestQueue = requestQueue;
+	private final int MIN_MESSAGE_LENGTH = 50;
+
+	public SmsService(ContactsService contactsService,
+			JalapenoHttpService jalapenoHttpService,
+			UserValidateService userValidateService,
+			SenderService localSpamBaseService, RequestQueue requestQueue,
+			SettingsService settingsService, RingtoneService ringtoneService,
+			SmsHashService smsHashService) {
+		_contactsService = contactsService;
+		_jalapenoHttpService = jalapenoHttpService;
+		_userValidateService = userValidateService;
+		_senderService = localSpamBaseService;
+		_requestQueue = requestQueue;
 		_settingsService = settingsService;
+		_ringtoneService = ringtoneService;
+		_smsHashService = smsHashService;
 	}
 
 	public boolean Receive(String phone, String message) {
@@ -30,27 +41,44 @@ public class SmsService {
 			return true;
 		}
 
-		if (localSpamBaseService.PhoneInLocalSpamBase(phone)) {
-			return false;
-		}
-
-		if (contactsService.PhoneInContact(phone)) {
+		if (_contactsService.PhoneInContact(phone)) {
+			_ringtoneService.ContactRingtone();
 			return true;
 		}
 
-		if (jalapenoHttpService.IsSpamer(phone)) {
-			localSpamBaseService.AddOrUpdateSender(phone, true);
-			return false;
+		Sender sender = _senderService.GetSender(phone);
+		if (sender != null) {
+			if (!sender.IsSpammer) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
-		boolean validationResult = userValidateService.SmsIsValid(message, phone);
-		if (!validationResult) {
-			localSpamBaseService.AddOrUpdateSender(phone, true);
-			requestQueue.ComplainRequest(phone);
+		String smsTexthash = null;
+		if (message.length() > MIN_MESSAGE_LENGTH) {
+			smsTexthash = _smsHashService.GetHash(message);
+			boolean isSpam = _smsHashService.HashInSpamBase(smsTexthash);
 
-			return false;
+			if (isSpam) {
+				return false;
+			}
 		}
 
-		return true;
+		if (_jalapenoHttpService.IsSpamer(phone, smsTexthash)) {
+			_senderService.AddOrUpdateSender(phone, true);
+			if (smsTexthash != null) {
+				_smsHashService.AddHash(smsTexthash);
+			}
+			
+			return false;
+		}
+		
+		_ringtoneService.EmulateIncomeSms();
+		
+		_userValidateService.AddSmsToValidate(phone, message);
+		
+		//return false;
+		return true;//test value
 	}
 }

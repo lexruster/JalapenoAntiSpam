@@ -1,12 +1,11 @@
 package su.Jalapeno.AntiSpam.Services.SmsReceive;
 
-import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
-import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
-import su.Jalapeno.AntiSpam.Services.*;
+import su.Jalapeno.AntiSpam.Services.SettingsService;
+import su.Jalapeno.AntiSpam.Services.SmsService;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.DebugMessage;
+import android.content.Context;
+import android.util.Log;
 
 
 public class SmsReceiver {
