@@ -25,7 +25,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
         Log.i("Jalapeno", "SMS income.");
         Boolean isClearFromSpam = true;
         Bundle extras = intent.getExtras();
-        String messages = "";
+        //String messages = "";
         if (extras != null) {
             Log.i("Jalapeno", "SMS extras not null.");
             // Get received SMS array

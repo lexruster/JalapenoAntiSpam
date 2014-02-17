@@ -5,7 +5,6 @@ import java.util.List;
 
 import su.Jalapeno.AntiSpam.DAL.Repository;
 import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
-import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
 import su.Jalapeno.AntiSpam.DAL.Domain.SmsHash;
 import su.Jalapeno.AntiSpam.Util.CryptoService;
 
@@ -19,14 +18,26 @@ public class SmsHashService {
 		_criptoService = criptoService;
 	}
 
+	public boolean HashInSpamBase(String hash) {
+		return RepositoryFactory.getRepository().getSmsHashDao()
+				.HashIsSpammer(hash);
+	}
+	
 	public boolean SmsTextInSpamBase(String text) {
-		String hash = _criptoService.GetHash(text);
-		return RepositoryFactory.getRepository().getSmsHashDao().HashIsSpammer(hash);
+		String normalized = NormalizeSmsText(text);
+		String hash = _criptoService.GetHash(normalized);
+		return HashInSpamBase(hash);
 	}
 
+
 	public void AddSmsText(String text) {
-		String hash = _criptoService.GetHash(text);
-		RepositoryFactory.getRepository().getSmsHashDao().AddHash(hash);
+		String normalized = NormalizeSmsText(text);
+		String hash = _criptoService.GetHash(normalized);
+		AddHash(hash);
+	}
+	
+	public void AddHash(String smsTexthash) {
+		RepositoryFactory.getRepository().getSmsHashDao().AddHash(smsTexthash);
 	}
 
 	public ArrayList<String> GetAll() {
@@ -49,5 +60,10 @@ public class SmsHashService {
 
 	public String NormalizeSmsText(String text) {
 		return text;
+	}
+
+	public String GetHash(String message) {
+		String normalized = NormalizeSmsText(message);
+		return _criptoService.GetHash(normalized);
 	}
 }

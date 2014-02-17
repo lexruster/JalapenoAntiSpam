@@ -1,6 +1,7 @@
 package su.Jalapeno.AntiSpam.Activities;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Random;
 
 import su.Jalapeno.AntiSpam.R;
@@ -252,6 +253,7 @@ public class Debug extends JalapenoActivity {
 				} catch (GooglePlayServicesAvailabilityException playEx) {
 					error[0] = playEx.getMessage();
 					Dialog dialog = GooglePlayServicesUtil.getErrorDialog(playEx.getConnectionStatusCode(), Debug.this, 1);
+					dialog.show();
 					// Use the dialog to present to the user.
 				} catch (UserRecoverableAuthException recoverableException) {
 					error[0] = recoverableException.getMessage();
@@ -345,7 +347,7 @@ public class Debug extends JalapenoActivity {
 
 	private void TestInSpam() {
 		SenderService spamBase = new SenderService(RepositoryFactory.getRepository());
-		Boolean testResult = spamBase.PhoneInLocalSpamBase(spamPhone);
+		Boolean testResult = spamBase.PhoneIsSpammer(spamPhone);
 		Toast.makeText(this, String.format("Test: %s", testResult.toString()), Toast.LENGTH_LONG).show();
 	}
 
@@ -357,7 +359,7 @@ public class Debug extends JalapenoActivity {
 			if (random < 0) {
 				random *= -1;
 			}
-			String phone = String.format("+7%d", random);
+			String phone = String.format(Locale.ENGLISH,"+7%d", random);
 			String normalPhone = phone;
 			spamBase.AddOrUpdateSender(normalPhone, true);
 		}

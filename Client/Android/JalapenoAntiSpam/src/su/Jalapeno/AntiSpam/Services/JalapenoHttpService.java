@@ -3,6 +3,7 @@ package su.Jalapeno.AntiSpam.Services;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+
 import org.apache.http.*;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -26,7 +27,7 @@ public class JalapenoHttpService {
         _context = context;
     }
 
-    public boolean IsSpamer(String address) {
+    public boolean IsSpamer(String address, String smsTexthash) {
         return false;
     }
 

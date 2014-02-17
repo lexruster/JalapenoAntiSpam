@@ -21,9 +21,14 @@ public class SenderService {
 		_repository = repository;
 	}
 
-	public boolean PhoneInLocalSpamBase(String phone) {
+	public boolean PhoneIsSpammer(String phone) {
 		return RepositoryFactory.getRepository().getSenderDao()
 				.PhoneIsSpammer(phone);
+	}
+	
+	public Sender GetSender(String phone) {
+		return RepositoryFactory.getRepository().getSenderDao()
+				.FindSender(phone);
 	}
 
 	public void AddOrUpdateSender(String phone, boolean isSpamer) {
