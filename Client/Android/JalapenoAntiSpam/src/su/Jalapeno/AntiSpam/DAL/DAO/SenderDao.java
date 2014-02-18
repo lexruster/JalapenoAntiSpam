@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
+import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.stmt.DeleteBuilder;
@@ -62,9 +63,9 @@ public class SenderDao extends BaseDaoImpl<Sender, Integer> {
 			sender = new Sender();
 			sender.SenderId = phone;
 		}
-		
+
 		sender.IsSpammer = isSpamer;
-		
+
 		try {
 			this.createOrUpdate(sender);
 		} catch (SQLException e) {
@@ -73,7 +74,7 @@ public class SenderDao extends BaseDaoImpl<Sender, Integer> {
 	}
 
 	public void Clear() {
-		DeleteBuilder db = deleteBuilder();
+		DeleteBuilder<Sender, Integer> db = deleteBuilder();
 		try {
 			db.delete();
 			delete(db.prepare());

@@ -9,11 +9,8 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 
 @DatabaseTable(tableName = "Senders")
-public class Sender {
+public class Sender extends Entity{
     public static final String SENDER_FIELD_NAME = "SenderId";
-    
-    @DatabaseField(generatedId = true)
-    private int Id;
     
     @DatabaseField(canBeNull = false, dataType = DataType.STRING, index = true, columnName = SENDER_FIELD_NAME)
     public String SenderId;

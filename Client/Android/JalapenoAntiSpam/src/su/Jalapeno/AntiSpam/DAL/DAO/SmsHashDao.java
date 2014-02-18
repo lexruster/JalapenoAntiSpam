@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
+import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.DAL.Domain.SmsHash;
 
 import com.j256.ormlite.dao.BaseDaoImpl;
@@ -67,7 +67,7 @@ public class SmsHashDao extends BaseDaoImpl<SmsHash, Integer> {
 	}
 
 	public void Clear() {
-		DeleteBuilder db = deleteBuilder();
+		DeleteBuilder<SmsHash, Integer> db = deleteBuilder();
 		try {
 			db.delete();
 			delete(db.prepare());

@@ -7,6 +7,7 @@ import com.google.inject.Inject;
 /**
  * Created by Kseny on 06.01.14.
  */
+/*
 public class PhoneNumberNormalizer {
 
 	@Inject
@@ -35,4 +36,4 @@ public class PhoneNumberNormalizer {
 		}
 		return normalized;
 	}
-}
+}*/
