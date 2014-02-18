@@ -4,8 +4,10 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import su.Jalapeno.AntiSpam.DAL.DAO.SenderDao;
+import su.Jalapeno.AntiSpam.DAL.DAO.SmsDao;
 import su.Jalapeno.AntiSpam.DAL.DAO.SmsHashDao;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
+import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.DAL.Domain.SmsHash;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -25,6 +27,7 @@ public class Repository extends OrmLiteSqliteOpenHelper {
 
 	private SenderDao senderDao = null;
 	private SmsHashDao smsHashDao = null;
+	private SmsDao smsDao = null;
 
 	public Repository(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -77,10 +80,23 @@ public class Repository extends OrmLiteSqliteOpenHelper {
 		return smsHashDao;
 	}
 
+	public SmsDao getSmsDao() {
+		if (smsDao == null) {
+			try {
+				smsDao = new SmsDao(getConnectionSource(), Sms.class);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return smsDao;
+	}
+
 	@Override
 	public void close() {
 		super.close();
 		senderDao = null;
 		smsHashDao = null;
+		smsDao = null;
 	}
 }

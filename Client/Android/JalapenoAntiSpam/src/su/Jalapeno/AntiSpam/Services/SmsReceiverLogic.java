@@ -6,7 +6,7 @@ import su.Jalapeno.AntiSpam.Util.Config;
 /**
  * Created by Kseny on 30.12.13.
  */
-public class SmsService {
+public class SmsReceiverLogic {
 	private ContactsService _contactsService;
 	private JalapenoHttpService _jalapenoHttpService;
 	private UserValidateService _userValidateService;
@@ -18,7 +18,7 @@ public class SmsService {
 
 	private final int MIN_MESSAGE_LENGTH = 50;
 
-	public SmsService(ContactsService contactsService,
+	public SmsReceiverLogic(ContactsService contactsService,
 			JalapenoHttpService jalapenoHttpService,
 			UserValidateService userValidateService,
 			SenderService localSpamBaseService, RequestQueue requestQueue,

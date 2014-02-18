@@ -10,14 +10,12 @@ import su.Jalapeno.AntiSpam.Services.ContactsService;
 import su.Jalapeno.AntiSpam.Services.EmailSender;
 import su.Jalapeno.AntiSpam.Services.JalapenoHttpService;
 import su.Jalapeno.AntiSpam.Services.SenderService;
-import su.Jalapeno.AntiSpam.Services.PhoneNumberNormalizer;
-import su.Jalapeno.AntiSpam.Services.RequestQueue;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
-import su.Jalapeno.AntiSpam.Services.SmsService;
-import su.Jalapeno.AntiSpam.Services.UserValidateService;
+import su.Jalapeno.AntiSpam.Services.SmsReceiverLogic;
 import su.Jalapeno.AntiSpam.Services.SmsReceive.SmsReceiver;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.DebugMessage;
+import su.Jalapeno.AntiSpam.Util.ServiceFactory;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
 import android.accounts.AccountManager;
 import android.app.Dialog;
@@ -45,9 +43,8 @@ public class Debug extends JalapenoActivity {
 	ContactsService contactsService;
 
 	private static final String TAG = Debug.class.getSimpleName();
-	PhoneNumberNormalizer _phoneNumberNormalizer;
 	JalapenoHttpService jalapenoHttpService;
-	SmsService _smsService;
+	SmsReceiverLogic _smsService;
 	SettingsService _settingsService;
 	SmsReceiver _smsReceiver;
 	Context _context;
@@ -85,11 +82,9 @@ public class Debug extends JalapenoActivity {
 		Log.i(TAG, "Start debug");
 		SCOPE = SCOPE_BASE + CLIENT_ID;
 		_context = getApplicationContext();
-		_phoneNumberNormalizer = new PhoneNumberNormalizer();
+		_smsService=ServiceFactory.GetSmsService(_context);
 		_settingsService = new SettingsService(_context);
 		jalapenoHttpService = new JalapenoHttpService(_context);
-		_smsService = new SmsService(contactsService, jalapenoHttpService, new UserValidateService(), new SenderService(
-				RepositoryFactory.getRepository()), new RequestQueue(jalapenoHttpService), _settingsService);
 		_smsReceiver = new SmsReceiver(_settingsService, _smsService);
 		mActivity = this;
 	}

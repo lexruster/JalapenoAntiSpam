@@ -3,6 +3,7 @@ package su.Jalapeno.AntiSpam.Services.SmsReceive;
 import android.content.Context;
 import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
 import su.Jalapeno.AntiSpam.Services.*;
+import su.Jalapeno.AntiSpam.Util.ServiceFactory;
 
 public class SmsReceiverWrapper {
 
@@ -11,11 +12,7 @@ public class SmsReceiverWrapper {
 
     public boolean Receive(String phone, String message, Context context) {
         SettingsService settingsService = new SettingsService(context);
-        JalapenoHttpService jalapenoHttpService = new JalapenoHttpService(context);
-        
-        ContactsService contactsService=new ContactsService(context);
-        SmsService smsService = new SmsService(contactsService, jalapenoHttpService, new UserValidateService(),
-                new SenderService(RepositoryFactory.getRepository()), new RequestQueue(jalapenoHttpService), settingsService);
+        SmsReceiverLogic smsService = ServiceFactory.GetSmsService(context);
 
         SmsReceiver smsReceiver = new SmsReceiver(settingsService, smsService);
         return smsReceiver.Receive(phone, message, context);

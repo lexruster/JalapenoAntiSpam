@@ -2,12 +2,11 @@ package android.test;
 
 import java.util.ArrayList;
 
+import junit.framework.Assert;
+import su.Jalapeno.AntiSpam.Services.ContactsService;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
-import junit.framework.Assert;
-import su.Jalapeno.AntiSpam.Services.ContactsService;
-import su.Jalapeno.AntiSpam.Services.PhoneNumberNormalizer;
 
 public class ContactServiceTest extends AndroidTestCase {
 
