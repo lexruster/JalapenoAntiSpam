@@ -5,6 +5,10 @@ import java.security.MessageDigest;
 
 public class CryptoService {
 
+	public CryptoService() {
+
+	}
+
 	public String GetHash(String text) {
 		String hash = "MD5";
 		try {

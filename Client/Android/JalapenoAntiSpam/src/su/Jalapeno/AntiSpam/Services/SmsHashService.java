@@ -1,5 +1,7 @@
 package su.Jalapeno.AntiSpam.Services;
 
+import com.google.inject.Inject;
+
 import su.Jalapeno.AntiSpam.DAL.Repository;
 import su.Jalapeno.AntiSpam.DAL.DAO.JalapenoDao;
 import su.Jalapeno.AntiSpam.DAL.DAO.SmsHashDao;
@@ -9,6 +11,12 @@ import su.Jalapeno.AntiSpam.Util.CryptoService;
 public class SmsHashService extends JalapenoService<SmsHash> {
 	CryptoService _criptoService;
 
+	@Inject
+	public SmsHashService(CryptoService criptoService) {
+		super();
+		_criptoService = criptoService;
+	}
+	
 	public SmsHashService(Repository<SmsHash> repository,
 			CryptoService criptoService) {
 		super(repository);
@@ -36,7 +44,7 @@ public class SmsHashService extends JalapenoService<SmsHash> {
 	}
 
 	public String NormalizeSmsText(String text) {
-		return text;
+		return text.replaceAll("\\s+","");
 	}
 
 	public String GetHash(String message) {

@@ -89,4 +89,8 @@ public class Settings extends JalapenoActivity {
         config.Enabled = toogleButton.isChecked();
         settingsService.SaveSettings(config);
     }
+    
+    public void smsValidate(View view) {
+    	UiUtils.NavigateTo(SmsAnalyzerActivity.class);
+    }
 }

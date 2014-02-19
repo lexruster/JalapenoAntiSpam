@@ -11,5 +11,5 @@
     <string name="EmptySpamerList">List is Empty</string>
     <string name="SmsList">Sms list</string>
     <string name="EmptySmsList">EmptySmsList</string>
-
+    <string name="SmsValidateList">Sms for validate</string>
 </resources>

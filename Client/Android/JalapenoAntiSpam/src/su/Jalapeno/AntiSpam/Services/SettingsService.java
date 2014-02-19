@@ -1,5 +1,7 @@
 package su.Jalapeno.AntiSpam.Services;
 
+import com.google.inject.Inject;
+
 import su.Jalapeno.AntiSpam.Util.Config;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,6 +13,7 @@ public class SettingsService {
     public static final String APP_PREFERENCES = "jalapenoSettings";
     private Context _context;
 
+    @Inject
     public SettingsService(Context context) {
         _context = context;
     }

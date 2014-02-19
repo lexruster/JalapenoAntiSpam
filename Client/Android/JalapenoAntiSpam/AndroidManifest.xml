@@ -52,7 +52,7 @@
         <activity android:name="su.Jalapeno.AntiSpam.Activities.Debug" />
         <activity android:name="su.Jalapeno.AntiSpam.Activities.SpamerList" />
         <activity
-            android:name="su.Jalapeno.AntiSpam.SmsAnalyzerActivity"
+            android:name="su.Jalapeno.AntiSpam.Activities.SmsAnalyzerActivity"
             android:label="@string/title_activity_sms_analyzer" >
         </activity>
     </application>

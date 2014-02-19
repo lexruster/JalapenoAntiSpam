@@ -22,13 +22,15 @@ public class SmsReceiverLogic {
 	public SmsReceiverLogic(ContactsService contactsService,
 			JalapenoHttpService jalapenoHttpService,
 			SmsAnalyzerService smsAnalyzerService,
-			SenderService localSpamBaseService, RequestQueue requestQueue,
-			SettingsService settingsService, RingtoneService ringtoneService,
+			SenderService senderService, 
+			RequestQueue requestQueue,
+			SettingsService settingsService, 
+			RingtoneService ringtoneService,
 			SmsHashService smsHashService) {
 		_contactsService = contactsService;
 		_jalapenoHttpService = jalapenoHttpService;
 		_smsAnalyzerService = smsAnalyzerService;
-		_senderService = localSpamBaseService;
+		_senderService = senderService;
 		_settingsService = settingsService;
 		_ringtoneService = ringtoneService;
 		_smsHashService = smsHashService;

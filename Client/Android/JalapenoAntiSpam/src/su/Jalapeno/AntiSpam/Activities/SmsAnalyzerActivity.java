@@ -1,7 +1,10 @@
-package su.Jalapeno.AntiSpam;
+package su.Jalapeno.AntiSpam.Activities;
 
 import com.google.inject.Inject;
 
+import su.Jalapeno.AntiSpam.R;
+import su.Jalapeno.AntiSpam.R.layout;
+import su.Jalapeno.AntiSpam.R.menu;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;
 import su.JalapenoAntiSpam.UI.SenderAdapter;
 import su.JalapenoAntiSpam.UI.SmsAdapter;
@@ -9,6 +12,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.view.Menu;
+import android.view.Window;
 
 public class SmsAnalyzerActivity extends JalapenoListActivity {
 
@@ -20,6 +24,7 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_sms_analyzer);
 	}
 

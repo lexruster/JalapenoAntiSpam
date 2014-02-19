@@ -11,6 +11,8 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.util.EncodingUtils;
 import org.apache.http.util.EntityUtils;
 
+import com.google.inject.Inject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
@@ -22,8 +24,8 @@ public class JalapenoHttpService {
 
     private Context _context;
 
+    @Inject
     public JalapenoHttpService(Context context) {
-
         _context = context;
     }
 

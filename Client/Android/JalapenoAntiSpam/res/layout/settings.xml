@@ -1,38 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              style="@style/BaseLayout">
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BaseLayout"
+    tools:context=".SmsAnalyzerActivity" >
+
     <ImageView
-            android:background="#80000000"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:alpha="1"
-            android:id="@+id/imageView"
-            android:src="@drawable/jalapeno"/>
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:alpha="1"
+        android:background="#80000000"
+        android:src="@drawable/jalapeno" />
+
     <TextView
-            style="@style/BaseControl.TextHeader"
-            android:text="@string/SettingsTitle"
-            android:id="@+id/textView"
-            />
+        android:id="@+id/textView"
+        style="@style/BaseControl.TextHeader"
+        android:text="@string/SettingsTitle" />
 
     <ToggleButton
-            android:id="@+id/toggleEnabled"
-            style="@style/BaseControl.Button"
-            android:onClick="toggleClick"
-            android:text="ToggleButton"
-            android:textOff="Antispam Off"
-            android:textOn="Antispam On"/>
-    <Button
-            style="@style/BaseControl.Button"
-            android:text="@string/KnownSpammerList"
-            android:id="@+id/buttonSpammerList" />
-    <Button
-            style="@style/BaseControl.Button"
-            android:text="@string/SoundSettings"
-            android:id="@+id/buttonSoundSettings"/>
-    <Button
-            style="@style/BaseControl.Button.Debug"
-            android:visibility="visible"
-            android:text="Debug window"
-            android:id="@+id/buttonDebug"/>
-</LinearLayout>
+        android:id="@+id/toggleEnabled"
+        style="@style/BaseControl.Button"
+        android:onClick="toggleClick"
+        android:text="ToggleButton"
+        android:textOff="Antispam Off"
+        android:textOn="Antispam On" />
 
+    <Button
+        android:id="@+id/buttonSpammerList"
+        style="@style/BaseControl.Button"
+        android:text="@string/KnownSpammerList" />
+
+    <Button
+        android:id="@+id/buttonSmsValidate"
+        style="@style/BaseControl.Button"
+        android:onClick="smsValidate"
+        android:text="@string/SmsValidateList" />
+
+    <Button
+        android:id="@+id/buttonSoundSettings"
+        style="@style/BaseControl.Button"
+        android:text="@string/SoundSettings" />
+
+    <Button
+        android:id="@+id/buttonDebug"
+        style="@style/BaseControl.Button.Debug"
+        android:text="Debug window"
+        android:visibility="visible" />
+
+</LinearLayout>
