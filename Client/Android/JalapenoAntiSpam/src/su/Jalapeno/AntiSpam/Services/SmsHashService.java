@@ -1,61 +1,38 @@
 package su.Jalapeno.AntiSpam.Services;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import su.Jalapeno.AntiSpam.DAL.Repository;
-import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
+import su.Jalapeno.AntiSpam.DAL.DAO.JalapenoDao;
+import su.Jalapeno.AntiSpam.DAL.DAO.SmsHashDao;
 import su.Jalapeno.AntiSpam.DAL.Domain.SmsHash;
 import su.Jalapeno.AntiSpam.Util.CryptoService;
 
-public class SmsHashService {
-
-	private Repository _repository;
+public class SmsHashService extends JalapenoService<SmsHash> {
 	CryptoService _criptoService;
 
-	public SmsHashService(Repository repository, CryptoService criptoService) {
-		_repository = repository;
+	public SmsHashService(Repository<SmsHash> repository,
+			CryptoService criptoService) {
+		super(repository);
 		_criptoService = criptoService;
 	}
 
 	public boolean HashInSpamBase(String hash) {
-		return RepositoryFactory.getRepository().getSmsHashDao()
-				.HashIsSpammer(hash);
+		return GetSmsHashDao().HashIsSpammer(hash);
 	}
-	
+
 	public boolean SmsTextInSpamBase(String text) {
 		String normalized = NormalizeSmsText(text);
 		String hash = _criptoService.GetHash(normalized);
 		return HashInSpamBase(hash);
 	}
 
-
 	public void AddSmsText(String text) {
 		String normalized = NormalizeSmsText(text);
 		String hash = _criptoService.GetHash(normalized);
 		AddHash(hash);
 	}
-	
+
 	public void AddHash(String smsTexthash) {
-		RepositoryFactory.getRepository().getSmsHashDao().AddHash(smsTexthash);
-	}
-
-	public ArrayList<String> GetAll() {
-		List<SmsHash> listSpamerHashes = _repository.getSmsHashDao().GetAll();
-		ArrayList<String> listHashes = new ArrayList<String>();
-		for (SmsHash smsHash : listSpamerHashes) {
-			listHashes.add(smsHash.SmsHash);
-		}
-
-		return listHashes;
-	}
-
-	public List<SmsHash> GetAllSmsHashes() {
-		return _repository.getSmsHashDao().GetAll();
-	}
-
-	public void Clear() {
-		_repository.getSmsHashDao().Clear();
+		GetSmsHashDao().AddHash(smsTexthash);
 	}
 
 	public String NormalizeSmsText(String text) {
@@ -65,5 +42,14 @@ public class SmsHashService {
 	public String GetHash(String message) {
 		String normalized = NormalizeSmsText(message);
 		return _criptoService.GetHash(normalized);
+	}
+
+	protected SmsHashDao GetSmsHashDao() {
+		return Repository.getSmsHashDao();
+	}
+
+	@Override
+	protected JalapenoDao<SmsHash> GetDao() {
+		return GetSmsHashDao();
 	}
 }

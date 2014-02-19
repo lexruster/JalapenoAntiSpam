@@ -1,32 +1,18 @@
 package su.Jalapeno.AntiSpam.DAL.DAO;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.DAL.Domain.SmsHash;
 
-import com.j256.ormlite.dao.BaseDaoImpl;
-import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 
-public class SmsHashDao extends BaseDaoImpl<SmsHash, Integer> {
+public class SmsHashDao extends JalapenoDao<SmsHash> {
 
 	public SmsHashDao(ConnectionSource connectionSource, Class<SmsHash> dataClass) throws SQLException {
 		super(connectionSource, dataClass);
-	}
-
-	public List<SmsHash> GetAll() {
-		try {
-			return this.queryForAll();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return new ArrayList<SmsHash>();
 	}
 
 	public boolean HashIsSpammer(String text) {
@@ -63,16 +49,6 @@ public class SmsHashDao extends BaseDaoImpl<SmsHash, Integer> {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}
-	}
-
-	public void Clear() {
-		DeleteBuilder<SmsHash, Integer> db = deleteBuilder();
-		try {
-			db.delete();
-			delete(db.prepare());
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 	}
 }

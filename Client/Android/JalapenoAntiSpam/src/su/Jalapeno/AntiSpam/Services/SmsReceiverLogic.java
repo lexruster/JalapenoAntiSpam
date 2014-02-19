@@ -1,5 +1,7 @@
 package su.Jalapeno.AntiSpam.Services;
 
+import java.util.Date;
+
 import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
 import su.Jalapeno.AntiSpam.Util.Config;
 
@@ -9,9 +11,8 @@ import su.Jalapeno.AntiSpam.Util.Config;
 public class SmsReceiverLogic {
 	private ContactsService _contactsService;
 	private JalapenoHttpService _jalapenoHttpService;
-	private UserValidateService _userValidateService;
+	private SmsAnalyzerService _smsAnalyzerService;
 	private SenderService _senderService;
-	private RequestQueue _requestQueue;
 	private SettingsService _settingsService;
 	private RingtoneService _ringtoneService;
 	private SmsHashService _smsHashService;
@@ -20,15 +21,14 @@ public class SmsReceiverLogic {
 
 	public SmsReceiverLogic(ContactsService contactsService,
 			JalapenoHttpService jalapenoHttpService,
-			UserValidateService userValidateService,
+			SmsAnalyzerService smsAnalyzerService,
 			SenderService localSpamBaseService, RequestQueue requestQueue,
 			SettingsService settingsService, RingtoneService ringtoneService,
 			SmsHashService smsHashService) {
 		_contactsService = contactsService;
 		_jalapenoHttpService = jalapenoHttpService;
-		_userValidateService = userValidateService;
+		_smsAnalyzerService = smsAnalyzerService;
 		_senderService = localSpamBaseService;
-		_requestQueue = requestQueue;
 		_settingsService = settingsService;
 		_ringtoneService = ringtoneService;
 		_smsHashService = smsHashService;
@@ -76,7 +76,8 @@ public class SmsReceiverLogic {
 		
 		_ringtoneService.EmulateIncomeSms();
 		
-		_userValidateService.AddSmsToValidate(phone, message);
+		Date date = new Date(); 
+		_smsAnalyzerService.AddSmsToValidate(phone, message, date );
 		
 		//return false;
 		return true;//test value

@@ -34,7 +34,7 @@ public class SenderAdapter extends BaseAdapter {
 
 	private void LoadData() {
 		_objects = new ArrayList<Sender>();
-		_objects.addAll(_senderService.GetAllSenders());
+		_objects.addAll(_senderService.GetAll());
 	}
 
 	@Override

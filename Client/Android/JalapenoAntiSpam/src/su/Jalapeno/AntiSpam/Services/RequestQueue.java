@@ -12,13 +12,13 @@ public class RequestQueue {
         this.jalapenoHttpService = jalapenoHttpService;
     }
 
-    public void ComplainRequest(String phone) {
+    public void ComplainRequest(String phone, String hash) {
         if (!jalapenoHttpService.TryComplain(phone)) {
-            AddComplainRequest(phone);
+            AddComplainRequest(phone, hash);
         }
     }
 
-    private void AddComplainRequest(String phone) {
+    public void AddComplainRequest(String phone, String smsTexthash) {
 
     }
 
