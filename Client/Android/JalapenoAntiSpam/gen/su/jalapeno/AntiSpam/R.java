@@ -235,7 +235,7 @@ containing a value of this type.
         public static final int jalapeno=0x7f02001d;
     }
     public static final class id {
-        public static final int action_settings=0x7f07001d;
+        public static final int action_settings=0x7f070020;
         public static final int button32424InCont=0x7f070014;
         public static final int button7968InCont=0x7f070012;
         public static final int button8968InCont=0x7f070013;
@@ -265,6 +265,9 @@ containing a value of this type.
         public static final int textView=0x7f070006;
         public static final int toggleEnabled=0x7f070019;
         public static final int tvSenderId=0x7f070017;
+        public static final int tvSmsDate=0x7f07001f;
+        public static final int tvSmsSender=0x7f07001e;
+        public static final int tvSmsText=0x7f07001d;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f090000;
@@ -274,7 +277,8 @@ containing a value of this type.
         public static final int debug=0x7f030001;
         public static final int sender_list_item=0x7f030002;
         public static final int settings=0x7f030003;
-        public static final int spamer_list=0x7f030004;
+        public static final int sms_list_item=0x7f030004;
+        public static final int spamer_list=0x7f030005;
     }
     public static final class menu {
         public static final int sms_analyzer=0x7f0d0000;
@@ -285,9 +289,11 @@ containing a value of this type.
     }
     public static final class string {
         public static final int DebugActivity=0x7f080023;
+        public static final int EmptySmsList=0x7f080026;
         public static final int EmptySpamerList=0x7f080024;
         public static final int KnownSpammerList=0x7f080020;
         public static final int SettingsTitle=0x7f08001f;
+        public static final int SmsList=0x7f080025;
         public static final int SoundSettings=0x7f080021;
         public static final int SpammerList=0x7f080022;
         public static final int action_settings=0x7f08001b;

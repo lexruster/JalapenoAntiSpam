@@ -9,5 +9,7 @@
     <string name="SpammerList">Spammer list</string>
     <string name="DebugActivity">Debug activity</string>
     <string name="EmptySpamerList">List is Empty</string>
+    <string name="SmsList">Sms list</string>
+    <string name="EmptySmsList">EmptySmsList</string>
 
 </resources>
