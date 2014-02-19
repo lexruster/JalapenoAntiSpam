@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/BaseLayout"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    tools:context=".SpamerList" >
 
     <ImageView
         android:id="@+id/imageView"

@@ -3,9 +3,7 @@ package su.JalapenoAntiSpam.UI;
 import java.util.ArrayList;
 
 import su.Jalapeno.AntiSpam.R;
-import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
-import su.Jalapeno.AntiSpam.Services.SenderService;
 import su.Jalapeno.AntiSpam.Services.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.Services.SmsQueueService;
 import android.content.Context;
@@ -13,10 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.google.inject.Inject;
 
@@ -29,10 +24,10 @@ public class SmsAdapter extends BaseAdapter {
 
 	@Inject
 	public SmsAdapter(Context context, SmsAnalyzerService smsAnalyzerService,
-			SmsQueueService _smsQueueService) {
+			SmsQueueService smsQueueService) {
 		_context = context;
 		_smsAnalyzerService = smsAnalyzerService;
-		_smsQueueService = _smsQueueService;
+		_smsQueueService = smsQueueService;
 
 		lInflater = (LayoutInflater) _context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

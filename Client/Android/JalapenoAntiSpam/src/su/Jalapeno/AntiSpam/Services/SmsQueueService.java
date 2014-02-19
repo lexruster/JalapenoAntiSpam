@@ -10,8 +10,11 @@ import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import com.google.inject.Inject;
 
 public class SmsQueueService extends JalapenoService<Sms> {
-
 	@Inject
+	public SmsQueueService() {
+		super();
+	}
+	
 	public SmsQueueService(Repository<Sms> repository) {
 		super(repository);
 	}

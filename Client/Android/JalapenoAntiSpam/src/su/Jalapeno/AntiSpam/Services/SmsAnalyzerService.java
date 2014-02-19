@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.google.inject.Inject;
+
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 
 public class SmsAnalyzerService {
@@ -14,6 +16,7 @@ public class SmsAnalyzerService {
 	private SmsHashService _smsHashService;
 	private SenderService _senderService;
 
+	@Inject
 	public SmsAnalyzerService(SmsQueueService smsQueueService,
 			RequestQueue queue, SmsHashService smsHashService,
 			SenderService senderService) {

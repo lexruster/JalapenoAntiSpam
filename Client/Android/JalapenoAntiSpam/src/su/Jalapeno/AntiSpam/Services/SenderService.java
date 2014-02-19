@@ -11,8 +11,11 @@ import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
 import com.google.inject.Inject;
 
 public class SenderService extends JalapenoService<Sender> {
-
 	@Inject
+	public SenderService() {
+		super();
+	}
+	
 	public SenderService(Repository<Sender> repository) {
 		super(repository);
 	}
