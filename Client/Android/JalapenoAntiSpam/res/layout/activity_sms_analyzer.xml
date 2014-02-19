@@ -8,9 +8,28 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".SmsAnalyzerActivity" >
 
+   <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:src="@drawable/jalapeno" />
+
     <TextView
+        android:id="@+id/textView"
+        style="@style/BaseControl.TextHeader"
+        android:text="@string/SmsList" />
+
+    <ListView
+        android:id="@android:id/list"
+        style="@style/BaseControl.ListView"
+        android:textFilterEnabled="false"
+        android:choiceMode="none" 
+        />
+
+    <TextView
+        android:id="@android:id/empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="@string/EmptySmsList" />
 
 </RelativeLayout>
