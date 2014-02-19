@@ -6,36 +6,17 @@ import java.util.List;
 
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 
-import com.j256.ormlite.dao.BaseDaoImpl;
+import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 
-public class SmsDao extends BaseDaoImpl<Sms, Integer> {
+public class SmsDao extends JalapenoDao<Sms> {
 
-	public SmsDao(ConnectionSource connectionSource, Class<Sms> dataClass) throws SQLException {
+	public SmsDao(ConnectionSource connectionSource, Class<Sms> dataClass)
+			throws SQLException {
 		super(connectionSource, dataClass);
-	}
-
-	public List<Sms> GetAll() {
-		try {
-			return this.queryForAll();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return new ArrayList<Sms>();
-	}
-
-	public long GetTotalSmsCount() {
-		long total = 0;
-		try {
-			total = countOf();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return total;
 	}
 
 	public List<Sms> FindSmsBySender(String senderId) {
@@ -53,22 +34,6 @@ public class SmsDao extends BaseDaoImpl<Sms, Integer> {
 		return new ArrayList<Sms>();
 	}
 
-	public void AddSms(Sms sms) {
-		try {
-			this.create(sms);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void Delete(Sms sms) {
-		try {
-			deleteById(sms.GetId());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public void DeleteBySender(String senderId) {
 		DeleteBuilder<Sms, Integer> deleteBuilder = deleteBuilder();
 		try {
@@ -79,13 +44,19 @@ public class SmsDao extends BaseDaoImpl<Sms, Integer> {
 		}
 	}
 
-	public void Clear() {
-		DeleteBuilder<Sms, Integer> db = deleteBuilder();
+	public List<String> GetAllSenders() {
+		ArrayList<String> senders = new ArrayList<String>();
 		try {
-			db.delete();
-			delete(db.prepare());
+			// QueryBuilder<Sms, Integer> queryBuilder = queryBuilder();
+			// queryBuilder.distinct().selectColumns(Sms.SENDER_FIELD_NAME).query();
+			GenericRawResults<String[]> rawResults = queryRaw("SELECT DISTINTC "
+					+ Sms.SENDER_FIELD_NAME + " FROM Sms");
+			for (String[] resultColumns : rawResults) {
+				senders.add(resultColumns[0]);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return senders;
 	}
 }

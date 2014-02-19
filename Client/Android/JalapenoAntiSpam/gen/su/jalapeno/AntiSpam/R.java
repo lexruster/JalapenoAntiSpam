@@ -13,7 +13,7 @@ public final class R {
         public static final int scale=0x7f040001;
     }
     public static final class array {
-        public static final int roboguice_modules=0x7f0a0000;
+        public static final int roboguice_modules=0x7f0b0000;
     }
     public static final class attr {
         /** 
@@ -192,6 +192,16 @@ containing a value of this type.
         public static final int common_signin_btn_text_dark=0x7f060010;
         public static final int common_signin_btn_text_light=0x7f060011;
     }
+    public static final class dimen {
+        /**  Default screen margins, per the Android Design guidelines. 
+
+         Customize dimensions originally defined in res/values/dimens.xml (such as
+         screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
+    
+         */
+        public static final int activity_horizontal_margin=0x7f0a0000;
+        public static final int activity_vertical_margin=0x7f0a0001;
+    }
     public static final class drawable {
         public static final int common_signin_btn_icon_dark=0x7f020000;
         public static final int common_signin_btn_icon_disabled_dark=0x7f020001;
@@ -225,6 +235,7 @@ containing a value of this type.
         public static final int jalapeno=0x7f02001d;
     }
     public static final class id {
+        public static final int action_settings=0x7f07001d;
         public static final int button32424InCont=0x7f070014;
         public static final int button7968InCont=0x7f070012;
         public static final int button8968InCont=0x7f070013;
@@ -259,23 +270,28 @@ containing a value of this type.
         public static final int google_play_services_version=0x7f090000;
     }
     public static final class layout {
-        public static final int debug=0x7f030000;
-        public static final int sender_list_item=0x7f030001;
-        public static final int settings=0x7f030002;
-        public static final int spamer_list=0x7f030003;
+        public static final int activity_sms_analyzer=0x7f030000;
+        public static final int debug=0x7f030001;
+        public static final int sender_list_item=0x7f030002;
+        public static final int settings=0x7f030003;
+        public static final int spamer_list=0x7f030004;
+    }
+    public static final class menu {
+        public static final int sms_analyzer=0x7f0d0000;
     }
     public static final class raw {
         public static final int cartoon003=0x7f050000;
         public static final int cartoon010=0x7f050001;
     }
     public static final class string {
-        public static final int DebugActivity=0x7f080020;
-        public static final int EmptySpamerList=0x7f080021;
-        public static final int KnownSpammerList=0x7f08001d;
-        public static final int SettingsTitle=0x7f08001c;
-        public static final int SoundSettings=0x7f08001e;
-        public static final int SpammerList=0x7f08001f;
-        public static final int app_name=0x7f08001b;
+        public static final int DebugActivity=0x7f080023;
+        public static final int EmptySpamerList=0x7f080024;
+        public static final int KnownSpammerList=0x7f080020;
+        public static final int SettingsTitle=0x7f08001f;
+        public static final int SoundSettings=0x7f080021;
+        public static final int SpammerList=0x7f080022;
+        public static final int action_settings=0x7f08001b;
+        public static final int app_name=0x7f08001e;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
@@ -370,17 +386,19 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f080013;
-        public static final int isspamer=0x7f08001a;
+        public static final int hello_world=0x7f08001c;
+        public static final int isspamer=0x7f08001d;
+        public static final int title_activity_sms_analyzer=0x7f08001a;
     }
     public static final class style {
-        public static final int BaseControl=0x7f0b0000;
-        public static final int BaseControl_Button=0x7f0b0002;
-        public static final int BaseControl_Button_Debug=0x7f0b0003;
-        public static final int BaseControl_ListGroup=0x7f0b0007;
-        public static final int BaseControl_ListView=0x7f0b0005;
-        public static final int BaseControl_TextHeader=0x7f0b0004;
-        public static final int BaseLayout=0x7f0b0001;
-        public static final int ListItem=0x7f0b0006;
+        public static final int BaseControl=0x7f0c0000;
+        public static final int BaseControl_Button=0x7f0c0002;
+        public static final int BaseControl_Button_Debug=0x7f0c0003;
+        public static final int BaseControl_ListGroup=0x7f0c0007;
+        public static final int BaseControl_ListView=0x7f0c0005;
+        public static final int BaseControl_TextHeader=0x7f0c0004;
+        public static final int BaseLayout=0x7f0c0001;
+        public static final int ListItem=0x7f0c0006;
     }
     public static final class styleable {
         /** Attributes that can be used with a AdsAttrs.

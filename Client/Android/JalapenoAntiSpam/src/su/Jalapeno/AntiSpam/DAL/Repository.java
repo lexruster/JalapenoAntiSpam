@@ -1,25 +1,26 @@
 package su.Jalapeno.AntiSpam.DAL;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
+import java.sql.SQLException;
+
 import su.Jalapeno.AntiSpam.DAL.DAO.SenderDao;
 import su.Jalapeno.AntiSpam.DAL.DAO.SmsDao;
 import su.Jalapeno.AntiSpam.DAL.DAO.SmsHashDao;
+import su.Jalapeno.AntiSpam.DAL.Domain.Entity;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.DAL.Domain.SmsHash;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
-import java.sql.SQLException;
-
 /**
  * Created by alexander.kiryushkin on 09.01.14.
  */
-public class Repository extends OrmLiteSqliteOpenHelper {
+public class Repository<T extends Entity> extends OrmLiteSqliteOpenHelper {
 
 	private static final String TAG = Repository.class.getSimpleName();
 	private static final String DATABASE_NAME = "jalapeno.db";
@@ -45,13 +46,15 @@ public class Repository extends OrmLiteSqliteOpenHelper {
 	}
 
 	@Override
-	public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVer, int newVer) {
+	public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource,
+			int oldVer, int newVer) {
 		try {
 			TableUtils.dropTable(connectionSource, Sender.class, true);
 			TableUtils.dropTable(connectionSource, SmsHash.class, true);
 			onCreate(db, connectionSource);
 		} catch (SQLException e) {
-			Log.e(TAG, "error upgrading db " + DATABASE_NAME + "from ver " + oldVer);
+			Log.e(TAG, "error upgrading db " + DATABASE_NAME + "from ver "
+					+ oldVer);
 			throw new RuntimeException(e);
 		}
 	}
@@ -71,7 +74,8 @@ public class Repository extends OrmLiteSqliteOpenHelper {
 	public SmsHashDao getSmsHashDao() {
 		if (smsHashDao == null) {
 			try {
-				smsHashDao = new SmsHashDao(getConnectionSource(), SmsHash.class);
+				smsHashDao = new SmsHashDao(getConnectionSource(),
+						SmsHash.class);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

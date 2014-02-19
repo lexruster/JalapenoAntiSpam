@@ -3,28 +3,44 @@ package su.Jalapeno.AntiSpam.Services;
 import java.util.ArrayList;
 
 import su.Jalapeno.AntiSpam.DAL.Repository;
-import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
+import su.Jalapeno.AntiSpam.DAL.DAO.JalapenoDao;
+import su.Jalapeno.AntiSpam.DAL.DAO.SmsDao;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 
-public class SmsQueueService {
-	private Repository _repository;
+import com.google.inject.Inject;
 
-	public SmsQueueService(Repository repository) {
-		_repository = repository;
+public class SmsQueueService extends JalapenoService<Sms> {
+
+	@Inject
+	public SmsQueueService(Repository<Sms> repository) {
+		super(repository);
 	}
 
-	public void AddSms(Sms sms) {
-		RepositoryFactory.getRepository().getSmsDao().AddSms(sms);
-	}
-
-	public ArrayList<Sms> GetAll() {
-		ArrayList<Sms> list = new ArrayList<Sms>();
-		list.addAll(_repository.getSmsDao().GetAll());
+	public ArrayList<String> GetAllSenders() {
+		ArrayList<String> list = new ArrayList<String>();
+		list.addAll(GetSmsDao().GetAllSenders());
 
 		return list;
 	}
 
-	public void Clear() {
-		_repository.getSmsDao().Clear();
+	public ArrayList<Sms> GetAllBySender(String sender) {
+		ArrayList<Sms> list = new ArrayList<Sms>();
+		list.addAll(GetSmsDao().FindSmsBySender(sender));
+
+		return list;
 	}
+
+	public void DeleteBySender(String senderId) {
+		GetSmsDao().DeleteBySender(senderId);
+	}
+
+	protected SmsDao GetSmsDao() {
+		return Repository.getSmsDao();
+	}
+
+	@Override
+	protected JalapenoDao<Sms> GetDao() {
+		return GetSmsDao();
+	}
+
 }
