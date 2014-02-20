@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import android.content.Context;
+
 import com.google.inject.Inject;
 
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
+import su.Jalapeno.AntiSpam.Util.DebugMessage;
 
 public class SmsAnalyzerService {
 
@@ -15,11 +18,13 @@ public class SmsAnalyzerService {
 	private SmsQueueService _smsQueueService;
 	private SmsHashService _smsHashService;
 	private SenderService _senderService;
+	private Context _context;
 
 	@Inject
-	public SmsAnalyzerService(SmsQueueService smsQueueService,
+	public SmsAnalyzerService(Context context, SmsQueueService smsQueueService,
 			RequestQueue queue, SmsHashService smsHashService,
 			SenderService senderService) {
+		_context = context;
 		_smsQueueService = smsQueueService;
 		_requestQueue = queue;
 		_smsHashService = smsHashService;
@@ -81,6 +86,12 @@ public class SmsAnalyzerService {
 
 	private void SaveSmsToPhoneBase(List<Sms> smsList) {
 		for (Sms sms : smsList) {
+			DebugMessage.Debug(_context, "Save sms " + sms.SenderId + " "
+					+ sms.Text);
 		}
+	}
+
+	public void DeleteSms(Sms sms) {
+		_smsQueueService.Delete(sms);
 	}
 }

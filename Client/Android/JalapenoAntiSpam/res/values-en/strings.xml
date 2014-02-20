@@ -12,4 +12,10 @@
     <string name="SmsList">Sms list</string>
     <string name="EmptySmsList">EmptySmsList</string>
     <string name="SmsValidateList">Sms for validate</string>
+    
+    <string name="NotSpamButton">No spam</string>
+    <string name="SpamButton">Spam</string>
+    <string name="DeleteButton">Delete</string>
+    <string name="DateFormat">MM/dd/yyyy HH:mm:ss</string>
+    
 </resources>
