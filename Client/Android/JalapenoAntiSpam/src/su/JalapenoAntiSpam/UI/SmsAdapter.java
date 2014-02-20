@@ -1,10 +1,12 @@
 package su.JalapenoAntiSpam.UI;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
-import su.Jalapeno.AntiSpam.Services.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.Services.SmsQueueService;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -19,14 +21,11 @@ public class SmsAdapter extends BaseAdapter {
 	Context _context;
 	LayoutInflater lInflater;
 	ArrayList<Sms> _objects;
-	private SmsAnalyzerService _smsAnalyzerService;
 	private SmsQueueService _smsQueueService;
 
 	@Inject
-	public SmsAdapter(Context context, SmsAnalyzerService smsAnalyzerService,
-			SmsQueueService smsQueueService) {
+	public SmsAdapter(Context context, SmsQueueService smsQueueService) {
 		_context = context;
-		_smsAnalyzerService = smsAnalyzerService;
 		_smsQueueService = smsQueueService;
 
 		lInflater = (LayoutInflater) _context
@@ -64,25 +63,31 @@ public class SmsAdapter extends BaseAdapter {
 		Sms sms = getSms(position);
 
 		((TextView) view.findViewById(R.id.tvSmsText)).setText(sms.Text);
-		
+
 		((TextView) view.findViewById(R.id.tvSmsSender)).setText(sms.SenderId);
-		
-		((TextView) view.findViewById(R.id.tvSmsDate)).setText(sms.RecieveDate.toString());
-		//cbBuy.setOnCheckedChangeListener(myCheckChangList);
+
+		String date = GetDate(sms.RecieveDate);
+		((TextView) view.findViewById(R.id.tvSmsDate)).setText(date);
 
 		return view;
+	}
+
+	private String GetDate(Date date) {
+		String dateFormatString = _context.getResources().getString(
+				R.string.DateFormat);
+
+		DateFormat df = new SimpleDateFormat(dateFormatString);
+		String reportDate = df.format(date);
+
+		return reportDate;
 	}
 
 	Sms getSms(int position) {
 		return ((Sms) getItem(position));
 	}
-/*
-	OnCheckedChangeListener myCheckChangList = new OnCheckedChangeListener() {
-		public void onCheckedChanged(CompoundButton buttonView,
-				boolean isChecked) {
-			Sender sender = getSender((Integer) buttonView.getTag());
-			sender.IsSpammer = isChecked;
-			_senderService.AddOrUpdateSender(sender);
-		}
-	};*/
+
+	public void Regresh() {
+		LoadData();
+		notifyDataSetChanged();
+	}
 }

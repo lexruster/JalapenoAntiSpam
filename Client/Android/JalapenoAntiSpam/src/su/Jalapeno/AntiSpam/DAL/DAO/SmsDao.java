@@ -34,6 +34,23 @@ public class SmsDao extends JalapenoDao<Sms> {
 		return new ArrayList<Sms>();
 	}
 
+	@Override
+	public List<Sms> GetAll() {
+		try {
+			QueryBuilder<Sms, Integer> qb = queryBuilder();
+			qb.orderBy(Sms.SMS_DATE_FIELD_NAME, false);
+
+			PreparedQuery<Sms> preparedQuery = qb.prepare();
+			List<Sms> smsList = query(preparedQuery);
+			
+			return smsList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return new ArrayList<Sms>();
+	}
+
 	public void DeleteBySender(String senderId) {
 		DeleteBuilder<Sms, Integer> deleteBuilder = deleteBuilder();
 		try {

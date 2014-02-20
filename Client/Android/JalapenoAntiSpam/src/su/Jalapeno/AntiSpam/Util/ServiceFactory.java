@@ -19,16 +19,21 @@ public class ServiceFactory {
 	public static SmsReceiverLogic GetSmsService(Context context) {
 		Repository repository = RepositoryFactory.getRepository();
 		SettingsService _settingsService = new SettingsService(context);
-		JalapenoHttpService jalapenoHttpService = new JalapenoHttpService(context);
+		JalapenoHttpService jalapenoHttpService = new JalapenoHttpService(
+				context);
 		ContactsService contactsService = new ContactsService(context);
-		SmsHashService smsHashService = new SmsHashService(repository, new CryptoService());
+		SmsHashService smsHashService = new SmsHashService(repository,
+				new CryptoService());
 		SenderService senderService = new SenderService(repository);
 		RequestQueue _requestQueue = new RequestQueue(jalapenoHttpService);
 		SmsQueueService smsQueueService = new SmsQueueService(repository);
-		SmsAnalyzerService smsAnalyzerService = new SmsAnalyzerService(smsQueueService, _requestQueue, smsHashService, senderService);
+		SmsAnalyzerService smsAnalyzerService = new SmsAnalyzerService(context,
+				smsQueueService, _requestQueue, smsHashService, senderService);
 
-		SmsReceiverLogic _smsReceiverLogic = new SmsReceiverLogic(contactsService, jalapenoHttpService, smsAnalyzerService, senderService,
-				_requestQueue, _settingsService, new RingtoneService(_settingsService), smsHashService);
+		SmsReceiverLogic _smsReceiverLogic = new SmsReceiverLogic(
+				contactsService, jalapenoHttpService, smsAnalyzerService,
+				senderService, _requestQueue, _settingsService,
+				new RingtoneService(context, _settingsService), smsHashService);
 
 		return _smsReceiverLogic;
 	}

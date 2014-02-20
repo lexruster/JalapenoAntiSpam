@@ -189,8 +189,10 @@ containing a value of this type.
         public static final int common_signin_btn_light_text_disabled=0x7f060006;
         public static final int common_signin_btn_light_text_focused=0x7f060007;
         public static final int common_signin_btn_light_text_pressed=0x7f060005;
-        public static final int common_signin_btn_text_dark=0x7f060010;
-        public static final int common_signin_btn_text_light=0x7f060011;
+        public static final int common_signin_btn_text_dark=0x7f060012;
+        public static final int common_signin_btn_text_light=0x7f060013;
+        public static final int default_color=0x7f060011;
+        public static final int pressed_color=0x7f060010;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -203,72 +205,76 @@ containing a value of this type.
         public static final int activity_vertical_margin=0x7f0a0001;
     }
     public static final class drawable {
-        public static final int common_signin_btn_icon_dark=0x7f020000;
-        public static final int common_signin_btn_icon_disabled_dark=0x7f020001;
-        public static final int common_signin_btn_icon_disabled_focus_dark=0x7f020002;
-        public static final int common_signin_btn_icon_disabled_focus_light=0x7f020003;
-        public static final int common_signin_btn_icon_disabled_light=0x7f020004;
-        public static final int common_signin_btn_icon_focus_dark=0x7f020005;
-        public static final int common_signin_btn_icon_focus_light=0x7f020006;
-        public static final int common_signin_btn_icon_light=0x7f020007;
-        public static final int common_signin_btn_icon_normal_dark=0x7f020008;
-        public static final int common_signin_btn_icon_normal_light=0x7f020009;
-        public static final int common_signin_btn_icon_pressed_dark=0x7f02000a;
-        public static final int common_signin_btn_icon_pressed_light=0x7f02000b;
-        public static final int common_signin_btn_text_dark=0x7f02000c;
-        public static final int common_signin_btn_text_disabled_dark=0x7f02000d;
-        public static final int common_signin_btn_text_disabled_focus_dark=0x7f02000e;
-        public static final int common_signin_btn_text_disabled_focus_light=0x7f02000f;
-        public static final int common_signin_btn_text_disabled_light=0x7f020010;
-        public static final int common_signin_btn_text_focus_dark=0x7f020011;
-        public static final int common_signin_btn_text_focus_light=0x7f020012;
-        public static final int common_signin_btn_text_light=0x7f020013;
-        public static final int common_signin_btn_text_normal_dark=0x7f020014;
-        public static final int common_signin_btn_text_normal_light=0x7f020015;
-        public static final int common_signin_btn_text_pressed_dark=0x7f020016;
-        public static final int common_signin_btn_text_pressed_light=0x7f020017;
-        public static final int ic_launcher=0x7f020018;
-        public static final int ic_plusone_medium_off_client=0x7f020019;
-        public static final int ic_plusone_small_off_client=0x7f02001a;
-        public static final int ic_plusone_standard_off_client=0x7f02001b;
-        public static final int ic_plusone_tall_off_client=0x7f02001c;
-        public static final int jalapeno=0x7f02001d;
+        public static final int bg_key=0x7f020000;
+        public static final int common_signin_btn_icon_dark=0x7f020001;
+        public static final int common_signin_btn_icon_disabled_dark=0x7f020002;
+        public static final int common_signin_btn_icon_disabled_focus_dark=0x7f020003;
+        public static final int common_signin_btn_icon_disabled_focus_light=0x7f020004;
+        public static final int common_signin_btn_icon_disabled_light=0x7f020005;
+        public static final int common_signin_btn_icon_focus_dark=0x7f020006;
+        public static final int common_signin_btn_icon_focus_light=0x7f020007;
+        public static final int common_signin_btn_icon_light=0x7f020008;
+        public static final int common_signin_btn_icon_normal_dark=0x7f020009;
+        public static final int common_signin_btn_icon_normal_light=0x7f02000a;
+        public static final int common_signin_btn_icon_pressed_dark=0x7f02000b;
+        public static final int common_signin_btn_icon_pressed_light=0x7f02000c;
+        public static final int common_signin_btn_text_dark=0x7f02000d;
+        public static final int common_signin_btn_text_disabled_dark=0x7f02000e;
+        public static final int common_signin_btn_text_disabled_focus_dark=0x7f02000f;
+        public static final int common_signin_btn_text_disabled_focus_light=0x7f020010;
+        public static final int common_signin_btn_text_disabled_light=0x7f020011;
+        public static final int common_signin_btn_text_focus_dark=0x7f020012;
+        public static final int common_signin_btn_text_focus_light=0x7f020013;
+        public static final int common_signin_btn_text_light=0x7f020014;
+        public static final int common_signin_btn_text_normal_dark=0x7f020015;
+        public static final int common_signin_btn_text_normal_light=0x7f020016;
+        public static final int common_signin_btn_text_pressed_dark=0x7f020017;
+        public static final int common_signin_btn_text_pressed_light=0x7f020018;
+        public static final int ic_launcher=0x7f020019;
+        public static final int ic_plusone_medium_off_client=0x7f02001a;
+        public static final int ic_plusone_small_off_client=0x7f02001b;
+        public static final int ic_plusone_standard_off_client=0x7f02001c;
+        public static final int ic_plusone_tall_off_client=0x7f02001d;
+        public static final int jalapeno=0x7f02001e;
     }
     public static final class id {
-        public static final int action_settings=0x7f070021;
-        public static final int button32424InCont=0x7f070014;
-        public static final int button7968InCont=0x7f070012;
-        public static final int button8968InCont=0x7f070013;
-        public static final int buttonAuthorization=0x7f07000a;
-        public static final int buttonClearSpam=0x7f07000d;
-        public static final int buttonDebug=0x7f07001d;
-        public static final int buttonFillSpam=0x7f07000e;
-        public static final int buttonInfo=0x7f07000b;
-        public static final int buttonLocalhostRequest=0x7f070015;
-        public static final int buttonNewSms=0x7f070008;
-        public static final int buttonRecieve8888=0x7f070011;
-        public static final int buttonRecieve9999=0x7f070010;
-        public static final int buttonSendTokenToEmail=0x7f07000c;
-        public static final int buttonSettingsTest=0x7f070016;
-        public static final int buttonSmsSpam=0x7f070009;
-        public static final int buttonSmsValidate=0x7f07001b;
-        public static final int buttonSoundSettings=0x7f07001c;
-        public static final int buttonSpammerList=0x7f07001a;
-        public static final int buttonTestInBaseSpam=0x7f07000f;
-        public static final int cbIsSender=0x7f070018;
+        public static final int action_settings=0x7f070024;
+        public static final int btnDeleteSms=0x7f070009;
+        public static final int btnNeedSms=0x7f070007;
+        public static final int btnSpamSms=0x7f070008;
+        public static final int button32424InCont=0x7f070017;
+        public static final int button7968InCont=0x7f070015;
+        public static final int button8968InCont=0x7f070016;
+        public static final int buttonAuthorization=0x7f07000d;
+        public static final int buttonClearSpam=0x7f070010;
+        public static final int buttonDebug=0x7f070020;
+        public static final int buttonFillSpam=0x7f070011;
+        public static final int buttonInfo=0x7f07000e;
+        public static final int buttonLocalhostRequest=0x7f070018;
+        public static final int buttonNewSms=0x7f07000b;
+        public static final int buttonRecieve8888=0x7f070014;
+        public static final int buttonRecieve9999=0x7f070013;
+        public static final int buttonSendTokenToEmail=0x7f07000f;
+        public static final int buttonSettingsTest=0x7f070019;
+        public static final int buttonSmsSpam=0x7f07000c;
+        public static final int buttonSmsValidate=0x7f07001e;
+        public static final int buttonSoundSettings=0x7f07001f;
+        public static final int buttonSpammerList=0x7f07001d;
+        public static final int buttonTestInBaseSpam=0x7f070012;
+        public static final int cbIsSender=0x7f07001b;
         public static final int hybrid=0x7f070004;
         public static final int imageView=0x7f070005;
         public static final int none=0x7f070000;
         public static final int normal=0x7f070001;
         public static final int satellite=0x7f070002;
-        public static final int scrollView=0x7f070007;
+        public static final int scrollView=0x7f07000a;
         public static final int terrain=0x7f070003;
         public static final int textView=0x7f070006;
-        public static final int toggleEnabled=0x7f070019;
-        public static final int tvSenderId=0x7f070017;
-        public static final int tvSmsDate=0x7f070020;
-        public static final int tvSmsSender=0x7f07001f;
-        public static final int tvSmsText=0x7f07001e;
+        public static final int toggleEnabled=0x7f07001c;
+        public static final int tvSenderId=0x7f07001a;
+        public static final int tvSmsDate=0x7f070023;
+        public static final int tvSmsSender=0x7f070022;
+        public static final int tvSmsText=0x7f070021;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f090000;
@@ -289,14 +295,18 @@ containing a value of this type.
         public static final int cartoon010=0x7f050001;
     }
     public static final class string {
+        public static final int DateFormat=0x7f08002b;
         public static final int DebugActivity=0x7f080023;
+        public static final int DeleteButton=0x7f08002a;
         public static final int EmptySmsList=0x7f080026;
         public static final int EmptySpamerList=0x7f080024;
         public static final int KnownSpammerList=0x7f080020;
+        public static final int NotSpamButton=0x7f080028;
         public static final int SettingsTitle=0x7f08001f;
         public static final int SmsList=0x7f080025;
         public static final int SmsValidateList=0x7f080027;
         public static final int SoundSettings=0x7f080021;
+        public static final int SpamButton=0x7f080029;
         public static final int SpammerList=0x7f080022;
         public static final int action_settings=0x7f08001b;
         public static final int app_name=0x7f08001e;
@@ -401,12 +411,13 @@ containing a value of this type.
     public static final class style {
         public static final int BaseControl=0x7f0c0000;
         public static final int BaseControl_Button=0x7f0c0002;
-        public static final int BaseControl_Button_Debug=0x7f0c0003;
-        public static final int BaseControl_ListGroup=0x7f0c0007;
-        public static final int BaseControl_ListView=0x7f0c0005;
-        public static final int BaseControl_TextHeader=0x7f0c0004;
+        public static final int BaseControl_Button_Debug=0x7f0c0004;
+        public static final int BaseControl_ButtonSms=0x7f0c0003;
+        public static final int BaseControl_ListGroup=0x7f0c0008;
+        public static final int BaseControl_ListView=0x7f0c0006;
+        public static final int BaseControl_TextHeader=0x7f0c0005;
         public static final int BaseLayout=0x7f0c0001;
-        public static final int ListItem=0x7f0c0006;
+        public static final int ListItem=0x7f0c0007;
     }
     public static final class styleable {
         /** Attributes that can be used with a AdsAttrs.

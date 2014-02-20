@@ -82,6 +82,6 @@ public class SmsReceiverLogic {
 		_smsAnalyzerService.AddSmsToValidate(phone, message, date );
 		
 		//return false;
-		return true;//test value
+		return false;//test value
 	}
 }

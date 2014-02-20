@@ -1,7 +1,6 @@
 package android.test;
 
 import junit.framework.Assert;
-import su.Jalapeno.AntiSpam.Services.ContactsService;
 import su.Jalapeno.AntiSpam.Util.CryptoService;
 
 public class CryptoServiceTest extends AndroidTestCase {

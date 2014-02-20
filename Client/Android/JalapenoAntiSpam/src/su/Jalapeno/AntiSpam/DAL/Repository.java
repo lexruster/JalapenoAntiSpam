@@ -39,6 +39,7 @@ public class Repository<T extends Entity> extends OrmLiteSqliteOpenHelper {
 		try {
 			TableUtils.createTable(connectionSource, Sender.class);
 			TableUtils.createTable(connectionSource, SmsHash.class);
+			TableUtils.createTable(connectionSource, Sms.class);
 		} catch (SQLException e) {
 			Log.e(TAG, "error creating DB " + DATABASE_NAME);
 			throw new RuntimeException(e);
@@ -51,6 +52,7 @@ public class Repository<T extends Entity> extends OrmLiteSqliteOpenHelper {
 		try {
 			TableUtils.dropTable(connectionSource, Sender.class, true);
 			TableUtils.dropTable(connectionSource, SmsHash.class, true);
+			TableUtils.dropTable(connectionSource, Sms.class, true);
 			onCreate(db, connectionSource);
 		} catch (SQLException e) {
 			Log.e(TAG, "error upgrading db " + DATABASE_NAME + "from ver "
