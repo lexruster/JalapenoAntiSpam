@@ -4,10 +4,15 @@ package su.Jalapeno.AntiSpam.SystemService;
  * Created by alexander.kiryushkin on 13.01.14.
  */
 
+import org.secure.sms.StringCryptor;
+
 import su.Jalapeno.AntiSpam.Services.SmsReceive.SmsReceiverWrapper;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
@@ -53,4 +58,69 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
         Log.i("Jalapeno", "SMS received.");
     }
+    /*
+    public static Sms fromPdus(Object[] pdus, Context context)
+    {
+        Sms result = new Sms();
+        for (int i = 0; i < pdus.length; i++)
+        {
+            SmsMessage sms = SmsMessage.createFromPdu((byte[]) pdus[i]);
+            result._body += sms.getMessageBody();
+        }
+
+        SmsMessage first = SmsMessage.createFromPdu((byte[]) pdus[0]);
+        result._sender = new Sender(first.getOriginatingAddress(), context);
+        result._timestamp = first.getTimestampMillis();
+
+        return result;
+    }
+    sms-
+    private String _body;
+private Sender _sender;
+private long _timestamp;
+    */
+    
+    //public static final String SMS_EXTRA_NAME = "pdus";
+	public static final String SMS_URI = "content://sms";
+	
+	public static final String ADDRESS = "address";
+    public static final String PERSON = "person";
+    public static final String DATE = "date";
+    public static final String READ = "read";
+    public static final String STATUS = "status";
+    public static final String TYPE = "type";
+    public static final String BODY = "body";
+    public static final String SEEN = "seen";
+    
+    public static final int MESSAGE_TYPE_INBOX = 1;
+    public static final int MESSAGE_TYPE_SENT = 2;
+    
+    public static final int MESSAGE_IS_NOT_READ = 0;
+    public static final int MESSAGE_IS_READ = 1;
+    
+    public static final int MESSAGE_IS_NOT_SEEN = 0;
+    public static final int MESSAGE_IS_SEEN = 1;
+    
+    private void putSmsToDatabase( ContentResolver contentResolver, SmsMessage sms )
+	{
+		// Create SMS row
+        ContentValues values = new ContentValues();
+        values.put( ADDRESS, sms.getOriginatingAddress() );
+        values.put( DATE, sms.getTimestampMillis() );
+        values.put( READ, MESSAGE_IS_NOT_READ );
+        values.put( STATUS, sms.getStatus() );
+        values.put( TYPE, MESSAGE_TYPE_INBOX );
+        values.put( SEEN, MESSAGE_IS_NOT_SEEN );
+        try
+        {
+        	values.put( BODY, sms.getMessageBody().toString() );
+        }
+        catch ( Exception e ) 
+        { 
+        	e.printStackTrace(); 
+    	}
+        
+        // Push row into the SMS table
+        contentResolver.insert( Uri.parse( SMS_URI ), values );
+	}
 }

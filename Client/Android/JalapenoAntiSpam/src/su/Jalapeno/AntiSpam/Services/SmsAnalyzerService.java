@@ -47,7 +47,6 @@ public class SmsAnalyzerService {
 		ProcessingComplains(sender, hashes);
 
 		_smsQueueService.DeleteBySender(sender);
-
 	}
 
 	private void ProcessingComplains(String sender, List<String> hashes) {
