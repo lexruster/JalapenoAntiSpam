@@ -114,5 +114,7 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 
 	private void UpdateList() {
 		_smsAdapter.Regresh();
+		_selectedSms = null;
+		UpdateButtons();
 	}
 }

@@ -19,24 +19,20 @@ public class SmsAnalyzerService {
 	private SmsHashService _smsHashService;
 	private SenderService _senderService;
 	private Context _context;
+	private SmsService _smsService;
 
 	@Inject
-	public SmsAnalyzerService(Context context, SmsQueueService smsQueueService,
-			RequestQueue queue, SmsHashService smsHashService,
-			SenderService senderService) {
+	public SmsAnalyzerService(Context context, SmsQueueService smsQueueService, RequestQueue queue, SmsHashService smsHashService,
+			SenderService senderService, SmsService smsService) {
 		_context = context;
 		_smsQueueService = smsQueueService;
 		_requestQueue = queue;
 		_smsHashService = smsHashService;
 		_senderService = senderService;
-
+		_smsService = smsService;
 	}
 
-	public void AddSmsToValidate(String phone, String message, Date date) {
-		Sms sms = new Sms();
-		sms.SenderId = phone;
-		sms.RecieveDate = date;
-		sms.Text = message;
+	public void AddSmsToValidate(Sms sms) {
 		_smsQueueService.AddSms(sms);
 	}
 
@@ -85,8 +81,8 @@ public class SmsAnalyzerService {
 
 	private void SaveSmsToPhoneBase(List<Sms> smsList) {
 		for (Sms sms : smsList) {
-			DebugMessage.Debug(_context, "Save sms " + sms.SenderId + " "
-					+ sms.Text);
+			DebugMessage.Debug(_context, "Save sms " + sms.SenderId + " " + sms.Text);
+			_smsService.PutSmsToDatabase(sms);
 		}
 	}
 
