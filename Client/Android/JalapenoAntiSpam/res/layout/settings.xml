@@ -22,8 +22,8 @@
         style="@style/BaseControl.Button"
         android:onClick="toggleClick"
         android:text="ToggleButton"
-        android:textOff="Antispam Off"
-        android:textOn="Antispam On" />
+        android:textOff="@string/AntiSpamOff"
+        android:textOn="@string/AntiSpamOn" />
 
     <Button
         android:id="@+id/buttonSpammerList"
@@ -44,7 +44,7 @@
     <Button
         android:id="@+id/buttonDebug"
         style="@style/BaseControl.Button.Debug"
-        android:text="Debug window"
+        android:text="@string/DebugActivity"
         android:visibility="visible" />
 
 </LinearLayout>

@@ -18,4 +18,7 @@
     <string name="DeleteButton">Delete</string>
     <string name="DateFormat">MM/dd/yyyy HH:mm:ss</string>
     
+    <string name="AntiSpamOn">AntiSpam On</string>
+    <string name="AntiSpamOff">AntiSpam Off</string>
+    
 </resources>

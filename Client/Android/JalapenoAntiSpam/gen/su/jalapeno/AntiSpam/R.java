@@ -236,6 +236,8 @@ containing a value of this type.
         public static final int ic_plusone_standard_off_client=0x7f02001c;
         public static final int ic_plusone_tall_off_client=0x7f02001d;
         public static final int jalapeno=0x7f02001e;
+        public static final int mail=0x7f02001f;
+        public static final int mailb=0x7f020020;
     }
     public static final class id {
         public static final int action_settings=0x7f070024;
@@ -295,6 +297,8 @@ containing a value of this type.
         public static final int cartoon010=0x7f050001;
     }
     public static final class string {
+        public static final int AntiSpamOff=0x7f08002d;
+        public static final int AntiSpamOn=0x7f08002c;
         public static final int DateFormat=0x7f08002b;
         public static final int DebugActivity=0x7f080023;
         public static final int DeleteButton=0x7f08002a;

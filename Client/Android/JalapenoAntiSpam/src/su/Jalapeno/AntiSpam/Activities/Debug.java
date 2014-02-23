@@ -6,9 +6,11 @@ import java.util.Random;
 
 import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
+import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.ContactsService;
 import su.Jalapeno.AntiSpam.Services.EmailSender;
 import su.Jalapeno.AntiSpam.Services.JalapenoHttpService;
+import su.Jalapeno.AntiSpam.Services.RingtoneService;
 import su.Jalapeno.AntiSpam.Services.SenderService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.SmsReceiverLogic;
@@ -56,6 +58,8 @@ public class Debug extends JalapenoActivity {
 	private String CLIENT_ID = "140853970719-l2mlr63jvg2h0lrosvnl7sj2t6fi4df0.apps.googleusercontent.com";
 	private Debug mActivity;
 
+	private RingtoneService _ringtoneService;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -82,10 +86,11 @@ public class Debug extends JalapenoActivity {
 		Log.i(TAG, "Start debug");
 		SCOPE = SCOPE_BASE + CLIENT_ID;
 		_context = getApplicationContext();
-		_smsService=ServiceFactory.GetSmsService(_context);
+		_smsService = ServiceFactory.GetSmsService(_context);
 		_settingsService = new SettingsService(_context);
 		jalapenoHttpService = new JalapenoHttpService(_context);
 		_smsReceiver = new SmsReceiver(_settingsService, _smsService);
+		_ringtoneService = new RingtoneService(_context, _settingsService);
 		mActivity = this;
 	}
 
@@ -329,7 +334,10 @@ public class Debug extends JalapenoActivity {
 	}
 
 	private void Receive(String phone, String body) {
-		_smsReceiver.Receive(phone, body, _context);
+		Sms sms = new Sms();
+		sms.SenderId = phone;
+		sms.Text = body;
+		_smsReceiver.Receive(sms, _context);
 	}
 
 	private void Receive8888() {
@@ -354,7 +362,7 @@ public class Debug extends JalapenoActivity {
 			if (random < 0) {
 				random *= -1;
 			}
-			String phone = String.format(Locale.ENGLISH,"+7%d", random);
+			String phone = String.format(Locale.ENGLISH, "+7%d", random);
 			String normalPhone = phone;
 			spamBase.AddOrUpdateSender(normalPhone, true);
 		}
@@ -394,8 +402,9 @@ public class Debug extends JalapenoActivity {
 
 	private void Spam() {
 		Toast.makeText(this, "Spam", Toast.LENGTH_LONG).show();
-		MediaPlayer mp = MediaPlayer.create(Debug.this, R.raw.cartoon003);
-		mp.start();
+		/*MediaPlayer mp = MediaPlayer.create(Debug.this, R.raw.cartoon003);
+		mp.start();*/
+		_ringtoneService.EmulateIncomeSms();
 	}
 
 	/*
@@ -407,7 +416,8 @@ public class Debug extends JalapenoActivity {
 
 	private void NewSms() {
 		Toast.makeText(this, "SMS", Toast.LENGTH_LONG).show();
-		MediaPlayer mp = MediaPlayer.create(Debug.this, R.raw.cartoon010);
-		mp.start();
+		/*MediaPlayer mp = MediaPlayer.create(Debug.this, R.raw.cartoon010);
+		mp.start();*/
+		_ringtoneService.ContactRingtone();
 	}
 }

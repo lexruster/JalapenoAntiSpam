@@ -12,6 +12,7 @@ import su.Jalapeno.AntiSpam.Services.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.Services.SmsHashService;
 import su.Jalapeno.AntiSpam.Services.SmsQueueService;
 import su.Jalapeno.AntiSpam.Services.SmsReceiverLogic;
+import su.Jalapeno.AntiSpam.Services.SmsService;
 import android.content.Context;
 
 public class ServiceFactory {
@@ -27,8 +28,9 @@ public class ServiceFactory {
 		SenderService senderService = new SenderService(repository);
 		RequestQueue _requestQueue = new RequestQueue(jalapenoHttpService);
 		SmsQueueService smsQueueService = new SmsQueueService(repository);
+		SmsService smsService = new SmsService(context);
 		SmsAnalyzerService smsAnalyzerService = new SmsAnalyzerService(context,
-				smsQueueService, _requestQueue, smsHashService, senderService);
+				smsQueueService, _requestQueue, smsHashService, senderService, smsService);
 
 		SmsReceiverLogic _smsReceiverLogic = new SmsReceiverLogic(
 				contactsService, jalapenoHttpService, smsAnalyzerService,

@@ -3,6 +3,7 @@ package su.Jalapeno.AntiSpam.Services;
 import java.util.Date;
 
 import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
+import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Util.Config;
 
 /**
@@ -19,14 +20,9 @@ public class SmsReceiverLogic {
 
 	private final int MIN_MESSAGE_LENGTH = 50;
 
-	public SmsReceiverLogic(ContactsService contactsService,
-			JalapenoHttpService jalapenoHttpService,
-			SmsAnalyzerService smsAnalyzerService,
-			SenderService senderService, 
-			RequestQueue requestQueue,
-			SettingsService settingsService, 
-			RingtoneService ringtoneService,
-			SmsHashService smsHashService) {
+	public SmsReceiverLogic(ContactsService contactsService, JalapenoHttpService jalapenoHttpService,
+			SmsAnalyzerService smsAnalyzerService, SenderService senderService, RequestQueue requestQueue, SettingsService settingsService,
+			RingtoneService ringtoneService, SmsHashService smsHashService) {
 		_contactsService = contactsService;
 		_jalapenoHttpService = jalapenoHttpService;
 		_smsAnalyzerService = smsAnalyzerService;
@@ -36,19 +32,19 @@ public class SmsReceiverLogic {
 		_smsHashService = smsHashService;
 	}
 
-	public boolean Receive(String phone, String message) {
+	public boolean Receive(Sms sms) {
 		Config config = _settingsService.LoadSettings();
 
 		if (!config.Enabled) {
 			return true;
 		}
 
-		if (_contactsService.PhoneInContact(phone)) {
+		if (_contactsService.PhoneInContact(sms.SenderId)) {
 			_ringtoneService.ContactRingtone();
 			return true;
 		}
 
-		Sender sender = _senderService.GetSender(phone);
+		Sender sender = _senderService.GetSender(sms.SenderId);
 		if (sender != null) {
 			if (!sender.IsSpammer) {
 				return true;
@@ -58,8 +54,8 @@ public class SmsReceiverLogic {
 		}
 
 		String smsTexthash = null;
-		if (message.length() > MIN_MESSAGE_LENGTH) {
-			smsTexthash = _smsHashService.GetHash(message);
+		if (sms.Text.length() > MIN_MESSAGE_LENGTH) {
+			smsTexthash = _smsHashService.GetHash(sms.Text);
 			boolean isSpam = _smsHashService.HashInSpamBase(smsTexthash);
 
 			if (isSpam) {
@@ -67,21 +63,20 @@ public class SmsReceiverLogic {
 			}
 		}
 
-		if (_jalapenoHttpService.IsSpamer(phone, smsTexthash)) {
-			_senderService.AddOrUpdateSender(phone, true);
+		if (_jalapenoHttpService.IsSpamer(sms.SenderId, smsTexthash)) {
+			_senderService.AddOrUpdateSender(sms.SenderId, true);
 			if (smsTexthash != null) {
 				_smsHashService.AddHash(smsTexthash);
 			}
-			
+
 			return false;
 		}
-		
+
 		_ringtoneService.EmulateIncomeSms();
-		
-		Date date = new Date(); 
-		_smsAnalyzerService.AddSmsToValidate(phone, message, date );
-		
-		//return false;
-		return false;//test value
+
+		_smsAnalyzerService.AddSmsToValidate(sms);
+
+		// return false;
+		return false;// test value
 	}
 }
