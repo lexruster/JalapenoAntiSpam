@@ -1,4 +1,4 @@
-package su.Jalapeno.AntiSpam.Services;
+package su.Jalapeno.AntiSpam.Services.Sms;
 
 import java.util.Date;
 

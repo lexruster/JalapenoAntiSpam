@@ -1,4 +1,4 @@
-package su.Jalapeno.AntiSpam.Services;
+package su.Jalapeno.AntiSpam.Services.Sms;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,6 +9,8 @@ import android.content.Context;
 import com.google.inject.Inject;
 
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
+import su.Jalapeno.AntiSpam.Services.RequestQueue;
+import su.Jalapeno.AntiSpam.Services.SenderService;
 import su.Jalapeno.AntiSpam.Util.DebugMessage;
 
 public class SmsAnalyzerService {

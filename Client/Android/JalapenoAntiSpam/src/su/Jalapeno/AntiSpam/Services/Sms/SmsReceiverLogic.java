@@ -1,9 +1,15 @@
-package su.Jalapeno.AntiSpam.Services;
+package su.Jalapeno.AntiSpam.Services.Sms;
 
 import java.util.Date;
 
 import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
+import su.Jalapeno.AntiSpam.Services.ContactsService;
+import su.Jalapeno.AntiSpam.Services.JalapenoHttpService;
+import su.Jalapeno.AntiSpam.Services.RequestQueue;
+import su.Jalapeno.AntiSpam.Services.RingtoneService;
+import su.Jalapeno.AntiSpam.Services.SenderService;
+import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Util.Config;
 
 /**

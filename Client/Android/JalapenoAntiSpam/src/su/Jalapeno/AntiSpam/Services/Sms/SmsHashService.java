@@ -1,4 +1,4 @@
-package su.Jalapeno.AntiSpam.Services;
+package su.Jalapeno.AntiSpam.Services.Sms;
 
 import com.google.inject.Inject;
 
@@ -6,6 +6,7 @@ import su.Jalapeno.AntiSpam.DAL.Repository;
 import su.Jalapeno.AntiSpam.DAL.DAO.JalapenoDao;
 import su.Jalapeno.AntiSpam.DAL.DAO.SmsHashDao;
 import su.Jalapeno.AntiSpam.DAL.Domain.SmsHash;
+import su.Jalapeno.AntiSpam.Services.JalapenoService;
 import su.Jalapeno.AntiSpam.Util.CryptoService;
 
 public class SmsHashService extends JalapenoService<SmsHash> {

@@ -1,4 +1,4 @@
-package su.Jalapeno.AntiSpam.Services;
+package su.Jalapeno.AntiSpam.Services.Sms;
 
 import java.util.ArrayList;
 
@@ -6,6 +6,7 @@ import su.Jalapeno.AntiSpam.DAL.Repository;
 import su.Jalapeno.AntiSpam.DAL.DAO.JalapenoDao;
 import su.Jalapeno.AntiSpam.DAL.DAO.SmsDao;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
+import su.Jalapeno.AntiSpam.Services.JalapenoService;
 
 import com.google.inject.Inject;
 

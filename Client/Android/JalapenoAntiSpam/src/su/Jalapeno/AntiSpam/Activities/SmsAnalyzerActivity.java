@@ -1,11 +1,11 @@
 package su.Jalapeno.AntiSpam.Activities;
 
 import su.Jalapeno.AntiSpam.R;
+import su.Jalapeno.AntiSpam.Adapters.SmsAdapter;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
-import su.Jalapeno.AntiSpam.Services.SmsAnalyzerService;
+import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.Util.DebugMessage;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;
-import su.JalapenoAntiSpam.UI.SmsAdapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;

@@ -1,4 +1,4 @@
-package su.Jalapeno.AntiSpam.Services.SmsReceive;
+package su.Jalapeno.AntiSpam.Services.Sms;
 
 import android.content.Context;
 import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;

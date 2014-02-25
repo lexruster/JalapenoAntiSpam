@@ -1,4 +1,4 @@
-package su.JalapenoAntiSpam.UI;
+package su.Jalapeno.AntiSpam.Adapters;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -7,7 +7,7 @@ import java.util.Date;
 
 import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
-import su.Jalapeno.AntiSpam.Services.SmsQueueService;
+import su.Jalapeno.AntiSpam.Services.Sms.SmsQueueService;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

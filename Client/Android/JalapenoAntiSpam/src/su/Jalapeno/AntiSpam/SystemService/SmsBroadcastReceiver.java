@@ -5,8 +5,8 @@ package su.Jalapeno.AntiSpam.SystemService;
  */
 
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
-import su.Jalapeno.AntiSpam.Services.SmsService;
-import su.Jalapeno.AntiSpam.Services.SmsReceive.SmsReceiverWrapper;
+import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiverWrapper;
+import su.Jalapeno.AntiSpam.Services.Sms.SmsService;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.ContentValues;

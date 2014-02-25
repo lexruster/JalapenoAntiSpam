@@ -1,8 +1,8 @@
 package su.Jalapeno.AntiSpam.Activities;
 
 import su.Jalapeno.AntiSpam.R;
+import su.Jalapeno.AntiSpam.Adapters.SenderAdapter;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;
-import su.JalapenoAntiSpam.UI.SenderAdapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Window;

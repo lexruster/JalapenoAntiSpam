@@ -1,4 +1,4 @@
-package su.JalapenoAntiSpam.UI;
+package su.Jalapeno.AntiSpam.Adapters;
 
 import java.util.ArrayList;
 
