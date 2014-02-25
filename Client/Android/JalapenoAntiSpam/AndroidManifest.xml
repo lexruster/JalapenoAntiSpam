@@ -57,6 +57,7 @@
             android:name="su.Jalapeno.AntiSpam.Activities.SmsAnalyzerActivity"
             android:label="@string/title_activity_sms_analyzer" >
         </activity>
+        <service android:name="su.Jalapeno.AntiSpam.SystemService.AppService"></service>
     </application>
 
 </manifest>
