@@ -1,8 +1,5 @@
 package su.Jalapeno.AntiSpam.Services;
 
-import java.util.ArrayList;
-
-import com.google.inject.Inject;
 
 /**
  * Created by Kseny on 06.01.14.

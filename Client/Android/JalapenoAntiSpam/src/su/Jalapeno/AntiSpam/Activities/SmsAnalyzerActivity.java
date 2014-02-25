@@ -4,9 +4,11 @@ import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.Adapters.SmsAdapter;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
+import su.Jalapeno.AntiSpam.SystemService.AppService;
 import su.Jalapeno.AntiSpam.Util.DebugMessage;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -35,6 +37,7 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_sms_analyzer);
+		_context.startService(new Intent(_context, AppService.class));
 		Init();
 	}
 

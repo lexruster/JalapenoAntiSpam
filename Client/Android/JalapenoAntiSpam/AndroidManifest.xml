@@ -23,6 +23,7 @@
 
 
     <!-- android:theme="@android:style/Theme.Translucent" -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:name="su.Jalapeno.AntiSpam.MyApplication"
@@ -50,6 +51,12 @@
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
+        
+        <receiver android:name="su.Jalapeno.AntiSpam.SystemService.ServiceBroadcastReceiver" android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
 
         <activity android:name="su.Jalapeno.AntiSpam.Activities.Debug" />
         <activity android:name="su.Jalapeno.AntiSpam.Activities.SpamerList" />
@@ -57,7 +64,8 @@
             android:name="su.Jalapeno.AntiSpam.Activities.SmsAnalyzerActivity"
             android:label="@string/title_activity_sms_analyzer" >
         </activity>
-        <service android:name="su.Jalapeno.AntiSpam.SystemService.AppService"></service>
+        <service android:name="su.Jalapeno.AntiSpam.SystemService.AppService" ></service>
+        
     </application>
 
 </manifest>

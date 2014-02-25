@@ -10,7 +10,7 @@ import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.ContactsService;
 import su.Jalapeno.AntiSpam.Services.EmailSender;
 import su.Jalapeno.AntiSpam.Services.JalapenoHttpService;
-import su.Jalapeno.AntiSpam.Services.RingtoneService;
+import su.Jalapeno.AntiSpam.Services.NotifyService;
 import su.Jalapeno.AntiSpam.Services.SenderService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiver;
@@ -23,7 +23,6 @@ import android.accounts.AccountManager;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -58,7 +57,7 @@ public class Debug extends JalapenoActivity {
 	private String CLIENT_ID = "140853970719-l2mlr63jvg2h0lrosvnl7sj2t6fi4df0.apps.googleusercontent.com";
 	private Debug mActivity;
 
-	private RingtoneService _ringtoneService;
+	private NotifyService _ringtoneService;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -90,7 +89,7 @@ public class Debug extends JalapenoActivity {
 		_settingsService = new SettingsService(_context);
 		jalapenoHttpService = new JalapenoHttpService(_context);
 		_smsReceiver = new SmsReceiver(_settingsService, _smsService);
-		_ringtoneService = new RingtoneService(_context, _settingsService);
+		_ringtoneService = new NotifyService(_context, _settingsService);
 		mActivity = this;
 	}
 
@@ -404,7 +403,7 @@ public class Debug extends JalapenoActivity {
 		Toast.makeText(this, "Spam", Toast.LENGTH_LONG).show();
 		/*MediaPlayer mp = MediaPlayer.create(Debug.this, R.raw.cartoon003);
 		mp.start();*/
-		_ringtoneService.EmulateIncomeSms();
+		_ringtoneService.OnIncomeSms();
 	}
 
 	/*
