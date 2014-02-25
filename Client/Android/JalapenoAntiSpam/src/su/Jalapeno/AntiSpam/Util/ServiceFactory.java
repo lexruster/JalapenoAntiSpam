@@ -8,11 +8,11 @@ import su.Jalapeno.AntiSpam.Services.RequestQueue;
 import su.Jalapeno.AntiSpam.Services.RingtoneService;
 import su.Jalapeno.AntiSpam.Services.SenderService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
-import su.Jalapeno.AntiSpam.Services.SmsAnalyzerService;
-import su.Jalapeno.AntiSpam.Services.SmsHashService;
-import su.Jalapeno.AntiSpam.Services.SmsQueueService;
-import su.Jalapeno.AntiSpam.Services.SmsReceiverLogic;
-import su.Jalapeno.AntiSpam.Services.SmsService;
+import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
+import su.Jalapeno.AntiSpam.Services.Sms.SmsHashService;
+import su.Jalapeno.AntiSpam.Services.Sms.SmsQueueService;
+import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiverLogic;
+import su.Jalapeno.AntiSpam.Services.Sms.SmsService;
 import android.content.Context;
 
 public class ServiceFactory {
