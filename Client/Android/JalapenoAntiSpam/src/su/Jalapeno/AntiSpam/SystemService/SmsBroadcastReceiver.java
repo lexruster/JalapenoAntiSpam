@@ -8,13 +8,9 @@ import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiverWrapper;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsService;
 import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.telephony.SmsMessage;
 import android.util.Log;
 
 public class SmsBroadcastReceiver extends BroadcastReceiver {

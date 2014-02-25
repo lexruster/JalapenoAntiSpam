@@ -31,6 +31,11 @@ public abstract class JalapenoService<T extends Entity> {
 
 		return list;
 	}
+	
+	public long Count()
+	{
+		return GetDao().Count();
+	}
 
 	public void Delete(T entity) {
 		GetDao().Delete(entity);

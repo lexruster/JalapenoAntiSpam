@@ -2,14 +2,17 @@ package su.Jalapeno.AntiSpam.Services.Sms;
 
 import java.util.Date;
 
+import android.content.Context;
+import android.content.Intent;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.ContactsService;
 import su.Jalapeno.AntiSpam.Services.JalapenoHttpService;
 import su.Jalapeno.AntiSpam.Services.RequestQueue;
-import su.Jalapeno.AntiSpam.Services.RingtoneService;
+import su.Jalapeno.AntiSpam.Services.NotifyService;
 import su.Jalapeno.AntiSpam.Services.SenderService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
+import su.Jalapeno.AntiSpam.SystemService.AppService;
 import su.Jalapeno.AntiSpam.Util.Config;
 
 /**
@@ -21,32 +24,35 @@ public class SmsReceiverLogic {
 	private SmsAnalyzerService _smsAnalyzerService;
 	private SenderService _senderService;
 	private SettingsService _settingsService;
-	private RingtoneService _ringtoneService;
+	private NotifyService _notifyService;
 	private SmsHashService _smsHashService;
 
 	private final int MIN_MESSAGE_LENGTH = 50;
+	private Context _context;
 
-	public SmsReceiverLogic(ContactsService contactsService, JalapenoHttpService jalapenoHttpService,
+	public SmsReceiverLogic(Context context, ContactsService contactsService, JalapenoHttpService jalapenoHttpService,
 			SmsAnalyzerService smsAnalyzerService, SenderService senderService, RequestQueue requestQueue, SettingsService settingsService,
-			RingtoneService ringtoneService, SmsHashService smsHashService) {
+			NotifyService notifyService, SmsHashService smsHashService) {
+		_context = context;
 		_contactsService = contactsService;
 		_jalapenoHttpService = jalapenoHttpService;
 		_smsAnalyzerService = smsAnalyzerService;
 		_senderService = senderService;
 		_settingsService = settingsService;
-		_ringtoneService = ringtoneService;
+		_notifyService = notifyService;
 		_smsHashService = smsHashService;
 	}
 
 	public boolean Receive(Sms sms) {
 		Config config = _settingsService.LoadSettings();
+		_context.startService(new Intent(_context, AppService.class));
 
 		if (!config.Enabled) {
 			return true;
 		}
 
 		if (_contactsService.PhoneInContact(sms.SenderId)) {
-			_ringtoneService.ContactRingtone();
+			_notifyService.ContactRingtone();
 			return true;
 		}
 
@@ -78,9 +84,9 @@ public class SmsReceiverLogic {
 			return false;
 		}
 
-		_ringtoneService.EmulateIncomeSms();
-
 		_smsAnalyzerService.AddSmsToValidate(sms);
+
+		_notifyService.OnIncomeSms();
 
 		// return false;
 		return false;// test value
