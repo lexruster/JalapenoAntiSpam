@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="JalapenoTheme" parent="@android:style/Theme.Black">
+        <item name="android:buttonStyle">@style/JalaponeThemeButton</item>
+    </style>
+
+    <style name="JalaponeThemeButton" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/hbutton</item>
+    </style>
+
+</resources>
