@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/BaseLayout"
+    
     tools:context=".SmsAnalyzerActivity" >
 
     <ImageView
@@ -44,6 +45,7 @@
     <Button
         android:id="@+id/buttonDebug"
         style="@style/BaseControl.Button.Debug"
+        
         android:text="@string/DebugActivity"
         android:visibility="visible" />
 

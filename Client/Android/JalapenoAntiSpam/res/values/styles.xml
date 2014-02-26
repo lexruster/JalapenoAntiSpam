@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="BaseControl">
+    <style name="BaseControl" parent="@android:style/Theme.Black">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@android:color/white</item>
@@ -21,7 +21,7 @@
         <item name="android:paddingTop">@dimen/activity_vertical_margin</item>
     </style>
 
-    <style name="BaseControl.Button">
+    <style name="BaseControl.Button" parent="@android:style/Widget.Button">
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
     
@@ -33,7 +33,7 @@
 
     <style name="BaseControl.Button.Debug">
         <item name="android:layout_gravity">center_horizontal</item>
-        <item name="android:textColor">@android:color/holo_red_dark</item>
+        <item name="android:textColor">#FF0000</item>
         <item name="android:typeface">normal</item>
     </style>
 
@@ -52,8 +52,6 @@
     <style name="ListItem">
         
     </style>
-    
-    
     
     <style name="BaseControl.ListGroup">
         <item name="android:layout_gravity">center_horizontal</item>
