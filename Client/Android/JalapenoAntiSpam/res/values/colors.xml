@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<color name="Bckgr">#9C9C9C</color>
+<color name="Red">#33FF0000</color>
+<color name="Orange">#33FFFF00</color>
+<color name="Green">#3300FF00</color>
+<color name="Black">#000000</color>
+<color name="DarkGrey">#2E2E2E</color>
+<color name="Black">#000000</color>
+
+<color name="pressed_color">#1218DB</color>
+<color name="default_color">#2E2E2E</color>
+
+</resources>
