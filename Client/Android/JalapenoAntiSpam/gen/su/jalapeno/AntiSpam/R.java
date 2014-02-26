@@ -419,15 +419,26 @@ containing a value of this type.
     public static final class style {
         public static final int BaseControl=0x7f0c0000;
         public static final int BaseControl_Button=0x7f0c0002;
-        public static final int BaseControl_Button_Debug=0x7f0c0004;
-        public static final int BaseControl_ButtonSms=0x7f0c0003;
-        public static final int BaseControl_ListGroup=0x7f0c0008;
-        public static final int BaseControl_ListView=0x7f0c0006;
-        public static final int BaseControl_TextHeader=0x7f0c0005;
+        public static final int BaseControl_Button_Debug=0x7f0c0005;
+        public static final int BaseControl_Button_Toogle=0x7f0c0003;
+        public static final int BaseControl_ButtonSms=0x7f0c0004;
+        public static final int BaseControl_ListGroup=0x7f0c0009;
+        public static final int BaseControl_ListView=0x7f0c0007;
+        public static final int BaseControl_TextHeader=0x7f0c0006;
         public static final int BaseLayout=0x7f0c0001;
-        public static final int JalapenoTheme=0x7f0c0009;
-        public static final int JalaponeThemeButton=0x7f0c000a;
-        public static final int ListItem=0x7f0c0007;
+        /**  <item name="android:buttonStyle">@style/JalaponeThemeButton</item> 
+ <item name="android:buttonStyle">@style/JalaponeThemeButton</item> 
+         */
+        public static final int JalapenoTheme=0x7f0c000a;
+        /**  <item name="android:background">@drawable/hbutton</item> 
+ <item name="android:background">@drawable/hbutton</item> 
+         */
+        public static final int JalaponeThemeButton=0x7f0c000b;
+        /** <item name="android:background">@drawable/hbutton</item>
+<item name="android:background">@drawable/hbutton</item>
+         */
+        public static final int JalaponeThemeToogleButton=0x7f0c000c;
+        public static final int ListItem=0x7f0c0008;
     }
     public static final class styleable {
         /** Attributes that can be used with a AdsAttrs.
