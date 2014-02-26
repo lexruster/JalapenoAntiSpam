@@ -7,6 +7,7 @@ import su.Jalapeno.AntiSpam.Activities.SmsAnalyzerActivity;
 import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsQueueService;
 import su.Jalapeno.AntiSpam.Util.Constants;
+import su.Jalapeno.AntiSpam.Util.UI.NotifyBuilder;
 import android.app.Notification;
 import android.app.Notification.Builder;
 import android.app.PendingIntent;
@@ -16,6 +17,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 public class AppService extends Service {
@@ -38,7 +40,7 @@ public class AppService extends Service {
 
 		if (_smsQueueService != null) {
 			long count = _smsQueueService.Count();
-			Notification notification = CreateNotifacation(count);
+			Notification notification = NotifyBuilder.CreateNotifacation(_context, count);
 			Log.d(LOG_TAG, "Start notify count " + count);
 			startForeground(NOTIFY_ID, notification);
 		} else {
@@ -48,39 +50,6 @@ public class AppService extends Service {
 
 		return START_STICKY;
 		// return super.onStartCommand(intent, flags, startId);
-	}
-
-	private Notification CreateNotifacation(long count) {
-		Bitmap bm = BitmapFactory.decodeResource(_context.getResources(),
-				R.drawable.mailb);
-
-		Builder notifBuilder = new Notification.Builder(_context)
-				.setOngoing(true).setContentTitle("New sms")
-				.setContentText("sms received").setSmallIcon(R.drawable.mail)
-				.setLargeIcon(bm).setWhen(System.currentTimeMillis())
-				.setContentInfo(Long.toString(count)).setAutoCancel(false)
-				.setNumber((int) count);
-
-		Intent notificationIntent = new Intent(_context,
-				SmsAnalyzerActivity.class);
-
-		PendingIntent pendingIntent = PendingIntent.getActivity(_context, 131,
-				notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-		notifBuilder.setContentIntent(pendingIntent);
-
-		Notification notification = notifBuilder.getNotification();
-
-		// notification.flags |= Notification.FLAG_AUTO_CANCEL;
-		notification.defaults |= Notification.DEFAULT_VIBRATE;
-		notification.defaults |= Notification.DEFAULT_LIGHTS;
-		notification.flags |= Notification.FLAG_SHOW_LIGHTS;
-		notification.flags |= Notification.FLAG_NO_CLEAR;
-
-		// NotificationManager notificationManager = (NotificationManager)
-		// _context.getSystemService(Context.NOTIFICATION_SERVICE);
-		// notificationManager.notify(0, notification);
-
-		return notification;
 	}
 
 	public void onDestroy() {

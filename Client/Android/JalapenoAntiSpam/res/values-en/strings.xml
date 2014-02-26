@@ -21,4 +21,7 @@
     <string name="AntiSpamOn">AntiSpam On</string>
     <string name="AntiSpamOff">AntiSpam Off</string>
     
+    <string name="ExistsUnknownSms">Exists unknown sms</string>
+    <string name="NotExistsUnknownSms">No spam</string>
+    
 </resources>

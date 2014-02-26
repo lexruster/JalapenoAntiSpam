@@ -65,11 +65,10 @@
         <activity android:name="su.Jalapeno.AntiSpam.Activities.Debug" />
         <activity android:name="su.Jalapeno.AntiSpam.Activities.SpamerList" />
         <activity
-            android:name="su.Jalapeno.AntiSpam.Activities.SmsAnalyzerActivity"
-            android:label="@string/title_activity_sms_analyzer" >
+            android:name="su.Jalapeno.AntiSpam.Activities.SmsAnalyzerActivity">
         </activity>
 
-        <service android:name="su.Jalapeno.AntiSpam.SystemService.AppService" >
+        <service android:name="su.Jalapeno.AntiSpam.SystemService.AppService" android:process=":appserv" >
         </service>
     </application>
 

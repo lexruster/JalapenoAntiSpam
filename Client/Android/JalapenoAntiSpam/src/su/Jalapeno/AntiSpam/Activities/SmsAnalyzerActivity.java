@@ -119,5 +119,6 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 		_smsAdapter.Regresh();
 		_selectedSms = null;
 		UpdateButtons();
+		startService(new Intent(this, AppService.class));
 	}
 }

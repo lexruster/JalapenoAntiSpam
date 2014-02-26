@@ -49,6 +49,6 @@ public class SettingsService {
         editor.putBoolean(config.EnabledString, config.EnabledDefault);
         editor.putString(config.PublicKeyString, config.PublicKeyDefault);
         editor.putString(config.UnknownSoundString, config.UnknownSoundDefault);
-        editor.apply();
+        editor.commit();
     }
 }

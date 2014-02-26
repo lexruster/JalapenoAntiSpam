@@ -13,6 +13,6 @@ public class ServiceBroadcastReceiver extends BroadcastReceiver {
 	  @Override
 	  public void onReceive(Context context, Intent intent) {
 	    Log.d(LOG_TAG, "onReceive " + intent.getAction());
-	    //context.startService(new Intent(context, AppService.class));
+	    context.startService(new Intent(context, AppService.class));
 	  }
 	}
