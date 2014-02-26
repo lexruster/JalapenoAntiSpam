@@ -20,15 +20,16 @@
 
     <ToggleButton
         android:id="@+id/toggleEnabled"
-        style="@style/BaseControl.Button"
+        style="@style/BaseControl.Button.Toogle"
         android:onClick="toggleClick"
         android:text="ToggleButton"
         android:textOff="@string/AntiSpamOff"
-        android:textOn="@string/AntiSpamOn" />
+        android:textOn="@string/AntiSpamOn" 
+        />
 
     <Button
         android:id="@+id/buttonSpammerList"
-        style="@style/BaseControl.Button"
+         style="@style/BaseControl.Button"
         android:text="@string/KnownSpammerList" />
 
     <Button
