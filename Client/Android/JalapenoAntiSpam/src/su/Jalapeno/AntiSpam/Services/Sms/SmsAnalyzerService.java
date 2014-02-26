@@ -1,17 +1,15 @@
 package su.Jalapeno.AntiSpam.Services.Sms;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import android.content.Context;
-
-import com.google.inject.Inject;
 
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.RequestQueue;
 import su.Jalapeno.AntiSpam.Services.SenderService;
 import su.Jalapeno.AntiSpam.Util.DebugMessage;
+import android.content.Context;
+
+import com.google.inject.Inject;
 
 public class SmsAnalyzerService {
 

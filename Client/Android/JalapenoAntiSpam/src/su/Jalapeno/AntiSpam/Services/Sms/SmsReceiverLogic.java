@@ -1,21 +1,19 @@
 package su.Jalapeno.AntiSpam.Services.Sms;
 
-import java.util.Date;
-
-import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.ContactsService;
 import su.Jalapeno.AntiSpam.Services.JalapenoHttpService;
-import su.Jalapeno.AntiSpam.Services.RequestQueue;
 import su.Jalapeno.AntiSpam.Services.NotifyService;
+import su.Jalapeno.AntiSpam.Services.RequestQueue;
 import su.Jalapeno.AntiSpam.Services.SenderService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 
 /**
  * Created by Kseny on 30.12.13.
