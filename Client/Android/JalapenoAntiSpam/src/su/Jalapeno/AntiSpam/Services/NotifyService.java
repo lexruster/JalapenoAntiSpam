@@ -1,18 +1,21 @@
 package su.Jalapeno.AntiSpam.Services;
 
 import su.Jalapeno.AntiSpam.SystemService.AppService;
+import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.DebugMessage;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.util.Log;
 
 import com.google.inject.Inject;
 
 public class NotifyService {
 	private SettingsService _settingsService;
 	private Context _context;
+	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "NotifyService";
 
 	@Inject
 	public NotifyService(Context context, SettingsService settingsService) {
@@ -25,6 +28,7 @@ public class NotifyService {
 	}
 
 	public void OnIncomeSms() {
+		Log.i(LOG_TAG, "OnIncomeSms.");
 		PlayRingtone();
 
 		_context.startService(new Intent(_context, AppService.class));

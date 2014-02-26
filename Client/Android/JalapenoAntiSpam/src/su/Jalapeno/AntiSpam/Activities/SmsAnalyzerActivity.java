@@ -37,7 +37,6 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_sms_analyzer);
-		_context.startService(new Intent(_context, AppService.class));
 		Init();
 	}
 
@@ -49,6 +48,7 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 
 	private void Init() {
 		_context = this.getApplicationContext();
+		_context.startService(new Intent(_context, AppService.class));
 		_needSmsButton = (Button) findViewById(R.id.btnNeedSms);
 		_spamButton = (Button) findViewById(R.id.btnSpamSms);
 		_deleteButton = (Button) findViewById(R.id.btnDeleteSms);
