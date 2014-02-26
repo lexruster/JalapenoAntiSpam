@@ -3,6 +3,7 @@ package su.Jalapeno.AntiSpam.Services.Sms;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Util.Config;
+import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.DebugMessage;
 import android.content.Context;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.util.Log;
 
 public class SmsReceiver {
 
+	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "SmsReceiver";
     private SettingsService _settingsService;
     private SmsReceiverLogic _smsReceiverLogic;
 
@@ -29,7 +31,7 @@ public class SmsReceiver {
         String messageOut = String.format("%s\n%s\nSpam: %s", sms.SenderId, sms.Text, !isClearFromSpam);
         DebugMessage.Debug(context, messageOut);
 
-        Log.i("Jalapeno", messageOut);
+        Log.i(LOG_TAG, messageOut);
         return isClearFromSpam;
     }
 }

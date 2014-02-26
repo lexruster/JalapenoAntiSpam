@@ -6,6 +6,7 @@ import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.Activities.SmsAnalyzerActivity;
 import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsQueueService;
+import su.Jalapeno.AntiSpam.Util.Constants;
 import android.app.Notification;
 import android.app.Notification.Builder;
 import android.app.PendingIntent;
@@ -21,23 +22,28 @@ public class AppService extends Service {
 	private final int NOTIFY_ID = 731957691;
 
 	private SmsQueueService _smsQueueService;
-	final String LOG_TAG = "AppService";
+	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "AppService";
 	Context _context;
 
 	public void onCreate() {
 		super.onCreate();
 		_context = this;
-		_smsQueueService = new SmsQueueService(RepositoryFactory.getRepository());
+		_smsQueueService = new SmsQueueService(
+				RepositoryFactory.getRepository());
 		Log.d(LOG_TAG, "onCreate");
 	}
 
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Log.d(LOG_TAG, "onStartCommand");
+		Log.d(LOG_TAG, "onStartCommand flag " + flags + " start " + startId);
 
-		long count = _smsQueueService.Count();
-		Notification notification = CreateNotifacation(count);
-		startForeground(NOTIFY_ID, notification);
-
+		if (_smsQueueService != null) {
+			long count = _smsQueueService.Count();
+			Notification notification = CreateNotifacation(count);
+			Log.d(LOG_TAG, "Start notify count " + count);
+			startForeground(NOTIFY_ID, notification);
+		} else {
+			Log.d(LOG_TAG, "onStartCommand _smsQueueService = null ");
+		}
 		someTask();
 
 		return START_STICKY;
@@ -45,15 +51,21 @@ public class AppService extends Service {
 	}
 
 	private Notification CreateNotifacation(long count) {
-		Bitmap bm = BitmapFactory.decodeResource(_context.getResources(), R.drawable.mailb);
+		Bitmap bm = BitmapFactory.decodeResource(_context.getResources(),
+				R.drawable.mailb);
 
-		Builder notifBuilder = new Notification.Builder(_context).setOngoing(true).setContentTitle("New sms")
-				.setContentText("sms received").setSmallIcon(R.drawable.mail).setLargeIcon(bm).setWhen(System.currentTimeMillis())
-				.setContentInfo(Long.toString(count)).setAutoCancel(false).setNumber((int) count);
+		Builder notifBuilder = new Notification.Builder(_context)
+				.setOngoing(true).setContentTitle("New sms")
+				.setContentText("sms received").setSmallIcon(R.drawable.mail)
+				.setLargeIcon(bm).setWhen(System.currentTimeMillis())
+				.setContentInfo(Long.toString(count)).setAutoCancel(false)
+				.setNumber((int) count);
 
-		Intent notificationIntent = new Intent(_context, SmsAnalyzerActivity.class);
+		Intent notificationIntent = new Intent(_context,
+				SmsAnalyzerActivity.class);
 
-		PendingIntent pendingIntent = PendingIntent.getActivity(_context, 131, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		PendingIntent pendingIntent = PendingIntent.getActivity(_context, 131,
+				notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		notifBuilder.setContentIntent(pendingIntent);
 
 		Notification notification = notifBuilder.getNotification();
@@ -83,18 +95,11 @@ public class AppService extends Service {
 	}
 
 	void someTask() {
-		new Thread(new Runnable() {
-			public void run() {
-				for (int i = 1; i <= 5; i++) {
-					Log.d(LOG_TAG, "i = " + i);
-					try {
-						TimeUnit.SECONDS.sleep(1);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-				stopSelf();
-			}
-		}).start();
+		/*
+		 * new Thread(new Runnable() { public void run() { for (int i = 1; i <=
+		 * 5; i++) { Log.d(LOG_TAG, "i = " + i); try {
+		 * TimeUnit.SECONDS.sleep(1); } catch (InterruptedException e) {
+		 * e.printStackTrace(); } } stopSelf(); } }).start();
+		 */
 	}
 }

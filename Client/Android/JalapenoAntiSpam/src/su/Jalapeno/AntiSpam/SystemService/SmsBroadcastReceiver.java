@@ -7,6 +7,7 @@ package su.Jalapeno.AntiSpam.SystemService;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiverWrapper;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsService;
+import su.Jalapeno.AntiSpam.Util.Constants;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,8 @@ import android.util.Log;
 
 public class SmsBroadcastReceiver extends BroadcastReceiver {
 
+	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "SmsBroadcastReceiver";
+	
 	public SmsBroadcastReceiver() {
 
 	}
@@ -22,31 +25,31 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		SmsService smsService = new SmsService(context);
-		Log.i("Jalapeno", "SMS income.");
+		Log.i(LOG_TAG, "SMS income.");
 
 		Boolean isClearFromSpam = true;
 		Bundle bundle = intent.getExtras();
 		Object[] pdus = (Object[]) bundle.get("pdus");
 
 		if (pdus.length == 0) {
-			Log.e("Jalapeno", "SMS extras NULL.");
+			Log.e(LOG_TAG, "SMS extras NULL.");
 			return;
 		}
 
-		Log.i("Jalapeno", "SMS extras not null.");
+		Log.i(LOG_TAG, "SMS extras not null.");
 
 		Sms sms = smsService.SmsFromPdus(pdus, context);
 		SmsReceiverWrapper smsReceiver = new SmsReceiverWrapper();
 
-		Log.i("Jalapeno", "Sender: " + sms.SenderId + " SMS: " + sms.Text);
+		Log.i(LOG_TAG, "Sender: " + sms.SenderId + " SMS: " + sms.Text);
 		isClearFromSpam = smsReceiver.Receive(sms, context);
 
 		if (!isClearFromSpam) {
-			Log.i("Jalapeno", "SMS aborted.");
+			Log.i(LOG_TAG, "SMS aborted.");
 			abortBroadcast();
 			return;
 		}
 
-		Log.i("Jalapeno", "SMS received.");
+		Log.i(LOG_TAG, "SMS received.");
 	}
 }
