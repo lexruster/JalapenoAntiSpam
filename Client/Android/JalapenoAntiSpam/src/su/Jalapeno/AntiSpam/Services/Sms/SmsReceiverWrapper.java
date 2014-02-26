@@ -1,10 +1,9 @@
 package su.Jalapeno.AntiSpam.Services.Sms;
 
-import android.content.Context;
-import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
-import su.Jalapeno.AntiSpam.Services.*;
+import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Util.ServiceFactory;
+import android.content.Context;
 
 public class SmsReceiverWrapper {
 
