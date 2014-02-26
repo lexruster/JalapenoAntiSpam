@@ -19,4 +19,7 @@
     <string name="DateFormat">dd:MM:yyyy HH:mm:ss</string>
     <string name="AntiSpamOn">Включено</string>
     <string name="AntiSpamOff">Выключено</string>
+    
+    <string name="ExistsUnknownSms">Есть непроверенные смс</string>
+    <string name="NotExistsUnknownSms">Спама нет</string>
 </resources>
