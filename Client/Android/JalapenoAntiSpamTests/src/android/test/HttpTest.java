@@ -1,6 +1,6 @@
 package android.test;
 
-import su.Jalapeno.AntiSpam.Services.JalapenoHttpService;
+import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
 
 public class HttpTest extends AndroidTestCase {
 	@Override

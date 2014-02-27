@@ -5,7 +5,7 @@ import su.Jalapeno.AntiSpam.Adapters.SmsAdapter;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
-import su.Jalapeno.AntiSpam.Util.DebugMessage;
+import su.Jalapeno.AntiSpam.Util.UI.DebugMessage;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;
 import android.content.Context;
 import android.content.Intent;

@@ -68,6 +68,12 @@
                     android:id="@+id/buttonSendTokenToEmail"
                     style="@style/BaseControl.Button"
                     android:text="Send token to email" />
+                
+                 <Button
+                    android:id="@+id/buttonDropRegister"
+                    style="@style/BaseControl.Button"
+                    android:onClick="DropRegister"
+                    android:text="Drop registration" />
             </LinearLayout>
 
             <LinearLayout

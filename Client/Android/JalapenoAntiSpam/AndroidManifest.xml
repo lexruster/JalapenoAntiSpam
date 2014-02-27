@@ -61,11 +61,14 @@
 
         <activity android:name="su.Jalapeno.AntiSpam.Activities.Debug" />
         <activity android:name="su.Jalapeno.AntiSpam.Activities.SpamerList" />
-        <activity
-            android:name="su.Jalapeno.AntiSpam.Activities.SmsAnalyzerActivity">
+        <activity android:name="su.Jalapeno.AntiSpam.Activities.SmsAnalyzerActivity" >
+        </activity>
+        <activity android:name="su.Jalapeno.AntiSpam.Activities.RegisterActivity" >
         </activity>
 
-        <service android:name="su.Jalapeno.AntiSpam.SystemService.AppService" android:process=":appserv" >
+        <service
+            android:name="su.Jalapeno.AntiSpam.SystemService.AppService"
+            android:process=":appserv" >
         </service>
     </application>
 

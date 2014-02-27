@@ -1,5 +1,7 @@
 package su.Jalapeno.AntiSpam.Services;
 
+import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
+
 import com.google.inject.Inject;
 
 /**
