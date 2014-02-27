@@ -1,4 +1,4 @@
-package su.Jalapeno.AntiSpam.Util;
+package su.Jalapeno.AntiSpam.Util.UI;
 
 import android.content.Context;
 import android.widget.Toast;

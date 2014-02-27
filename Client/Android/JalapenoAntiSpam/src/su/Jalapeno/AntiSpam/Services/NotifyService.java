@@ -2,7 +2,7 @@ package su.Jalapeno.AntiSpam.Services;
 
 import su.Jalapeno.AntiSpam.SystemService.AppService;
 import su.Jalapeno.AntiSpam.Util.Constants;
-import su.Jalapeno.AntiSpam.Util.DebugMessage;
+import su.Jalapeno.AntiSpam.Util.UI.DebugMessage;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Ringtone;

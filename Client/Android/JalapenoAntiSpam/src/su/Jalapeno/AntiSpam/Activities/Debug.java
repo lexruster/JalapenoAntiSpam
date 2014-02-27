@@ -9,15 +9,15 @@ import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.ContactsService;
 import su.Jalapeno.AntiSpam.Services.EmailSender;
-import su.Jalapeno.AntiSpam.Services.JalapenoHttpService;
 import su.Jalapeno.AntiSpam.Services.NotifyService;
 import su.Jalapeno.AntiSpam.Services.SenderService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiver;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiverLogic;
+import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
 import su.Jalapeno.AntiSpam.Util.Config;
-import su.Jalapeno.AntiSpam.Util.DebugMessage;
 import su.Jalapeno.AntiSpam.Util.ServiceFactory;
+import su.Jalapeno.AntiSpam.Util.UI.DebugMessage;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
 import android.accounts.AccountManager;
 import android.app.Dialog;
@@ -198,6 +198,14 @@ public class Debug extends JalapenoActivity {
 		});
 	}
 
+	
+	public void DropRegister(View v) {
+		Config config = _settingsService.LoadSettings();
+		config.ClientRegistered=false;
+		config.ClientId=null;
+		_settingsService.SaveSettings(config);
+	}
+	
 	protected void InContacts(String ph) {
 		boolean InC = contactsService.PhoneInContact(ph);
 		DebugMessage.Debug(mActivity, String.format("%s In cont: %s", ph, InC));

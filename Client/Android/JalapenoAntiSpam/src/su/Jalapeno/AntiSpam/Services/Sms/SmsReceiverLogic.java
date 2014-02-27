@@ -3,11 +3,12 @@ package su.Jalapeno.AntiSpam.Services.Sms;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.ContactsService;
-import su.Jalapeno.AntiSpam.Services.JalapenoHttpService;
 import su.Jalapeno.AntiSpam.Services.NotifyService;
 import su.Jalapeno.AntiSpam.Services.RequestQueue;
 import su.Jalapeno.AntiSpam.Services.SenderService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
+import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
+import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
@@ -20,7 +21,7 @@ import android.util.Log;
  */
 public class SmsReceiverLogic {
 	private ContactsService _contactsService;
-	private JalapenoHttpService _jalapenoHttpService;
+	private JalapenoWebServiceWraper _jalapenoWebServiceWraper;
 	private SmsAnalyzerService _smsAnalyzerService;
 	private SenderService _senderService;
 	private SettingsService _settingsService;
@@ -31,12 +32,12 @@ public class SmsReceiverLogic {
 	private Context _context;
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "SmsReceiverLogic";
 
-	public SmsReceiverLogic(Context context, ContactsService contactsService, JalapenoHttpService jalapenoHttpService,
+	public SmsReceiverLogic(Context context, ContactsService contactsService, JalapenoWebServiceWraper jalapenoWebServiceWraper,
 			SmsAnalyzerService smsAnalyzerService, SenderService senderService, RequestQueue requestQueue, SettingsService settingsService,
 			NotifyService notifyService, SmsHashService smsHashService) {
 		_context = context;
 		_contactsService = contactsService;
-		_jalapenoHttpService = jalapenoHttpService;
+		_jalapenoWebServiceWraper = jalapenoWebServiceWraper;
 		_smsAnalyzerService = smsAnalyzerService;
 		_senderService = senderService;
 		_settingsService = settingsService;
@@ -81,7 +82,7 @@ public class SmsReceiverLogic {
 			}
 		}
 
-		if (_jalapenoHttpService.IsSpamer(sms.SenderId, smsTexthash)) {
+		if (_jalapenoWebServiceWraper.IsSpamer(sms.SenderId, smsTexthash)) {
 			Log.i(LOG_TAG, "Spamer from http.");
 			_senderService.AddOrUpdateSender(sms.SenderId, true);
 			if (smsTexthash != null) {

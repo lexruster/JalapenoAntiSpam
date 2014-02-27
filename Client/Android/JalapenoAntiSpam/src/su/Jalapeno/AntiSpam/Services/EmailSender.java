@@ -1,6 +1,6 @@
 package su.Jalapeno.AntiSpam.Services;
 
-import su.Jalapeno.AntiSpam.Util.DebugMessage;
+import su.Jalapeno.AntiSpam.Util.UI.DebugMessage;
 import android.app.Activity;
 import android.content.Intent;
 

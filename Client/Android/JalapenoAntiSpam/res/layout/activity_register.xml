@@ -1,0 +1,36 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BaseLayout"
+    tools:context=".RegisterActivity" >
+
+     <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:alpha="1"
+        android:background="#80000000"
+        android:src="@drawable/jalapeno" />
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/BaseControl.TextHeader"
+        android:text="@string/SettingsTitle" />
+    
+    <TextView
+        android:id="@+id/textView"
+        style="@style/BaseControl"
+        android:text="@string/RegisterText"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:typeface="normal"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        
+         />
+    
+     <Button
+        android:id="@+id/buttonRegister"
+         style="@style/BaseControl.Button"
+         android:onClick="Register"
+        android:text="@string/RegisterButton" />
+
+</LinearLayout>
