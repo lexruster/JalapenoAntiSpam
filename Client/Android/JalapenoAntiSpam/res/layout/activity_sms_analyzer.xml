@@ -21,7 +21,7 @@
         <ListView
             android:id="@android:id/list"
             style="@style/BaseControl.ListView"
-            android:background="@drawable/bg_key"
+            
             android:choiceMode="singleChoice"
             android:textFilterEnabled="false" />
 
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-        android:background="@color/Black"
+        
         android:orientation="horizontal" >
 
         <Button
