@@ -6,9 +6,10 @@ import com.google.inject.Inject;
 
 import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.R.layout;
-import su.Jalapeno.AntiSpam.R.menu;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientRequest;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientResponse;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
@@ -24,9 +25,9 @@ public class RegisterActivity extends JalapenoActivity {
 
 	@Inject
 	JalapenoWebServiceWraper _jalapenoWebServiceWraper;
-	
+
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "RegisterActivity";
-	
+
 	Context _context;
 	private SettingsService _settingsService;
 
@@ -45,20 +46,24 @@ public class RegisterActivity extends JalapenoActivity {
 	}
 
 	public void Register(View view) {
-		
+
 		Config config = _settingsService.LoadSettings();
 		config.ClientId = UUID.randomUUID();
-		
-		if(_jalapenoWebServiceWraper.RegisterClient(config.ClientId)){
+		RegisterClientRequest request = new RegisterClientRequest();
+		request.ClientId = config.ClientId;
+		request.Token = "TOKEN";
+
+		RegisterClientResponse registerClient = _jalapenoWebServiceWraper
+				.RegisterClient(request);
+		if (registerClient.WasSuccessful) {
 			config.ClientRegistered = true;
 			config.Enabled = true;
 			_settingsService.SaveSettings(config);
-			Log.d(LOG_TAG, "Register with guid " + config.ClientId );
+			Log.d(LOG_TAG, "Register with guid " + config.ClientId);
 			UiUtils.NavigateTo(Settings.class);
-		}
-		else
-		{
-			Toast.makeText(this, R.string.ErrorRegister, Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(this, R.string.ErrorRegister, Toast.LENGTH_SHORT)
+					.show();
 		}
 	}
 }

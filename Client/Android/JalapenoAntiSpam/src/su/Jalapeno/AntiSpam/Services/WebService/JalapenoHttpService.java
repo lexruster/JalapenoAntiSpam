@@ -15,8 +15,12 @@ import org.apache.http.util.EntityUtils;
 
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.IsSpammerRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.IsSpammerResponse;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientRequest;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientResponse;
 import su.Jalapeno.AntiSpam.Util.Constants;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
 
 import java.io.IOException;
@@ -32,9 +36,12 @@ public class JalapenoHttpService {
 
 	private Context _context;
 
+	private EncoderService _encoderService;
+
 	@Inject
-	public JalapenoHttpService(Context context) {
+	public JalapenoHttpService(Context context, EncoderService encoderService) {
 		_context = context;
+		_encoderService = encoderService;
 	}
 
 	public IsSpammerResponse IsSpamerRequest(IsSpammerRequest isSpammerRequest) {
@@ -80,5 +87,20 @@ public class JalapenoHttpService {
 		}
 
 		return responseBody;
+	}
+
+	public RegisterClientResponse RegisterClient(RegisterClientRequest request) {
+		RegisterClientResponse response = new RegisterClientResponse();
+
+		// Gson gson = new Gson();
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setDateFormat("M/d/yy hh:mm a");
+		Gson gson = gsonBuilder.create();
+		String json = gson.toJson(request);
+		
+		String post=_encoderService.Encode(json);
+		
+
+		return null;
 	}
 }
