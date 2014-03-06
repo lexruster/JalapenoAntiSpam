@@ -5,6 +5,8 @@ import java.util.UUID;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.IsSpammerRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.IsSpammerResponse;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientRequest;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientResponse;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import android.util.Log;
 
@@ -25,7 +27,7 @@ public class JalapenoWebServiceWraper {
 	}
 
 	public boolean IsSpamer(String address, String smsTexthash) {
-		Log.d(LOG_TAG, "IsSpamer " + address );
+		Log.d(LOG_TAG, "IsSpamer " + address);
 		if (_jalapenoHttpService.ServiceIsAvailable()) {
 			IsSpammerRequest isSpamerRequest = new IsSpammerRequest();
 			isSpamerRequest.Hash = smsTexthash;
@@ -41,10 +43,14 @@ public class JalapenoWebServiceWraper {
 		return false;
 	}
 
-	public boolean RegisterClient(UUID clientId) {
+	public RegisterClientResponse RegisterClient(RegisterClientRequest request) {
+
+		RegisterClientResponse response = new RegisterClientResponse();
+		response.WasSuccessful = false;
 		if (_jalapenoHttpService.ServiceIsAvailable()) {
-		
+			response = _jalapenoHttpService.RegisterClient(request);
 		}
-		return false;
+
+		return response;
 	}
 }
