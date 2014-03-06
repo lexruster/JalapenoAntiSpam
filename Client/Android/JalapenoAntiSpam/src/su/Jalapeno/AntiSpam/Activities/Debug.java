@@ -42,9 +42,11 @@ import com.google.inject.Inject;
 public class Debug extends JalapenoActivity {
 	@Inject
 	ContactsService contactsService;
+	@Inject
+	JalapenoHttpService jalapenoHttpService;
 
 	private static final String TAG = Debug.class.getSimpleName();
-	JalapenoHttpService jalapenoHttpService;
+	
 	SmsReceiverLogic _smsService;
 	SettingsService _settingsService;
 	SmsReceiver _smsReceiver;
@@ -87,7 +89,7 @@ public class Debug extends JalapenoActivity {
 		_context = getApplicationContext();
 		_smsService = ServiceFactory.GetSmsService(_context);
 		_settingsService = new SettingsService(_context);
-		jalapenoHttpService = new JalapenoHttpService(_context);
+		
 		_smsReceiver = new SmsReceiver(_settingsService, _smsService);
 		_ringtoneService = new NotifyService(_context, _settingsService);
 		mActivity = this;
