@@ -12,6 +12,7 @@ import su.Jalapeno.AntiSpam.Services.Sms.SmsHashService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsQueueService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiverLogic;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsService;
+import su.Jalapeno.AntiSpam.Services.WebService.EncoderService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
 import android.content.Context;
@@ -21,8 +22,9 @@ public class ServiceFactory {
 	public static SmsReceiverLogic GetSmsService(Context context) {
 		Repository repository = RepositoryFactory.getRepository();
 		SettingsService _settingsService = new SettingsService(context);
+		EncoderService encodeService = new EncoderService(_settingsService);
 		JalapenoHttpService jalapenoHttpService = new JalapenoHttpService(
-				context);
+				context, encodeService);
 		JalapenoWebServiceWraper jalapenoWebServiceWraper = new JalapenoWebServiceWraper(
 				jalapenoHttpService, _settingsService);
 		ContactsService contactsService = new ContactsService(context);
