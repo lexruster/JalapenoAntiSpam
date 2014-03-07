@@ -9,8 +9,8 @@ public class EncodingUtils {
 	public static String ToBase64String(String input) {
 		String base64 = "";
 		try {
-			base64 = Base64.encodeToString(input.getBytes("UTF8"),
-					Base64.DEFAULT);
+			base64 = Base64.encodeToString(input.getBytes("UTF-16"),
+					Base64.NO_WRAP);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -21,8 +21,8 @@ public class EncodingUtils {
 	public static String FromBase64String(String input) {
 		String string = "";
 		try {
-			byte[] decode = Base64.decode(input, Base64.DEFAULT);
-			string = new String(decode, "UTF-8");
+			byte[] decode = Base64.decode(input, Base64.NO_WRAP);
+			string = new String(decode, "UTF-16");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}

@@ -15,12 +15,14 @@ import org.apache.http.util.EntityUtils;
 
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.IsSpammerRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.IsSpammerResponse;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.PublicKeyResponse;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientResponse;
 import su.Jalapeno.AntiSpam.Util.Constants;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.inject.Inject;
 
 import java.io.IOException;
@@ -35,13 +37,17 @@ public class JalapenoHttpService {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "JalapenoHttpService";
 
 	private Context _context;
-
+	private Gson _gson;
 	private EncoderService _encoderService;
 
 	@Inject
 	public JalapenoHttpService(Context context, EncoderService encoderService) {
 		_context = context;
 		_encoderService = encoderService;
+
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setDateFormat("dd.MM.yy hh:mm:ss");
+		_gson = gsonBuilder.create();
 	}
 
 	public IsSpammerResponse IsSpamerRequest(IsSpammerRequest isSpammerRequest) {
@@ -90,17 +96,30 @@ public class JalapenoHttpService {
 	}
 
 	public RegisterClientResponse RegisterClient(RegisterClientRequest request) {
-		RegisterClientResponse response = new RegisterClientResponse();
+		RegisterClientResponse response;
+		String json = _gson.toJson(request);
+		String postData = PrepareJsonRequest(json);
+		String requestString = WebClient.Post(
+				WebConstants.REGISTER_CLIENT_URL, postData);
+		response = _gson.fromJson(requestString, RegisterClientResponse.class);
 
-		// Gson gson = new Gson();
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.setDateFormat("M/d/yy hh:mm a");
-		Gson gson = gsonBuilder.create();
-		String json = gson.toJson(request);
-		
-		String post=_encoderService.Encode(json);
-		
-
-		return null;
+		return response;
 	}
+
+	public PublicKeyResponse GetPublicKey() {
+
+		String requestString = WebClient.Get(WebConstants.PUBLIC_KEY_URL);
+		PublicKeyResponse response = _gson.fromJson(requestString,
+				PublicKeyResponse.class);
+
+		return response;
+	}
+
+	private String PrepareJsonRequest(String request) {
+		String postData = _encoderService.Encode(request);
+		String jsonPostData = _gson.toJson(postData);
+
+		return jsonPostData;
+	}
+
 }

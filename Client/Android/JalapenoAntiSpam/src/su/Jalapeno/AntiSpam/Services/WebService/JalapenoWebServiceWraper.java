@@ -5,6 +5,7 @@ import java.util.UUID;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.IsSpammerRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.IsSpammerResponse;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.PublicKeyResponse;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientResponse;
 import su.Jalapeno.AntiSpam.Util.Constants;
@@ -49,6 +50,15 @@ public class JalapenoWebServiceWraper {
 		response.WasSuccessful = false;
 		if (_jalapenoHttpService.ServiceIsAvailable()) {
 			response = _jalapenoHttpService.RegisterClient(request);
+		}
+
+		return response;
+	}
+
+	public PublicKeyResponse GetPublicKey() {
+		PublicKeyResponse response = null;
+		if (_jalapenoHttpService.ServiceIsAvailable()) {
+			response = _jalapenoHttpService.GetPublicKey();
 		}
 
 		return response;
