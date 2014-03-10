@@ -1,34 +1,21 @@
 package su.Jalapeno.AntiSpam.Services.WebService;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.util.Base64;
-import android.util.Log;
-
-import org.apache.http.*;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.HttpParams;
-import org.apache.http.util.EncodingUtils;
-import org.apache.http.util.EntityUtils;
-
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.ComplainRequest;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.ComplainResponse;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.IsSpammerRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.IsSpammerResponse;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.PublicKeyResponse;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientResponse;
 import su.Jalapeno.AntiSpam.Util.Constants;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.inject.Inject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.Locale;
 
 /**
  * Created by Kseny on 30.12.13.
@@ -50,24 +37,8 @@ public class JalapenoHttpService {
 		_gson = gsonBuilder.create();
 	}
 
-	public IsSpammerResponse IsSpamerRequest(IsSpammerRequest isSpammerRequest) {
-		Log.d(LOG_TAG, "IsSpamerRequest " + isSpammerRequest.SenderId
-				+ " CLientId " + isSpammerRequest.ClientId);
-		return new IsSpammerResponse();
-	}
-
-	public boolean TryComplain(String phone) {
-		return true;
-	}
-
-	public String SendLocalTestRequest() {
-
-		return SendRequest("http://localhost/TestWeb/");
-	}
-
 	public boolean ServiceIsAvailable() {
-		ConnectivityManager cm = (ConnectivityManager) _context
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		ConnectivityManager cm = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		if (cm == null) {
 			return false;
 		}
@@ -80,37 +51,43 @@ public class JalapenoHttpService {
 		return false;
 	}
 
-	private String SendRequest(String url) {
-		String responseBody = "";
+	public IsSpammerResponse IsSpamerRequest(IsSpammerRequest request) {
+		Log.d(LOG_TAG, "IsSpamerRequest " + request.SenderId + " CLientId " + request.ClientId);
+		IsSpammerResponse response;
+		String json = _gson.toJson(request);
+		String postData = PrepareJsonRequest(json);
+		String requestString = WebClient.Post(WebConstants.IS_SPANNER_URL, postData);
+		response = _gson.fromJson(requestString, IsSpammerResponse.class);
 
-		try {
-			DefaultHttpClient client = new DefaultHttpClient();
-			HttpResponse response = client.execute(new HttpGet(url));
-			HttpEntity entity = response.getEntity();
-			responseBody = EntityUtils.toString(entity);
-		} catch (IOException ex) {
-
-		}
-
-		return responseBody;
+		return response;
 	}
 
 	public RegisterClientResponse RegisterClient(RegisterClientRequest request) {
+		Log.d(LOG_TAG, "RegisterClient " + request.Token);
 		RegisterClientResponse response;
 		String json = _gson.toJson(request);
 		String postData = PrepareJsonRequest(json);
-		String requestString = WebClient.Post(
-				WebConstants.REGISTER_CLIENT_URL, postData);
+		String requestString = WebClient.Post(WebConstants.REGISTER_CLIENT_URL, postData);
 		response = _gson.fromJson(requestString, RegisterClientResponse.class);
 
 		return response;
 	}
 
 	public PublicKeyResponse GetPublicKey() {
-
+		Log.d(LOG_TAG, "GetPublicKey ");
 		String requestString = WebClient.Get(WebConstants.PUBLIC_KEY_URL);
-		PublicKeyResponse response = _gson.fromJson(requestString,
-				PublicKeyResponse.class);
+		PublicKeyResponse response = _gson.fromJson(requestString, PublicKeyResponse.class);
+
+		return response;
+	}
+
+	public ComplainResponse Complain(ComplainRequest request) {
+		Log.d(LOG_TAG, "Complain " + request.SenderId);
+		ComplainResponse response;
+		String json = _gson.toJson(request);
+		String postData = PrepareJsonRequest(json);
+		String requestString = WebClient.Post(WebConstants.COMPLAIN_URL, postData);
+		response = _gson.fromJson(requestString, ComplainResponse.class);
 
 		return response;
 	}
@@ -121,5 +98,4 @@ public class JalapenoHttpService {
 
 		return jsonPostData;
 	}
-
 }

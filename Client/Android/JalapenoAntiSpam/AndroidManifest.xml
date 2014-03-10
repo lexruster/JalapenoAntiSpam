@@ -42,6 +42,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="su.Jalapeno.AntiSpam.Activities.Debug" />
+        <activity android:name="su.Jalapeno.AntiSpam.Activities.SpamerList" />
+        <activity android:name="su.Jalapeno.AntiSpam.Activities.SmsAnalyzerActivity" >
+        </activity>
+        <activity android:name="su.Jalapeno.AntiSpam.Activities.RegisterActivity" >
+        </activity>
 
         <receiver
             android:name="su.Jalapeno.AntiSpam.SystemService.SmsBroadcastReceiver"
@@ -58,13 +64,6 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
-        <activity android:name="su.Jalapeno.AntiSpam.Activities.Debug" />
-        <activity android:name="su.Jalapeno.AntiSpam.Activities.SpamerList" />
-        <activity android:name="su.Jalapeno.AntiSpam.Activities.SmsAnalyzerActivity" >
-        </activity>
-        <activity android:name="su.Jalapeno.AntiSpam.Activities.RegisterActivity" >
-        </activity>
 
         <service
             android:name="su.Jalapeno.AntiSpam.SystemService.AppService"

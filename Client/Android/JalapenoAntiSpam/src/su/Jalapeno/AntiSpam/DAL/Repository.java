@@ -2,9 +2,11 @@ package su.Jalapeno.AntiSpam.DAL;
 
 import java.sql.SQLException;
 
+import su.Jalapeno.AntiSpam.DAL.DAO.ComplainDao;
 import su.Jalapeno.AntiSpam.DAL.DAO.SenderDao;
 import su.Jalapeno.AntiSpam.DAL.DAO.SmsDao;
 import su.Jalapeno.AntiSpam.DAL.DAO.SmsHashDao;
+import su.Jalapeno.AntiSpam.DAL.Domain.Complain;
 import su.Jalapeno.AntiSpam.DAL.Domain.Entity;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
@@ -29,6 +31,7 @@ public class Repository<T extends Entity> extends OrmLiteSqliteOpenHelper {
 	private SenderDao senderDao = null;
 	private SmsHashDao smsHashDao = null;
 	private SmsDao smsDao = null;
+	private ComplainDao complainDao = null;
 
 	public Repository(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -40,6 +43,7 @@ public class Repository<T extends Entity> extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(connectionSource, Sender.class);
 			TableUtils.createTable(connectionSource, SmsHash.class);
 			TableUtils.createTable(connectionSource, Sms.class);
+			TableUtils.createTable(connectionSource, Complain.class);
 		} catch (SQLException e) {
 			Log.e(TAG, "error creating DB " + DATABASE_NAME);
 			throw new RuntimeException(e);
@@ -47,16 +51,15 @@ public class Repository<T extends Entity> extends OrmLiteSqliteOpenHelper {
 	}
 
 	@Override
-	public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource,
-			int oldVer, int newVer) {
+	public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVer, int newVer) {
 		try {
 			TableUtils.dropTable(connectionSource, Sender.class, true);
 			TableUtils.dropTable(connectionSource, SmsHash.class, true);
 			TableUtils.dropTable(connectionSource, Sms.class, true);
+			TableUtils.dropTable(connectionSource, Complain.class, true);
 			onCreate(db, connectionSource);
 		} catch (SQLException e) {
-			Log.e(TAG, "error upgrading db " + DATABASE_NAME + "from ver "
-					+ oldVer);
+			Log.e(TAG, "error upgrading db " + DATABASE_NAME + "from ver " + oldVer);
 			throw new RuntimeException(e);
 		}
 	}
@@ -76,8 +79,7 @@ public class Repository<T extends Entity> extends OrmLiteSqliteOpenHelper {
 	public SmsHashDao getSmsHashDao() {
 		if (smsHashDao == null) {
 			try {
-				smsHashDao = new SmsHashDao(getConnectionSource(),
-						SmsHash.class);
+				smsHashDao = new SmsHashDao(getConnectionSource(), SmsHash.class);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -98,11 +100,24 @@ public class Repository<T extends Entity> extends OrmLiteSqliteOpenHelper {
 		return smsDao;
 	}
 
+	public ComplainDao getComplainDao() {
+		if (complainDao == null) {
+			try {
+				complainDao = new ComplainDao(getConnectionSource(), Complain.class);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return complainDao;
+	}
+
 	@Override
 	public void close() {
 		super.close();
 		senderDao = null;
 		smsHashDao = null;
 		smsDao = null;
+		complainDao = null;
 	}
 }

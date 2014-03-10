@@ -1,7 +1,5 @@
 package su.Jalapeno.AntiSpam.Services.WebService.Dto;
 
-public class PublicKeyResponse {
-	public boolean WasSuccessful;
-	public String ErrorMessage;
+public class PublicKeyResponse extends BaseResponse {
 	public String PublicKey;
 }

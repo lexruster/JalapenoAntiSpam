@@ -21,7 +21,7 @@ public abstract class JalapenoService<T extends Entity> {
 		Repository = repository;
 	}
 
-	public void AddSms(T entity) {
+	public void Add(T entity) {
 		GetDao().Add(entity);
 	}
 

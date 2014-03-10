@@ -6,14 +6,11 @@ import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
 import android.content.Context;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ToggleButton;
-
-import com.google.inject.Inject;
 
 //import com.google.android.gms.*;
 

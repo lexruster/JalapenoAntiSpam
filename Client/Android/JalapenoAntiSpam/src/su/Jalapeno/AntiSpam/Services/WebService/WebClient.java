@@ -4,17 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
@@ -47,8 +44,7 @@ public class WebClient {
 
 				}
 			} else {
-				Log.e(LOG_TAG, "Server responded with status code: "
-						+ statusLine.getStatusCode());
+				Log.e(LOG_TAG, "Server responded with status code: " + statusLine.getStatusCode());
 
 			}
 		} catch (Exception ex) {
@@ -67,8 +63,7 @@ public class WebClient {
 			HttpPost post = new HttpPost(url);
 			post.setEntity(CreateEntity(postData));
 			post.setHeader("Content-Type", "application/json");
-			
-			
+
 			// Perform the request and check the status code
 			HttpResponse response = client.execute(post);
 			StatusLine statusLine = response.getStatusLine();
@@ -86,8 +81,7 @@ public class WebClient {
 
 				}
 			} else {
-				Log.e(LOG_TAG, "Server responded with status code: "
-						+ statusLine.getStatusCode());
+				Log.e(LOG_TAG, "Server responded with status code: " + statusLine.getStatusCode());
 
 			}
 		} catch (Exception ex) {
@@ -101,9 +95,9 @@ public class WebClient {
 	private static HttpEntity CreateEntity(String value) {
 		StringEntity se = null;
 		try {
-			se = new StringEntity(value, "UTF-16");
-			
-			se.setContentType("application/json; charset=UTF-16");
+			se = new StringEntity(value, Constants.DEFAULT_ENCODING);
+
+			se.setContentType("application/json; charset=" + Constants.DEFAULT_ENCODING);
 			// se.setContentType("application/json");
 		} catch (UnsupportedEncodingException e) {
 			Log.e(LOG_TAG, "Failed to create StringEntity", e);
