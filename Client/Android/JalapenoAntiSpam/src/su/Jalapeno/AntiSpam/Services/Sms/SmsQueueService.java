@@ -15,7 +15,7 @@ public class SmsQueueService extends JalapenoService<Sms> {
 	public SmsQueueService() {
 		super();
 	}
-	
+
 	public SmsQueueService(Repository<Sms> repository) {
 		super(repository);
 	}
@@ -46,5 +46,4 @@ public class SmsQueueService extends JalapenoService<Sms> {
 	protected JalapenoDao<Sms> GetDao() {
 		return GetSmsDao();
 	}
-
 }

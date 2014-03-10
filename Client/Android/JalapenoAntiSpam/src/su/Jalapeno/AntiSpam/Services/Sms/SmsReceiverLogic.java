@@ -1,5 +1,7 @@
 package su.Jalapeno.AntiSpam.Services.Sms;
 
+import java.util.concurrent.ExecutionException;
+
 import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.ContactsService;
@@ -7,13 +9,13 @@ import su.Jalapeno.AntiSpam.Services.NotifyService;
 import su.Jalapeno.AntiSpam.Services.RequestQueue;
 import su.Jalapeno.AntiSpam.Services.SenderService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
-import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.util.Log;
 
 /**
@@ -82,7 +84,18 @@ public class SmsReceiverLogic {
 			}
 		}
 
-		if (_jalapenoWebServiceWraper.IsSpamer(sms.SenderId, smsTexthash)) {
+		boolean isSpamer = false;
+		try {
+			isSpamer = new TestIsSpamerAsync().execute(sms.SenderId, smsTexthash).get();
+		} catch (InterruptedException e) {
+
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+		// _jalapenoWebServiceWraper.IsSpamer(sms.SenderId, smsTexthash)
+
+		if (isSpamer) {
 			Log.i(LOG_TAG, "Spamer from http.");
 			_senderService.AddOrUpdateSender(sms.SenderId, true);
 			if (smsTexthash != null) {
@@ -98,5 +111,14 @@ public class SmsReceiverLogic {
 
 		// return false;
 		return false;// test value
+	}
+
+	class TestIsSpamerAsync extends AsyncTask<String, Void, Boolean> {
+		@Override
+		protected Boolean doInBackground(String... params) {
+			boolean result = _jalapenoWebServiceWraper.IsSpamer(params[0], params[1]);
+
+			return result;
+		}
 	}
 }

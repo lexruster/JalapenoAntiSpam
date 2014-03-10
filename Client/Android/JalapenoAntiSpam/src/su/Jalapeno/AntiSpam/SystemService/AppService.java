@@ -1,8 +1,14 @@
 package su.Jalapeno.AntiSpam.SystemService;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
+import su.Jalapeno.AntiSpam.Services.RequestQueue;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsQueueService;
 import su.Jalapeno.AntiSpam.Util.Constants;
+import su.Jalapeno.AntiSpam.Util.ServiceFactory;
 import su.Jalapeno.AntiSpam.Util.UI.NotifyBuilder;
 import android.app.Notification;
 import android.app.Service;
@@ -13,17 +19,32 @@ import android.util.Log;
 
 public class AppService extends Service {
 	private final int NOTIFY_ID = 731957691;
+	private ScheduledExecutorService scheduleTaskExecutor;
+	Context _context;
 
 	private SmsQueueService _smsQueueService;
+	private RequestQueue _requestQueue;
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "AppService";
-	Context _context;
 
 	public void onCreate() {
 		super.onCreate();
 		_context = this;
-		_smsQueueService = new SmsQueueService(
-				RepositoryFactory.getRepository());
+
+		_smsQueueService = new SmsQueueService(RepositoryFactory.getRepository());
+		_requestQueue = ServiceFactory.GetRequestQueue(_context);
+
+		StartSchedule();
 		Log.d(LOG_TAG, "onCreate");
+	}
+
+	private void StartSchedule() {
+		scheduleTaskExecutor = Executors.newSingleThreadScheduledExecutor();
+		scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
+			public void run() {
+				_requestQueue.ProceedComplainRequests();
+			}
+		}, 0, Constants.COMPLAINS_INTERVAL_SECONDS, TimeUnit.SECONDS);
+		Log.d(LOG_TAG, "StartSchedule");
 	}
 
 	public int onStartCommand(Intent intent, int flags, int startId) {

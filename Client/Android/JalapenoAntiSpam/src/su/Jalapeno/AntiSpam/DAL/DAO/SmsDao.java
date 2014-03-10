@@ -64,8 +64,6 @@ public class SmsDao extends JalapenoDao<Sms> {
 	public List<String> GetAllSenders() {
 		ArrayList<String> senders = new ArrayList<String>();
 		try {
-			// QueryBuilder<Sms, Integer> queryBuilder = queryBuilder();
-			// queryBuilder.distinct().selectColumns(Sms.SENDER_FIELD_NAME).query();
 			GenericRawResults<String[]> rawResults = queryRaw("SELECT DISTINTC "
 					+ Sms.SENDER_FIELD_NAME + " FROM Sms");
 			for (String[] resultColumns : rawResults) {

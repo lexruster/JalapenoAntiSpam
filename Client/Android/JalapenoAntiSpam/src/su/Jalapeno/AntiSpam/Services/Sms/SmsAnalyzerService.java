@@ -33,7 +33,7 @@ public class SmsAnalyzerService {
 	}
 
 	public void AddSmsToValidate(Sms sms) {
-		_smsQueueService.AddSms(sms);
+		_smsQueueService.Add(sms);
 	}
 
 	public void SetSenderAsSpamer(String sender) {

@@ -1,25 +1,25 @@
 package su.Jalapeno.AntiSpam.Activities;
 
+import java.util.Date;
 import java.util.UUID;
 
-import com.google.inject.Inject;
-
 import su.Jalapeno.AntiSpam.R;
-import su.Jalapeno.AntiSpam.R.layout;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
+import su.Jalapeno.AntiSpam.Services.WebService.WebErrors;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientResponse;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
-import android.os.Bundle;
-import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
+
+import com.google.inject.Inject;
 
 public class RegisterActivity extends JalapenoActivity {
 
@@ -45,25 +45,46 @@ public class RegisterActivity extends JalapenoActivity {
 
 	}
 
+	public void ShowToast(int res) {
+		Toast.makeText(this, res, Toast.LENGTH_SHORT).show();
+	}
+
 	public void Register(View view) {
+		new RegisterTask().execute(this);
+	}
 
-		Config config = _settingsService.LoadSettings();
-		config.ClientId = UUID.randomUUID();
-		RegisterClientRequest request = new RegisterClientRequest();
-		request.ClientId = config.ClientId;
-		request.Token = "TOKEN";
+	class RegisterTask extends AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
 
-		RegisterClientResponse registerClient = _jalapenoWebServiceWraper
-				.RegisterClient(request);
-		if (registerClient.WasSuccessful) {
-			config.ClientRegistered = true;
-			config.Enabled = true;
+		@Override
+		protected void onPostExecute(RegisterClientResponse registerClient) {
+			if (registerClient.WasSuccessful) {
+				Config config = _settingsService.LoadSettings();
+				config.ClientRegistered = true;
+				config.Enabled = true;
+				_settingsService.SaveSettings(config);
+				Log.d(LOG_TAG, "Register with guid " + config.ClientId);
+				UiUtils.NavigateTo(Settings.class);
+			} else {
+				if (registerClient.ErrorMessage.equals(WebErrors.UserBanned)) {
+					ShowToast(R.string.BannedRegister);
+				} else {
+					ShowToast(R.string.ErrorRegister);
+				}
+			}
+		}
+
+		@Override
+		protected RegisterClientResponse doInBackground(RegisterActivity... activitis) {
+			Config config = _settingsService.LoadSettings();
+			config.ClientId = UUID.randomUUID();
+			RegisterClientRequest request = new RegisterClientRequest();
+			request.ClientId = config.ClientId;
+			request.Token = "TOKEN " + new Date().toLocaleString();
 			_settingsService.SaveSettings(config);
-			Log.d(LOG_TAG, "Register with guid " + config.ClientId);
-			UiUtils.NavigateTo(Settings.class);
-		} else {
-			Toast.makeText(this, R.string.ErrorRegister, Toast.LENGTH_SHORT)
-					.show();
+
+			RegisterClientResponse registerClient = _jalapenoWebServiceWraper.RegisterClient(request);
+
+			return registerClient;
 		}
 	}
 }
