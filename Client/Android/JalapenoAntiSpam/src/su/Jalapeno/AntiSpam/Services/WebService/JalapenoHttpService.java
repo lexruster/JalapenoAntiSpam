@@ -17,9 +17,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
 
-/**
- * Created by Kseny on 30.12.13.
- */
 public class JalapenoHttpService {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "JalapenoHttpService";
 
@@ -38,7 +35,8 @@ public class JalapenoHttpService {
 	}
 
 	public boolean ServiceIsAvailable() {
-		ConnectivityManager cm = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		ConnectivityManager cm = (ConnectivityManager) _context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		if (cm == null) {
 			return false;
 		}
@@ -52,11 +50,13 @@ public class JalapenoHttpService {
 	}
 
 	public IsSpammerResponse IsSpamerRequest(IsSpammerRequest request) {
-		Log.d(LOG_TAG, "IsSpamerRequest " + request.SenderId + " CLientId " + request.ClientId);
+		Log.d(LOG_TAG, "IsSpamerRequest " + request.SenderId + " CLientId "
+				+ request.ClientId);
 		IsSpammerResponse response;
 		String json = _gson.toJson(request);
 		String postData = PrepareJsonRequest(json);
-		String requestString = WebClient.Post(WebConstants.IS_SPANNER_URL, postData);
+		String requestString = WebClient.Post(WebConstants.IS_SPANNER_URL,
+				postData);
 		response = _gson.fromJson(requestString, IsSpammerResponse.class);
 
 		return response;
@@ -67,7 +67,8 @@ public class JalapenoHttpService {
 		RegisterClientResponse response;
 		String json = _gson.toJson(request);
 		String postData = PrepareJsonRequest(json);
-		String requestString = WebClient.Post(WebConstants.REGISTER_CLIENT_URL, postData);
+		String requestString = WebClient.Post(WebConstants.REGISTER_CLIENT_URL,
+				postData);
 		response = _gson.fromJson(requestString, RegisterClientResponse.class);
 
 		return response;
@@ -76,7 +77,8 @@ public class JalapenoHttpService {
 	public PublicKeyResponse GetPublicKey() {
 		Log.d(LOG_TAG, "GetPublicKey ");
 		String requestString = WebClient.Get(WebConstants.PUBLIC_KEY_URL);
-		PublicKeyResponse response = _gson.fromJson(requestString, PublicKeyResponse.class);
+		PublicKeyResponse response = _gson.fromJson(requestString,
+				PublicKeyResponse.class);
 
 		return response;
 	}
@@ -86,7 +88,8 @@ public class JalapenoHttpService {
 		ComplainResponse response;
 		String json = _gson.toJson(request);
 		String postData = PrepareJsonRequest(json);
-		String requestString = WebClient.Post(WebConstants.COMPLAIN_URL, postData);
+		String requestString = WebClient.Post(WebConstants.COMPLAIN_URL,
+				postData);
 		response = _gson.fromJson(requestString, ComplainResponse.class);
 
 		return response;

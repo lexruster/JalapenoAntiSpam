@@ -28,4 +28,12 @@ public class EncodingUtils {
 
 		return string;
 	}
+
+	public static String ToBase64String(byte[] bytes) {
+		return Base64.encodeToString(bytes, Base64.NO_WRAP);
+	}
+	
+	public static byte[] FromBase64(String value) {
+		return Base64.decode(value, Base64.NO_WRAP);
+	}
 }
