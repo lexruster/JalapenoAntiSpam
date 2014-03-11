@@ -10,9 +10,15 @@ public class Config {
 	public String EnabledString = "Enabled";
 	public boolean Enabled;
 	public boolean EnabledDefault = false;
-	public String PublicKeyString = "PublicKey";
-	public String PublicKey;
-	public String PublicKeyDefault = "";
+	
+	public String PublicKeyModulusString = "PublicKeyModulus";
+	public String PublicKeyModulus;
+	public String PublicKeyModulusDefault = "";
+	
+	public String PublicKeyExponentString = "PublicKey";
+	public String PublicKeyExponent;
+	public String PublicKeyExponentDefault = "";
+	
 	public String UnknownSoundString = "UnknownSound";
 	public String UnknownSound;
 	public String UnknownSoundDefault = "";

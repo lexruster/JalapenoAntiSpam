@@ -13,6 +13,8 @@ import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientResponse;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
+import su.Jalapeno.AntiSpam.Util.CryptoService;
+import su.Jalapeno.AntiSpam.Util.PublicKeyInfo;
 import android.util.Log;
 
 import com.google.inject.Inject;
@@ -30,11 +32,10 @@ public class JalapenoWebServiceWraper {
 		_clientId = _settingsService.LoadSettings().ClientId;
 	}
 
-	public boolean  ServiceIsAvailable()
-	{
+	public boolean ServiceIsAvailable() {
 		return _jalapenoHttpService.ServiceIsAvailable();
 	}
-	
+
 	public boolean IsSpamer(String address, String smsTexthash) {
 		Log.d(LOG_TAG, "IsSpamer " + address);
 		if (_jalapenoHttpService.ServiceIsAvailable()) {
@@ -67,7 +68,7 @@ public class JalapenoWebServiceWraper {
 			}
 		}
 
-		Log.d(LOG_TAG, "RegisterClient response " + response.WasSuccessful);
+		Log.d(LOG_TAG, "RegisterClient response " + response.WasSuccessful + " error " + response.ErrorMessage);
 		return response;
 	}
 
@@ -106,10 +107,8 @@ public class JalapenoWebServiceWraper {
 		if (response.ErrorMessage.equals(WebErrors.InvalidRequest)) {
 			PublicKeyResponse pbk = GetPublicKey();
 			if (pbk.WasSuccessful) {
-				Config config = _settingsService.LoadSettings();
-				String key = pbk.PublicKey;
-				config.PublicKey = key;
-				_settingsService.SaveSettings(config);
+				PublicKeyInfo publicKeyInfo = CryptoService.GetPublicKeyInfo(pbk.PublicKey);
+				_settingsService.UpdatePublicKey(publicKeyInfo);
 
 				return true;
 			}

@@ -12,6 +12,8 @@ import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientResponse;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
+import su.Jalapeno.AntiSpam.Util.CryptoService;
+import su.Jalapeno.AntiSpam.Util.PublicKeyInfo;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -54,8 +56,7 @@ public class RegisterActivity extends JalapenoActivity {
 		new RegisterTask().execute(this);
 	}
 
-	class RegisterTask extends
-			AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
+	class RegisterTask extends AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
 
 		@Override
 		protected void onPostExecute(RegisterClientResponse registerClient) {
@@ -76,31 +77,29 @@ public class RegisterActivity extends JalapenoActivity {
 		}
 
 		@Override
-		protected RegisterClientResponse doInBackground(
-				RegisterActivity... activitis) {
+		protected RegisterClientResponse doInBackground(RegisterActivity... activitis) {
 			PublicKeyResponse pbk = _jalapenoWebServiceWraper.GetPublicKey();
-			Config config = _settingsService.LoadSettings();
+			
 			Log.d(LOG_TAG, "doInBackground GetPublicKey  " + pbk.WasSuccessful);
 			if (pbk.WasSuccessful) {
-				String key = pbk.PublicKey;
-				config.PublicKey = key;
-				
+				PublicKeyInfo publicKeyInfo = CryptoService.GetPublicKeyInfo(pbk.PublicKey);
+				_settingsService.UpdatePublicKey(publicKeyInfo);
 			} else {
 				RegisterClientResponse registerClient = new RegisterClientResponse();
 				registerClient.ErrorMessage = "";
 				registerClient.WasSuccessful = false;
-				
+
 				return registerClient;
 			}
-			
+
+			Config config = _settingsService.LoadSettings();
 			config.ClientId = UUID.randomUUID();
 			RegisterClientRequest request = new RegisterClientRequest();
 			request.ClientId = config.ClientId;
 			request.Token = "TOKEN " + new Date().toLocaleString();
 			_settingsService.SaveSettings(config);
 
-			RegisterClientResponse registerClient = _jalapenoWebServiceWraper
-					.RegisterClient(request);
+			RegisterClientResponse registerClient = _jalapenoWebServiceWraper.RegisterClient(request);
 
 			return registerClient;
 		}
