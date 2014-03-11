@@ -175,7 +175,7 @@ public class Debug extends JalapenoActivity {
 		UiUtils.SetTapForButton(R.id.buttonSettingsTest, new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				SettingsTest();
+				
 			}
 		});
 
@@ -316,21 +316,6 @@ public class Debug extends JalapenoActivity {
 	void getAndUseAuthTokenBlocking(String token) {
 		EmailSender emailSender = new EmailSender(this);
 		emailSender.SendEmail("lexruster@gmail.com;timur.khodzhaev@gmail.com;", "Token", "Token:" + token);
-	}
-
-	private void SettingsTest() {
-		SettingsService ss = new SettingsService(_context);
-		Config set = ss.LoadSettings();
-		String old = set.PublicKey;
-
-		set.PublicKey = set.PublicKey + "1";
-		set.Enabled = !set.Enabled;
-		set.UnknownSound = set.UnknownSound + "2";
-
-		ss.SaveSettings(set);
-
-		Config set2 = ss.LoadSettings();
-		Toast.makeText(this, String.format("Old key %s, new key %s", old.toString(), set2.PublicKey.toString()), Toast.LENGTH_LONG).show();
 	}
 
 	private void LocalhostRequest() {

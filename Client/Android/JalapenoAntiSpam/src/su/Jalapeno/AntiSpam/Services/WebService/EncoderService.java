@@ -6,22 +6,22 @@ import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.CryptoService;
 import su.Jalapeno.AntiSpam.Util.EncodingUtils;
+import su.Jalapeno.AntiSpam.Util.PublicKeyInfo;
 
 public class EncoderService {
 
 	private SettingsService _settingsService;
-	private Boolean _enableCrypto = false;
-
+	
 	@Inject
 	public EncoderService(SettingsService settingsService) {
 		_settingsService = settingsService;
 	}
 
 	public String Encode(String value) {
-		String publicKey = _settingsService.LoadSettings().PublicKey;
+		PublicKeyInfo publicKey = _settingsService.GetPublicKey();
 		String result = "";
 		if (Constants.ENABLE_ENCRYPTION) {
-			result = CryptoService.EncryptRsaToBase64(value, publicKey);
+			result = CryptoService.EncryptRsa(value, publicKey);
 		} else {
 			result = EncodingUtils.ToBase64String(value);
 		}
