@@ -7,6 +7,7 @@ import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
 import su.Jalapeno.AntiSpam.Services.WebService.WebErrors;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.PublicKeyResponse;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientResponse;
 import su.Jalapeno.AntiSpam.Util.Config;
@@ -53,7 +54,8 @@ public class RegisterActivity extends JalapenoActivity {
 		new RegisterTask().execute(this);
 	}
 
-	class RegisterTask extends AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
+	class RegisterTask extends
+			AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
 
 		@Override
 		protected void onPostExecute(RegisterClientResponse registerClient) {
@@ -74,15 +76,31 @@ public class RegisterActivity extends JalapenoActivity {
 		}
 
 		@Override
-		protected RegisterClientResponse doInBackground(RegisterActivity... activitis) {
+		protected RegisterClientResponse doInBackground(
+				RegisterActivity... activitis) {
+			PublicKeyResponse pbk = _jalapenoWebServiceWraper.GetPublicKey();
 			Config config = _settingsService.LoadSettings();
+			Log.d(LOG_TAG, "doInBackground GetPublicKey  " + pbk.WasSuccessful);
+			if (pbk.WasSuccessful) {
+				String key = pbk.PublicKey;
+				config.PublicKey = key;
+				
+			} else {
+				RegisterClientResponse registerClient = new RegisterClientResponse();
+				registerClient.ErrorMessage = "";
+				registerClient.WasSuccessful = false;
+				
+				return registerClient;
+			}
+			
 			config.ClientId = UUID.randomUUID();
 			RegisterClientRequest request = new RegisterClientRequest();
 			request.ClientId = config.ClientId;
 			request.Token = "TOKEN " + new Date().toLocaleString();
 			_settingsService.SaveSettings(config);
 
-			RegisterClientResponse registerClient = _jalapenoWebServiceWraper.RegisterClient(request);
+			RegisterClientResponse registerClient = _jalapenoWebServiceWraper
+					.RegisterClient(request);
 
 			return registerClient;
 		}
