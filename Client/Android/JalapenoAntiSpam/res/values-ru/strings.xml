@@ -19,6 +19,7 @@
     <string name="RegisterText">Вам необходимо зарегистрироваться, используя аккаунт Google, для использования всех возможностей приложения</string>
     <string name="BannedRegister">Пользователь забанен</string>
     
+    <string name="WaitMessage">Подождите...</string>
     
     <string name="NotSpamButton">Не спам</string>
     <string name="SpamButton">Спам</string>

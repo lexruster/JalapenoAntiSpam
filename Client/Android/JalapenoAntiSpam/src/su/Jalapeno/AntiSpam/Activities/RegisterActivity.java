@@ -15,6 +15,8 @@ import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.CryptoService;
 import su.Jalapeno.AntiSpam.Util.PublicKeyInfo;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
+import su.Jalapeno.AntiSpam.Util.UI.Spiner;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -45,7 +47,6 @@ public class RegisterActivity extends JalapenoActivity {
 	private void Init() {
 		_context = this.getApplicationContext();
 		_settingsService = new SettingsService(_context);
-
 	}
 
 	public void ShowToast(int res) {
@@ -56,7 +57,10 @@ public class RegisterActivity extends JalapenoActivity {
 		new RegisterTask().execute(this);
 	}
 
-	class RegisterTask extends AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
+	class RegisterTask extends
+			AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
+
+		Spiner spiner = new Spiner(RegisterActivity.this);
 
 		@Override
 		protected void onPostExecute(RegisterClientResponse registerClient) {
@@ -66,8 +70,10 @@ public class RegisterActivity extends JalapenoActivity {
 				config.Enabled = true;
 				_settingsService.SaveSettings(config);
 				Log.d(LOG_TAG, "Register with guid " + config.ClientId);
+				spiner.Hide();
 				UiUtils.NavigateTo(Settings.class);
 			} else {
+				spiner.Hide();
 				if (registerClient.ErrorMessage.equals(WebErrors.UserBanned)) {
 					ShowToast(R.string.BannedRegister);
 				} else {
@@ -77,12 +83,19 @@ public class RegisterActivity extends JalapenoActivity {
 		}
 
 		@Override
-		protected RegisterClientResponse doInBackground(RegisterActivity... activitis) {
+		protected void onPreExecute() {
+			spiner.Show();
+		}
+
+		@Override
+		protected RegisterClientResponse doInBackground(
+				RegisterActivity... activitis) {
 			PublicKeyResponse pbk = _jalapenoWebServiceWraper.GetPublicKey();
-			
+
 			Log.d(LOG_TAG, "doInBackground GetPublicKey  " + pbk.WasSuccessful);
 			if (pbk.WasSuccessful) {
-				PublicKeyInfo publicKeyInfo = CryptoService.GetPublicKeyInfo(pbk.PublicKey);
+				PublicKeyInfo publicKeyInfo = CryptoService
+						.GetPublicKeyInfo(pbk.PublicKey);
 				_settingsService.UpdatePublicKey(publicKeyInfo);
 			} else {
 				RegisterClientResponse registerClient = new RegisterClientResponse();
@@ -99,7 +112,8 @@ public class RegisterActivity extends JalapenoActivity {
 			request.Token = "TOKEN " + new Date().toLocaleString();
 			_settingsService.SaveSettings(config);
 
-			RegisterClientResponse registerClient = _jalapenoWebServiceWraper.RegisterClient(request);
+			RegisterClientResponse registerClient = _jalapenoWebServiceWraper
+					.RegisterClient(request);
 
 			return registerClient;
 		}

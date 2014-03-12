@@ -66,11 +66,10 @@ public class Settings extends JalapenoActivity {
 		Context context = this.getApplicationContext();
 		settingsService = new SettingsService(context);
 		config = settingsService.LoadSettings();
-
+		Log.d(LOG_TAG, "Init ClientRegistered " + config.ClientRegistered);
 		if (config.ClientRegistered) {
 
 		} else {
-			Log.d(LOG_TAG, "Not register!");
 			config.Enabled = false;
 			settingsService.SaveSettings(config);
 			UiUtils.NavigateTo(RegisterActivity.class);
