@@ -6,11 +6,13 @@ import su.Jalapeno.AntiSpam.DAL.DAO.ComplainDao;
 import su.Jalapeno.AntiSpam.DAL.DAO.SenderDao;
 import su.Jalapeno.AntiSpam.DAL.DAO.SmsDao;
 import su.Jalapeno.AntiSpam.DAL.DAO.SmsHashDao;
+import su.Jalapeno.AntiSpam.DAL.DAO.TrashSmsDao;
 import su.Jalapeno.AntiSpam.DAL.Domain.Complain;
 import su.Jalapeno.AntiSpam.DAL.Domain.Entity;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.DAL.Domain.SmsHash;
+import su.Jalapeno.AntiSpam.DAL.Domain.TrashSms;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -31,6 +33,7 @@ public class Repository<T extends Entity> extends OrmLiteSqliteOpenHelper {
 	private SenderDao senderDao = null;
 	private SmsHashDao smsHashDao = null;
 	private SmsDao smsDao = null;
+	private TrashSmsDao trashSmsDao = null;
 	private ComplainDao complainDao = null;
 
 	public Repository(Context context) {
@@ -43,6 +46,7 @@ public class Repository<T extends Entity> extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(connectionSource, Sender.class);
 			TableUtils.createTable(connectionSource, SmsHash.class);
 			TableUtils.createTable(connectionSource, Sms.class);
+			TableUtils.createTable(connectionSource, TrashSms.class);
 			TableUtils.createTable(connectionSource, Complain.class);
 		} catch (SQLException e) {
 			Log.e(TAG, "error creating DB " + DATABASE_NAME);
@@ -56,6 +60,7 @@ public class Repository<T extends Entity> extends OrmLiteSqliteOpenHelper {
 			TableUtils.dropTable(connectionSource, Sender.class, true);
 			TableUtils.dropTable(connectionSource, SmsHash.class, true);
 			TableUtils.dropTable(connectionSource, Sms.class, true);
+			TableUtils.dropTable(connectionSource, TrashSms.class, true);
 			TableUtils.dropTable(connectionSource, Complain.class, true);
 			onCreate(db, connectionSource);
 		} catch (SQLException e) {
@@ -100,6 +105,18 @@ public class Repository<T extends Entity> extends OrmLiteSqliteOpenHelper {
 		return smsDao;
 	}
 
+	public TrashSmsDao getTrashSmsDao() {
+		if (trashSmsDao == null) {
+			try {
+				trashSmsDao = new TrashSmsDao(getConnectionSource(), TrashSms.class);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return trashSmsDao;
+	}
+
 	public ComplainDao getComplainDao() {
 		if (complainDao == null) {
 			try {
@@ -118,6 +135,7 @@ public class Repository<T extends Entity> extends OrmLiteSqliteOpenHelper {
 		senderDao = null;
 		smsHashDao = null;
 		smsDao = null;
+		trashSmsDao = null;
 		complainDao = null;
 	}
 }

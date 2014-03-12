@@ -37,6 +37,12 @@
         style="@style/BaseControl.Button"
         android:onClick="smsValidate"
         android:text="@string/SmsValidateList" />
+    
+    <Button
+        android:id="@+id/buttonSmsTrash"
+        style="@style/BaseControl.Button"
+        android:onClick="smsTrash"
+        android:text="@string/SmsTrash" />
 
     <Button
         android:id="@+id/buttonSoundSettings"

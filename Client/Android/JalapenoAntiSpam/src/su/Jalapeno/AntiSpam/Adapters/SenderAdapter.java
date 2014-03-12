@@ -25,6 +25,7 @@ public class SenderAdapter extends BaseAdapter {
 
 	@Inject
 	public SenderAdapter(Context context, SenderService senderService) {
+		
 		_context = context;
 		_senderService = senderService;
 		lInflater = (LayoutInflater) _context
