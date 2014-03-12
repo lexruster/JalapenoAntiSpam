@@ -272,6 +272,7 @@ containing a value of this type.
         public static final int cbIsSender=0x7f07001d;
         public static final int hybrid=0x7f070004;
         public static final int imageView=0x7f070005;
+        public static final int llSmsItem=0x7f070023;
         public static final int none=0x7f070000;
         public static final int normal=0x7f070001;
         public static final int satellite=0x7f070002;
@@ -280,9 +281,9 @@ containing a value of this type.
         public static final int textView=0x7f070006;
         public static final int toggleEnabled=0x7f07001e;
         public static final int tvSenderId=0x7f07001c;
-        public static final int tvSmsDate=0x7f070025;
-        public static final int tvSmsSender=0x7f070024;
-        public static final int tvSmsText=0x7f070023;
+        public static final int tvSmsDate=0x7f070026;
+        public static final int tvSmsSender=0x7f070025;
+        public static final int tvSmsText=0x7f070024;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f090000;
