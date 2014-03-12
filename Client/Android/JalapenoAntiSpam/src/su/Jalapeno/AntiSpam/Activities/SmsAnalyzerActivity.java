@@ -5,7 +5,6 @@ import su.Jalapeno.AntiSpam.Adapters.SmsAdapter;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
-import su.Jalapeno.AntiSpam.Util.UI.DebugMessage;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -21,7 +20,7 @@ import com.google.inject.Inject;
 public class SmsAnalyzerActivity extends JalapenoListActivity {
 
 	private Context _context;
-	private Sms _selectedSms;
+	// private Sms _selectedSms;
 	Button _needSmsButton;
 	Button _spamButton;
 	Button _deleteButton;
@@ -56,27 +55,19 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 		UpdateButtons();
 	}
 
-	/*
-	 * setOnItemSelectedListener(new OnItemSelectedListener() { public void
-	 * onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-	 * Log.d(LOG_TAG, "itemSelect: position = " + position + ", id = " + id); }
-	 */
-
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		v.setSelected(true);
-		Sms item = (Sms) getListAdapter().getItem(position);
-		SetSelected(item);
+		SetSelected(position);
 	}
 
-	private void SetSelected(Sms item) {
-		DebugMessage.Debug(_context, item.SenderId + " " + item.Text);
-		_selectedSms = item;
+	private void SetSelected(int position) {
+		_smsAdapter.SetSelectedIndex(position);
 		UpdateButtons();
+		_smsAdapter.notifyDataSetChanged();
 	}
 
 	private void UpdateButtons() {
-		if (_selectedSms != null) {
+		if (_smsAdapter.HasCurrentItem()) {
 			SetButtonEnabled(true);
 
 		} else {
@@ -95,29 +86,30 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 	}
 
 	public void NeedSms(View view) {
-		if (_selectedSms != null) {
-			_smsAnalyzerService.SetSenderAsTrusted(_selectedSms.SenderId);
+		if (_smsAdapter.HasCurrentItem()) {
+			_smsAnalyzerService.SetSenderAsTrusted(_smsAdapter
+					.GetSelectedItem().SenderId);
 			UpdateList();
 		}
 	}
 
 	public void ToSpam(View view) {
-		if (_selectedSms != null) {
-			_smsAnalyzerService.SetSenderAsSpamer(_selectedSms.SenderId);
+		if (_smsAdapter.HasCurrentItem()) {
+			_smsAnalyzerService
+					.SetSenderAsSpamer(_smsAdapter.GetSelectedItem().SenderId);
 			UpdateList();
 		}
 	}
 
 	public void DeleteSms(View view) {
-		if (_selectedSms != null) {
-			_smsAnalyzerService.DeleteSms(_selectedSms);
+		if (_smsAdapter.HasCurrentItem()) {
+			_smsAnalyzerService.DeleteSms(_smsAdapter.GetSelectedItem());
 			UpdateList();
 		}
 	}
 
 	private void UpdateList() {
-		_smsAdapter.Regresh();
-		_selectedSms = null;
+		_smsAdapter.Refresh();
 		UpdateButtons();
 		startService(new Intent(this, AppService.class));
 	}

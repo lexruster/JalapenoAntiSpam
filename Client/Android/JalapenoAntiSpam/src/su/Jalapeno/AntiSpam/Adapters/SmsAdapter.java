@@ -9,10 +9,12 @@ import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsQueueService;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.inject.Inject;
@@ -22,6 +24,8 @@ public class SmsAdapter extends BaseAdapter {
 	LayoutInflater lInflater;
 	ArrayList<Sms> _objects;
 	private SmsQueueService _smsQueueService;
+
+	private int _selectedIndex = -1;
 
 	@Inject
 	public SmsAdapter(Context context, SmsQueueService smsQueueService) {
@@ -53,6 +57,22 @@ public class SmsAdapter extends BaseAdapter {
 		return position;
 	}
 
+	public void SetSelectedIndex(int position) {
+		_selectedIndex = position;
+	}
+
+	public int GetSelectedIndex() {
+		return _selectedIndex;
+	}
+
+	public Sms GetSelectedItem() {
+		return (Sms) getItem(_selectedIndex);
+	}
+
+	public boolean HasCurrentItem() {
+		return _selectedIndex >= 0;
+	}
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view = convertView;
@@ -61,13 +81,17 @@ public class SmsAdapter extends BaseAdapter {
 		}
 
 		Sms sms = getSms(position);
-
 		((TextView) view.findViewById(R.id.tvSmsText)).setText(sms.Text);
-
 		((TextView) view.findViewById(R.id.tvSmsSender)).setText(sms.SenderId);
-
 		String date = GetDate(sms.RecieveDate);
 		((TextView) view.findViewById(R.id.tvSmsDate)).setText(date);
+		LinearLayout layout = ((LinearLayout) view.findViewById(R.id.llSmsItem));
+
+		if (position == _selectedIndex) {
+			layout.setBackgroundResource(R.color.pressed_color);
+		} else {
+			layout.setBackgroundResource(R.color.default_color);
+		}
 
 		return view;
 	}
@@ -86,8 +110,9 @@ public class SmsAdapter extends BaseAdapter {
 		return ((Sms) getItem(position));
 	}
 
-	public void Regresh() {
+	public void Refresh() {
 		LoadData();
+		_selectedIndex = -1;
 		notifyDataSetChanged();
 	}
 }

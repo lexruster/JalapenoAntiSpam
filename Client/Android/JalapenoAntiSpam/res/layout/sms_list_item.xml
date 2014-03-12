@@ -1,63 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_margin="2dp" >
+    android:layout_margin="2dp"
+    android:orientation="vertical" 
+    android:id="@+id/llSmsItem"
+    >
 
-    <LinearLayout
-        style="@style/ListItem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        
-        android:orientation="vertical" >
-        
-          <TextView
+    
+        <TextView
             android:id="@+id/tvSmsText"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_width="match_parent"
             android:layout_weight="1"
             android:gravity="left"
             android:text="TextView"
-        
-            android:textSize="13sp">
-        </TextView>
-        
-    <LinearLayout
-        style="@style/ListItem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/tvSmsSender"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            
-            android:gravity="left"
-            android:text="TextView"
-             
             android:textSize="13sp" >
         </TextView>
 
-        <TextView
-            android:id="@+id/tvSmsDate"
-            android:layout_width="0dp"
+        <LinearLayout
+            style="@style/ListItem"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            
-            android:gravity="left"
-            android:text="TextView"
-             
-            android:textSize="11sp" >
-        </TextView>
-    </LinearLayout>
-    </LinearLayout>
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tvSmsSender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="TextView"
+                android:textSize="13sp" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/tvSmsDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="TextView"
+                android:textSize="8sp" >
+            </TextView>
+        </LinearLayout>
+    
 
 </LinearLayout>

@@ -4,13 +4,7 @@
     style="@style/BaseLayout"
     android:orientation="vertical"
     tools:context=".SpamerList" >
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:src="@drawable/jalapeno" />
-
+  
     <TextView
         android:id="@+id/textView"
         style="@style/BaseControl.TextHeader"
