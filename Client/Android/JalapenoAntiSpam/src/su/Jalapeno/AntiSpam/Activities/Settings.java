@@ -87,6 +87,10 @@ public class Settings extends JalapenoActivity {
 		settingsService.SaveSettings(config);
 	}
 
+	public void smsTrash(View view) {
+		UiUtils.NavigateTo(TrashSmsActivity.class);
+	}
+		
 	public void smsValidate(View view) {
 		UiUtils.NavigateTo(SmsAnalyzerActivity.class);
 	}

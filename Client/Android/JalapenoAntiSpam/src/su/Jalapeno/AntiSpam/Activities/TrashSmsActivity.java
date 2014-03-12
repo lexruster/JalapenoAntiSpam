@@ -1,11 +1,12 @@
 package su.Jalapeno.AntiSpam.Activities;
 
 import su.Jalapeno.AntiSpam.R;
-import su.Jalapeno.AntiSpam.Adapters.SmsAdapter;
-import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
+import su.Jalapeno.AntiSpam.Adapters.TrashSmsAdapter;
+import su.Jalapeno.AntiSpam.DAL.Domain.TrashSms;
+import su.Jalapeno.AntiSpam.Services.Sms.SmsService;
+import su.Jalapeno.AntiSpam.Services.Sms.TrashSmsService;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,18 +17,20 @@ import android.widget.ListView;
 
 import com.google.inject.Inject;
 
-public class SmsAnalyzerActivity extends JalapenoListActivity {
+public class TrashSmsActivity extends JalapenoListActivity {
 
-	private Context _context;
+	//private Context _context;
 	Button _needSmsButton;
-	Button _spamButton;
 	Button _deleteButton;
 
 	@Inject
-	SmsAdapter _smsAdapter;
+	private SmsService _smsService;
 
 	@Inject
-	SmsAnalyzerService _smsAnalyzerService;
+	TrashSmsAdapter _smsAdapter;
+	
+	@Inject
+	TrashSmsService _trashSmsService;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +47,8 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 	}
 
 	private void Init() {
-		_context = this.getApplicationContext();
-		_context.startService(new Intent(_context, AppService.class));
+		//_context = this.getApplicationContext();
 		_needSmsButton = (Button) findViewById(R.id.btnNeedSms);
-		_spamButton = (Button) findViewById(R.id.btnSpamSms);
 		_deleteButton = (Button) findViewById(R.id.btnDeleteSms);
 		_smsAdapter.LoadData();
 		LoadList();
@@ -68,7 +69,6 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 	private void UpdateButtons() {
 		if (_smsAdapter.HasCurrentItem()) {
 			SetButtonEnabled(true);
-
 		} else {
 			SetButtonEnabled(false);
 		}
@@ -76,7 +76,6 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 
 	private void SetButtonEnabled(boolean enabled) {
 		_needSmsButton.setEnabled(enabled);
-		_spamButton.setEnabled(enabled);
 		_deleteButton.setEnabled(enabled);
 	}
 
@@ -86,23 +85,17 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 
 	public void NeedSms(View view) {
 		if (_smsAdapter.HasCurrentItem()) {
-			_smsAnalyzerService.SetSenderAsTrusted(_smsAdapter
-					.GetSelectedItem().SenderId);
-			UpdateList();
-		}
-	}
-
-	public void ToSpam(View view) {
-		if (_smsAdapter.HasCurrentItem()) {
-			_smsAnalyzerService
-					.SetSenderAsSpamer(_smsAdapter.GetSelectedItem().SenderId);
+			TrashSms trashSms = _smsAdapter.GetSelectedItem();
+			_smsService.PutSmsToDatabase(trashSms);
+			_trashSmsService.Delete(trashSms);
 			UpdateList();
 		}
 	}
 
 	public void DeleteSms(View view) {
 		if (_smsAdapter.HasCurrentItem()) {
-			_smsAnalyzerService.DeleteSms(_smsAdapter.GetSelectedItem());
+			TrashSms trashSms = _smsAdapter.GetSelectedItem();
+			_trashSmsService.Delete(trashSms);
 			UpdateList();
 		}
 	}
