@@ -20,13 +20,16 @@ public class RequestQueue extends JalapenoService<Complain> {
 	private SettingsService _settingsService;
 
 	@Inject
-	public RequestQueue(JalapenoWebServiceWraper jalapenoWebServiceWraper, SettingsService settingsService) {
+	public RequestQueue(JalapenoWebServiceWraper jalapenoWebServiceWraper,
+			SettingsService settingsService) {
 		super();
 		_jalapenoWebServiceWraper = jalapenoWebServiceWraper;
 		_settingsService = settingsService;
 	}
 
-	public RequestQueue(Repository<Complain> repository, JalapenoWebServiceWraper jalapenoWebServiceWraper, SettingsService settingsService) {
+	public RequestQueue(Repository<Complain> repository,
+			JalapenoWebServiceWraper jalapenoWebServiceWraper,
+			SettingsService settingsService) {
 		super(repository);
 		_jalapenoWebServiceWraper = jalapenoWebServiceWraper;
 		_settingsService = settingsService;
@@ -46,16 +49,16 @@ public class RequestQueue extends JalapenoService<Complain> {
 	}
 
 	public void ProceedComplainRequests() {
-		Log.d(LOG_TAG, "ProceedComplainRequests ");
 		Config config = _settingsService.LoadSettings();
+		Log.d(LOG_TAG, "ProceedComplainRequests config reg "
+				+ config.ClientRegistered + " enabled " + config.Enabled);
 		if (!config.ClientRegistered || !config.Enabled) {
 			return;
 		}
 
 		long count = GetComplainDao().Count();
-		Log.d(LOG_TAG, "ProceedComplainRequests count=" + count);
 		if (count > 0) {
-
+			Log.d(LOG_TAG, "ProceedComplainRequests count=" + count);
 			if (_jalapenoWebServiceWraper.ServiceIsAvailable()) {
 				long batchSize = Constants.COMPLAIN_BATCH_SIZE;
 				if (count < batchSize) {
@@ -79,7 +82,8 @@ public class RequestQueue extends JalapenoService<Complain> {
 	}
 
 	private boolean ProceedComplain(Complain complain) {
-		ComplainResponse complainResponse = _jalapenoWebServiceWraper.Complain(complain.SenderId, complain.SmsHash);
+		ComplainResponse complainResponse = _jalapenoWebServiceWraper.Complain(
+				complain.SenderId, complain.SmsHash);
 		boolean success = complainResponse.WasSuccessful;
 		if (success) {
 			Delete(complain);
