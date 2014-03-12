@@ -14,6 +14,8 @@
     <string name="SmsList">Sms list</string>
     <string name="EmptySmsList">EmptySmsList</string>
     <string name="SmsValidateList">Sms for validate</string>
+    <string name="SmsTrashList">Sms trash</string>
+    
     <string name="RegisterButton">Registration</string>
     <string name="RegisterText">You need to register via google for use this application with full power</string>
     <string name="BannedRegister">User is banned</string>

@@ -42,7 +42,7 @@
         android:id="@+id/buttonSmsTrash"
         style="@style/BaseControl.Button"
         android:onClick="smsTrash"
-        android:text="@string/SmsTrash" />
+        android:text="@string/SmsTrashList" />
 
     <Button
         android:id="@+id/buttonSoundSettings"
