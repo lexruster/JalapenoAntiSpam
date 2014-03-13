@@ -55,7 +55,7 @@ public class JalapenoHttpService {
 		IsSpammerResponse response;
 		String json = _gson.toJson(request);
 		String postData = PrepareJsonRequest(json);
-		String requestString = WebClient.Post(WebConstants.IS_SPANNER_URL,
+		String requestString = WebClient.Post(WebConstants.IS_SPAMMER_URL,
 				postData);
 		response = _gson.fromJson(requestString, IsSpammerResponse.class);
 
