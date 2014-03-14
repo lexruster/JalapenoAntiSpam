@@ -6,9 +6,11 @@ import su.Jalapeno.AntiSpam.DAL.Domain.TrashSms;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsService;
 import su.Jalapeno.AntiSpam.Services.Sms.TrashSmsService;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
+import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -19,6 +21,7 @@ import com.google.inject.Inject;
 
 public class TrashSmsActivity extends JalapenoListActivity {
 
+	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "TrashSmsActivity";
 	//private Context _context;
 	Button _needSmsButton;
 	Button _deleteButton;
@@ -36,7 +39,7 @@ public class TrashSmsActivity extends JalapenoListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_sms_analyzer);
+		setContentView(R.layout.activity_trash_sms);
 		Init();
 	}
 
@@ -47,12 +50,12 @@ public class TrashSmsActivity extends JalapenoListActivity {
 	}
 
 	private void Init() {
-		//_context = this.getApplicationContext();
 		_needSmsButton = (Button) findViewById(R.id.btnNeedSms);
 		_deleteButton = (Button) findViewById(R.id.btnDeleteSms);
 		_smsAdapter.LoadData();
 		LoadList();
 		UpdateButtons();
+		Log.d(LOG_TAG, "loaded");
 	}
 
 	@Override
@@ -88,6 +91,7 @@ public class TrashSmsActivity extends JalapenoListActivity {
 			TrashSms trashSms = _smsAdapter.GetSelectedItem();
 			_smsService.PutSmsToDatabase(trashSms);
 			_trashSmsService.Delete(trashSms);
+			Log.d(LOG_TAG, "need sms - sender "+trashSms.SenderId);
 			UpdateList();
 		}
 	}
@@ -96,6 +100,7 @@ public class TrashSmsActivity extends JalapenoListActivity {
 		if (_smsAdapter.HasCurrentItem()) {
 			TrashSms trashSms = _smsAdapter.GetSelectedItem();
 			_trashSmsService.Delete(trashSms);
+			Log.d(LOG_TAG, "delete sms - sender " + trashSms.SenderId);
 			UpdateList();
 		}
 	}
