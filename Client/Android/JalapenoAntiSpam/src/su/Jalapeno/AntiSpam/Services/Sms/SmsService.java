@@ -5,13 +5,16 @@ import java.util.Date;
 import com.google.inject.Inject;
 
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
+import su.Jalapeno.AntiSpam.Util.Constants;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
 import android.telephony.SmsMessage;
+import android.util.Log;
 
 public class SmsService {
+	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "SmsService";
 
 	public static final String SMS_URI = "content://sms";
 
@@ -38,7 +41,6 @@ public class SmsService {
 	@Inject
 	public SmsService(Context context) {
 		_context = context;
-
 	}
 
 	public Sms SmsFromPdus(Object[] pdus, Context context) {
@@ -53,7 +55,7 @@ public class SmsService {
 		sms.SenderId = first.getOriginatingAddress();
 		Date receiveDate = new Date(first.getTimestampMillis());
 		sms.RecieveDate = receiveDate;
-		sms.Status=first.getStatus();
+		sms.Status = first.getStatus();
 
 		return sms;
 	}
@@ -71,6 +73,7 @@ public class SmsService {
 		values.put(BODY, sms.Text);
 		// Push row into the SMS table
 		contentResolver.insert(Uri.parse(SMS_URI), values);
+		Log.d(LOG_TAG, "inserted " + sms.SenderId);
 	}
 
 }

@@ -29,6 +29,7 @@ public class SmsReceiverLogic {
 	private SettingsService _settingsService;
 	private NotifyService _notifyService;
 	private SmsHashService _smsHashService;
+	private TrashSmsService _trashSmsService;
 
 	private final int MIN_MESSAGE_LENGTH = 50;
 	private Context _context;
@@ -36,7 +37,7 @@ public class SmsReceiverLogic {
 
 	public SmsReceiverLogic(Context context, ContactsService contactsService, JalapenoWebServiceWraper jalapenoWebServiceWraper,
 			SmsAnalyzerService smsAnalyzerService, SenderService senderService, RequestQueue requestQueue, SettingsService settingsService,
-			NotifyService notifyService, SmsHashService smsHashService) {
+			NotifyService notifyService, SmsHashService smsHashService, TrashSmsService trashSmsService) {
 		_context = context;
 		_contactsService = contactsService;
 		_jalapenoWebServiceWraper = jalapenoWebServiceWraper;
@@ -45,6 +46,7 @@ public class SmsReceiverLogic {
 		_settingsService = settingsService;
 		_notifyService = notifyService;
 		_smsHashService = smsHashService;
+		_trashSmsService = trashSmsService;
 	}
 
 	public boolean Receive(Sms sms) {
@@ -69,6 +71,7 @@ public class SmsReceiverLogic {
 				return true;
 			} else {
 				Log.i(LOG_TAG, "Known NOT spamer.");
+				_trashSmsService.Add(sms);
 				return false;
 			}
 		}
@@ -80,6 +83,7 @@ public class SmsReceiverLogic {
 
 			if (isSpam) {
 				Log.i(LOG_TAG, "Known Hash spamer.");
+				_trashSmsService.Add(sms);
 				return false;
 			}
 		}
@@ -93,7 +97,6 @@ public class SmsReceiverLogic {
 		} catch (ExecutionException e) {
 			e.printStackTrace();
 		}
-		// _jalapenoWebServiceWraper.IsSpamer(sms.SenderId, smsTexthash)
 
 		if (isSpamer) {
 			Log.i(LOG_TAG, "Spamer from http.");
@@ -102,15 +105,16 @@ public class SmsReceiverLogic {
 				_smsHashService.AddHash(smsTexthash);
 			}
 
+			_trashSmsService.Add(sms);
 			return false;
 		}
+
 		Log.i(LOG_TAG, "Add sms to validate.");
 		_smsAnalyzerService.AddSmsToValidate(sms);
 
 		_notifyService.OnIncomeSms();
 
-		// return false;
-		return false;// test value
+		return false;
 	}
 
 	class TestIsSpamerAsync extends AsyncTask<String, Void, Boolean> {

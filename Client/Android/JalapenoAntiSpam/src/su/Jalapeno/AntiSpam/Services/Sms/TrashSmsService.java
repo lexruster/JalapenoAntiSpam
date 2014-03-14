@@ -3,6 +3,7 @@ package su.Jalapeno.AntiSpam.Services.Sms;
 import su.Jalapeno.AntiSpam.DAL.Repository;
 import su.Jalapeno.AntiSpam.DAL.DAO.JalapenoDao;
 import su.Jalapeno.AntiSpam.DAL.DAO.TrashSmsDao;
+import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.DAL.Domain.TrashSms;
 import su.Jalapeno.AntiSpam.Services.JalapenoService;
 
@@ -25,5 +26,9 @@ public class TrashSmsService extends JalapenoService<TrashSms> {
 	@Override
 	protected JalapenoDao<TrashSms> GetDao() {
 		return GetTrashSmsDao();
+	}
+
+	public void Add(Sms sms) {
+		Add(new TrashSms(sms));
 	}
 }

@@ -12,6 +12,7 @@ import su.Jalapeno.AntiSpam.Services.Sms.SmsHashService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsQueueService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiverLogic;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsService;
+import su.Jalapeno.AntiSpam.Services.Sms.TrashSmsService;
 import su.Jalapeno.AntiSpam.Services.WebService.EncoderService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
@@ -30,12 +31,15 @@ public class ServiceFactory {
 		SenderService senderService = new SenderService(repository);
 		RequestQueue _requestQueue = new RequestQueue(repository, jalapenoWebServiceWraper, _settingsService);
 		SmsQueueService smsQueueService = new SmsQueueService(repository);
+		TrashSmsService _trashSmsService = new TrashSmsService(repository);
 		SmsService smsService = new SmsService(context);
+		NotifyService notifyService = new NotifyService(context, _settingsService);
+
 		SmsAnalyzerService smsAnalyzerService = new SmsAnalyzerService(context, smsQueueService, _requestQueue, smsHashService,
 				senderService, smsService);
 
 		SmsReceiverLogic _smsReceiverLogic = new SmsReceiverLogic(context, contactsService, jalapenoWebServiceWraper, smsAnalyzerService,
-				senderService, _requestQueue, _settingsService, new NotifyService(context, _settingsService), smsHashService);
+				senderService, _requestQueue, _settingsService, notifyService, smsHashService, _trashSmsService);
 
 		return _smsReceiverLogic;
 	}

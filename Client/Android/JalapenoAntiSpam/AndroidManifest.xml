@@ -44,6 +44,7 @@
         </activity>
         <activity android:name="su.Jalapeno.AntiSpam.Activities.Debug" />
         <activity android:name="su.Jalapeno.AntiSpam.Activities.SpamerList" />
+        <activity android:name="su.Jalapeno.AntiSpam.Activities.TrashSmsActivity" />
         <activity android:name="su.Jalapeno.AntiSpam.Activities.SmsAnalyzerActivity" >
         </activity>
         <activity android:name="su.Jalapeno.AntiSpam.Activities.RegisterActivity" >
