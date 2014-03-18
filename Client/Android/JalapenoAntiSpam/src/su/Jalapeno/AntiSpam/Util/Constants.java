@@ -8,4 +8,6 @@ public class Constants {
 	public static final boolean ENABLE_ENCRYPTION = true;
 	public static final String CRYPTO_ALGORITM = "RSA/ECB/PKCS1PADDING";
 	public static final String KEY_ALGORITM = "RSA";
+	
+	public static final boolean IS_DEBUG = false;
 }

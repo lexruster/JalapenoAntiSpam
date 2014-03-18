@@ -39,7 +39,6 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// getMenuInflater().inflate(R.menu.sms_analyzer, menu);
 		return true;
 	}
 
