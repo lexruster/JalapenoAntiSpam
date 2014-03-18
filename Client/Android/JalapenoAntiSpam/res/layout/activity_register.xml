@@ -14,7 +14,7 @@
     <TextView
         android:id="@+id/textView"
         style="@style/BaseControl.TextHeader"
-        android:text="@string/SettingsTitle" />
+        android:text="@string/RegisterTitle" />
     
     <TextView
         android:id="@+id/textView"

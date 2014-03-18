@@ -31,7 +31,7 @@ public class NotifyService {
 		Log.i(LOG_TAG, "OnIncomeSms.");
 		PlayRingtone();
 
-		_context.startService(new Intent(_context, AppService.class));
+		_context.startService(new Intent(_context, AppService.class).putExtra("Alarm", 1));
 
 		DebugMessage.Debug(_context, "Def ringtone");
 	}

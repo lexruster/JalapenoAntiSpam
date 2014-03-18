@@ -52,7 +52,8 @@ public class AppService extends Service {
 
 		if (_smsQueueService != null) {
 			long count = _smsQueueService.Count();
-			Notification notification = NotifyBuilder.CreateNotifacation(_context, count);
+			boolean needAlarm = intent.getIntExtra("Alarm", 0) == 1;
+			Notification notification = NotifyBuilder.CreateNotifacation(_context, count, needAlarm);
 			Log.d(LOG_TAG, "Start notify count " + count);
 			startForeground(NOTIFY_ID, notification);
 		} else {
@@ -61,7 +62,6 @@ public class AppService extends Service {
 		someTask();
 
 		return START_STICKY;
-		// return super.onStartCommand(intent, flags, startId);
 	}
 
 	public void onDestroy() {

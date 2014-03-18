@@ -12,8 +12,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ToggleButton;
 
-//import com.google.android.gms.*;
-
 public class Settings extends JalapenoActivity {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "Settings";
 	ToggleButton toogleButton;

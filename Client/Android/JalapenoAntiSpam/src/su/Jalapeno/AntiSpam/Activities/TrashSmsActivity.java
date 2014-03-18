@@ -108,6 +108,6 @@ public class TrashSmsActivity extends JalapenoListActivity {
 	private void UpdateList() {
 		_smsAdapter.Refresh();
 		UpdateButtons();
-		startService(new Intent(this, AppService.class));
+		//startService(new Intent(this, AppService.class));
 	}
 }
