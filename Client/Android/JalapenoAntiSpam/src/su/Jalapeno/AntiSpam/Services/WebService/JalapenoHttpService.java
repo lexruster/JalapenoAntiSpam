@@ -75,7 +75,7 @@ public class JalapenoHttpService {
 	}
 
 	public PublicKeyResponse GetPublicKey() {
-		Log.d(LOG_TAG, "GetPublicKey ");
+		Log.d(LOG_TAG, "GetPublicKey");
 		String requestString = WebClient.Get(WebConstants.PUBLIC_KEY_URL);
 		PublicKeyResponse response = _gson.fromJson(requestString,
 				PublicKeyResponse.class);

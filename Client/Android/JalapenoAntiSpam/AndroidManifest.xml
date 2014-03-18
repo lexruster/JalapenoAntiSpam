@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="su.Jalapeno.AntiSpam"
-    android:versionCode="2"
+    android:versionCode="4"
     android:versionName="0.2" >
 
     <uses-sdk
@@ -21,7 +21,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RAISED_THREAD_PRIORITY" />
-    <!-- <uses-permission android:name="android.permission.BROADCAST_SMS"/> -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application

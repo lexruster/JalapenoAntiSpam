@@ -25,7 +25,7 @@ public class WebClient {
 		String result = "";
 
 		try {
-			//
+			Log.d(LOG_TAG, "Get from: " + url);
 			HttpClient client = new DefaultHttpClient();
 			HttpGet get = new HttpGet(url);
 			HttpResponse response = client.execute(get);
@@ -37,6 +37,7 @@ public class WebClient {
 				try {
 					result = convertStreamToString(content);
 					content.close();
+					Log.d(LOG_TAG, "Get complete with result: " + result);
 					return result;
 
 				} catch (Exception ex) {
@@ -58,6 +59,7 @@ public class WebClient {
 		String result = "";
 
 		try {
+			Log.d(LOG_TAG, "Post to: " + url + " with data " + postData);
 			// Create an HTTP client
 			HttpClient client = new DefaultHttpClient();
 			HttpPost post = new HttpPost(url);
@@ -74,6 +76,7 @@ public class WebClient {
 				try {
 					result = convertStreamToString(content);
 					content.close();
+					Log.d(LOG_TAG, "Post complete with result: " + result);
 					return result;
 
 				} catch (Exception ex) {

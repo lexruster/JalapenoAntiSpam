@@ -68,7 +68,7 @@ public class JalapenoWebServiceWraper {
 			}
 		}
 
-		Log.d(LOG_TAG, "RegisterClient response " + response.WasSuccessful + " error " + response.ErrorMessage);
+		Log.d(LOG_TAG, "RegisterClient response " + response.WasSuccessful);
 		return response;
 	}
 
@@ -86,7 +86,7 @@ public class JalapenoWebServiceWraper {
 			}
 		}
 
-		Log.d(LOG_TAG, "Complain resp" + response.WasSuccessful);
+		Log.d(LOG_TAG, "Complain resp " + response.WasSuccessful);
 		return response;
 	}
 
@@ -105,6 +105,7 @@ public class JalapenoWebServiceWraper {
 		}
 
 		if (response.ErrorMessage.equals(WebErrors.InvalidRequest)) {
+			Log.d(LOG_TAG, "Need new publick key " + response.WasSuccessful);
 			PublicKeyResponse pbk = GetPublicKey();
 			if (pbk.WasSuccessful) {
 				PublicKeyInfo publicKeyInfo = CryptoService.GetPublicKeyInfo(pbk.PublicKey);

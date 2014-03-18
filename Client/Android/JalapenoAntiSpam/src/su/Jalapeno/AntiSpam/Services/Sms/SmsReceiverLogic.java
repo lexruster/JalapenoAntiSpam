@@ -51,7 +51,7 @@ public class SmsReceiverLogic {
 
 	public boolean Receive(Sms sms) {
 		Config config = _settingsService.LoadSettings();
-		_context.startService(new Intent(_context, AppService.class));
+		//_context.startService(new Intent(_context, AppService.class));
 
 		if (!config.Enabled) {
 			return true;

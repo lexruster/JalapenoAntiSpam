@@ -42,7 +42,6 @@ public class NotifyBuilder {
 			notification.defaults |= Notification.DEFAULT_LIGHTS;
 			notification.flags |= Notification.FLAG_SHOW_LIGHTS;
 			notification.flags |= Notification.FLAG_ONGOING_EVENT;
-			 
 		}
 
 		notification.flags |= Notification.FLAG_NO_CLEAR;
