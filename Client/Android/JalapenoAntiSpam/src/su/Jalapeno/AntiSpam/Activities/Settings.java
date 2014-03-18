@@ -1,5 +1,6 @@
 package su.Jalapeno.AntiSpam.Activities;
 
+import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Util.Config;
@@ -10,13 +11,22 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ToggleButton;
 
 public class Settings extends JalapenoActivity {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "Settings";
-	ToggleButton toogleButton;
 	SettingsService settingsService;
 	private Config config;
+
+	@InjectView(R.id.buttonDebug)
+	Button buttonDebug;
+
+	@InjectView(R.id.buttonSoundSettings)
+	Button buttonSoundSettings;
+
+	@InjectView(R.id.toggleEnabled)
+	ToggleButton toogleButton;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -29,13 +39,12 @@ public class Settings extends JalapenoActivity {
 	}
 
 	private void SetEvent() {
-		UiUtils.SetTapForButton(R.id.buttonSpammerList,
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						ViewSpamerList();
-					}
-				});
+		UiUtils.SetTapForButton(R.id.buttonSpammerList, new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				ViewSpamerList();
+			}
+		});
 
 		UiUtils.SetTapForButton(R.id.buttonDebug, new View.OnClickListener() {
 			@Override
@@ -43,8 +52,6 @@ public class Settings extends JalapenoActivity {
 				UiUtils.NavigateTo(Debug.class);
 			}
 		});
-
-		toogleButton = (ToggleButton) findViewById(R.id.toggleEnabled);
 	}
 
 	@Override
@@ -61,6 +68,8 @@ public class Settings extends JalapenoActivity {
 	}
 
 	private void Init() {
+		SetDebugMode(Constants.IS_DEBUG);
+
 		Context context = this.getApplicationContext();
 		settingsService = new SettingsService(context);
 		config = settingsService.LoadSettings();
@@ -76,6 +85,16 @@ public class Settings extends JalapenoActivity {
 		toogleButton.setChecked(config.Enabled);
 	}
 
+	private void SetDebugMode(boolean isDebug) {
+		if (isDebug) {
+			buttonDebug.setVisibility(View.VISIBLE);
+			buttonSoundSettings.setVisibility(View.VISIBLE);
+		} else {
+			buttonDebug.setVisibility(View.INVISIBLE);
+			buttonSoundSettings.setVisibility(View.INVISIBLE);
+		}
+	}
+
 	private void ViewSpamerList() {
 		UiUtils.NavigateTo(SpamerList.class);
 	}
@@ -88,7 +107,7 @@ public class Settings extends JalapenoActivity {
 	public void smsTrash(View view) {
 		UiUtils.NavigateTo(TrashSmsActivity.class);
 	}
-		
+
 	public void smsValidate(View view) {
 		UiUtils.NavigateTo(SmsAnalyzerActivity.class);
 	}

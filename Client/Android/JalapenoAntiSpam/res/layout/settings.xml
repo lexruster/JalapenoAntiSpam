@@ -22,7 +22,7 @@
         android:layout_height="wrap_content" >
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
@@ -59,8 +59,7 @@
             <Button
                 android:id="@+id/buttonDebug"
                 style="@style/BaseControl.Button.Debug"
-                android:text="@string/DebugActivity"
-                android:visibility="visible" />
+                android:text="@string/DebugActivity"/>
         </LinearLayout>
     </ScrollView>
 
