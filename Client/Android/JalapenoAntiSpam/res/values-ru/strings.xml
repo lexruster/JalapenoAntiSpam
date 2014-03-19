@@ -33,4 +33,5 @@
     
     <string name="ExistsUnknownSms">Есть непроверенные смс</string>
     <string name="NotExistsUnknownSms">Спама нет</string>
+    <string name="ParentActivity">su.Jalapeno.AntiSpam.Activities.SettingsActivity</string>
 </resources>
