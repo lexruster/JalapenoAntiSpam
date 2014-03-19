@@ -33,20 +33,31 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="su.Jalapeno.AntiSpam.Activities.Settings"
-            android:label="@string/app_name" >
+            android:name="su.Jalapeno.AntiSpam.Activities.SettingsActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleInstance" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="su.Jalapeno.AntiSpam.Activities.Debug" />
-        <activity android:name="su.Jalapeno.AntiSpam.Activities.SpamerList" />
-        <activity android:name="su.Jalapeno.AntiSpam.Activities.TrashSmsActivity" />
-        <activity android:name="su.Jalapeno.AntiSpam.Activities.SmsAnalyzerActivity" >
+        <activity
+            android:name="su.Jalapeno.AntiSpam.Activities.Debug"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name="su.Jalapeno.AntiSpam.Activities.SpamerList"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name="su.Jalapeno.AntiSpam.Activities.TrashSmsActivity"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name="su.Jalapeno.AntiSpam.Activities.SmsAnalyzerActivity"
+            android:launchMode="singleInstance" >
         </activity>
-        <activity android:name="su.Jalapeno.AntiSpam.Activities.RegisterActivity" >
+        <activity
+            android:name="su.Jalapeno.AntiSpam.Activities.RegisterActivity"
+            android:launchMode="singleInstance" >
         </activity>
 
         <receiver
