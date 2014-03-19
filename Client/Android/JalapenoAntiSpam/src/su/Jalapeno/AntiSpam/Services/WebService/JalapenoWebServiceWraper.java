@@ -37,6 +37,22 @@ public class JalapenoWebServiceWraper {
 		return _jalapenoHttpService.ServiceIsAvailable();
 	}
 
+	public RegisterClientResponse RegisterClient(RegisterClientRequest request) {
+		Logger.Debug(LOG_TAG, "RegisterClient  " + request.Token);
+		RegisterClientResponse response = new RegisterClientResponse();
+		response.WasSuccessful = false;
+		if (_jalapenoHttpService.ServiceIsAvailable()) {
+			response = _jalapenoHttpService.RegisterClient(request);
+			/*if (ValidateAndNeedResend(response)) {
+				response = _jalapenoHttpService.RegisterClient(request);
+			}*/
+		}
+
+		Logger.Debug(LOG_TAG, "RegisterClient response "
+				+ response.WasSuccessful);
+		return response;
+	}
+
 	public boolean IsSpamer(String address, String smsTexthash) {
 		Logger.Debug(LOG_TAG, "IsSpamer " + address);
 		if (_jalapenoHttpService.ServiceIsAvailable()) {
@@ -59,22 +75,6 @@ public class JalapenoWebServiceWraper {
 		}
 
 		return false;
-	}
-
-	public RegisterClientResponse RegisterClient(RegisterClientRequest request) {
-		Logger.Debug(LOG_TAG, "RegisterClient  " + request.Token);
-		RegisterClientResponse response = new RegisterClientResponse();
-		response.WasSuccessful = false;
-		if (_jalapenoHttpService.ServiceIsAvailable()) {
-			response = _jalapenoHttpService.RegisterClient(request);
-			if (ValidateAndNeedResend(response)) {
-				response = _jalapenoHttpService.RegisterClient(request);
-			}
-		}
-
-		Logger.Debug(LOG_TAG, "RegisterClient response "
-				+ response.WasSuccessful);
-		return response;
 	}
 
 	public ComplainResponse Complain(String sender, String hash) {

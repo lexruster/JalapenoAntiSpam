@@ -1,5 +1,7 @@
 package su.Jalapeno.AntiSpam.Activities;
 
+import com.google.inject.Inject;
+
 import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
@@ -14,9 +16,11 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ToggleButton;
 
-public class Settings extends JalapenoActivity {
+public class SettingsActivity extends JalapenoActivity {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "Settings";
-	SettingsService settingsService;
+
+	@Inject
+	SettingsService _settingsService;
 	private Config config;
 
 	@InjectView(R.id.buttonDebug)
@@ -33,18 +37,20 @@ public class Settings extends JalapenoActivity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.settings);
-
-		SetEvent();
+		Logger.Debug(LOG_TAG, "onCreate");
 		Init();
+		SetEvent();
 	}
 
 	private void SetEvent() {
-		UiUtils.SetTapForButton(R.id.buttonSpammerList, new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				ViewSpamerList();
-			}
-		});
+		Logger.Debug(LOG_TAG, "SetEvent");
+		UiUtils.SetTapForButton(R.id.buttonSpammerList,
+				new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						ViewSpamerList();
+					}
+				});
 
 		UiUtils.SetTapForButton(R.id.buttonDebug, new View.OnClickListener() {
 			@Override
@@ -57,31 +63,34 @@ public class Settings extends JalapenoActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		settingsService.SaveSettings(config);
+		_settingsService.SaveSettings(config);
+		Logger.Debug(LOG_TAG, "onPause");
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-
-		Init();
+		Logger.Debug(LOG_TAG, "onResume");
+		Resume();
 	}
 
 	private void Init() {
 		SetDebugMode(Constants.VIEW_DEBUG_UI);
 
-		Context context = this.getApplicationContext();
-		settingsService = new SettingsService(context);
-		config = settingsService.LoadSettings();
-		Logger.Debug(LOG_TAG, "Init ClientRegistered " + config.ClientRegistered);
+	}
+
+	private void Resume() {
+		config = _settingsService.LoadSettings();
+		Logger.Debug(LOG_TAG, "Init ClientRegistered "
+				+ config.ClientRegistered);
 		if (config.ClientRegistered) {
 
 		} else {
 			config.Enabled = false;
-			settingsService.SaveSettings(config);
+			_settingsService.SaveSettings(config);
+			Logger.Debug(LOG_TAG, "Init NavigateTo RegisterActivity");
 			UiUtils.NavigateTo(RegisterActivity.class);
 		}
-
 		toogleButton.setChecked(config.Enabled);
 	}
 
@@ -101,7 +110,7 @@ public class Settings extends JalapenoActivity {
 
 	public void toggleClick(View view) {
 		config.Enabled = toogleButton.isChecked();
-		settingsService.SaveSettings(config);
+		_settingsService.SaveSettings(config);
 	}
 
 	public void smsTrash(View view) {

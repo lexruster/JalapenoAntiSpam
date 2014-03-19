@@ -26,26 +26,35 @@ import android.widget.Toast;
 import com.google.inject.Inject;
 
 public class RegisterActivity extends JalapenoActivity {
-
 	@Inject
 	JalapenoWebServiceWraper _jalapenoWebServiceWraper;
+	@Inject
+	Context _context;
+	@Inject
+	private SettingsService _settingsService;
 
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "RegisterActivity";
-
-	Context _context;
-	private SettingsService _settingsService;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
-
-		Init();
+		Logger.Debug(LOG_TAG, "onCreate");
 	}
 
-	private void Init() {
-		_context = this.getApplicationContext();
-		_settingsService = new SettingsService(_context);
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Logger.Debug(LOG_TAG, "onResume");
+		Resume();
+	}
+
+	private void Resume() {
+		Config config = _settingsService.LoadSettings();
+		if (config.ClientRegistered) {
+			Logger.Error(LOG_TAG, "Init clientRegistered!");
+			UiUtils.NavigateTo(SettingsActivity.class);
+		}
 	}
 
 	public void ShowToast(int res) {
@@ -70,7 +79,7 @@ public class RegisterActivity extends JalapenoActivity {
 				_settingsService.SaveSettings(config);
 				Logger.Debug(LOG_TAG, "Register with guid " + config.ClientId);
 				spiner.Hide();
-				UiUtils.NavigateTo(Settings.class);
+				UiUtils.NavigateTo(SettingsActivity.class);
 			} else {
 				spiner.Hide();
 				if (registerClient.ErrorMessage.equals(WebErrors.UserBanned)) {
@@ -92,7 +101,8 @@ public class RegisterActivity extends JalapenoActivity {
 				RegisterActivity... activitis) {
 			PublicKeyResponse pbk = _jalapenoWebServiceWraper.GetPublicKey();
 
-			Logger.Debug(LOG_TAG, "doInBackground GetPublicKey  " + pbk.WasSuccessful);
+			Logger.Debug(LOG_TAG, "doInBackground GetPublicKey  "
+					+ pbk.WasSuccessful);
 			if (pbk.WasSuccessful) {
 				PublicKeyInfo publicKeyInfo = CryptoService
 						.GetPublicKeyInfo(pbk.PublicKey);
