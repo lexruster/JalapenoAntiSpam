@@ -1,24 +1,22 @@
 package su.Jalapeno.AntiSpam.Util;
 
-import java.io.IOException;
+import android.annotation.SuppressLint;
 import java.io.StringReader;
 import java.math.BigInteger;
 import java.security.KeyFactory;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.RSAPrivateKeySpec;
 import java.security.spec.RSAPublicKeySpec;
 
 import javax.crypto.Cipher;
-import javax.crypto.NoSuchPaddingException;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
-import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
+@SuppressLint("TrulyRandom")
 public class CryptoService {
 
 	public CryptoService() {
@@ -91,6 +89,7 @@ public class CryptoService {
 		return EncryptRsa(input, pubKey);
 	}
 
+	@SuppressLint("TrulyRandom")
 	public static String EncryptRsa(String request, PublicKey publicKey) {
 		String base64String = "";
 		Cipher cipher;

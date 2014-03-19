@@ -4,36 +4,32 @@ import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
-import su.Jalapeno.AntiSpam.Util.UI.DebugMessage;
+import su.Jalapeno.AntiSpam.Util.Logger;
 import android.content.Context;
-import android.util.Log;
-
 
 public class SmsReceiver {
 
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "SmsReceiver";
-    private SettingsService _settingsService;
-    private SmsReceiverLogic _smsReceiverLogic;
+	private SettingsService _settingsService;
+	private SmsReceiverLogic _smsReceiverLogic;
 
-    public SmsReceiver(SettingsService settingsService, SmsReceiverLogic smsReceiverLogic) {
-        _settingsService = settingsService;
-        _smsReceiverLogic = smsReceiverLogic;
-    }
+	public SmsReceiver(SettingsService settingsService,
+			SmsReceiverLogic smsReceiverLogic) {
+		_settingsService = settingsService;
+		_smsReceiverLogic = smsReceiverLogic;
+	}
 
-    public boolean Receive(Sms sms, Context context) {
-        Config config = _settingsService.LoadSettings();
-        if (!config.Enabled) {
-            return true;
-        }
-        Boolean isClearFromSpam;
-        isClearFromSpam = _smsReceiverLogic.Receive(sms);
+	public boolean Receive(Sms sms, Context context) {
+		Config config = _settingsService.LoadSettings();
+		if (!config.Enabled) {
+			return true;
+		}
+		Boolean isClearFromSpam;
+		isClearFromSpam = _smsReceiverLogic.Receive(sms);
 
-        String messageOut = String.format("%s\n%s\nSpam: %s", sms.SenderId, sms.Text, !isClearFromSpam);
-        DebugMessage.Debug(context, messageOut);
-
-        Log.i(LOG_TAG, messageOut);
-        return isClearFromSpam;
-    }
+		String messageOut = String.format("%s\n%s\nSpam: %s", sms.SenderId,
+				sms.Text, !isClearFromSpam);
+		Logger.Debug(LOG_TAG, messageOut);
+		return isClearFromSpam;
+	}
 }
-
-

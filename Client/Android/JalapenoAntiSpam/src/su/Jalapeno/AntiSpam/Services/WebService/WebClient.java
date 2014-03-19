@@ -16,7 +16,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import su.Jalapeno.AntiSpam.Util.Constants;
-import android.util.Log;
+import su.Jalapeno.AntiSpam.Util.Logger;
 
 public class WebClient {
 	final static String LOG_TAG = Constants.BEGIN_LOG_TAG + "WebClient";
@@ -25,7 +25,7 @@ public class WebClient {
 		String result = "";
 
 		try {
-			Log.d(LOG_TAG, "Get from: " + url);
+			Logger.Debug(LOG_TAG, "Get from: " + url);
 			HttpClient client = new DefaultHttpClient();
 			HttpGet get = new HttpGet(url);
 			HttpResponse response = client.execute(get);
@@ -37,19 +37,19 @@ public class WebClient {
 				try {
 					result = convertStreamToString(content);
 					content.close();
-					Log.d(LOG_TAG, "Get complete with result: " + result);
+					Logger.Debug(LOG_TAG, "Get complete with result: " + result);
 					return result;
 
 				} catch (Exception ex) {
-					Log.e(LOG_TAG, "Failed to parse JSON due to: " + ex);
+					Logger.Error(LOG_TAG, "Failed to parse JSON due to: " + ex);
 
 				}
 			} else {
-				Log.e(LOG_TAG, "Server responded with status code: " + statusLine.getStatusCode());
+				Logger.Error(LOG_TAG, "Server responded with status code: " + statusLine.getStatusCode());
 
 			}
 		} catch (Exception ex) {
-			Log.e(LOG_TAG, "Failed to send HTTP POST request due to: " + ex);
+			Logger.Error(LOG_TAG, "Failed to send HTTP POST request due to: " + ex);
 
 		}
 		return null;
@@ -59,7 +59,7 @@ public class WebClient {
 		String result = "";
 
 		try {
-			Log.d(LOG_TAG, "Post to: " + url + " with data " + postData);
+			Logger.Debug(LOG_TAG, "Post to: " + url + " with data " + postData);
 			// Create an HTTP client
 			HttpClient client = new DefaultHttpClient();
 			HttpPost post = new HttpPost(url);
@@ -76,23 +76,22 @@ public class WebClient {
 				try {
 					result = convertStreamToString(content);
 					content.close();
-					Log.d(LOG_TAG, "Post complete with result: " + result);
+					Logger.Debug(LOG_TAG, "Post complete with result: " + result);
 					return result;
 
 				} catch (Exception ex) {
-					Log.e(LOG_TAG, "Failed to parse JSON due to: " + ex);
+					Logger.Error(LOG_TAG, "Failed to parse JSON due to: " + ex);
 
 				}
 			} else {
-				Log.e(LOG_TAG, "Server responded with status code: " + statusLine.getStatusCode());
+				Logger.Error(LOG_TAG, "Server responded with status code: " + statusLine.getStatusCode());
 
 			}
 		} catch (Exception ex) {
-			Log.e(LOG_TAG, "Failed to send HTTP POST request due to: " + ex);
+			Logger.Error(LOG_TAG, "Failed to send HTTP POST request due to: " + ex);
 
 		}
 		return null;
-
 	}
 
 	private static HttpEntity CreateEntity(String value) {
@@ -103,7 +102,7 @@ public class WebClient {
 			se.setContentType("application/json; charset=" + Constants.DEFAULT_ENCODING);
 			// se.setContentType("application/json");
 		} catch (UnsupportedEncodingException e) {
-			Log.e(LOG_TAG, "Failed to create StringEntity", e);
+			Logger.Error(LOG_TAG, "Failed to create StringEntity", e);
 		}
 		return se;
 	}

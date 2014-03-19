@@ -2,14 +2,14 @@ package su.Jalapeno.AntiSpam.Services;
 
 import java.util.UUID;
 
-import com.google.inject.Inject;
-
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
+import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.PublicKeyInfo;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
+
+import com.google.inject.Inject;
 
 /**
  * Created by Kseny on 30.12.13.
@@ -96,7 +96,7 @@ public class SettingsService {
 	}
 
 	public void UpdatePublicKey(PublicKeyInfo publicKeyInfo) {
-		Log.d(LOG_TAG, "UpdatePublicKey Exp=" + publicKeyInfo.Exponent);
+		Logger.Debug(LOG_TAG, "UpdatePublicKey Exp=" + publicKeyInfo.Exponent);
 		Config config = LoadSettings();
 		config.PublicKeyExponent = publicKeyInfo.Exponent;
 		config.PublicKeyModulus = publicKeyInfo.Modulus;

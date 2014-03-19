@@ -1,6 +1,6 @@
 package su.Jalapeno.AntiSpam.Services;
 
-import su.Jalapeno.AntiSpam.Util.UI.DebugMessage;
+import su.Jalapeno.AntiSpam.Util.UI.AlertMessage;
 import android.app.Activity;
 import android.content.Intent;
 
@@ -26,7 +26,7 @@ public class EmailSender {
         try {
             _activity.startActivity(Intent.createChooser(i, "Send mail..."));
         } catch (android.content.ActivityNotFoundException ex) {
-            DebugMessage.Debug(_activity, "There are no email clients installed.");
+            AlertMessage.Alert(_activity, "There are no email clients installed.");
         }
     }
 }

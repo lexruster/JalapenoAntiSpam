@@ -10,7 +10,7 @@ import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.ComplainResponse;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
-import android.util.Log;
+import su.Jalapeno.AntiSpam.Util.Logger;
 
 import com.google.inject.Inject;
 
@@ -40,7 +40,8 @@ public class RequestQueue extends JalapenoService<Complain> {
 	}
 
 	public void AddComplainRequest(String phone, String smsTexthash) {
-		Log.d(LOG_TAG, "AddComplainRequest " + phone);
+		Logger.Debug(LOG_TAG, "AddComplainRequest " + phone);
+		
 		Complain complain = new Complain();
 		complain.SenderId = phone;
 		complain.SmsHash = smsTexthash;
@@ -50,7 +51,7 @@ public class RequestQueue extends JalapenoService<Complain> {
 
 	public void ProceedComplainRequests() {
 		Config config = _settingsService.LoadSettings();
-		Log.d(LOG_TAG, "ProceedComplainRequests config reg "
+		Logger.Debug(LOG_TAG, "ProceedComplainRequests config reg "
 				+ config.ClientRegistered + " enabled " + config.Enabled);
 		if (!config.ClientRegistered || !config.Enabled) {
 			return;
@@ -58,7 +59,7 @@ public class RequestQueue extends JalapenoService<Complain> {
 
 		long count = GetComplainDao().Count();
 		if (count > 0) {
-			Log.d(LOG_TAG, "ProceedComplainRequests count=" + count);
+			Logger.Debug(LOG_TAG, "ProceedComplainRequests count=" + count);
 			if (_jalapenoWebServiceWraper.ServiceIsAvailable()) {
 				long batchSize = Constants.COMPLAIN_BATCH_SIZE;
 				if (count < batchSize) {
@@ -78,7 +79,7 @@ public class RequestQueue extends JalapenoService<Complain> {
 				}
 			}
 		}
-		Log.d(LOG_TAG, "ProceedBatch: " + count);
+		Logger.Debug(LOG_TAG, "ProceedBatch: " + count);
 	}
 
 	private boolean ProceedComplain(Complain complain) {

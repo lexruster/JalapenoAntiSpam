@@ -2,16 +2,16 @@ package su.Jalapeno.AntiSpam.Services.Sms;
 
 import java.util.Date;
 
-import com.google.inject.Inject;
-
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Util.Constants;
+import su.Jalapeno.AntiSpam.Util.Logger;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
 import android.telephony.SmsMessage;
-import android.util.Log;
+
+import com.google.inject.Inject;
 
 public class SmsService {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "SmsService";
@@ -73,7 +73,7 @@ public class SmsService {
 		values.put(BODY, sms.Text);
 		// Push row into the SMS table
 		contentResolver.insert(Uri.parse(SMS_URI), values);
-		Log.d(LOG_TAG, "inserted " + sms.SenderId);
+		Logger.Debug(LOG_TAG, "inserted " + sms.SenderId);
 	}
 
 }

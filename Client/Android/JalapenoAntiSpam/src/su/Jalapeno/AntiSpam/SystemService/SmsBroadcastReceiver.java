@@ -8,11 +8,11 @@ import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiverWrapper;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsService;
 import su.Jalapeno.AntiSpam.Util.Constants;
+import su.Jalapeno.AntiSpam.Util.Logger;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 public class SmsBroadcastReceiver extends BroadcastReceiver {
 
@@ -25,31 +25,31 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		SmsService smsService = new SmsService(context);
-		Log.i(LOG_TAG, "SMS income.");
+		Logger.Debug(LOG_TAG, "SMS income.");
 
 		Boolean isClearFromSpam = true;
 		Bundle bundle = intent.getExtras();
 		Object[] pdus = (Object[]) bundle.get("pdus");
 
 		if (pdus.length == 0) {
-			Log.e(LOG_TAG, "SMS extras NULL.");
+			Logger.Error(LOG_TAG, "SMS extras NULL.");
 			return;
 		}
 
-		Log.i(LOG_TAG, "SMS extras not null.");
+		Logger.Debug(LOG_TAG, "SMS extras not null.");
 
 		Sms sms = smsService.SmsFromPdus(pdus, context);
 		SmsReceiverWrapper smsReceiver = new SmsReceiverWrapper();
 
-		Log.i(LOG_TAG, "Sender: " + sms.SenderId + " SMS: " + sms.Text);
+		Logger.Debug(LOG_TAG, "Sender: " + sms.SenderId + " SMS: " + sms.Text);
 		isClearFromSpam = smsReceiver.Receive(sms, context);
 
 		if (!isClearFromSpam) {
-			Log.i(LOG_TAG, "SMS aborted.");
+			Logger.Debug(LOG_TAG, "SMS aborted.");
 			abortBroadcast();
 			return;
 		}
 
-		Log.i(LOG_TAG, "SMS received.");
+		Logger.Debug(LOG_TAG, "SMS received.");
 	}
 }

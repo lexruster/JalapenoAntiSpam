@@ -14,8 +14,8 @@ import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientResponse;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.CryptoService;
+import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.PublicKeyInfo;
-import android.util.Log;
 
 import com.google.inject.Inject;
 
@@ -26,7 +26,8 @@ public class JalapenoWebServiceWraper {
 	private UUID _clientId;
 
 	@Inject
-	public JalapenoWebServiceWraper(JalapenoHttpService jalapenoHttpService, SettingsService settingsService) {
+	public JalapenoWebServiceWraper(JalapenoHttpService jalapenoHttpService,
+			SettingsService settingsService) {
 		_jalapenoHttpService = jalapenoHttpService;
 		_settingsService = settingsService;
 		_clientId = _settingsService.LoadSettings().ClientId;
@@ -37,19 +38,22 @@ public class JalapenoWebServiceWraper {
 	}
 
 	public boolean IsSpamer(String address, String smsTexthash) {
-		Log.d(LOG_TAG, "IsSpamer " + address);
+		Logger.Debug(LOG_TAG, "IsSpamer " + address);
 		if (_jalapenoHttpService.ServiceIsAvailable()) {
 			IsSpammerRequest isSpamerRequest = new IsSpammerRequest();
 			isSpamerRequest.Hash = smsTexthash;
 			isSpamerRequest.SenderId = address;
 			isSpamerRequest.ClientId = _clientId;
 
-			IsSpammerResponse spammerResponse = _jalapenoHttpService.IsSpamerRequest(isSpamerRequest);
+			IsSpammerResponse spammerResponse = _jalapenoHttpService
+					.IsSpamerRequest(isSpamerRequest);
 			if (ValidateAndNeedResend(spammerResponse)) {
-				spammerResponse = _jalapenoHttpService.IsSpamerRequest(isSpamerRequest);
+				spammerResponse = _jalapenoHttpService
+						.IsSpamerRequest(isSpamerRequest);
 			}
 
-			Log.d(LOG_TAG, "IsSpamer response " + spammerResponse.IsSpammer);
+			Logger.Debug(LOG_TAG, "IsSpamer response "
+					+ spammerResponse.IsSpammer);
 
 			return spammerResponse.IsSpammer && spammerResponse.WasSuccessful;
 		}
@@ -58,7 +62,7 @@ public class JalapenoWebServiceWraper {
 	}
 
 	public RegisterClientResponse RegisterClient(RegisterClientRequest request) {
-		Log.d(LOG_TAG, "RegisterClient  " + request.Token);
+		Logger.Debug(LOG_TAG, "RegisterClient  " + request.Token);
 		RegisterClientResponse response = new RegisterClientResponse();
 		response.WasSuccessful = false;
 		if (_jalapenoHttpService.ServiceIsAvailable()) {
@@ -68,12 +72,13 @@ public class JalapenoWebServiceWraper {
 			}
 		}
 
-		Log.d(LOG_TAG, "RegisterClient response " + response.WasSuccessful);
+		Logger.Debug(LOG_TAG, "RegisterClient response "
+				+ response.WasSuccessful);
 		return response;
 	}
 
 	public ComplainResponse Complain(String sender, String hash) {
-		Log.d(LOG_TAG, "Complain " + sender + " hash " + hash);
+		Logger.Debug(LOG_TAG, "Complain " + sender + " hash " + hash);
 		ComplainRequest request = new ComplainRequest();
 		request.ClientId = _clientId;
 		request.Hash = hash;
@@ -86,7 +91,7 @@ public class JalapenoWebServiceWraper {
 			}
 		}
 
-		Log.d(LOG_TAG, "Complain resp " + response.WasSuccessful);
+		Logger.Debug(LOG_TAG, "Complain resp " + response.WasSuccessful);
 		return response;
 	}
 
@@ -104,11 +109,13 @@ public class JalapenoWebServiceWraper {
 			return false;
 		}
 
+		Logger.Debug(LOG_TAG, "ValidateAndNeedResend " + response.ErrorMessage);
 		if (response.ErrorMessage.equals(WebErrors.InvalidRequest)) {
-			Log.d(LOG_TAG, "Need new publick key " + response.WasSuccessful);
+
 			PublicKeyResponse pbk = GetPublicKey();
 			if (pbk.WasSuccessful) {
-				PublicKeyInfo publicKeyInfo = CryptoService.GetPublicKeyInfo(pbk.PublicKey);
+				PublicKeyInfo publicKeyInfo = CryptoService
+						.GetPublicKeyInfo(pbk.PublicKey);
 				_settingsService.UpdatePublicKey(publicKeyInfo);
 
 				return true;
@@ -117,11 +124,14 @@ public class JalapenoWebServiceWraper {
 			return false;
 		}
 
-		if (response.ErrorMessage.equals(WebErrors.InvalidToken) || response.ErrorMessage.equals(WebErrors.UserBanned)
+		if (response.ErrorMessage.equals(WebErrors.InvalidToken)
+				|| response.ErrorMessage.equals(WebErrors.UserBanned)
 				|| response.ErrorMessage.equals(WebErrors.NotAuthorizedRequest)) {
-
+			Logger.Debug(LOG_TAG, "Disable registration by error "
+					+ response.ErrorMessage);
 			Config config = _settingsService.LoadSettings();
 			config.ClientRegistered = false;
+			config.Enabled = false;
 			_settingsService.SaveSettings(config);
 
 			return false;
