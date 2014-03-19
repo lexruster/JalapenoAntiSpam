@@ -318,6 +318,7 @@ containing a value of this type.
         public static final int KnownSpammerList=0x7f08001d;
         public static final int NotExistsUnknownSms=0x7f080033;
         public static final int NotSpamButton=0x7f08002b;
+        public static final int ParentActivity=0x7f080034;
         public static final int RegisterButton=0x7f080027;
         public static final int RegisterText=0x7f080028;
         public static final int RegisterTitle=0x7f08001e;

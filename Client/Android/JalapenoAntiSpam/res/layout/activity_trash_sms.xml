@@ -13,7 +13,7 @@
         <TextView
             android:id="@+id/textView"
             style="@style/BaseControl.TextHeader"
-            android:text="@string/SmsList" />
+            android:text="@string/SmsTrashList" />
 
         <ListView
             android:id="@android:id/list"

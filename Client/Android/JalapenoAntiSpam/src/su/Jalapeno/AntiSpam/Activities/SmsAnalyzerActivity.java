@@ -1,9 +1,13 @@
 package su.Jalapeno.AntiSpam.Activities;
 
+import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.Adapters.SmsAdapter;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
+import su.Jalapeno.AntiSpam.Util.Config;
+import su.Jalapeno.AntiSpam.Util.Constants;
+import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,10 +21,16 @@ import android.widget.ListView;
 import com.google.inject.Inject;
 
 public class SmsAnalyzerActivity extends JalapenoListActivity {
+	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "SmsAnalyzerActivity";
 
+	@Inject
 	private Context _context;
+
+	@InjectView(R.id.btnNeedSms)
 	Button _needSmsButton;
+	@InjectView(R.id.btnSpamSms)
 	Button _spamButton;
+	@InjectView(R.id.btnDeleteSms)
 	Button _deleteButton;
 
 	@Inject
@@ -38,16 +48,23 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+		Logger.Debug(LOG_TAG, "onResume");
+		Resume();
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		return true;
 	}
 
 	private void Init() {
-		_context = this.getApplicationContext();
+
+	}
+
+	private void Resume() {
 		_context.startService(new Intent(_context, AppService.class));
-		_needSmsButton = (Button) findViewById(R.id.btnNeedSms);
-		_spamButton = (Button) findViewById(R.id.btnSpamSms);
-		_deleteButton = (Button) findViewById(R.id.btnDeleteSms);
 		_smsAdapter.LoadData();
 		LoadList();
 		UpdateButtons();
