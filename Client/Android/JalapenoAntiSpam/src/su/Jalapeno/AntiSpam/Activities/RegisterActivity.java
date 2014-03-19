@@ -13,14 +13,13 @@ import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientResponse;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.CryptoService;
+import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.PublicKeyInfo;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
 import su.Jalapeno.AntiSpam.Util.UI.Spiner;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -69,7 +68,7 @@ public class RegisterActivity extends JalapenoActivity {
 				config.ClientRegistered = true;
 				config.Enabled = true;
 				_settingsService.SaveSettings(config);
-				Log.d(LOG_TAG, "Register with guid " + config.ClientId);
+				Logger.Debug(LOG_TAG, "Register with guid " + config.ClientId);
 				spiner.Hide();
 				UiUtils.NavigateTo(Settings.class);
 			} else {
@@ -87,12 +86,13 @@ public class RegisterActivity extends JalapenoActivity {
 			spiner.Show();
 		}
 
+		@SuppressWarnings("deprecation")
 		@Override
 		protected RegisterClientResponse doInBackground(
 				RegisterActivity... activitis) {
 			PublicKeyResponse pbk = _jalapenoWebServiceWraper.GetPublicKey();
 
-			Log.d(LOG_TAG, "doInBackground GetPublicKey  " + pbk.WasSuccessful);
+			Logger.Debug(LOG_TAG, "doInBackground GetPublicKey  " + pbk.WasSuccessful);
 			if (pbk.WasSuccessful) {
 				PublicKeyInfo publicKeyInfo = CryptoService
 						.GetPublicKeyInfo(pbk.PublicKey);

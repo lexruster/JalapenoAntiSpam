@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
 
 public class NotifyBuilder {
+	@SuppressWarnings("deprecation")
 	public static Notification CreateNotifacation(Context context, long count, boolean withAlert) {
 		Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.mailb);
 

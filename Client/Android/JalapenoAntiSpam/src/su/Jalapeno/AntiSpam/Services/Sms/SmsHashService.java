@@ -10,18 +10,14 @@ import su.Jalapeno.AntiSpam.Services.JalapenoService;
 import su.Jalapeno.AntiSpam.Util.CryptoService;
 
 public class SmsHashService extends JalapenoService<SmsHash> {
-	CryptoService _criptoService;
 
 	@Inject
-	public SmsHashService(CryptoService criptoService) {
+	public SmsHashService() {
 		super();
-		_criptoService = criptoService;
 	}
-	
-	public SmsHashService(Repository<SmsHash> repository,
-			CryptoService criptoService) {
+
+	public SmsHashService(Repository<SmsHash> repository) {
 		super(repository);
-		_criptoService = criptoService;
 	}
 
 	public boolean HashInSpamBase(String hash) {
@@ -30,13 +26,13 @@ public class SmsHashService extends JalapenoService<SmsHash> {
 
 	public boolean SmsTextInSpamBase(String text) {
 		String normalized = NormalizeSmsText(text);
-		String hash = _criptoService.GetHash(normalized);
+		String hash = CryptoService.GetHash(normalized);
 		return HashInSpamBase(hash);
 	}
 
 	public void AddSmsText(String text) {
 		String normalized = NormalizeSmsText(text);
-		String hash = _criptoService.GetHash(normalized);
+		String hash = CryptoService.GetHash(normalized);
 		AddHash(hash);
 	}
 
@@ -45,12 +41,12 @@ public class SmsHashService extends JalapenoService<SmsHash> {
 	}
 
 	public String NormalizeSmsText(String text) {
-		return text.replaceAll("\\s+","");
+		return text.replaceAll("\\s+", "");
 	}
 
 	public String GetHash(String message) {
 		String normalized = NormalizeSmsText(message);
-		return _criptoService.GetHash(normalized);
+		return CryptoService.GetHash(normalized);
 	}
 
 	protected SmsHashDao GetSmsHashDao() {

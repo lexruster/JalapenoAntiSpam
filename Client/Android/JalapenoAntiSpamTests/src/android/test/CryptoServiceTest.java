@@ -1,8 +1,8 @@
 package android.test;
 
+import android.annotation.SuppressLint;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 
@@ -12,6 +12,7 @@ import su.Jalapeno.AntiSpam.Util.CryptoService;
 import su.Jalapeno.AntiSpam.Util.PrivateKeyInfo;
 import su.Jalapeno.AntiSpam.Util.PublicKeyInfo;
 
+@SuppressLint("TrulyRandom")
 public class CryptoServiceTest extends AndroidTestCase {
 
 	CryptoService _cryptoService;
@@ -36,7 +37,7 @@ public class CryptoServiceTest extends AndroidTestCase {
 				"800929f0445713f075cc166fefa63f1f" };
 
 		for (int i = 0; i < texts.length; i++) {
-			String hash = _cryptoService.GetHash(texts[i]);
+			String hash = CryptoService.GetHash(texts[i]);
 			Assert.assertEquals(hash, hashes[i]);
 		}
 	}
@@ -75,6 +76,7 @@ public class CryptoServiceTest extends AndroidTestCase {
 		Assert.assertTrue(request.equals(encryptRsaToBase64Decr));
 	}
 
+	@SuppressLint("TrulyRandom")
 	public void testDecrypt2() {
 
 		KeyPairGenerator kpg;

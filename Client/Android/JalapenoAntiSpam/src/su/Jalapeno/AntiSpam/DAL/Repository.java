@@ -13,9 +13,9 @@ import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.DAL.Domain.SmsHash;
 import su.Jalapeno.AntiSpam.DAL.Domain.TrashSms;
+import su.Jalapeno.AntiSpam.Util.Logger;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
@@ -49,7 +49,7 @@ public class Repository<T extends Entity> extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(connectionSource, TrashSms.class);
 			TableUtils.createTable(connectionSource, Complain.class);
 		} catch (SQLException e) {
-			Log.e(TAG, "error creating DB " + DATABASE_NAME);
+			Logger.Error(TAG, "error creating DB " + DATABASE_NAME);
 			throw new RuntimeException(e);
 		}
 	}
@@ -64,7 +64,7 @@ public class Repository<T extends Entity> extends OrmLiteSqliteOpenHelper {
 			TableUtils.dropTable(connectionSource, Complain.class, true);
 			onCreate(db, connectionSource);
 		} catch (SQLException e) {
-			Log.e(TAG, "error upgrading db " + DATABASE_NAME + "from ver " + oldVer);
+			Logger.Error(TAG, "error upgrading db " + DATABASE_NAME + "from ver " + oldVer);
 			throw new RuntimeException(e);
 		}
 	}

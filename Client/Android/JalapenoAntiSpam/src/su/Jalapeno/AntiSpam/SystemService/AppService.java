@@ -8,6 +8,7 @@ import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
 import su.Jalapeno.AntiSpam.Services.RequestQueue;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsQueueService;
 import su.Jalapeno.AntiSpam.Util.Constants;
+import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.ServiceFactory;
 import su.Jalapeno.AntiSpam.Util.UI.NotifyBuilder;
 import android.app.Notification;
@@ -15,7 +16,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
 
 public class AppService extends Service {
 	private final int NOTIFY_ID = 731957691;
@@ -34,7 +34,7 @@ public class AppService extends Service {
 		_requestQueue = ServiceFactory.GetRequestQueue(_context);
 
 		StartSchedule();
-		Log.d(LOG_TAG, "onCreate");
+		Logger.Debug(LOG_TAG, "onCreate");
 	}
 
 	private void StartSchedule() {
@@ -44,20 +44,20 @@ public class AppService extends Service {
 				_requestQueue.ProceedComplainRequests();
 			}
 		}, 0, Constants.COMPLAINS_INTERVAL_SECONDS, TimeUnit.SECONDS);
-		Log.d(LOG_TAG, "StartSchedule");
+		Logger.Debug(LOG_TAG, "StartSchedule");
 	}
 
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Log.d(LOG_TAG, "onStartCommand flag " + flags + " start " + startId);
+		Logger.Debug(LOG_TAG, "onStartCommand flag " + flags + " start " + startId);
 
 		if (_smsQueueService != null) {
 			long count = _smsQueueService.Count();
 			boolean needAlarm = intent.getIntExtra("Alarm", 0) == 1;
 			Notification notification = NotifyBuilder.CreateNotifacation(_context, count, needAlarm);
-			Log.d(LOG_TAG, "Start notify count " + count);
+			Logger.Debug(LOG_TAG, "Start notify count " + count);
 			startForeground(NOTIFY_ID, notification);
 		} else {
-			Log.d(LOG_TAG, "onStartCommand _smsQueueService = null ");
+			Logger.Debug(LOG_TAG, "onStartCommand _smsQueueService = null ");
 		}
 		someTask();
 
@@ -66,12 +66,12 @@ public class AppService extends Service {
 
 	public void onDestroy() {
 		super.onDestroy();
-		Log.d(LOG_TAG, "onDestroy");
+		Logger.Debug(LOG_TAG, "onDestroy");
 		stopForeground(false);
 	}
 
 	public IBinder onBind(Intent intent) {
-		Log.d(LOG_TAG, "onBind");
+		Logger.Debug(LOG_TAG, "onBind");
 		return null;
 	}
 

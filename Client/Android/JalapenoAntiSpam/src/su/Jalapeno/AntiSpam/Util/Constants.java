@@ -9,5 +9,5 @@ public class Constants {
 	public static final String CRYPTO_ALGORITM = "RSA/ECB/PKCS1PADDING";
 	public static final String KEY_ALGORITM = "RSA";
 	
-	public static final boolean IS_DEBUG = false;
+	public static final boolean VIEW_DEBUG_UI = false;
 }

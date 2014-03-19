@@ -5,12 +5,10 @@ import su.Jalapeno.AntiSpam.Adapters.TrashSmsAdapter;
 import su.Jalapeno.AntiSpam.DAL.Domain.TrashSms;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsService;
 import su.Jalapeno.AntiSpam.Services.Sms.TrashSmsService;
-import su.Jalapeno.AntiSpam.SystemService.AppService;
 import su.Jalapeno.AntiSpam.Util.Constants;
+import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -22,7 +20,7 @@ import com.google.inject.Inject;
 public class TrashSmsActivity extends JalapenoListActivity {
 
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "TrashSmsActivity";
-	//private Context _context;
+	// private Context _context;
 	Button _needSmsButton;
 	Button _deleteButton;
 
@@ -31,7 +29,7 @@ public class TrashSmsActivity extends JalapenoListActivity {
 
 	@Inject
 	TrashSmsAdapter _smsAdapter;
-	
+
 	@Inject
 	TrashSmsService _trashSmsService;
 
@@ -55,7 +53,7 @@ public class TrashSmsActivity extends JalapenoListActivity {
 		_smsAdapter.LoadData();
 		LoadList();
 		UpdateButtons();
-		Log.d(LOG_TAG, "loaded");
+		Logger.Debug(LOG_TAG, "loaded");
 	}
 
 	@Override
@@ -91,7 +89,7 @@ public class TrashSmsActivity extends JalapenoListActivity {
 			TrashSms trashSms = _smsAdapter.GetSelectedItem();
 			_smsService.PutSmsToDatabase(trashSms);
 			_trashSmsService.Delete(trashSms);
-			Log.d(LOG_TAG, "need sms - sender "+trashSms.SenderId);
+			Logger.Debug(LOG_TAG, "need sms - sender " + trashSms.SenderId);
 			UpdateList();
 		}
 	}
@@ -100,7 +98,7 @@ public class TrashSmsActivity extends JalapenoListActivity {
 		if (_smsAdapter.HasCurrentItem()) {
 			TrashSms trashSms = _smsAdapter.GetSelectedItem();
 			_trashSmsService.Delete(trashSms);
-			Log.d(LOG_TAG, "delete sms - sender " + trashSms.SenderId);
+			Logger.Debug(LOG_TAG, "delete sms - sender " + trashSms.SenderId);
 			UpdateList();
 		}
 	}
@@ -108,6 +106,6 @@ public class TrashSmsActivity extends JalapenoListActivity {
 	private void UpdateList() {
 		_smsAdapter.Refresh();
 		UpdateButtons();
-		//startService(new Intent(this, AppService.class));
+		// startService(new Intent(this, AppService.class));
 	}
 }

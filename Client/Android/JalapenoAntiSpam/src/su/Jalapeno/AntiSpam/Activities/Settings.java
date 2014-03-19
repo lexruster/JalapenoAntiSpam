@@ -5,10 +5,10 @@ import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
+import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -68,12 +68,12 @@ public class Settings extends JalapenoActivity {
 	}
 
 	private void Init() {
-		SetDebugMode(Constants.IS_DEBUG);
+		SetDebugMode(Constants.VIEW_DEBUG_UI);
 
 		Context context = this.getApplicationContext();
 		settingsService = new SettingsService(context);
 		config = settingsService.LoadSettings();
-		Log.d(LOG_TAG, "Init ClientRegistered " + config.ClientRegistered);
+		Logger.Debug(LOG_TAG, "Init ClientRegistered " + config.ClientRegistered);
 		if (config.ClientRegistered) {
 
 		} else {

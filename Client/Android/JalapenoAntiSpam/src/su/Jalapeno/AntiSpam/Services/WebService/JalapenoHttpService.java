@@ -8,10 +8,10 @@ import su.Jalapeno.AntiSpam.Services.WebService.Dto.PublicKeyResponse;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientResponse;
 import su.Jalapeno.AntiSpam.Util.Constants;
+import su.Jalapeno.AntiSpam.Util.Logger;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -50,10 +50,9 @@ public class JalapenoHttpService {
 	}
 
 	public IsSpammerResponse IsSpamerRequest(IsSpammerRequest request) {
-		Log.d(LOG_TAG, "IsSpamerRequest " + request.SenderId + " CLientId "
-				+ request.ClientId);
 		IsSpammerResponse response;
 		String json = _gson.toJson(request);
+		Logger.Debug(LOG_TAG, "IsSpamerRequest " + json);
 		String postData = PrepareJsonRequest(json);
 		String requestString = WebClient.Post(WebConstants.IS_SPAMMER_URL,
 				postData);
@@ -63,9 +62,9 @@ public class JalapenoHttpService {
 	}
 
 	public RegisterClientResponse RegisterClient(RegisterClientRequest request) {
-		Log.d(LOG_TAG, "RegisterClient " + request.Token);
 		RegisterClientResponse response;
 		String json = _gson.toJson(request);
+		Logger.Debug(LOG_TAG, "RegisterClient " + json);
 		String postData = PrepareJsonRequest(json);
 		String requestString = WebClient.Post(WebConstants.REGISTER_CLIENT_URL,
 				postData);
@@ -75,7 +74,7 @@ public class JalapenoHttpService {
 	}
 
 	public PublicKeyResponse GetPublicKey() {
-		Log.d(LOG_TAG, "GetPublicKey");
+		Logger.Debug(LOG_TAG, "GetPublicKey");
 		String requestString = WebClient.Get(WebConstants.PUBLIC_KEY_URL);
 		PublicKeyResponse response = _gson.fromJson(requestString,
 				PublicKeyResponse.class);
@@ -84,9 +83,9 @@ public class JalapenoHttpService {
 	}
 
 	public ComplainResponse Complain(ComplainRequest request) {
-		Log.d(LOG_TAG, "Complain " + request.SenderId);
 		ComplainResponse response;
 		String json = _gson.toJson(request);
+		Logger.Debug(LOG_TAG, "Complain " + json);
 		String postData = PrepareJsonRequest(json);
 		String requestString = WebClient.Post(WebConstants.COMPLAIN_URL,
 				postData);

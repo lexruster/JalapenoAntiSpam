@@ -6,25 +6,26 @@ import java.util.List;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.RequestQueue;
 import su.Jalapeno.AntiSpam.Services.SenderService;
-import su.Jalapeno.AntiSpam.Util.UI.DebugMessage;
+import su.Jalapeno.AntiSpam.Util.Constants;
+import su.Jalapeno.AntiSpam.Util.Logger;
 import android.content.Context;
 
 import com.google.inject.Inject;
 
 public class SmsAnalyzerService {
 
+	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "SmsAnalyzerService";
+	
 	private static final int MIN_MESSAGE_LENGTH = 50;
 	private RequestQueue _requestQueue;
 	private SmsQueueService _smsQueueService;
 	private SmsHashService _smsHashService;
 	private SenderService _senderService;
-	private Context _context;
 	private SmsService _smsService;
 
 	@Inject
 	public SmsAnalyzerService(Context context, SmsQueueService smsQueueService, RequestQueue queue, SmsHashService smsHashService,
 			SenderService senderService, SmsService smsService) {
-		_context = context;
 		_smsQueueService = smsQueueService;
 		_requestQueue = queue;
 		_smsHashService = smsHashService;
@@ -81,7 +82,7 @@ public class SmsAnalyzerService {
 
 	private void SaveSmsToPhoneBase(List<Sms> smsList) {
 		for (Sms sms : smsList) {
-			DebugMessage.Debug(_context, "Save sms " + sms.SenderId + " " + sms.Text);
+			Logger.Debug(LOG_TAG, "Save sms " + sms.SenderId + " " + sms.Text);
 			_smsService.PutSmsToDatabase(sms);
 		}
 	}

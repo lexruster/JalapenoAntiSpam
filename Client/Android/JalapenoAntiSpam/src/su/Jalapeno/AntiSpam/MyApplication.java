@@ -1,11 +1,11 @@
 package su.Jalapeno.AntiSpam;
 
-import android.app.Application;
-import android.content.Intent;
-import android.util.Log;
 import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
 import su.Jalapeno.AntiSpam.Util.Constants;
+import su.Jalapeno.AntiSpam.Util.Logger;
+import android.app.Application;
+import android.content.Intent;
 
 /**
  * Created by alexander.kiryushkin on 09.01.14.
@@ -16,14 +16,14 @@ public class MyApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		Log.d(LOG_TAG, "onCreate ");
+		Logger.Debug(LOG_TAG, "onCreate ");
 		startService(new Intent(this, AppService.class));
 		RepositoryFactory.initRepository(getApplicationContext());
 	}
 
 	@Override
 	public void onTerminate() {
-		Log.d(LOG_TAG, "onTerminate ");
+		Logger.Debug(LOG_TAG, "onTerminate ");
 		RepositoryFactory.releaseRepository();
 		super.onTerminate();
 	}

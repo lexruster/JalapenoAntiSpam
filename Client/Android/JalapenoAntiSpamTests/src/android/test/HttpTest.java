@@ -44,7 +44,6 @@ public class HttpTest extends AndroidTestCase {
 		RegisterClientResponse res = wrap.RegisterClient(request);
 
 		Assert.assertEquals(res.WasSuccessful, true);
-		// Assert.assertEquals(result, sourse);
 	}
 
 	public void testRegisterClient2() {
@@ -52,11 +51,11 @@ public class HttpTest extends AndroidTestCase {
 		request.ClientId = UUID.randomUUID();
 		request.Token = "TOKEN";
 
-		RegisterClientResponse response;
 		String json = _gson.toJson(request);
 		String postData = PrepareJsonRequest(json);
 		String requestString = WebClient.Post("http://10.0.2.2:33500/AntispamService.svc/RegisterClient", postData);
-		response = _gson.fromJson(requestString, RegisterClientResponse.class);
+		RegisterClientResponse response = _gson.fromJson(requestString, RegisterClientResponse.class);
+		Assert.assertEquals(response.WasSuccessful, true);
 	}
 
 	private String PrepareJsonRequest(String request) {

@@ -2,7 +2,6 @@ package su.Jalapeno.AntiSpam.Adapters;
 
 import java.util.ArrayList;
 
-import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +36,7 @@ public abstract class JalapenoBaseAdapter<T> extends BaseAdapter {
 		return _objects.get(position);
 	}
 	
+	@SuppressWarnings("unchecked")
 	T GetItem(int position) {
 		return ((T) getItem(position));
 	}
