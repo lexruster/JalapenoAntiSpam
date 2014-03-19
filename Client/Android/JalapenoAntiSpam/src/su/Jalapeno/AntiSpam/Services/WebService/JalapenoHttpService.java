@@ -31,7 +31,7 @@ public class JalapenoHttpService {
 
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setDateFormat("dd.MM.yy hh:mm:ss");
-		_gson = gsonBuilder.create();
+		_gson = gsonBuilder.serializeNulls().create();
 	}
 
 	public boolean ServiceIsAvailable() {
