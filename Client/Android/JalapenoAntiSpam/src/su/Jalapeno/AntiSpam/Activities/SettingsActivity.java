@@ -1,7 +1,5 @@
 package su.Jalapeno.AntiSpam.Activities;
 
-import com.google.inject.Inject;
-
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.R;
@@ -13,13 +11,17 @@ import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ToggleButton;
+
+import com.google.inject.Inject;
 
 @ContentView(R.layout.settings)
 public class SettingsActivity extends JalapenoActivity {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "Settings";
+
+	@Inject
+	Context _context;
 
 	@Inject
 	SettingsService _settingsService;
@@ -35,6 +37,13 @@ public class SettingsActivity extends JalapenoActivity {
 	ToggleButton toogleButton;
 
 	@Override
+	public void onBackPressed() {
+		Logger.Debug(LOG_TAG, "onBackPressed");
+
+		UiUtils.NavigateAndClearHistory(SettingsActivity.class);
+	}
+
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Logger.Debug(LOG_TAG, "onCreate");
@@ -44,13 +53,12 @@ public class SettingsActivity extends JalapenoActivity {
 
 	private void SetEvent() {
 		Logger.Debug(LOG_TAG, "SetEvent");
-		UiUtils.SetTapForButton(R.id.buttonSpammerList,
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						ViewSpamerList();
-					}
-				});
+		UiUtils.SetTapForButton(R.id.buttonSpammerList, new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				ViewSpamerList();
+			}
+		});
 
 		UiUtils.SetTapForButton(R.id.buttonDebug, new View.OnClickListener() {
 			@Override
@@ -75,14 +83,13 @@ public class SettingsActivity extends JalapenoActivity {
 	}
 
 	private void Init() {
-		SetDebugMode(Constants.VIEW_DEBUG_UI);
 
+		SetDebugMode(Constants.VIEW_DEBUG_UI);
 	}
 
 	private void Resume() {
 		config = _settingsService.LoadSettings();
-		Logger.Debug(LOG_TAG, "Init ClientRegistered "
-				+ config.ClientRegistered);
+		Logger.Debug(LOG_TAG, "Init ClientRegistered " + config.ClientRegistered);
 		if (config.ClientRegistered) {
 
 		} else {

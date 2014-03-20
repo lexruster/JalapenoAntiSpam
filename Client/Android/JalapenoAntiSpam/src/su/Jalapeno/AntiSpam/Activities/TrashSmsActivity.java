@@ -10,9 +10,7 @@ import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -22,7 +20,6 @@ import com.google.inject.Inject;
 public class TrashSmsActivity extends JalapenoListActivity {
 
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "TrashSmsActivity";
-	// private Context _context;
 	Button _needSmsButton;
 	Button _deleteButton;
 
@@ -39,8 +36,14 @@ public class TrashSmsActivity extends JalapenoListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		
+
 		Init();
+	}
+
+	@Override
+	public void onBackPressed() {
+		Logger.Debug(LOG_TAG, "onBackPressed");
+		UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 	}
 
 	private void Init() {
@@ -102,6 +105,5 @@ public class TrashSmsActivity extends JalapenoListActivity {
 	private void UpdateList() {
 		_smsAdapter.Refresh();
 		UpdateButtons();
-		// startService(new Intent(this, AppService.class));
 	}
 }

@@ -31,7 +31,7 @@ public class NotifyBuilder {
 			smallIcon = R.drawable.spam_ico;
 		}
 		notifBuilder.setSmallIcon(smallIcon).setContentText(smsStatus);
-
+		
 		Intent notificationIntent = new Intent(context, SmsAnalyzerActivity.class);
 		PendingIntent pendingIntent = PendingIntent.getActivity(context, 131, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		notifBuilder.setContentIntent(pendingIntent);

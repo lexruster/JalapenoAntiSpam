@@ -1,13 +1,9 @@
 package su.Jalapeno.AntiSpam.Util.UI;
 
-import android.support.v4.app.NavUtils;
+import su.Jalapeno.AntiSpam.Activities.SettingsActivity;
 
 import com.actionbarsherlock.view.MenuItem;
 import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockActivity;
-
-import roboguice.activity.RoboActivity;
-import roboguice.util.RoboContext;
-import su.Jalapeno.AntiSpam.Util.Logger;
 
 public class JalapenoActivity extends RoboSherlockActivity{
     protected UiControlsUtil UiUtils;
@@ -20,7 +16,7 @@ public class JalapenoActivity extends RoboSherlockActivity{
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	    case android.R.id.home:
-	        NavUtils.navigateUpFromSameTask(this);
+	    	UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 	        return true;
 	    }
 	    return super.onOptionsItemSelected(item);

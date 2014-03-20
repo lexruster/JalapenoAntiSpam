@@ -4,21 +4,18 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import com.google.inject.Inject;
-
 import roboguice.service.RoboService;
-import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
 import su.Jalapeno.AntiSpam.Services.RequestQueue;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsQueueService;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
-import su.Jalapeno.AntiSpam.Util.ServiceFactory;
 import su.Jalapeno.AntiSpam.Util.UI.NotifyBuilder;
 import android.app.Notification;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+
+import com.google.inject.Inject;
 
 public class AppService extends RoboService{
 	private final int NOTIFY_ID = 731957691;
