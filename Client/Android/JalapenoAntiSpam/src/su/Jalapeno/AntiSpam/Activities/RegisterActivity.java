@@ -28,14 +28,14 @@ import com.google.inject.Inject;
 
 @ContentView(R.layout.activity_register)
 public class RegisterActivity extends JalapenoActivity {
+	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "RegisterActivity";
+	
 	@Inject
 	JalapenoWebServiceWraper _jalapenoWebServiceWraper;
 	@Inject
 	Context _context;
 	@Inject
 	private SettingsService _settingsService;
-
-	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "RegisterActivity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +57,12 @@ public class RegisterActivity extends JalapenoActivity {
 			UiUtils.NavigateTo(SettingsActivity.class);
 		}
 	}
+	
+	@Override
+	public void onBackPressed() {
+		Logger.Debug(LOG_TAG, "onBackPressed");
+	}
+
 
 	public void ShowToast(int res) {
 		Toast.makeText(this, res, Toast.LENGTH_SHORT).show();
@@ -80,7 +86,7 @@ public class RegisterActivity extends JalapenoActivity {
 				_settingsService.SaveSettings(config);
 				Logger.Debug(LOG_TAG, "Register with guid " + config.ClientId);
 				spiner.Hide();
-				UiUtils.NavigateTo(SettingsActivity.class);
+				UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 			} else {
 				spiner.Hide();
 				if (registerClient.ErrorMessage.equals(WebErrors.UserBanned)) {

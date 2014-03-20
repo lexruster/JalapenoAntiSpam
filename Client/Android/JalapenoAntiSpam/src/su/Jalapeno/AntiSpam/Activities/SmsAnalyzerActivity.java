@@ -6,16 +6,13 @@ import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.Adapters.SmsAdapter;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
-import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -53,6 +50,12 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 		super.onResume();
 		Logger.Debug(LOG_TAG, "onResume");
 		Resume();
+	}
+	
+	@Override
+	public void onBackPressed() {
+		Logger.Debug(LOG_TAG, "onBackPressed");
+		UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 	}
 
 	private void Init() {
