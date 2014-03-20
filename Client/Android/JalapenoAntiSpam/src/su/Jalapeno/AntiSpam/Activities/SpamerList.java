@@ -1,5 +1,6 @@
 package su.Jalapeno.AntiSpam.Activities;
 
+import roboguice.inject.ContentView;
 import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.Adapters.SenderAdapter;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;
@@ -9,6 +10,7 @@ import android.view.Window;
 
 import com.google.inject.Inject;
 
+@ContentView(R.layout.spamer_list)
 public class SpamerList extends JalapenoListActivity {
 
 	final String ATTRIBUTE_NAME_SENDER_ID = "SenderId";
@@ -22,9 +24,7 @@ public class SpamerList extends JalapenoListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.spamer_list);
-
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		Init();
 	}
 

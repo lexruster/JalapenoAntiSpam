@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.Random;
 
+import roboguice.inject.ContentView;
 import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
@@ -16,6 +17,7 @@ import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiver;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiverLogic;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
 import su.Jalapeno.AntiSpam.Util.Config;
+import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.ServiceFactory;
 import su.Jalapeno.AntiSpam.Util.UI.AlertMessage;
@@ -26,10 +28,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.telephony.TelephonyManager;
 import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.MenuInflater;
 
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
@@ -39,13 +47,14 @@ import com.google.android.gms.common.AccountPicker;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.inject.Inject;
 
+@ContentView(R.layout.debug)
 public class Debug extends JalapenoActivity {
 	@Inject
 	ContactsService contactsService;
 	@Inject
 	JalapenoHttpService jalapenoHttpService;
 
-	private static final String TAG = Debug.class.getSimpleName();
+	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "DebugActivity";
 
 	SmsReceiverLogic _smsService;
 	SettingsService _settingsService;
@@ -64,14 +73,12 @@ public class Debug extends JalapenoActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.debug);
-
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		Init();
 		SetEvent();
-
 	}
-
+	
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -84,7 +91,7 @@ public class Debug extends JalapenoActivity {
 	}
 
 	private void Init() {
-		Logger.Debug(TAG, "Start debug");
+		Logger.Debug(LOG_TAG, "Start debug");
 		SCOPE = SCOPE_BASE + CLIENT_ID;
 		_context = getApplicationContext();
 		_smsService = ServiceFactory.GetSmsService(_context);
@@ -269,8 +276,8 @@ public class Debug extends JalapenoActivity {
 				// String token = null;
 				try {
 
-					Logger.Debug(TAG, "Scope: " + SCOPE);
-					Logger.Debug(TAG, "Email: " + accountName);
+					Logger.Debug(LOG_TAG, "Scope: " + SCOPE);
+					Logger.Debug(LOG_TAG, "Email: " + accountName);
 					token = GoogleAuthUtil.getToken(mActivity, accountName,
 							SCOPE);
 				} catch (GooglePlayServicesAvailabilityException playEx) {
@@ -289,14 +296,14 @@ public class Debug extends JalapenoActivity {
 					// This is likely unrecoverable.
 					error[0] = "Unrecoverable authentication exception: "
 							+ authEx.getMessage();
-					Logger.Error(TAG, "Unrecoverable authentication exception: "
+					Logger.Error(LOG_TAG, "Unrecoverable authentication exception: "
 							+ authEx.getMessage(), authEx);
 
 					return "";
 				} catch (IOException ioEx) {
 					error[0] = "transient error encountered: "
 							+ ioEx.getMessage();
-					Logger.Debug(TAG,
+					Logger.Debug(LOG_TAG,
 							"transient error encountered: " + ioEx.getMessage());
 
 					// doExponentialBackoff();
@@ -308,7 +315,7 @@ public class Debug extends JalapenoActivity {
 
 			@Override
 			protected void onPostExecute(String token) {
-				Logger.Debug(TAG, "Access token retrieved:" + token);
+				Logger.Debug(LOG_TAG, "Access token retrieved:" + token);
 				if (error[0] != "") {
 					AlertMessage.Alert(mActivity, error[0]);
 				}

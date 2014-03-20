@@ -3,6 +3,7 @@ package su.Jalapeno.AntiSpam.Activities;
 import java.util.Date;
 import java.util.UUID;
 
+import roboguice.inject.ContentView;
 import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 
 import com.google.inject.Inject;
 
+@ContentView(R.layout.activity_register)
 public class RegisterActivity extends JalapenoActivity {
 	@Inject
 	JalapenoWebServiceWraper _jalapenoWebServiceWraper;
@@ -38,7 +40,6 @@ public class RegisterActivity extends JalapenoActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_register);
 		Logger.Debug(LOG_TAG, "onCreate");
 	}
 
