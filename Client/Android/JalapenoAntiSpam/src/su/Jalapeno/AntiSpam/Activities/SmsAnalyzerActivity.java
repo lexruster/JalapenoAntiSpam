@@ -1,5 +1,6 @@
 package su.Jalapeno.AntiSpam.Activities;
 
+import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.Adapters.SmsAdapter;
@@ -20,6 +21,7 @@ import android.widget.ListView;
 
 import com.google.inject.Inject;
 
+@ContentView(R.layout.activity_sms_analyzer)
 public class SmsAnalyzerActivity extends JalapenoListActivity {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "SmsAnalyzerActivity";
 
@@ -42,8 +44,7 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_sms_analyzer);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		Init();
 	}
 
@@ -52,11 +53,6 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 		super.onResume();
 		Logger.Debug(LOG_TAG, "onResume");
 		Resume();
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		return true;
 	}
 
 	private void Init() {

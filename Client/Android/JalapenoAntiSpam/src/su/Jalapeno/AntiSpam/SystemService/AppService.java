@@ -4,6 +4,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import com.google.inject.Inject;
+
+import roboguice.service.RoboService;
 import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
 import su.Jalapeno.AntiSpam.Services.RequestQueue;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsQueueService;
@@ -17,21 +20,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 
-public class AppService extends Service {
+public class AppService extends RoboService{
 	private final int NOTIFY_ID = 731957691;
 	private ScheduledExecutorService scheduleTaskExecutor;
+	
+	@Inject
 	Context _context;
-
+	@Inject
 	private SmsQueueService _smsQueueService;
+	@Inject
 	private RequestQueue _requestQueue;
+	
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "AppService";
 
 	public void onCreate() {
 		super.onCreate();
-		_context = this;
+		//_context = this;
 
-		_smsQueueService = new SmsQueueService(RepositoryFactory.getRepository());
-		_requestQueue = ServiceFactory.GetRequestQueue(_context);
+		//_smsQueueService = new SmsQueueService(RepositoryFactory.getRepository());
+		//_requestQueue = ServiceFactory.GetRequestQueue(_context);
 
 		StartSchedule();
 		Logger.Debug(LOG_TAG, "onCreate");

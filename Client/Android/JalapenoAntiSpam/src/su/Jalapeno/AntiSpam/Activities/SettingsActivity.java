@@ -2,6 +2,7 @@ package su.Jalapeno.AntiSpam.Activities;
 
 import com.google.inject.Inject;
 
+import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
@@ -16,6 +17,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ToggleButton;
 
+@ContentView(R.layout.settings)
 public class SettingsActivity extends JalapenoActivity {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "Settings";
 
@@ -35,8 +37,6 @@ public class SettingsActivity extends JalapenoActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.settings);
 		Logger.Debug(LOG_TAG, "onCreate");
 		Init();
 		SetEvent();

@@ -1,5 +1,6 @@
 package su.Jalapeno.AntiSpam.Activities;
 
+import roboguice.inject.ContentView;
 import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.Adapters.TrashSmsAdapter;
 import su.Jalapeno.AntiSpam.DAL.Domain.TrashSms;
@@ -17,6 +18,7 @@ import android.widget.ListView;
 
 import com.google.inject.Inject;
 
+@ContentView(R.layout.activity_trash_sms)
 public class TrashSmsActivity extends JalapenoListActivity {
 
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "TrashSmsActivity";
@@ -36,15 +38,9 @@ public class TrashSmsActivity extends JalapenoListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_trash_sms);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		Init();
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// getMenuInflater().inflate(R.menu.sms_analyzer, menu);
-		return true;
 	}
 
 	private void Init() {
