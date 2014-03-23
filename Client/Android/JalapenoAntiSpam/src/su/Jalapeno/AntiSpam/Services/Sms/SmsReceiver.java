@@ -21,7 +21,7 @@ public class SmsReceiver {
 
 	public boolean Receive(Sms sms, Context context) {
 		Config config = _settingsService.LoadSettings();
-		if (!config.Enabled) {
+		if (!_settingsService.AntispamEnabled()) {
 			return true;
 		}
 		Boolean isClearFromSpam;

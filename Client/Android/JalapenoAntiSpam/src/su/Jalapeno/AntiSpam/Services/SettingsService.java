@@ -109,7 +109,13 @@ public class SettingsService {
 
 	public String GetDomain() {
 		Config config = LoadSettings();
-		
+
 		return config.GetDomain();
+	}
+
+	public boolean AntispamEnabled() {
+		Config config = LoadSettings();
+
+		return config.Enabled && config.ClientRegistered;
 	}
 }

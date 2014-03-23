@@ -6,6 +6,6 @@ public class BaseResponse {
 		
 	}
 	public boolean WasSuccessful;
-	public WebErrorEnum Error;
+	public WebErrorEnum ErrorMessage;
 }
 

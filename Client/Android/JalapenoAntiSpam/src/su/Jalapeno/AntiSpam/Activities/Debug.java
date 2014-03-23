@@ -16,6 +16,7 @@ import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiver;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiverLogic;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
+import su.Jalapeno.AntiSpam.SystemService.AppService;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
@@ -211,6 +212,7 @@ public class Debug extends JalapenoActivity {
 		config.ClientRegistered = false;
 		config.ClientId = null;
 		_settingsService.SaveSettings(config);
+		startService(new Intent(this, AppService.class));
 	}
 
 	protected void InContacts(String ph) {

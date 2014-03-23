@@ -10,7 +10,6 @@ import su.Jalapeno.AntiSpam.Services.RequestQueue;
 import su.Jalapeno.AntiSpam.Services.SenderService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
-import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import android.content.Context;
@@ -46,10 +45,7 @@ public class SmsReceiverLogic {
 	}
 
 	public boolean Receive(Sms sms) {
-		Config config = _settingsService.LoadSettings();
-		//_context.startService(new Intent(_context, AppService.class));
-
-		if (!config.Enabled) {
+		if (!_settingsService.AntispamEnabled()) {
 			return true;
 		}
 		Logger.Debug(LOG_TAG, "Receive.");

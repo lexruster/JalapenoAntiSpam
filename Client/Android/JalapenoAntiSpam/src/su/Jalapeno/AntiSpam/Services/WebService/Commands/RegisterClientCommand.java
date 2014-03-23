@@ -24,7 +24,7 @@ public class RegisterClientCommand extends BaseCommand<RegisterClientRequest, Re
 	protected RegisterClientResponse OnServiceNotAvailable() {
 
 		RegisterClientResponse registerClientResponse = new RegisterClientResponse();
-		registerClientResponse.Error = WebErrorEnum.NoConnection;
+		registerClientResponse.ErrorMessage = WebErrorEnum.NoConnection;
 
 		return registerClientResponse;
 	}

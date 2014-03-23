@@ -44,9 +44,9 @@ public class RequestQueue extends JalapenoService<Complain> {
 	}
 
 	public void ProceedComplainRequests() {
-		Config config = _settingsService.LoadSettings();
-		Logger.Debug(LOG_TAG, "ProceedComplainRequests config reg " + config.ClientRegistered + " enabled " + config.Enabled);
-		if (!config.ClientRegistered || !config.Enabled) {
+		boolean enabled = _settingsService.AntispamEnabled();
+		Logger.Debug(LOG_TAG, "ProceedComplainRequests enabled " + enabled);
+		if (!enabled) {
 			return;
 		}
 
@@ -86,8 +86,8 @@ public class RequestQueue extends JalapenoService<Complain> {
 	}
 
 	private boolean ComplainIsReady(ComplainResponse response) {
-		if (response.WasSuccessful || response.Error == WebErrorEnum.InvalidRequest
-				|| response.Error == WebErrorEnum.TooManyComplaintsFromUser) {
+		if (response.WasSuccessful || response.ErrorMessage == WebErrorEnum.InvalidRequest
+				|| response.ErrorMessage == WebErrorEnum.TooManyComplaintsFromUser) {
 
 			return true;
 		}

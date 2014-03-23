@@ -25,13 +25,15 @@ public class NotifyBuilder {
 		if (count == 0) {
 			smsStatus = context.getResources().getString(R.string.NotExistsUnknownSms);
 			smallIcon = R.drawable.mail;
+			notifBuilder.setSmallIcon(smallIcon);
 		} else {
 			notifBuilder.setNumber((int) count);
 			smsStatus = context.getResources().getString(R.string.ExistsUnknownSms);
 			smallIcon = R.drawable.spam_ico;
+			notifBuilder.setSmallIcon(smallIcon);
 		}
-		notifBuilder.setSmallIcon(smallIcon).setContentText(smsStatus);
-		
+		notifBuilder.setContentText(smsStatus);
+
 		Intent notificationIntent = new Intent(context, SmsAnalyzerActivity.class);
 		PendingIntent pendingIntent = PendingIntent.getActivity(context, 131, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		notifBuilder.setContentIntent(pendingIntent);
