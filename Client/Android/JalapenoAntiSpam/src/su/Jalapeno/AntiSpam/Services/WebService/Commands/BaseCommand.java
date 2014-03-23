@@ -66,23 +66,26 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 
 	public TResp Execute(TReq request) {
 		Setup(request);
-		
-		if (_httpService.ServiceIsAvailable()) {
+
+		if (!_httpService.ServiceIsAvailable()) {
+			Logger.Debug(LOG_TAG, "ServiceIs not Available");
 			Response = OnServiceNotAvailable();
 			return Response;
 		}
 
 		String json = _gson.toJson(Request);
-		Logger.Debug(LOG_TAG, _respClazz + " " + json);
+		Logger.Debug(LOG_TAG, _respClazz + ": " + json);
 
 		ProceedRequest(json);
 
-		if (Response.Error == WebErrorEnum.NoConnection) {
+		if (Response.ErrorMessage == WebErrorEnum.NoConnection) {
+			Logger.Debug(LOG_TAG, "NoConnection 1");
 			ChangeDomain();
 			ProceedRequest(json);
 		}
 
-		if (Response.Error == WebErrorEnum.NoConnection) {
+		if (Response.ErrorMessage == WebErrorEnum.NoConnection) {
+			Logger.Debug(LOG_TAG, "NoConnection 2 OnServiceNotAvailable");
 			Response = OnServiceNotAvailable();
 			return Response;
 		}
@@ -95,51 +98,63 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 	}
 
 	private void ProceedRequest(String json) {
+		Logger.Debug(LOG_TAG, "ProceedRequest");
+		String requestString = LoadResponse(json);
+		ParseResponse(requestString);
+	}
+
+	protected String LoadResponse(String json) {
 		String postData = PrepareJsonRequest(json);
 		String requestString = WebClient.Post(GetUrl(), postData);
+		return requestString;
+	}
 
+	private void ParseResponse(String requestString) {
 		if (TextUtils.isEmpty(requestString)) {
 			FillNoConnection(Response);
 		} else {
 			Response = _gson.fromJson(requestString, _respClazz);
+			Logger.Debug(LOG_TAG, "ParseResponse response Success: " + Response.WasSuccessful + " error: " + Response.ErrorMessage);
 		}
 	}
 
-	private String GetUrl() {
+	protected String GetUrl() {
 		return _domain + GetAction();
 	}
 
 	private void ChangeDomain() {
-		Logger.Debug(LOG_TAG, "NeedChangeDomain");
+		Logger.Debug(LOG_TAG, "ChangeDomain");
 		_config.DomainUrlPrimary = !_config.DomainUrlPrimary;
 		_settingsService.SaveSettings(_config);
+		_config = _settingsService.LoadSettings();
+		_domain = _config.GetDomain();
 	}
 
 	private boolean NeedResend(BaseResponse response) {
 		if (response.WasSuccessful) {
 			return false;
 		}
-		Logger.Debug(LOG_TAG, "ValidateAndNeedResend " + response.Error);
+		Logger.Debug(LOG_TAG, "ValidateAndNeedResend " + response.ErrorMessage);
 
-		if (response.Error == WebErrorEnum.InvalidToken || response.Error == WebErrorEnum.TooManyComplaintsFromUser) {
+		if (response.ErrorMessage == WebErrorEnum.InvalidToken || response.ErrorMessage == WebErrorEnum.TooManyComplaintsFromUser) {
 			return false;
 		}
 
-		if (response.Error == WebErrorEnum.InvalidPublicKey) {
+		if (response.ErrorMessage == WebErrorEnum.InvalidPublicKey) {
 			PublicKeyResponse pbk = GetPublicKey();
 			if (pbk.WasSuccessful) {
 				PublicKeyInfo publicKeyInfo = CryptoService.GetPublicKeyInfo(pbk.PublicKey);
 				_settingsService.UpdatePublicKey(publicKeyInfo);
-
+				Logger.Debug(LOG_TAG, "UpdatePublicKey success " + response.ErrorMessage);
 				return true;
 			}
 
 			return false;
 		}
 
-		if (response.Error == WebErrorEnum.InvalidToken || response.Error == WebErrorEnum.UserBanned
-				|| response.Error == WebErrorEnum.NotAuthorizedRequest) {
-			Logger.Debug(LOG_TAG, "Disable registration by error " + response.Error);
+		if (response.ErrorMessage == WebErrorEnum.InvalidToken || response.ErrorMessage == WebErrorEnum.UserBanned
+				|| response.ErrorMessage == WebErrorEnum.NotAuthorizedRequest) {
+			Logger.Debug(LOG_TAG, "Disable registration by error " + response.ErrorMessage);
 
 			_config = _settingsService.LoadSettings();
 			_config.ClientRegistered = false;
@@ -161,9 +176,9 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 		return response;
 	}
 
-	private void FillNoConnection(BaseResponse response) {
+	protected void FillNoConnection(BaseResponse response) {
 		response.WasSuccessful = false;
-		response.Error = WebErrorEnum.NoConnection;
+		response.ErrorMessage = WebErrorEnum.NoConnection;
 	}
 
 	private String PrepareJsonRequest(String request) {

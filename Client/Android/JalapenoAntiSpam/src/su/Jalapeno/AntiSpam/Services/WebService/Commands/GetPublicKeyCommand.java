@@ -1,8 +1,10 @@
 package su.Jalapeno.AntiSpam.Services.WebService.Commands;
 
+import android.text.TextUtils;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.EncoderService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
+import su.Jalapeno.AntiSpam.Services.WebService.WebClient;
 import su.Jalapeno.AntiSpam.Services.WebService.WebConstants;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.BaseRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.PublicKeyResponse;
@@ -21,10 +23,16 @@ public class GetPublicKeyCommand extends BaseCommand<BaseRequest, PublicKeyRespo
 	}
 
 	@Override
+	protected String LoadResponse(String json) {
+		String requestString = WebClient.Get(GetUrl());
+		return requestString;
+	}
+
+	@Override
 	protected PublicKeyResponse OnServiceNotAvailable() {
 		PublicKeyResponse response = new PublicKeyResponse();
 		response.WasSuccessful = false;
-		response.Error = WebErrorEnum.NoConnection;
+		response.ErrorMessage = WebErrorEnum.NoConnection;
 
 		return response;
 	}

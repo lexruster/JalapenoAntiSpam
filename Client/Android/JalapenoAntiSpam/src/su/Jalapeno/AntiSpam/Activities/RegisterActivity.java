@@ -87,7 +87,7 @@ public class RegisterActivity extends JalapenoActivity {
 				UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 			} else {
 				spiner.Hide();
-				if (registerClient.Error == WebErrorEnum.UserBanned) {
+				if (registerClient.ErrorMessage == WebErrorEnum.UserBanned) {
 					ShowToast(R.string.BannedRegister);
 				} else {
 					ShowToast(R.string.ErrorRegister);
@@ -111,7 +111,7 @@ public class RegisterActivity extends JalapenoActivity {
 				_settingsService.UpdatePublicKey(publicKeyInfo);
 			} else {
 				RegisterClientResponse registerClient = new RegisterClientResponse();
-				registerClient.Error = WebErrorEnum.NoConnection;
+				registerClient.ErrorMessage = WebErrorEnum.NoConnection;
 				registerClient.WasSuccessful = false;
 
 				return registerClient;

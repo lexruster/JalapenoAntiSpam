@@ -8,4 +8,8 @@ public class WebConstants {
 
 	public final static String DOMAIN_URL_PRINARY = "http://jalapenoapi.jalapeno.su";
 	public final static String DOMAIN_URL_SECONDARY = "http://10.0.2.2:33500";
+	
+	//timeout in milliseconds 
+	public final static int CONNECTION_TIMEOUT = 4000;
+	public static final int SOCKET_TIMEOUT = 4500;
 }

@@ -24,7 +24,7 @@ public class ComplainCommand extends BaseCommand<ComplainRequest, ComplainRespon
 	protected ComplainResponse OnServiceNotAvailable() {
 		ComplainResponse response = new ComplainResponse();
 		response.WasSuccessful = false;
-		response.Error = WebErrorEnum.NoConnection;
+		response.ErrorMessage = WebErrorEnum.NoConnection;
 
 		return response;
 	}
