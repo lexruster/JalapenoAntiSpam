@@ -9,7 +9,6 @@ import su.Jalapeno.AntiSpam.DAL.Domain.Complain;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.ComplainResponse;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.WebErrorEnum;
-import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 

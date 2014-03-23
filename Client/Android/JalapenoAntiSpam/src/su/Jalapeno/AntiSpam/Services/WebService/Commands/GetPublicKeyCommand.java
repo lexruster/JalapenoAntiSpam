@@ -1,6 +1,5 @@
 package su.Jalapeno.AntiSpam.Services.WebService.Commands;
 
-import android.text.TextUtils;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.EncoderService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;

@@ -11,8 +11,10 @@ import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +25,9 @@ import com.google.inject.Inject;
 @ContentView(R.layout.activity_sms_analyzer)
 public class SmsAnalyzerActivity extends JalapenoListActivity {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "SmsAnalyzerActivity";
+
+	BroadcastReceiver _receiver;
+	IntentFilter _intFilt;
 
 	@Inject
 	private Context _context;
@@ -39,7 +44,7 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 
 	@Inject
 	SmsAnalyzerService _smsAnalyzerService;
-	
+
 	@Inject
 	SettingsService _settingsService;
 
@@ -56,15 +61,23 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 		Logger.Debug(LOG_TAG, "onResume");
 		Resume();
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		Logger.Debug(LOG_TAG, "onBackPressed");
 		UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 	}
 
-	private void Init() {
+	@Override
+	public void onPause() {
+		super.onPause();
+		Logger.Debug(LOG_TAG, "onPause");
+		unregisterReceiver(_receiver);
+	}
 
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		SetSelected(position);
 	}
 
 	private void Resume() {
@@ -77,17 +90,26 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 			_settingsService.SaveSettings(config);
 			Logger.Debug(LOG_TAG, "Init NavigateTo RegisterActivity");
 			UiUtils.NavigateTo(RegisterActivity.class);
+			return;
 		}
-		
+
+		registerReceiver(_receiver, _intFilt);
+
 		_context.startService(new Intent(_context, AppService.class));
 		_smsAdapter.LoadData();
 		LoadList();
 		UpdateButtons();
 	}
 
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		SetSelected(position);
+	private void Init() {
+		_receiver = new BroadcastReceiver() {
+			public void onReceive(Context context, Intent intent) {
+				Logger.Debug(LOG_TAG, "BroadcastReceiver onReceive");
+				UpdateList();
+			}
+		};
+
+		_intFilt = new IntentFilter(Constants.BROADCAST_SMS_ANALYZER_ACTION);
 	}
 
 	private void SetSelected(int position) {
@@ -117,16 +139,14 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 
 	public void NeedSms(View view) {
 		if (_smsAdapter.HasCurrentItem()) {
-			_smsAnalyzerService.SetSenderAsTrusted(_smsAdapter
-					.GetSelectedItem().SenderId);
+			_smsAnalyzerService.SetSenderAsTrusted(_smsAdapter.GetSelectedItem().SenderId);
 			UpdateList();
 		}
 	}
 
 	public void ToSpam(View view) {
 		if (_smsAdapter.HasCurrentItem()) {
-			_smsAnalyzerService
-					.SetSenderAsSpamer(_smsAdapter.GetSelectedItem().SenderId);
+			_smsAnalyzerService.SetSenderAsSpamer(_smsAdapter.GetSelectedItem().SenderId);
 			UpdateList();
 		}
 	}
