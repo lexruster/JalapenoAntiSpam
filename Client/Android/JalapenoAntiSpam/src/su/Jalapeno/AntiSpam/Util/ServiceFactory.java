@@ -32,7 +32,7 @@ public class ServiceFactory {
 		SenderService senderService = new SenderService(repository);
 		RequestQueue _requestQueue = new RequestQueue(repository, jalapenoWebServiceWraper, _settingsService);
 		SmsQueueService smsQueueService = new SmsQueueService(repository);
-		TrashSmsService _trashSmsService = new TrashSmsService(repository);
+		TrashSmsService _trashSmsService = new TrashSmsService(context, repository);
 		SmsService smsService = new SmsService(context);
 		NotifyService notifyService = new NotifyService(context, _settingsService);
 

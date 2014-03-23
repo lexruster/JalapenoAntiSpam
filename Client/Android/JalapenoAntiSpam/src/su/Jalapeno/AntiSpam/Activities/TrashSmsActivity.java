@@ -1,6 +1,7 @@
 package su.Jalapeno.AntiSpam.Activities;
 
 import roboguice.inject.ContentView;
+import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.Adapters.TrashSmsAdapter;
 import su.Jalapeno.AntiSpam.DAL.Domain.TrashSms;
@@ -9,6 +10,10 @@ import su.Jalapeno.AntiSpam.Services.Sms.TrashSmsService;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,9 +23,15 @@ import com.google.inject.Inject;
 
 @ContentView(R.layout.activity_trash_sms)
 public class TrashSmsActivity extends JalapenoListActivity {
+	BroadcastReceiver _receiver;
+	IntentFilter _intFilt;
 
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "TrashSmsActivity";
+
+	@InjectView(R.id.btnNeedSms)
 	Button _needSmsButton;
+
+	@InjectView(R.id.btnDeleteSms)
 	Button _deleteButton;
 
 	@Inject
@@ -41,18 +52,42 @@ public class TrashSmsActivity extends JalapenoListActivity {
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+		Logger.Debug(LOG_TAG, "onResume");
+		Resume();
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		Logger.Debug(LOG_TAG, "onPause");
+		unregisterReceiver(_receiver);
+	}
+
+	private void Resume() {
+		registerReceiver(_receiver, _intFilt);
+		_smsAdapter.LoadData();
+		LoadList();
+		UpdateButtons();
+		Logger.Debug(LOG_TAG, "loaded");
+	}
+
+	@Override
 	public void onBackPressed() {
 		Logger.Debug(LOG_TAG, "onBackPressed");
 		UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 	}
 
 	private void Init() {
-		_needSmsButton = (Button) findViewById(R.id.btnNeedSms);
-		_deleteButton = (Button) findViewById(R.id.btnDeleteSms);
-		_smsAdapter.LoadData();
-		LoadList();
-		UpdateButtons();
-		Logger.Debug(LOG_TAG, "loaded");
+		_receiver = new BroadcastReceiver() {
+			public void onReceive(Context context, Intent intent) {
+				Logger.Debug(LOG_TAG, "BroadcastReceiver onReceive");
+				UpdateList();
+			}
+		};
+
+		_intFilt = new IntentFilter(Constants.BROADCAST_TRASH_SMS_ACTION);
 	}
 
 	@Override

@@ -67,6 +67,4 @@ public abstract class JalapenoBaseAdapter<T> extends BaseAdapter {
 		_selectedIndex = -1;
 		notifyDataSetChanged();
 	}
-	
-	
 }

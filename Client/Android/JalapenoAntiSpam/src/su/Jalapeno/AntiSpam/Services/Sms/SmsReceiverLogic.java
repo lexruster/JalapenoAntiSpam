@@ -84,7 +84,6 @@ public class SmsReceiverLogic {
 		try {
 			isSpamer = new TestIsSpamerAsync().execute(sms.SenderId, smsTexthash).get();
 		} catch (InterruptedException e) {
-
 			e.printStackTrace();
 		} catch (ExecutionException e) {
 			e.printStackTrace();
@@ -103,7 +102,6 @@ public class SmsReceiverLogic {
 
 		Logger.Debug(LOG_TAG, "Add sms to validate.");
 		_smsAnalyzerService.AddSmsToValidate(sms);
-
 		_notifyService.OnIncomeSms();
 
 		return false;
