@@ -50,8 +50,8 @@ public class WebClient {
 			}
 		} catch (Exception ex) {
 			Logger.Error(LOG_TAG, "Failed to send HTTP POST request due to: " + ex);
-
 		}
+		
 		return null;
 	}
 

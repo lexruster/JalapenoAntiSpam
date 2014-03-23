@@ -1,21 +1,19 @@
 package su.Jalapeno.AntiSpam.Services.WebService;
 
-import java.util.UUID;
-
 import su.Jalapeno.AntiSpam.Services.SettingsService;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.BaseResponse;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.ComplainRequest;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.ComplainResponse;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.IsSpammerRequest;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.IsSpammerResponse;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.PublicKeyResponse;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientRequest;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientResponse;
-import su.Jalapeno.AntiSpam.Util.Config;
+import su.Jalapeno.AntiSpam.Services.WebService.Commands.ComplainCommand;
+import su.Jalapeno.AntiSpam.Services.WebService.Commands.GetPublicKeyCommand;
+import su.Jalapeno.AntiSpam.Services.WebService.Commands.IsSpamerCommand;
+import su.Jalapeno.AntiSpam.Services.WebService.Commands.RegisterClientCommand;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.ComplainRequest;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.IsSpammerRequest;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.RegisterClientRequest;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.ComplainResponse;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.IsSpammerResponse;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.PublicKeyResponse;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.RegisterClientResponse;
 import su.Jalapeno.AntiSpam.Util.Constants;
-import su.Jalapeno.AntiSpam.Util.CryptoService;
 import su.Jalapeno.AntiSpam.Util.Logger;
-import su.Jalapeno.AntiSpam.Util.PublicKeyInfo;
 
 import com.google.inject.Inject;
 
@@ -23,14 +21,13 @@ public class JalapenoWebServiceWraper {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "JalapenoWebServiceWraper";
 	private JalapenoHttpService _jalapenoHttpService;
 	private SettingsService _settingsService;
-	private UUID _clientId;
+	private EncoderService _encoderService;
 
 	@Inject
-	public JalapenoWebServiceWraper(JalapenoHttpService jalapenoHttpService,
-			SettingsService settingsService) {
+	public JalapenoWebServiceWraper(JalapenoHttpService jalapenoHttpService, SettingsService settingsService, EncoderService encoderService) {
 		_jalapenoHttpService = jalapenoHttpService;
 		_settingsService = settingsService;
-		_clientId = _settingsService.LoadSettings().ClientId;
+		_encoderService = encoderService;
 	}
 
 	public boolean ServiceIsAvailable() {
@@ -39,104 +36,47 @@ public class JalapenoWebServiceWraper {
 
 	public RegisterClientResponse RegisterClient(RegisterClientRequest request) {
 		Logger.Debug(LOG_TAG, "RegisterClient  " + request.Token);
-		RegisterClientResponse response = new RegisterClientResponse();
-		response.WasSuccessful = false;
-		if (_jalapenoHttpService.ServiceIsAvailable()) {
-			response = _jalapenoHttpService.RegisterClient(request);
-			/*if (ValidateAndNeedResend(response)) {
-				response = _jalapenoHttpService.RegisterClient(request);
-			}*/
-		}
 
-		Logger.Debug(LOG_TAG, "RegisterClient response "
-				+ response.WasSuccessful);
+		RegisterClientCommand command = new RegisterClientCommand(_jalapenoHttpService, _settingsService, _encoderService,
+				RegisterClientResponse.class);
+		RegisterClientResponse response = command.Execute(request);
+
+		Logger.Debug(LOG_TAG, "RegisterClient response " + response.WasSuccessful);
 		return response;
 	}
 
 	public boolean IsSpamer(String address, String smsTexthash) {
 		Logger.Debug(LOG_TAG, "IsSpamer " + address);
-		if (_jalapenoHttpService.ServiceIsAvailable()) {
-			IsSpammerRequest isSpamerRequest = new IsSpammerRequest();
-			isSpamerRequest.Hash = smsTexthash;
-			isSpamerRequest.SenderId = address;
-			isSpamerRequest.ClientId = _clientId;
+		IsSpammerRequest isSpamerRequest = new IsSpammerRequest();
+		isSpamerRequest.Hash = smsTexthash;
+		isSpamerRequest.SenderId = address;
+		isSpamerRequest.ClientId = _settingsService.GetClientId();
 
-			IsSpammerResponse spammerResponse = _jalapenoHttpService
-					.IsSpamerRequest(isSpamerRequest);
-			if (ValidateAndNeedResend(spammerResponse)) {
-				spammerResponse = _jalapenoHttpService
-						.IsSpamerRequest(isSpamerRequest);
-			}
+		IsSpamerCommand command = new IsSpamerCommand(_jalapenoHttpService, _settingsService, _encoderService, IsSpammerResponse.class);
+		IsSpammerResponse spammerResponse = command.Execute(isSpamerRequest);
+		Logger.Debug(LOG_TAG, "IsSpamer response " + spammerResponse.IsSpammer);
 
-			Logger.Debug(LOG_TAG, "IsSpamer response "
-					+ spammerResponse.IsSpammer);
-
-			return spammerResponse.IsSpammer && spammerResponse.WasSuccessful;
-		}
-
-		return false;
+		return spammerResponse.IsSpammer && spammerResponse.WasSuccessful;
 	}
 
 	public ComplainResponse Complain(String sender, String hash) {
 		Logger.Debug(LOG_TAG, "Complain " + sender + " hash " + hash);
 		ComplainRequest request = new ComplainRequest();
-		request.ClientId = _clientId;
+		request.ClientId = _settingsService.GetClientId();
 		request.Hash = hash;
 		request.SenderId = sender;
-		ComplainResponse response = new ComplainResponse();
-		if (_jalapenoHttpService.ServiceIsAvailable()) {
-			response = _jalapenoHttpService.Complain(request);
-			if (ValidateAndNeedResend(response)) {
-				response = _jalapenoHttpService.Complain(request);
-			}
-		}
+		ComplainCommand command = new ComplainCommand(_jalapenoHttpService, _settingsService, _encoderService, ComplainResponse.class);
+		ComplainResponse response = command.Execute(request);
 
 		Logger.Debug(LOG_TAG, "Complain resp " + response.WasSuccessful);
 		return response;
 	}
 
 	public PublicKeyResponse GetPublicKey() {
-		PublicKeyResponse response = null;
-		if (_jalapenoHttpService.ServiceIsAvailable()) {
-			response = _jalapenoHttpService.GetPublicKey();
-		}
+		GetPublicKeyCommand command = new GetPublicKeyCommand(_jalapenoHttpService, _settingsService, _encoderService,
+				PublicKeyResponse.class);
+		PublicKeyResponse response = command.Execute(null);
 
 		return response;
-	}
-
-	public boolean ValidateAndNeedResend(BaseResponse response) {
-		if (response.WasSuccessful) {
-			return false;
-		}
-
-		Logger.Debug(LOG_TAG, "ValidateAndNeedResend " + response.ErrorMessage);
-		if (response.ErrorMessage.equals(WebErrors.InvalidRequest)) {
-
-			PublicKeyResponse pbk = GetPublicKey();
-			if (pbk.WasSuccessful) {
-				PublicKeyInfo publicKeyInfo = CryptoService
-						.GetPublicKeyInfo(pbk.PublicKey);
-				_settingsService.UpdatePublicKey(publicKeyInfo);
-
-				return true;
-			}
-
-			return false;
-		}
-
-		if (response.ErrorMessage.equals(WebErrors.InvalidToken)
-				|| response.ErrorMessage.equals(WebErrors.UserBanned)
-				|| response.ErrorMessage.equals(WebErrors.NotAuthorizedRequest)) {
-			Logger.Debug(LOG_TAG, "Disable registration by error "
-					+ response.ErrorMessage);
-			Config config = _settingsService.LoadSettings();
-			config.ClientRegistered = false;
-			config.Enabled = false;
-			_settingsService.SaveSettings(config);
-
-			return false;
-		}
-
-		return false;
 	}
 }
