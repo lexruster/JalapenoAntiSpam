@@ -27,8 +27,7 @@ public class SettingsService {
 
 	public Config LoadSettings() {
 		Config config = new Config();
-		SharedPreferences jalapenoSettings = _context.getSharedPreferences(
-				APP_PREFERENCES, ContextMode);
+		SharedPreferences jalapenoSettings = _context.getSharedPreferences(APP_PREFERENCES, ContextMode);
 		if (!jalapenoSettings.contains(config.EnabledString)) {
 			SetDefault(new Config(), jalapenoSettings);
 		}
@@ -38,41 +37,35 @@ public class SettingsService {
 	}
 
 	private void FillConfig(Config config, SharedPreferences jalapenoSettings) {
-		config.Enabled = jalapenoSettings.getBoolean(config.EnabledString,
-				config.EnabledDefault);
-		config.PublicKeyExponent = jalapenoSettings
-				.getString(config.PublicKeyExponentString,
-						config.PublicKeyExponentDefault);
-		config.PublicKeyModulus = jalapenoSettings.getString(
-				config.PublicKeyModulusString, config.PublicKeyModulusDefault);
-		config.UnknownSound = jalapenoSettings.getString(
-				config.UnknownSoundString, config.UnknownSoundDefault);
+		config.Enabled = jalapenoSettings.getBoolean(config.EnabledString, config.EnabledDefault);
+		config.PublicKeyExponent = jalapenoSettings.getString(config.PublicKeyExponentString, config.PublicKeyExponentDefault);
+		config.PublicKeyModulus = jalapenoSettings.getString(config.PublicKeyModulusString, config.PublicKeyModulusDefault);
+		config.UnknownSound = jalapenoSettings.getString(config.UnknownSoundString, config.UnknownSoundDefault);
 
-		String clientId = jalapenoSettings.getString(config.ClientIdString,
-				config.ClientIdDefault);
+		String clientId = jalapenoSettings.getString(config.ClientIdString, config.ClientIdDefault);
 		if (clientId.length() > 0) {
 			config.ClientId = UUID.fromString(clientId);
 		}
 
-		config.ClientRegistered = jalapenoSettings.getBoolean(
-				config.ClientRegisteredString, config.ClientRegisteredDefault);
+		config.ClientRegistered = jalapenoSettings.getBoolean(config.ClientRegisteredString, config.ClientRegisteredDefault);
+
+		config.DomainUrlPrimary = jalapenoSettings.getBoolean(config.DomainUrlPrimaryString, config.DomainUrlPrimaryDefault);
 	}
 
 	public void SaveSettings(Config config) {
-		SharedPreferences jalapenoSettings = _context.getSharedPreferences(
-				APP_PREFERENCES, ContextMode);
+		SharedPreferences jalapenoSettings = _context.getSharedPreferences(APP_PREFERENCES, ContextMode);
 		SharedPreferences.Editor editor = jalapenoSettings.edit();
 		editor.putBoolean(config.EnabledString, config.Enabled);
 		editor.putString(config.PublicKeyModulusString, config.PublicKeyModulus);
-		editor.putString(config.PublicKeyExponentString,
-				config.PublicKeyExponent);
+		editor.putString(config.PublicKeyExponentString, config.PublicKeyExponent);
 		editor.putString(config.UnknownSoundString, config.UnknownSound);
 
 		if (config.ClientId != null) {
 			editor.putString(config.ClientIdString, config.ClientId.toString());
 		}
-		editor.putBoolean(config.ClientRegisteredString,
-				config.ClientRegistered);
+		editor.putBoolean(config.ClientRegisteredString, config.ClientRegistered);
+
+		editor.putBoolean(config.DomainUrlPrimaryString, config.DomainUrlPrimary);
 
 		editor.commit();
 	}
@@ -81,16 +74,15 @@ public class SettingsService {
 		SharedPreferences.Editor editor = jalapenoSettings.edit();
 		editor.putBoolean(config.EnabledString, config.EnabledDefault);
 
-		editor.putString(config.PublicKeyModulusString,
-				config.PublicKeyModulusDefault);
-		editor.putString(config.PublicKeyExponentString,
-				config.PublicKeyExponentDefault);
+		editor.putString(config.PublicKeyModulusString, config.PublicKeyModulusDefault);
+		editor.putString(config.PublicKeyExponentString, config.PublicKeyExponentDefault);
 
 		editor.putString(config.UnknownSoundString, config.UnknownSoundDefault);
 
 		editor.putString(config.ClientIdString, config.ClientIdDefault);
-		editor.putBoolean(config.ClientRegisteredString,
-				config.ClientRegisteredDefault);
+		editor.putBoolean(config.ClientRegisteredString, config.ClientRegisteredDefault);
+
+		editor.putBoolean(config.DomainUrlPrimaryString, config.DomainUrlPrimaryDefault);
 
 		editor.commit();
 	}
@@ -105,8 +97,19 @@ public class SettingsService {
 
 	public PublicKeyInfo GetPublicKey() {
 		Config config = LoadSettings();
-		PublicKeyInfo publicKeyInfo = new PublicKeyInfo(
-				config.PublicKeyModulus, config.PublicKeyExponent);
+		PublicKeyInfo publicKeyInfo = new PublicKeyInfo(config.PublicKeyModulus, config.PublicKeyExponent);
 		return publicKeyInfo;
+	}
+
+	public UUID GetClientId() {
+		Config config = LoadSettings();
+
+		return config.ClientId;
+	}
+
+	public String GetDomain() {
+		Config config = LoadSettings();
+		
+		return config.GetDomain();
 	}
 }

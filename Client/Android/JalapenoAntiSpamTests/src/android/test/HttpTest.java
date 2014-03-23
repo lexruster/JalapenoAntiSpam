@@ -8,9 +8,9 @@ import su.Jalapeno.AntiSpam.Services.WebService.EncoderService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
 import su.Jalapeno.AntiSpam.Services.WebService.WebClient;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.PublicKeyResponse;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientRequest;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientResponse;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.RegisterClientRequest;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.PublicKeyResponse;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.RegisterClientResponse;
 import android.content.Context;
 
 import com.google.gson.Gson;
@@ -19,6 +19,7 @@ import com.google.gson.GsonBuilder;
 public class HttpTest extends AndroidTestCase {
 	private EncoderService encoding;
 	private SettingsService settings;
+	EncoderService encoder;
 	Context cntx;
 	Gson _gson;
 
@@ -28,6 +29,7 @@ public class HttpTest extends AndroidTestCase {
 		cntx = getContext();
 		settings = new SettingsService(cntx);
 		encoding = new EncoderService(settings);
+		encoder = new EncoderService(settings);
 
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setDateFormat("dd.MM.yy hh:mm:ss");
@@ -36,8 +38,9 @@ public class HttpTest extends AndroidTestCase {
 
 	public void testRegisterClient() {
 		JalapenoHttpService jalapenoHttpService = new JalapenoHttpService(cntx, encoding);
+		EncoderService encoder = new EncoderService(settings);
 		// jalapenoHttpService.SendLocalTestRequest();
-		JalapenoWebServiceWraper wrap = new JalapenoWebServiceWraper(jalapenoHttpService, settings);
+		JalapenoWebServiceWraper wrap = new JalapenoWebServiceWraper(jalapenoHttpService, settings, encoder);
 		RegisterClientRequest request = new RegisterClientRequest();
 		request.ClientId = UUID.randomUUID();
 		request.Token = "TOKEN";
@@ -68,7 +71,7 @@ public class HttpTest extends AndroidTestCase {
 	public void testGetKey() {
 		JalapenoHttpService jalapenoHttpService = new JalapenoHttpService(cntx, encoding);
 		// jalapenoHttpService.SendLocalTestRequest();
-		JalapenoWebServiceWraper wrap = new JalapenoWebServiceWraper(jalapenoHttpService, settings);
+		JalapenoWebServiceWraper wrap = new JalapenoWebServiceWraper(jalapenoHttpService, settings, encoder);
 		PublicKeyResponse res = wrap.GetPublicKey();
 
 		Assert.assertEquals(res.WasSuccessful, true);

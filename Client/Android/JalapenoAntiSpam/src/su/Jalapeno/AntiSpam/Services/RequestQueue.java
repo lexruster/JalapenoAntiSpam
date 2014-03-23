@@ -7,7 +7,8 @@ import su.Jalapeno.AntiSpam.DAL.DAO.ComplainDao;
 import su.Jalapeno.AntiSpam.DAL.DAO.JalapenoDao;
 import su.Jalapeno.AntiSpam.DAL.Domain.Complain;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.ComplainResponse;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.ComplainResponse;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.WebErrorEnum;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
@@ -20,28 +21,21 @@ public class RequestQueue extends JalapenoService<Complain> {
 	private SettingsService _settingsService;
 
 	@Inject
-	public RequestQueue(JalapenoWebServiceWraper jalapenoWebServiceWraper,
-			SettingsService settingsService) {
+	public RequestQueue(JalapenoWebServiceWraper jalapenoWebServiceWraper, SettingsService settingsService) {
 		super();
 		_jalapenoWebServiceWraper = jalapenoWebServiceWraper;
 		_settingsService = settingsService;
 	}
 
-	public RequestQueue(Repository<Complain> repository,
-			JalapenoWebServiceWraper jalapenoWebServiceWraper,
-			SettingsService settingsService) {
+	public RequestQueue(Repository<Complain> repository, JalapenoWebServiceWraper jalapenoWebServiceWraper, SettingsService settingsService) {
 		super(repository);
 		_jalapenoWebServiceWraper = jalapenoWebServiceWraper;
 		_settingsService = settingsService;
 	}
 
-	protected void ComplainRequest(String phone, String hash) {
-		_jalapenoWebServiceWraper.Complain(phone, hash);
-	}
-
 	public void AddComplainRequest(String phone, String smsTexthash) {
 		Logger.Debug(LOG_TAG, "AddComplainRequest " + phone);
-		
+
 		Complain complain = new Complain();
 		complain.SenderId = phone;
 		complain.SmsHash = smsTexthash;
@@ -51,8 +45,7 @@ public class RequestQueue extends JalapenoService<Complain> {
 
 	public void ProceedComplainRequests() {
 		Config config = _settingsService.LoadSettings();
-		Logger.Debug(LOG_TAG, "ProceedComplainRequests config reg "
-				+ config.ClientRegistered + " enabled " + config.Enabled);
+		Logger.Debug(LOG_TAG, "ProceedComplainRequests config reg " + config.ClientRegistered + " enabled " + config.Enabled);
 		if (!config.ClientRegistered || !config.Enabled) {
 			return;
 		}
@@ -83,14 +76,23 @@ public class RequestQueue extends JalapenoService<Complain> {
 	}
 
 	private boolean ProceedComplain(Complain complain) {
-		ComplainResponse complainResponse = _jalapenoWebServiceWraper.Complain(
-				complain.SenderId, complain.SmsHash);
-		boolean success = complainResponse.WasSuccessful;
+		ComplainResponse complainResponse = _jalapenoWebServiceWraper.Complain(complain.SenderId, complain.SmsHash);
+		boolean success = ComplainIsReady(complainResponse);
 		if (success) {
 			Delete(complain);
 		}
 
 		return success;
+	}
+
+	private boolean ComplainIsReady(ComplainResponse response) {
+		if (response.WasSuccessful || response.Error == WebErrorEnum.InvalidRequest
+				|| response.Error == WebErrorEnum.TooManyComplaintsFromUser) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	protected ComplainDao GetComplainDao() {

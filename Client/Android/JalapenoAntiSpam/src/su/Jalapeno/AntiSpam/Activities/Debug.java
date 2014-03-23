@@ -326,7 +326,7 @@ public class Debug extends JalapenoActivity {
 		boolean avail = jalapenoHttpService.ServiceIsAvailable();
 		Toast.makeText(this, String.format("Available: %s", avail), Toast.LENGTH_LONG).show();
 
-		String resp = jalapenoHttpService.GetPublicKey().PublicKey;
+		String resp = jalapenoHttpService.GetPublicKey(_settingsService.GetDomain()).PublicKey;
 
 		Toast.makeText(this, String.format("Responce: %s", resp.toString()), Toast.LENGTH_LONG).show();
 	}
