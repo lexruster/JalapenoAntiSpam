@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BaseLayout"
+    tools:context=".SmsAnalyzerActivity" >
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:alpha="1"
+        android:background="#80000000"
+        android:src="@drawable/jalapeno" />
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/BaseControl.TextHeader"
+        android:text="@string/SettingsTitle" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ToggleButton
+                android:id="@+id/toggleEnabled"
+                style="@style/BaseControl.Button.Toogle"
+                android:onClick="toggleClick"
+                android:text="ToggleButton"
+                android:textOff="@string/AntiSpamOff"
+                android:textOn="@string/AntiSpamOn" />
+
+            <Button
+                android:id="@+id/buttonSpammerList"
+                style="@style/BaseControl.Button"
+                android:text="@string/KnownSpammerList" />
+
+            <Button
+                android:id="@+id/buttonSmsValidate"
+                style="@style/BaseControl.Button"
+                android:onClick="smsValidate"
+                android:text="@string/SmsValidateList" />
+
+            <Button
+                android:id="@+id/buttonSmsTrash"
+                style="@style/BaseControl.Button"
+                android:onClick="smsTrash"
+                android:text="@string/SmsTrashList" />
+
+            <Button
+                android:id="@+id/buttonSoundSettings"
+                style="@style/BaseControl.Button"
+                android:text="@string/SoundSettings" />
+
+            <Button
+                android:id="@+id/buttonDebug"
+                style="@style/BaseControl.Button.Debug"
+                android:text="@string/DebugActivity"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="40dp"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        style="@style/ListItem"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tvSenderId"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="TextView"
+            
+            android:textSize="15sp" >
+        </TextView>
+
+        <CheckBox
+            android:id="@+id/cbIsSender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            
+            android:text="@string/isspamer"
+            >
+        </CheckBox>
+    </LinearLayout>
+
+</LinearLayout>

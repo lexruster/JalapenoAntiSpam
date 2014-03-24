@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="BaseControl">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:typeface">sans</item>
+    </style>
+
+    <style name="BaseLayout">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+
+        <item name="android:paddingBottom">@dimen/activity_vertical_margin</item>
+        <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingTop">@dimen/activity_vertical_margin</item>
+    </style>
+
+    <style name="BaseControl.Button">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+    
+     <style name="BaseControl.Button.Toogle">
+    </style>
+    
+    <style name="BaseControl.ButtonSms">
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="BaseControl.Button.Debug">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">#FF0000</item>
+        <item name="android:typeface">normal</item>
+    </style>
+
+    <style name="BaseControl.TextHeader">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:typeface">normal</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+    </style>
+
+    <style name="BaseControl.ListView">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+    
+    <style name="ListItem">
+        
+    </style>
+    
+    <style name="BaseControl.ListGroup">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginBottom">30dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+</resources>
