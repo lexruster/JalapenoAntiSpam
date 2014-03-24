@@ -14,6 +14,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
@@ -26,7 +29,7 @@ public class WebClient {
 
 		try {
 			Logger.Debug(LOG_TAG, "Get from: " + url);
-			HttpClient client = new DefaultHttpClient();
+			HttpClient client = new DefaultHttpClient(SetTimeouts());
 			HttpGet get = new HttpGet(url);
 			HttpResponse response = client.execute(get);
 			StatusLine statusLine = response.getStatusLine();
@@ -46,12 +49,11 @@ public class WebClient {
 				}
 			} else {
 				Logger.Error(LOG_TAG, "Server responded with status code: " + statusLine.getStatusCode());
-
 			}
 		} catch (Exception ex) {
 			Logger.Error(LOG_TAG, "Failed to send HTTP POST request due to: " + ex);
-
 		}
+		
 		return null;
 	}
 
@@ -61,7 +63,7 @@ public class WebClient {
 		try {
 			Logger.Debug(LOG_TAG, "Post to: " + url + " with data " + postData);
 			// Create an HTTP client
-			HttpClient client = new DefaultHttpClient();
+			HttpClient client = new DefaultHttpClient(SetTimeouts());
 			HttpPost post = new HttpPost(url);
 			post.setEntity(CreateEntity(postData));
 			post.setHeader("Content-Type", "application/json");
@@ -92,6 +94,14 @@ public class WebClient {
 
 		}
 		return null;
+	}
+
+	private static HttpParams SetTimeouts() {
+		HttpParams httpParameters = new BasicHttpParams();
+		HttpConnectionParams.setConnectionTimeout(httpParameters, WebConstants.CONNECTION_TIMEOUT);
+		HttpConnectionParams.setSoTimeout(httpParameters, WebConstants.SOCKET_TIMEOUT);
+		
+		return httpParameters;
 	}
 
 	private static HttpEntity CreateEntity(String value) {

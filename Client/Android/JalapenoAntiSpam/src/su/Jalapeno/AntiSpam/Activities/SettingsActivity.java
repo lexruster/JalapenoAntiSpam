@@ -4,11 +4,13 @@ import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
+import su.Jalapeno.AntiSpam.SystemService.AppService;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +27,6 @@ public class SettingsActivity extends JalapenoActivity {
 
 	@Inject
 	SettingsService _settingsService;
-	private Config config;
 
 	@InjectView(R.id.buttonDebug)
 	Button buttonDebug;
@@ -71,7 +72,6 @@ public class SettingsActivity extends JalapenoActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		_settingsService.SaveSettings(config);
 		Logger.Debug(LOG_TAG, "onPause");
 	}
 
@@ -83,12 +83,11 @@ public class SettingsActivity extends JalapenoActivity {
 	}
 
 	private void Init() {
-
 		SetDebugMode(Constants.VIEW_DEBUG_UI);
 	}
 
 	private void Resume() {
-		config = _settingsService.LoadSettings();
+		Config config = _settingsService.LoadSettings();
 		Logger.Debug(LOG_TAG, "Init ClientRegistered " + config.ClientRegistered);
 		if (config.ClientRegistered) {
 
@@ -116,8 +115,10 @@ public class SettingsActivity extends JalapenoActivity {
 	}
 
 	public void toggleClick(View view) {
+		Config config = _settingsService.LoadSettings();
 		config.Enabled = toogleButton.isChecked();
 		_settingsService.SaveSettings(config);
+		startService(new Intent(this, AppService.class));
 	}
 
 	public void smsTrash(View view) {
