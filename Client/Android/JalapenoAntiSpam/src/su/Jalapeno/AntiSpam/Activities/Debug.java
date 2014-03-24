@@ -58,7 +58,7 @@ public class Debug extends JalapenoActivity {
 	private int ACCOUNT_CODE = 16307;
 	private String SCOPE_BASE = "audience:server:client_id:";
 	private String SCOPE;
-	private String CLIENT_ID = "140853970719-l2mlr63jvg2h0lrosvnl7sj2t6fi4df0.apps.googleusercontent.com";
+	private String CLIENT_ID = "140853970719-rqql16r33ppue25rmtpqiitnqj5bp8s5.apps.googleusercontent.com";
 	private Debug mActivity;
 
 	private NotifyService _ringtoneService;
