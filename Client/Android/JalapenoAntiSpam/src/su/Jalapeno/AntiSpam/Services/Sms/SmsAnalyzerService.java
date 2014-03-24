@@ -9,13 +9,14 @@ import su.Jalapeno.AntiSpam.Services.SenderService;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import android.content.Context;
+import android.content.Intent;
 
 import com.google.inject.Inject;
 
 public class SmsAnalyzerService {
 
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "SmsAnalyzerService";
-	
+
 	private static final int MIN_MESSAGE_LENGTH = 50;
 	private RequestQueue _requestQueue;
 	private SmsQueueService _smsQueueService;
@@ -23,9 +24,12 @@ public class SmsAnalyzerService {
 	private SenderService _senderService;
 	private SmsService _smsService;
 
+	private Context _context;
+
 	@Inject
 	public SmsAnalyzerService(Context context, SmsQueueService smsQueueService, RequestQueue queue, SmsHashService smsHashService,
 			SenderService senderService, SmsService smsService) {
+		_context = context;
 		_smsQueueService = smsQueueService;
 		_requestQueue = queue;
 		_smsHashService = smsHashService;
@@ -35,6 +39,8 @@ public class SmsAnalyzerService {
 
 	public void AddSmsToValidate(Sms sms) {
 		_smsQueueService.Add(sms);
+		Intent intent = new Intent(Constants.BROADCAST_SMS_ANALYZER_ACTION);
+		_context.sendBroadcast(intent);
 	}
 
 	public void SetSenderAsSpamer(String sender) {

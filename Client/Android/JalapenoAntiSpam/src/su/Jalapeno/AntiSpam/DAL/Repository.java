@@ -56,16 +56,18 @@ public class Repository<T extends Entity> extends OrmLiteSqliteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVer, int newVer) {
-		try {
-			TableUtils.dropTable(connectionSource, Sender.class, true);
-			TableUtils.dropTable(connectionSource, SmsHash.class, true);
-			TableUtils.dropTable(connectionSource, Sms.class, true);
-			TableUtils.dropTable(connectionSource, TrashSms.class, true);
-			TableUtils.dropTable(connectionSource, Complain.class, true);
-			onCreate(db, connectionSource);
-		} catch (SQLException e) {
-			Logger.Error(TAG, "error upgrading db " + DATABASE_NAME + "from ver " + oldVer);
-			throw new RuntimeException(e);
+		if (newVer > oldVer) {
+			try {
+				TableUtils.dropTable(connectionSource, Sender.class, true);
+				TableUtils.dropTable(connectionSource, SmsHash.class, true);
+				TableUtils.dropTable(connectionSource, Sms.class, true);
+				TableUtils.dropTable(connectionSource, TrashSms.class, true);
+				TableUtils.dropTable(connectionSource, Complain.class, true);
+				onCreate(db, connectionSource);
+			} catch (SQLException e) {
+				Logger.Error(TAG, "error upgrading db " + DATABASE_NAME + "from ver " + oldVer);
+				throw new RuntimeException(e);
+			}
 		}
 	}
 

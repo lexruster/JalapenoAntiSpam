@@ -7,10 +7,10 @@ import roboguice.inject.ContentView;
 import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
-import su.Jalapeno.AntiSpam.Services.WebService.WebErrors;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.PublicKeyResponse;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientRequest;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.RegisterClientResponse;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.RegisterClientRequest;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.PublicKeyResponse;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.RegisterClientResponse;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.WebErrorEnum;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.CryptoService;
@@ -29,7 +29,7 @@ import com.google.inject.Inject;
 @ContentView(R.layout.activity_register)
 public class RegisterActivity extends JalapenoActivity {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "RegisterActivity";
-	
+
 	@Inject
 	JalapenoWebServiceWraper _jalapenoWebServiceWraper;
 	@Inject
@@ -57,12 +57,11 @@ public class RegisterActivity extends JalapenoActivity {
 			UiUtils.NavigateTo(SettingsActivity.class);
 		}
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		Logger.Debug(LOG_TAG, "onBackPressed");
 	}
-
 
 	public void ShowToast(int res) {
 		Toast.makeText(this, res, Toast.LENGTH_SHORT).show();
@@ -72,8 +71,7 @@ public class RegisterActivity extends JalapenoActivity {
 		new RegisterTask().execute(this);
 	}
 
-	class RegisterTask extends
-			AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
+	class RegisterTask extends AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
 
 		Spiner spiner = new Spiner(RegisterActivity.this);
 
@@ -89,7 +87,7 @@ public class RegisterActivity extends JalapenoActivity {
 				UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 			} else {
 				spiner.Hide();
-				if (registerClient.ErrorMessage.equals(WebErrors.UserBanned)) {
+				if (registerClient.ErrorMessage == WebErrorEnum.UserBanned) {
 					ShowToast(R.string.BannedRegister);
 				} else {
 					ShowToast(R.string.ErrorRegister);
@@ -104,19 +102,16 @@ public class RegisterActivity extends JalapenoActivity {
 
 		@SuppressWarnings("deprecation")
 		@Override
-		protected RegisterClientResponse doInBackground(
-				RegisterActivity... activitis) {
+		protected RegisterClientResponse doInBackground(RegisterActivity... activitis) {
 			PublicKeyResponse pbk = _jalapenoWebServiceWraper.GetPublicKey();
 
-			Logger.Debug(LOG_TAG, "doInBackground GetPublicKey  "
-					+ pbk.WasSuccessful);
+			Logger.Debug(LOG_TAG, "doInBackground GetPublicKey  " + pbk.WasSuccessful);
 			if (pbk.WasSuccessful) {
-				PublicKeyInfo publicKeyInfo = CryptoService
-						.GetPublicKeyInfo(pbk.PublicKey);
+				PublicKeyInfo publicKeyInfo = CryptoService.GetPublicKeyInfo(pbk.PublicKey);
 				_settingsService.UpdatePublicKey(publicKeyInfo);
 			} else {
 				RegisterClientResponse registerClient = new RegisterClientResponse();
-				registerClient.ErrorMessage = "";
+				registerClient.ErrorMessage = WebErrorEnum.NoConnection;
 				registerClient.WasSuccessful = false;
 
 				return registerClient;
@@ -129,8 +124,7 @@ public class RegisterActivity extends JalapenoActivity {
 			request.Token = "TOKEN " + new Date().toLocaleString();
 			_settingsService.SaveSettings(config);
 
-			RegisterClientResponse registerClient = _jalapenoWebServiceWraper
-					.RegisterClient(request);
+			RegisterClientResponse registerClient = _jalapenoWebServiceWraper.RegisterClient(request);
 
 			return registerClient;
 		}

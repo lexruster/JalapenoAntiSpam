@@ -2,6 +2,8 @@ package su.Jalapeno.AntiSpam.Util;
 
 import java.util.UUID;
 
+import su.Jalapeno.AntiSpam.Services.WebService.WebConstants;
+
 /**
  * Created by Alexander on 23.12.13.
  */
@@ -30,4 +32,17 @@ public class Config {
 	public String ClientRegisteredString = "ClientRegistered";
 	public boolean ClientRegistered;
 	public boolean ClientRegisteredDefault = false;
+	
+	public String DomainUrlPrimaryString = "DomainUrlPrimary";
+	public boolean DomainUrlPrimary;
+	public boolean DomainUrlPrimaryDefault = true;
+	
+	
+	public String GetDomain() {
+		if (DomainUrlPrimary) {
+			return WebConstants.DOMAIN_URL_PRINARY;
+		} else {
+			return WebConstants.DOMAIN_URL_SECONDARY;
+		}
+	}
 }

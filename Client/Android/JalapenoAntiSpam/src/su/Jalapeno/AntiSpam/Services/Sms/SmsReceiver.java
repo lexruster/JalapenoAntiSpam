@@ -2,7 +2,6 @@ package su.Jalapeno.AntiSpam.Services.Sms;
 
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
-import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import android.content.Context;
@@ -20,8 +19,7 @@ public class SmsReceiver {
 	}
 
 	public boolean Receive(Sms sms, Context context) {
-		Config config = _settingsService.LoadSettings();
-		if (!config.Enabled) {
+		if (!_settingsService.AntispamEnabled()) {
 			return true;
 		}
 		Boolean isClearFromSpam;
