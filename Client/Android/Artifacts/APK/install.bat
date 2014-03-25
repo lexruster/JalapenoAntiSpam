@@ -1,0 +1,1 @@
+d:\Eclipse\Sdks\adt-bundle-windows-x86_64-20131030\sdk\platform-tools\adb install -r d:\Document\Project\JalapenoAntiSpamClient\Client\Android\Artifacts\APK\JalapenoAntiSpamSign.apk
