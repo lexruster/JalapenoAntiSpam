@@ -15,3 +15,4 @@ Research/Android/Example/SecureMessages/bin/*
 Research/Android/Example/SecureMessages/gen/org/secure/sms/BuildConfig.java
 Research/Android/Example/SecureMessages/project.properties
 Research/Android/Example/SecureMessages/.settings/org.eclipse.jdt.core.prefs
+Client/Android/Artifacts/APK/JalapenoAntiSpamSign.apk
