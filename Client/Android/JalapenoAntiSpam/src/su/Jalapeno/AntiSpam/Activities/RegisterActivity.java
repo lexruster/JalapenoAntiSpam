@@ -18,17 +18,38 @@ import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.PublicKeyInfo;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
 import su.Jalapeno.AntiSpam.Util.UI.Spiner;
+import android.accounts.AccountManager;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.GooglePlayServicesAvailabilityException;
+import com.google.android.gms.auth.UserRecoverableAuthException;
+import com.google.android.gms.auth.sample.helloauth.AbstractGetNameTask;
+import com.google.android.gms.auth.sample.helloauth.GetNameInBackground;
+import com.google.android.gms.auth.sample.helloauth.GetNameInBackgroundWithSync;
+import com.google.android.gms.auth.sample.helloauth.GetNameInForeground;
+import com.google.android.gms.auth.sample.helloauth.HelloActivity;
+import com.google.android.gms.common.AccountPicker;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.inject.Inject;
 
 @ContentView(R.layout.activity_register)
 public class RegisterActivity extends JalapenoActivity {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "RegisterActivity";
+	static final int REQUEST_CODE_PICK_ACCOUNT = 13000;
+    static final int REQUEST_CODE_RECOVER_FROM_AUTH_ERROR = 13001;
+    static final int REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR = 13002;
+    
+    private static final String SCOPE = "oauth2:https://www.googleapis.com/auth/userinfo.profile";
+    public static final String EXTRA_ACCOUNTNAME = "extra_accountname";
 
 	@Inject
 	JalapenoWebServiceWraper _jalapenoWebServiceWraper;
@@ -36,11 +57,19 @@ public class RegisterActivity extends JalapenoActivity {
 	Context _context;
 	@Inject
 	private SettingsService _settingsService;
+	
+	private String mEmail;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Logger.Debug(LOG_TAG, "onCreate");
+		
+		Bundle extras = getIntent().getExtras();
+		if (extras.containsKey(EXTRA_ACCOUNTNAME)) {
+            mEmail = extras.getString(EXTRA_ACCOUNTNAME);
+            getTask(RegisterActivity.this, mEmail, SCOPE).execute();
+        }
 	}
 
 	@Override
@@ -49,27 +78,144 @@ public class RegisterActivity extends JalapenoActivity {
 		Logger.Debug(LOG_TAG, "onResume");
 		Resume();
 	}
-
 	private void Resume() {
 		Config config = _settingsService.LoadSettings();
 		if (config.ClientRegistered) {
 			Logger.Error(LOG_TAG, "Init clientRegistered!");
-			UiUtils.NavigateTo(SettingsActivity.class);
+			UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 		}
 	}
-
+	
 	@Override
 	public void onBackPressed() {
 		Logger.Debug(LOG_TAG, "onBackPressed");
 	}
+	
+	@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_PICK_ACCOUNT) {
+            if (resultCode == RESULT_OK) {
+                mEmail = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
+                getUsername();
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "You must pick an account", Toast.LENGTH_SHORT).show();
+            }
+        } else if ((requestCode == REQUEST_CODE_RECOVER_FROM_AUTH_ERROR ||
+                requestCode == REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR)
+                && resultCode == RESULT_OK) {
+            handleAuthorizeResult(resultCode, data);
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+	
+	public void Register(View view) {
+		getUsername();
+		new RegisterTask().execute(this);
+	}
+	private void getUsername() {
+        if (mEmail == null) {
+            pickUserAccount();
+        } else {
+            if (isDeviceOnline()) {
+                getTask(HelloActivity.this, mEmail, SCOPE).execute();
+            } else {
+                Toast.makeText(this, "No network connection available", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
+    /** Starts an activity in Google Play Services so the user can pick an account */
+    private void pickUserAccount() {
+        String[] accountTypes = new String[]{"com.google"};
+        Intent intent = AccountPicker.newChooseAccountIntent(null, null,
+                accountTypes, false, null, null, null, null);
+        startActivityForResult(intent, REQUEST_CODE_PICK_ACCOUNT);
+    }
+	
+	private void handleAuthorizeResult(int resultCode, Intent data) {
+        if (data == null) {
+            show("Unknown error, click the button again");
+            return;
+        }
+        if (resultCode == RESULT_OK) {
+            Log.i(TAG, "Retrying");
+            getTask(this, mEmail, SCOPE).execute();
+            return;
+        }
+        if (resultCode == RESULT_CANCELED) {
+            show("User rejected authorization.");
+            return;
+        }
+        show("Unknown error, click the button again");
+    }
+
+	/** Checks whether the device currently has a network connection */
+    private boolean isDeviceOnline() {
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        }
+        return false;
+    }
+    
+    public void show(final String message) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //mOut.setText(message);
+                Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    public void handleException(final Exception e) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (e instanceof GooglePlayServicesAvailabilityException) {
+                    // The Google Play services APK is old, disabled, or not present.
+                    // Show a dialog created by Google Play services that allows
+                    // the user to update the APK
+                    int statusCode = ((GooglePlayServicesAvailabilityException)e)
+                            .getConnectionStatusCode();
+                    Dialog dialog = GooglePlayServicesUtil.getErrorDialog(statusCode,
+                            HelloActivity.this,
+                            REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR);
+                    dialog.show();
+                } else if (e instanceof UserRecoverableAuthException) {
+                    // Unable to authenticate, such as when the user has not yet granted
+                    // the app access to the account, but the user can fix this.
+                    // Forward the user to an activity in Google Play services.
+                    Intent intent = ((UserRecoverableAuthException)e).getIntent();
+                    startActivityForResult(intent,
+                            REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR);
+                }
+            }
+        });
+    }
+    private AbstractGetNameTask getTask(
+            HelloActivity activity, String email, String scope) {
+        switch(requestType) {
+            case FOREGROUND:
+                return new GetNameInForeground(activity, email, scope);
+            case BACKGROUND:
+                return new GetNameInBackground(activity, email, scope);
+            case BACKGROUND_WITH_SYNC:
+                return new GetNameInBackgroundWithSync(activity, email, scope);
+            default:
+                return new GetNameInBackground(activity, email, scope);
+        }
+    }
+    
 	public void ShowToast(int res) {
 		Toast.makeText(this, res, Toast.LENGTH_SHORT).show();
 	}
 
-	public void Register(View view) {
-		new RegisterTask().execute(this);
-	}
+	
 
 	class RegisterTask extends AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
 
