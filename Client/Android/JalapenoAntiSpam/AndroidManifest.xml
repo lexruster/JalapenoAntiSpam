@@ -82,7 +82,6 @@
         </activity>
         <activity
             android:name="su.Jalapeno.AntiSpam.Activities.RegisterActivity"
-            android:launchMode="singleInstance"
             android:parentActivityName="@string/ParentActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
