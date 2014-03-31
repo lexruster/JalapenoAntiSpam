@@ -1,13 +1,14 @@
 package su.Jalapeno.AntiSpam.Activities;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.UUID;
+
+import org.json.JSONException;
 
 import roboguice.inject.ContentView;
 import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
-import su.Jalapeno.AntiSpam.Services.Token.AbstractGetNameTask;
-import su.Jalapeno.AntiSpam.Services.Token.GetNameInForeground;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.RegisterClientRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.PublicKeyResponse;
@@ -26,9 +27,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.GoogleAuthException;
+import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.GooglePlayServicesAvailabilityException;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.AccountPicker;
@@ -46,13 +51,14 @@ public class RegisterActivity extends JalapenoActivity {
 	public static final String EXTRA_ACCOUNTNAME = "extra_accountname";
 
 	@Inject
-	JalapenoWebServiceWraper _jalapenoWebServiceWraper;
+	public JalapenoWebServiceWraper _jalapenoWebServiceWraper;
 	@Inject
 	Context _context;
 	@Inject
-	private SettingsService _settingsService;
+	public SettingsService _settingsService;
 
-	private String mEmail;
+	public String Email;
+	public String Token;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +66,9 @@ public class RegisterActivity extends JalapenoActivity {
 		Logger.Debug(LOG_TAG, "onCreate");
 
 		Bundle extras = getIntent().getExtras();
-		if (extras.containsKey(EXTRA_ACCOUNTNAME)) {
-			mEmail = extras.getString(EXTRA_ACCOUNTNAME);
-			getTask(RegisterActivity.this, mEmail, SCOPE).execute();
+		if (extras != null && extras.containsKey(EXTRA_ACCOUNTNAME)) {
+			Email = extras.getString(EXTRA_ACCOUNTNAME);
+			GetRegiseterTask().execute();
 		}
 	}
 
@@ -88,7 +94,9 @@ public class RegisterActivity extends JalapenoActivity {
 
 	public void Register(View view) {
 		Logger.Debug(LOG_TAG, "Register");
-		new RegisterTask().execute(this);
+		Email = "";
+		Token = "";
+		// new RegisterTask().execute(this);
 		getUsername();
 	}
 
@@ -97,10 +105,11 @@ public class RegisterActivity extends JalapenoActivity {
 		if (requestCode == REQUEST_CODE_PICK_ACCOUNT) {
 			if (resultCode == RESULT_OK) {
 				Logger.Debug(LOG_TAG, "onActivityResult RESULT_OK");
-				mEmail = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
+				Email = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
 				getUsername();
 			} else if (resultCode == RESULT_CANCELED) {
 				Logger.Debug(LOG_TAG, "onActivityResult RESULT_CANCELED");
+				//TODO: localization
 				Toast.makeText(this, "You must pick an account",
 						Toast.LENGTH_SHORT).show();
 			}
@@ -115,12 +124,12 @@ public class RegisterActivity extends JalapenoActivity {
 	}
 
 	private void getUsername() {
-		Logger.Debug(LOG_TAG, "getUsername mEmail=" + mEmail);
-		if (mEmail == null) {
+		Logger.Debug(LOG_TAG, "getUsername mEmail=" + Email);
+		if (TextUtils.isEmpty(Email)) {
 			pickUserAccount();
 		} else {
 			if (_jalapenoWebServiceWraper.ServiceIsAvailable()) {
-				getTask(RegisterActivity.this, mEmail, SCOPE).execute();
+				GetRegiseterTask().execute();
 			} else {
 				// Toast.makeText(this, "No network connection available",
 				// Toast.LENGTH_SHORT).show();
@@ -144,17 +153,20 @@ public class RegisterActivity extends JalapenoActivity {
 	private void handleAuthorizeResult(int resultCode, Intent data) {
 		if (data == null) {
 			show("Unknown error, click the button again");
+			Logger.Debug(LOG_TAG, "Unknown error, click the button again");
 			return;
 		}
 		if (resultCode == RESULT_OK) {
 			Logger.Debug(LOG_TAG, "handleAuthorizeResult Retrying");
-			getTask(this, mEmail, SCOPE).execute();
+			GetRegiseterTask().execute();
 			return;
 		}
 		if (resultCode == RESULT_CANCELED) {
+			Logger.Debug(LOG_TAG, "User rejected authorization");
 			show("User rejected authorization.");
 			return;
 		}
+		Logger.Debug(LOG_TAG, "Unknown error, click the button again");
 		show("Unknown error, click the button again");
 	}
 
@@ -203,16 +215,23 @@ public class RegisterActivity extends JalapenoActivity {
 		});
 	}
 
-	private AbstractGetNameTask getTask(RegisterActivity activity,
-			String email, String scope) {
+	private RegisterTask GetRegiseterTask() {
 		Logger.Debug(LOG_TAG, "getTask");
-		return new GetNameInForeground(activity, email, scope);
+		return new RegisterTask();
 	}
 
 	class RegisterTask extends
 			AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
+		final String LOG_TAG = Constants.BEGIN_LOG_TAG + "RegisterTask";
+		private static final String NAME_KEY = "given_name";
+		protected RegisterActivity activity;
 
-		Spiner spiner = new Spiner(RegisterActivity.this);
+		Spiner spiner;
+
+		public RegisterTask() {
+			activity = RegisterActivity.this;
+			spiner = new Spiner(activity);
+		}
 
 		@Override
 		protected void onPostExecute(RegisterClientResponse registerClient) {
@@ -243,6 +262,29 @@ public class RegisterActivity extends JalapenoActivity {
 		@Override
 		protected RegisterClientResponse doInBackground(
 				RegisterActivity... activitis) {
+			Logger.Debug(LOG_TAG, "doInBackground");
+			RegisterClientResponse registerClient = new RegisterClientResponse();
+			registerClient.ErrorMessage = WebErrorEnum.NoConnection;
+			registerClient.WasSuccessful = false;
+
+			try {
+				fetchNameFromProfileServer();
+				Logger.Debug(LOG_TAG, "fetchNameFromProfileServer token="
+						+ activity.Token);
+			} catch (IOException ex) {
+				onError("Following Error occured, please try again. "
+						+ ex.getMessage(), ex);
+			} catch (JSONException e) {
+				onError("Bad response: " + e.getMessage(), e);
+			} catch (Exception ex) {
+				Logger.Error(LOG_TAG, "doInBackground Exception", ex);
+			}
+			// return null;
+
+			if (TextUtils.isEmpty(activity.Token)) {
+				return registerClient;
+			}
+
 			PublicKeyResponse pbk = _jalapenoWebServiceWraper.GetPublicKey();
 
 			Logger.Debug(LOG_TAG, "doInBackground GetPublicKey  "
@@ -252,10 +294,6 @@ public class RegisterActivity extends JalapenoActivity {
 						.GetPublicKeyInfo(pbk.PublicKey);
 				_settingsService.UpdatePublicKey(publicKeyInfo);
 			} else {
-				RegisterClientResponse registerClient = new RegisterClientResponse();
-				registerClient.ErrorMessage = WebErrorEnum.NoConnection;
-				registerClient.WasSuccessful = false;
-
 				return registerClient;
 			}
 
@@ -263,13 +301,55 @@ public class RegisterActivity extends JalapenoActivity {
 			config.ClientId = UUID.randomUUID();
 			RegisterClientRequest request = new RegisterClientRequest();
 			request.ClientId = config.ClientId;
-			request.Token = "TOKEN " + new Date().toLocaleString();
+			// request.Token = "TOKEN " + new Date().toLocaleString();
+			request.Token = activity.Token;
 			_settingsService.SaveSettings(config);
 
-			RegisterClientResponse registerClient = _jalapenoWebServiceWraper
-					.RegisterClient(request);
+			registerClient = _jalapenoWebServiceWraper.RegisterClient(request);
 
 			return registerClient;
+		}
+
+		protected void onError(String msg, Exception e) {
+			if (e != null) {
+				Log.e(LOG_TAG, "Exception: ", e);
+			}
+			activity.show(msg); // will be run in UI thread
+		}
+
+		/**
+		 * Get a authentication token if one is not available. If the error is
+		 * not recoverable then it displays the error message on parent
+		 * activity.
+		 */
+
+		protected String fetchToken() throws IOException {
+			try {
+				return GoogleAuthUtil.getToken(activity, activity.Email,
+						activity.SCOPE);
+			} catch (UserRecoverableAuthException userRecoverableException) {
+				// GooglePlayServices.apk is either old, disabled, or not
+				// present, which is
+				// recoverable, so we need to show the user some UI through the
+				// activity.
+				activity.handleException(userRecoverableException);
+			} catch (GoogleAuthException fatalException) {
+				onError("Unrecoverable error " + fatalException.getMessage(),
+						fatalException);
+			}
+
+			return null;
+		}
+
+		private void fetchNameFromProfileServer() throws IOException,
+				JSONException {
+			String token = fetchToken();
+			if (token == null) {
+				// error has already been handled in fetchToken()
+				return;
+			}
+
+			activity.Token = token;
 		}
 	}
 }
