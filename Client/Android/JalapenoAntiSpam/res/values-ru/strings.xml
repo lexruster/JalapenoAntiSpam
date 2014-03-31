@@ -19,6 +19,7 @@
     <string name="RegisterButton">Зарегистрироваться</string>
     <string name="RegisterText">Вам необходимо зарегистрироваться, используя аккаунт Google, для использования всех возможностей приложения</string>
     <string name="BannedRegister">Пользователь забанен</string>
+    <string name="ErrorRegister">Ошибка регистрации</string>
     
     <string name="WaitMessage">Подождите...</string>
     
@@ -29,7 +30,7 @@
     <string name="AntiSpamOn">Включено</string>
     <string name="AntiSpamOff">Выключено</string>
     
-    <string name="ErrorRegister">Ошибка регистрации</string>
+    
     
     <string name="ExistsUnknownSms">Есть непроверенные смс</string>
     <string name="NotExistsUnknownSms">Спама нет</string>
