@@ -40,7 +40,7 @@ public class Config {
 	
 	public String GetDomain() {
 		if (DomainUrlPrimary) {
-			return WebConstants.DOMAIN_URL_PRINARY;
+			return WebConstants.DOMAIN_URL_PRIMARY;
 		} else {
 			return WebConstants.DOMAIN_URL_SECONDARY;
 		}
