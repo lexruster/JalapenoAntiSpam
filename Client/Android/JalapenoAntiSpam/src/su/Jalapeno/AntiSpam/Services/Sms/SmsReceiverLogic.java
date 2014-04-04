@@ -1,7 +1,5 @@
 package su.Jalapeno.AntiSpam.Services.Sms;
 
-import java.util.concurrent.ExecutionException;
-
 import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.ContactsService;
@@ -15,9 +13,6 @@ import su.Jalapeno.AntiSpam.Util.Logger;
 import android.content.Context;
 import android.os.AsyncTask;
 
-/**
- * Created by Kseny on 30.12.13.
- */
 public class SmsReceiverLogic {
 	private ContactsService _contactsService;
 	private JalapenoWebServiceWraper _jalapenoWebServiceWraper;
@@ -28,7 +23,6 @@ public class SmsReceiverLogic {
 	private SmsHashService _smsHashService;
 	private TrashSmsService _trashSmsService;
 
-	private final int MIN_MESSAGE_LENGTH = 50;
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "SmsReceiverLogic";
 
 	public SmsReceiverLogic(Context context, ContactsService contactsService, JalapenoWebServiceWraper jalapenoWebServiceWraper,
@@ -69,7 +63,7 @@ public class SmsReceiverLogic {
 		}
 
 		String smsTexthash = null;
-		if (sms.Text.length() > MIN_MESSAGE_LENGTH) {
+		if (sms.Text.length() > Constants.MIN_MESSAGE_LENGTH) {
 			smsTexthash = _smsHashService.GetHash(sms.Text);
 			boolean isSpam = _smsHashService.HashInSpamBase(smsTexthash);
 
@@ -80,39 +74,39 @@ public class SmsReceiverLogic {
 			}
 		}
 
-		boolean isSpamer = false;
-		try {
-			isSpamer = new TestIsSpamerAsync().execute(sms.SenderId, smsTexthash).get();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-		}
-
-		if (isSpamer) {
-			Logger.Debug(LOG_TAG, "Spamer from http.");
-			_senderService.AddOrUpdateSender(sms.SenderId, true);
-			if (smsTexthash != null) {
-				_smsHashService.AddHash(smsTexthash);
-			}
-
-			_trashSmsService.Add(sms);
-			return false;
-		}
-
-		Logger.Debug(LOG_TAG, "Add sms to validate.");
-		_smsAnalyzerService.AddSmsToValidate(sms);
-		_notifyService.OnIncomeSms();
+		// next need async
+		TestIsSpamerAsync testIsSpamerAsync = new TestIsSpamerAsync();
+		testIsSpamerAsync.Sms = sms;
+		testIsSpamerAsync.execute(sms.SenderId, smsTexthash);
 
 		return false;
 	}
 
 	class TestIsSpamerAsync extends AsyncTask<String, Void, Boolean> {
+		public Sms Sms;
+
 		@Override
 		protected Boolean doInBackground(String... params) {
-			boolean result = _jalapenoWebServiceWraper.IsSpamer(params[0], params[1]);
+			String smsSenderId = params[0];
+			String smsTexthash = params[1];
+			boolean isSpamer = _jalapenoWebServiceWraper.IsSpamer(smsSenderId, smsTexthash);
 
-			return result;
+			if (isSpamer) {
+				Logger.Debug(LOG_TAG, "Spamer from http.");
+				_senderService.AddOrUpdateSender(smsSenderId, true);
+				if (smsTexthash != null) {
+					_smsHashService.AddHash(smsTexthash);
+				}
+
+				_trashSmsService.Add(Sms);
+				return false;
+			}
+
+			Logger.Debug(LOG_TAG, "Add sms to validate.");
+			_smsAnalyzerService.AddSmsToValidate(Sms);
+			_notifyService.OnIncomeSms();
+
+			return isSpamer;
 		}
 	}
 }

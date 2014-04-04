@@ -1,10 +1,9 @@
 package su.Jalapeno.AntiSpam.Activities;
 
 import java.io.IOException;
-import java.util.Date;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
-
-import org.json.JSONException;
 
 import roboguice.inject.ContentView;
 import su.Jalapeno.AntiSpam.R;
@@ -47,7 +46,7 @@ public class RegisterActivity extends JalapenoActivity {
 	static final int REQUEST_CODE_RECOVER_FROM_AUTH_ERROR = 13001;
 	static final int REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR = 13002;
 
-	private static final String SCOPE = "oauth2:https://www.googleapis.com/auth/userinfo.profile";
+	
 	public static final String EXTRA_ACCOUNTNAME = "extra_accountname";
 
 	@Inject
@@ -59,10 +58,28 @@ public class RegisterActivity extends JalapenoActivity {
 
 	public String Email;
 	public String Token;
+	static String SCOPE;
+	// private static final String SCOPE =
+	// "oauth2:https://www.googleapis.com/auth/userinfo.profile
+	// audience:server:client_id:140853970719-javp5dr54lnale1hvr0cc2iujeoq2t46.apps.googleusercontent.com";
+	//final private String CLIENT_ID = "140853970719-javp5dr54lnale1hvr0cc2iujeoq2t46.apps.googleusercontent.com";
+	final private String CLIENT_ID = "140853970719-4ohgmn0eojg2qeh75r96m9iojpra4omr.apps.googleusercontent.com"; // from web app id
+	final private List<String> SCOPES = Arrays.asList(new String[] { 
+			"https://www.googleapis.com/auth/plus.login",
+			"oauth2:https://www.googleapis.com/auth/userinfo.profile",
+			"https://www.googleapis.com/auth/userinfo.email"
+			});
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		//SCOPE = String.format("audience:server:client_id:%s:api_scope:%s", CLIENT_ID, TextUtils.join(" ", SCOPES));
+		//SCOPE = String.format("oauth2:server:client_id:%s:api_scope:%s", CLIENT_ID, TextUtils.join(" ", SCOPES));
+		//SCOPE = String.format("oauth2:server:client_id:%s", CLIENT_ID);
+		//SCOPE = String.format("%s", TextUtils.join(" ", SCOPES));
+		SCOPE = String.format("audience:server:client_id:%s", CLIENT_ID);
+
 		Logger.Debug(LOG_TAG, "onCreate");
 
 		Bundle extras = getIntent().getExtras();
@@ -212,7 +229,6 @@ public class RegisterActivity extends JalapenoActivity {
 
 	class RegisterTask extends AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
 		final String LOG_TAG = Constants.BEGIN_LOG_TAG + "RegisterTask";
-		private static final String NAME_KEY = "given_name";
 		protected RegisterActivity activity;
 
 		Spiner spiner;
@@ -247,7 +263,7 @@ public class RegisterActivity extends JalapenoActivity {
 			spiner.Show();
 		}
 
-		@SuppressWarnings("deprecation")
+		// @SuppressWarnings("deprecation")
 		@Override
 		protected RegisterClientResponse doInBackground(RegisterActivity... activitis) {
 			Logger.Debug(LOG_TAG, "doInBackground");
@@ -293,7 +309,7 @@ public class RegisterActivity extends JalapenoActivity {
 
 		protected void onError(String msg, Exception e) {
 			if (e != null) {
-				Log.e(LOG_TAG, "Exception: ", e);
+				Logger.Error(LOG_TAG, "Exception: ", e);
 			}
 			activity.show(msg); // will be run in UI thread
 		}
@@ -301,7 +317,8 @@ public class RegisterActivity extends JalapenoActivity {
 		private void fetchToken() throws IOException {
 			String token = null;
 			try {
-				token = GoogleAuthUtil.getToken(activity, activity.Email, activity.SCOPE);
+				Logger.Debug(LOG_TAG, "fetchToken scope: " + RegisterActivity.SCOPE);
+				token = GoogleAuthUtil.getToken(activity, activity.Email, RegisterActivity.SCOPE);
 			} catch (UserRecoverableAuthException userRecoverableException) {
 				// GooglePlayServices.apk is either old, disabled, or not
 				// present, which is
