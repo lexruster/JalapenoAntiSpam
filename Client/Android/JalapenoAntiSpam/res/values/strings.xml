@@ -1,39 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="isspamer">IsSpamer</string>
-    <string name="app_name">JalapenoAntiSpam</string>
-    <string name="SettingsTitle">Settings</string>
-    <string name="KnownSpammerList">Known spammer list</string>
-    <string name="RegisterTitle">Register</string>
+    <string name="isspamer">Спамер</string>
+    <string name="app_name">Jalapeno Антиспам</string>
+    <string name="SettingsTitle">Настройки</string>
+    <string name="KnownSpammerList">Адресаты</string>
+    <string name="RegisterTitle">Регистрация</string>
     
-    <string name="SoundSettings">Sound settings</string>
-    <string name="SpammerList">Spammer list</string>
-    <string name="DebugActivity">Debug activity</string>
-    <string name="EmptySpamerList">List is Empty</string>
-    <string name="SmsList">Sms list</string>
-    <string name="EmptySmsList">EmptySmsList</string>
-    <string name="SmsValidateList">Sms for validate</string>
-    <string name="SmsTrashList">Sms trash</string>
     
-    <string name="RegisterButton">Registration</string>
-    <string name="RegisterText">You need to register via google for use this application with full power</string>
-    <string name="BannedRegister">User is banned</string>
+    <string name="SoundSettings">Звук</string>
+    <string name="SpammerList">Адресаты</string>
+    <string name="DebugActivity">Отладка</string>
+    <string name="EmptySpamerList">Пусто</string>
+    <string name="SmsList">Смс</string>
+    <string name="EmptySmsList">Пусто</string>
+    <string name="SmsValidateList">Смс на проверку</string>
+    <string name="SmsTrashList">Корзина смс</string>
+    <string name="RegisterButton">Зарегистрироваться</string>
+    <string name="RegisterText">Вам необходимо зарегистрироваться, используя аккаунт Google, для использования всех возможностей приложения</string>
+    <string name="BannedRegister">Пользователь забанен</string>
+    <string name="ErrorRegister">Ошибка регистрации, проверьте интернет и повторите</string>
     
-    <string name="WaitMessage">Please wait...</string>
+    <string name="WaitMessage">Подождите...</string>
     
-    <string name="NotSpamButton">No spam</string>
-    <string name="SpamButton">Spam</string>
-    <string name="DeleteButton">Delete</string>
-    <string name="DateFormat">MM/dd/yyyy HH:mm:ss</string>
+    <string name="NotSpamButton">Не спам</string>
+    <string name="SpamButton">Спам</string>
+    <string name="DeleteButton">Удалить</string>
+    <string name="DateFormat">dd:MM:yyyy HH:mm:ss</string>
+    <string name="AntiSpamOn">Включено</string>
+    <string name="AntiSpamOff">Выключено</string>
     
-    <string name="ErrorRegister">Error register</string>
     
-    <string name="AntiSpamOn">AntiSpam On</string>
-    <string name="AntiSpamOff">AntiSpam Off</string>
     
-    <string name="ExistsUnknownSms">Exists unknown sms</string>
-    <string name="NotExistsUnknownSms">No spam</string>
+    <string name="ExistsUnknownSms">Есть непроверенные смс</string>
+    <string name="NotExistsUnknownSms">Спама нет</string>
     <string name="ParentActivity">su.Jalapeno.AntiSpam.Activities.SettingsActivity</string>
-    
 </resources>

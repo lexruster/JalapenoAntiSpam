@@ -16,10 +16,13 @@
     <string name="SmsValidateList">Sms for validate</string>
     <string name="SmsTrashList">Sms trash</string>
     
+    <!-- register form -->
     <string name="RegisterButton">Registration</string>
     <string name="RegisterText">You need to register via google for use this application with full power</string>
     <string name="BannedRegister">User is banned</string>
-    
+    <string name="ErrorRegister">Error register, check connection and try again</string>
+    <string name="NeedPeekAccount">You must pick an account</string>
+        
     <string name="WaitMessage">Please wait...</string>
     
     <string name="NotSpamButton">No spam</string>
@@ -27,7 +30,7 @@
     <string name="DeleteButton">Delete</string>
     <string name="DateFormat">MM/dd/yyyy HH:mm:ss</string>
     
-    <string name="ErrorRegister">Error register</string>
+
     
     <string name="AntiSpamOn">AntiSpam On</string>
     <string name="AntiSpamOff">AntiSpam Off</string>
