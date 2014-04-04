@@ -96,7 +96,6 @@ public class RegisterActivity extends JalapenoActivity {
 		Logger.Debug(LOG_TAG, "Register");
 		Email = "";
 		Token = "";
-		// new RegisterTask().execute(this);
 		getUsername();
 	}
 
@@ -109,14 +108,11 @@ public class RegisterActivity extends JalapenoActivity {
 				getUsername();
 			} else if (resultCode == RESULT_CANCELED) {
 				Logger.Debug(LOG_TAG, "onActivityResult RESULT_CANCELED");
-				//TODO: localization
-				Toast.makeText(this, "You must pick an account",
-						Toast.LENGTH_SHORT).show();
+				ShowToast(R.string.NeedPeekAccount);
 			}
 		} else if ((requestCode == REQUEST_CODE_RECOVER_FROM_AUTH_ERROR || requestCode == REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR)
 				&& resultCode == RESULT_OK) {
-			Logger.Debug(LOG_TAG,
-					"onActivityResult REQUEST_CODE_RECOVER_FROM_AUTH_ERROR");
+			Logger.Debug(LOG_TAG, "onActivityResult REQUEST_CODE_RECOVER_FROM_AUTH_ERROR");
 			handleAuthorizeResult(resultCode, data);
 			return;
 		}
@@ -131,28 +127,22 @@ public class RegisterActivity extends JalapenoActivity {
 			if (_jalapenoWebServiceWraper.ServiceIsAvailable()) {
 				GetRegiseterTask().execute();
 			} else {
-				// Toast.makeText(this, "No network connection available",
-				// Toast.LENGTH_SHORT).show();
-				show("No network connection available");
+				Logger.Debug(LOG_TAG, "getUsername mEmail=" + Email + " No NET");
+				ShowToast(R.string.ErrorRegister);
 			}
 		}
 	}
 
-	/**
-	 * Starts an activity in Google Play Services so the user can pick an
-	 * account
-	 */
 	private void pickUserAccount() {
 		Logger.Debug(LOG_TAG, "pickUserAccount");
 		String[] accountTypes = new String[] { "com.google" };
-		Intent intent = AccountPicker.newChooseAccountIntent(null, null,
-				accountTypes, false, null, null, null, null);
+		Intent intent = AccountPicker.newChooseAccountIntent(null, null, accountTypes, false, null, null, null, null);
 		startActivityForResult(intent, REQUEST_CODE_PICK_ACCOUNT);
 	}
 
 	private void handleAuthorizeResult(int resultCode, Intent data) {
 		if (data == null) {
-			show("Unknown error, click the button again");
+			ShowToast(R.string.ErrorRegister);
 			Logger.Debug(LOG_TAG, "Unknown error, click the button again");
 			return;
 		}
@@ -163,25 +153,29 @@ public class RegisterActivity extends JalapenoActivity {
 		}
 		if (resultCode == RESULT_CANCELED) {
 			Logger.Debug(LOG_TAG, "User rejected authorization");
-			show("User rejected authorization.");
+			ShowToast(R.string.ErrorRegister);
 			return;
 		}
 		Logger.Debug(LOG_TAG, "Unknown error, click the button again");
-		show("Unknown error, click the button again");
+		ShowToast(R.string.ErrorRegister);
 	}
 
 	public void show(final String message) {
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				// mOut.setText(message);
-				Toast.makeText(RegisterActivity.this, message,
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
 
-	public void ShowToast(int res) {
+	public void ShowToast(final int res) {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Toast.makeText(RegisterActivity.this, res, Toast.LENGTH_SHORT).show();
+			}
+		});
 		Toast.makeText(this, res, Toast.LENGTH_SHORT).show();
 	}
 
@@ -195,10 +189,8 @@ public class RegisterActivity extends JalapenoActivity {
 					// present.
 					// Show a dialog created by Google Play services that allows
 					// the user to update the APK
-					int statusCode = ((GooglePlayServicesAvailabilityException) e)
-							.getConnectionStatusCode();
-					Dialog dialog = GooglePlayServicesUtil.getErrorDialog(
-							statusCode, RegisterActivity.this,
+					int statusCode = ((GooglePlayServicesAvailabilityException) e).getConnectionStatusCode();
+					Dialog dialog = GooglePlayServicesUtil.getErrorDialog(statusCode, RegisterActivity.this,
 							REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR);
 					dialog.show();
 				} else if (e instanceof UserRecoverableAuthException) {
@@ -206,10 +198,8 @@ public class RegisterActivity extends JalapenoActivity {
 					// granted
 					// the app access to the account, but the user can fix this.
 					// Forward the user to an activity in Google Play services.
-					Intent intent = ((UserRecoverableAuthException) e)
-							.getIntent();
-					startActivityForResult(intent,
-							REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR);
+					Intent intent = ((UserRecoverableAuthException) e).getIntent();
+					startActivityForResult(intent, REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR);
 				}
 			}
 		});
@@ -220,8 +210,7 @@ public class RegisterActivity extends JalapenoActivity {
 		return new RegisterTask();
 	}
 
-	class RegisterTask extends
-			AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
+	class RegisterTask extends AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
 		final String LOG_TAG = Constants.BEGIN_LOG_TAG + "RegisterTask";
 		private static final String NAME_KEY = "given_name";
 		protected RegisterActivity activity;
@@ -260,22 +249,17 @@ public class RegisterActivity extends JalapenoActivity {
 
 		@SuppressWarnings("deprecation")
 		@Override
-		protected RegisterClientResponse doInBackground(
-				RegisterActivity... activitis) {
+		protected RegisterClientResponse doInBackground(RegisterActivity... activitis) {
 			Logger.Debug(LOG_TAG, "doInBackground");
 			RegisterClientResponse registerClient = new RegisterClientResponse();
 			registerClient.ErrorMessage = WebErrorEnum.NoConnection;
 			registerClient.WasSuccessful = false;
 
 			try {
-				fetchNameFromProfileServer();
-				Logger.Debug(LOG_TAG, "fetchNameFromProfileServer token="
-						+ activity.Token);
+				fetchToken();
+				Logger.Debug(LOG_TAG, "fetchNameFromProfileServer token=" + activity.Token);
 			} catch (IOException ex) {
-				onError("Following Error occured, please try again. "
-						+ ex.getMessage(), ex);
-			} catch (JSONException e) {
-				onError("Bad response: " + e.getMessage(), e);
+				onError("Following Error occured, please try again. " + ex.getMessage(), ex);
 			} catch (Exception ex) {
 				Logger.Error(LOG_TAG, "doInBackground Exception", ex);
 			}
@@ -287,11 +271,9 @@ public class RegisterActivity extends JalapenoActivity {
 
 			PublicKeyResponse pbk = _jalapenoWebServiceWraper.GetPublicKey();
 
-			Logger.Debug(LOG_TAG, "doInBackground GetPublicKey  "
-					+ pbk.WasSuccessful);
+			Logger.Debug(LOG_TAG, "doInBackground GetPublicKey  " + pbk.WasSuccessful);
 			if (pbk.WasSuccessful) {
-				PublicKeyInfo publicKeyInfo = CryptoService
-						.GetPublicKeyInfo(pbk.PublicKey);
+				PublicKeyInfo publicKeyInfo = CryptoService.GetPublicKeyInfo(pbk.PublicKey);
 				_settingsService.UpdatePublicKey(publicKeyInfo);
 			} else {
 				return registerClient;
@@ -301,7 +283,6 @@ public class RegisterActivity extends JalapenoActivity {
 			config.ClientId = UUID.randomUUID();
 			RegisterClientRequest request = new RegisterClientRequest();
 			request.ClientId = config.ClientId;
-			// request.Token = "TOKEN " + new Date().toLocaleString();
 			request.Token = activity.Token;
 			_settingsService.SaveSettings(config);
 
@@ -317,16 +298,10 @@ public class RegisterActivity extends JalapenoActivity {
 			activity.show(msg); // will be run in UI thread
 		}
 
-		/**
-		 * Get a authentication token if one is not available. If the error is
-		 * not recoverable then it displays the error message on parent
-		 * activity.
-		 */
-
-		protected String fetchToken() throws IOException {
+		private void fetchToken() throws IOException {
+			String token = null;
 			try {
-				return GoogleAuthUtil.getToken(activity, activity.Email,
-						activity.SCOPE);
+				token = GoogleAuthUtil.getToken(activity, activity.Email, activity.SCOPE);
 			} catch (UserRecoverableAuthException userRecoverableException) {
 				// GooglePlayServices.apk is either old, disabled, or not
 				// present, which is
@@ -334,18 +309,10 @@ public class RegisterActivity extends JalapenoActivity {
 				// activity.
 				activity.handleException(userRecoverableException);
 			} catch (GoogleAuthException fatalException) {
-				onError("Unrecoverable error " + fatalException.getMessage(),
-						fatalException);
+				onError("Unrecoverable error " + fatalException.getMessage(), fatalException);
 			}
 
-			return null;
-		}
-
-		private void fetchNameFromProfileServer() throws IOException,
-				JSONException {
-			String token = fetchToken();
 			if (token == null) {
-				// error has already been handled in fetchToken()
 				return;
 			}
 

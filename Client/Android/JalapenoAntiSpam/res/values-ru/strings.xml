@@ -16,10 +16,13 @@
     <string name="EmptySmsList">Пусто</string>
     <string name="SmsValidateList">Смс на проверку</string>
     <string name="SmsTrashList">Корзина смс</string>
+    
+    <!-- register form -->
     <string name="RegisterButton">Зарегистрироваться</string>
     <string name="RegisterText">Вам необходимо зарегистрироваться, используя аккаунт Google, для использования всех возможностей приложения</string>
     <string name="BannedRegister">Пользователь забанен</string>
-    <string name="ErrorRegister">Ошибка регистрации</string>
+    <string name="ErrorRegister">Ошибка регистрации, проверьте интернет и повторите</string>
+    <string name="NeedPeekAccount">Выберите учетную запись</string>
     
     <string name="WaitMessage">Подождите...</string>
     
