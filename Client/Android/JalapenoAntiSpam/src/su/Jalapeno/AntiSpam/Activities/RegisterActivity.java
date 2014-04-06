@@ -65,9 +65,9 @@ public class RegisterActivity extends JalapenoActivity {
 	//final private String CLIENT_ID = "140853970719-javp5dr54lnale1hvr0cc2iujeoq2t46.apps.googleusercontent.com";
 	final private String CLIENT_ID = "140853970719-4ohgmn0eojg2qeh75r96m9iojpra4omr.apps.googleusercontent.com"; // from web app id
 	final private List<String> SCOPES = Arrays.asList(new String[] { 
-			"https://www.googleapis.com/auth/plus.login",
+			//"https://www.googleapis.com/auth/plus.login",
 			"oauth2:https://www.googleapis.com/auth/userinfo.profile",
-			"https://www.googleapis.com/auth/userinfo.email"
+			//"https://www.googleapis.com/auth/userinfo.email"
 			});
 
 	@Override
