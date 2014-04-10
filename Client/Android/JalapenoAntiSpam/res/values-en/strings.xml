@@ -1,42 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
 
-    <string name="isspamer">IsSpamer</string>
-    <string name="app_name">JalapenoAntiSpam</string>
-    <string name="SettingsTitle">Settings</string>
-    <string name="KnownSpammerList">Known spammer list</string>
-    <string name="RegisterTitle">Register</string>
-    
-    <string name="SoundSettings">Sound settings</string>
-    <string name="SpammerList">Spammer list</string>
-    <string name="DebugActivity">Debug activity</string>
-    <string name="EmptySpamerList">List is Empty</string>
-    <string name="SmsList">Sms list</string>
-    <string name="EmptySmsList">EmptySmsList</string>
-    <string name="SmsValidateList">Sms for validate</string>
-    <string name="SmsTrashList">Sms trash</string>
-    
-    <!-- register form -->
-    <string name="RegisterButton">Registration</string>
-    <string name="RegisterText">You need to register via google for use this application with full power</string>
-    <string name="BannedRegister">User is banned</string>
-    <string name="ErrorRegister">Error register, check connection and try again</string>
-    <string name="NeedPeekAccount">You must pick an account</string>
-        
-    <string name="WaitMessage">Please wait...</string>
-    
-    <string name="NotSpamButton">No spam</string>
-    <string name="SpamButton">Spam</string>
-    <string name="DeleteButton">Delete</string>
-    <string name="DateFormat">MM/dd/yyyy HH:mm:ss</string>
-    
+	<string name="app_name">Jalapeno Antispam</string>
 
-    
-    <string name="AntiSpamOn">AntiSpam On</string>
-    <string name="AntiSpamOff">AntiSpam Off</string>
-    
-    <string name="ExistsUnknownSms">Exists unknown sms</string>
-    <string name="NotExistsUnknownSms">No spam</string>
+	<string name="SettingsTitle"></string><!--НЕ НУЖНО-->
+	<string name="KnownSpammerList">Spammers</string>
+	<string name="SmsValidateList">SMS to check</string>
+    <string name="SmsTrashList">Trash</string>
+	<string name="SoundSettings">Sounds</string>
+	<string name="DebugActivity">Debug</string>
+
+    <string name="SpammerList">Spammers</string>
+	<string name="isspamer">Spammer?</string>   
+
+	<string name="SmsList">SMS</string>
+	<string name="SpamButton">Spam!</string>
+    <string name="NotSpamButton">Not spam</string>
+    <string name="DeleteButton">Just delete it</string>
+
+	<string name="NotExistsUnknownSms">You have no spam!</string>
+
+    <string name="RegisterTitle"></string><!--НЕ НУЖНО-->
+	<string name="RegisterButton">Sign up</string>
+    <string name="RegisterText">Please, sign up via your Google account</string>
+    <string name="BannedRegister">Sorry, this user is banned</string>
+    <string name="ErrorRegister">Registration error. Please, check the Internet connection, then try again</string>
+    <string name="NeedPeekAccount">You have to choose an account</string>
+
+    <string name="EmptySpamerList">List empty</string>
+    <string name="EmptySmsList">List empty</string>
+
+    <string name="WaitMessage">Please, wait</string>
+
+    <string name="AntiSpamOn">Protection enabled</string>
+    <string name="AntiSpamOff">Protection disabled</string>
+
+    <string name="ExistsUnknownSms">You have some SMS to check</string>
+
+	<string name="DateFormat">dd MMM yyyy HH:mm</string>
     <string name="ParentActivity">su.Jalapeno.AntiSpam.Activities.SettingsActivity</string>
-    
+
 </resources>
