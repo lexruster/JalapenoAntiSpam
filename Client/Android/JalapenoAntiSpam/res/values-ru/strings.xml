@@ -1,41 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
 
-    <string name="isspamer">Спамер</string>
-    <string name="app_name">Jalapeno Антиспам</string>
-    <string name="SettingsTitle">Настройки</string>
-    <string name="KnownSpammerList">Адресаты</string>
-    <string name="RegisterTitle">Регистрация</string>
-    
-    
-    <string name="SoundSettings">Звук</string>
-    <string name="SpammerList">Адресаты</string>
-    <string name="DebugActivity">Отладка</string>
-    <string name="EmptySpamerList">Пусто</string>
-    <string name="SmsList">Смс</string>
-    <string name="EmptySmsList">Пусто</string>
-    <string name="SmsValidateList">Смс на проверку</string>
-    <string name="SmsTrashList">Корзина смс</string>
-    
-    <!-- register form -->
-    <string name="RegisterButton">Зарегистрироваться</string>
-    <string name="RegisterText">Вам необходимо зарегистрироваться, используя аккаунт Google, для использования всех возможностей приложения</string>
-    <string name="BannedRegister">Пользователь забанен</string>
-    <string name="ErrorRegister">Ошибка регистрации, проверьте интернет и повторите</string>
-    <string name="NeedPeekAccount">Выберите учетную запись</string>
-    
-    <string name="WaitMessage">Подождите...</string>
-    
-    <string name="NotSpamButton">Не спам</string>
-    <string name="SpamButton">Спам</string>
-    <string name="DeleteButton">Удалить</string>
-    <string name="DateFormat">dd:MM:yyyy HH:mm:ss</string>
-    <string name="AntiSpamOn">Включено</string>
-    <string name="AntiSpamOff">Выключено</string>
-    
-    
-    
-    <string name="ExistsUnknownSms">Есть непроверенные смс</string>
-    <string name="NotExistsUnknownSms">Спама нет</string>
+	<string name="app_name">Jalapeno Antispam</string>
+
+	<string name="SettingsTitle"></string><!--НЕ НУЖНО-->
+	<string name="KnownSpammerList">Спамеры</string>
+	<string name="SmsValidateList">Подозрительные СМС</string>
+    <string name="SmsTrashList">Корзина</string>
+	<string name="SoundSettings">Звуки</string>
+	<string name="DebugActivity">Отладка</string>
+
+    <string name="SpammerList">Спамеры</string>
+	<string name="isspamer">Спамер?</string>   
+
+	<string name="SmsList">СМС</string>
+	<string name="SpamButton">Это спам!</string>
+    <string name="NotSpamButton">Это не спам</string>
+    <string name="DeleteButton">Просто удалить СМС</string>
+
+	<string name="NotExistsUnknownSms">Спама нет!</string>
+
+    <string name="RegisterTitle"></string><!--НЕ НУЖНО-->
+	<string name="RegisterButton">Зарегистрироваться</string>
+    <string name="RegisterText">Пожалуйста, зарегистрируйтесь через ваш Google-аккаунт</string>
+    <string name="BannedRegister">К сожалению, пользователь забанен</string>
+    <string name="ErrorRegister">Ошибка регистрации. Пожалуйста, проверьте Интернет-подключение, затем повторите попытку</string>
+    <string name="NeedPeekAccount"></string><!--ПОЧЕМУ ЭТОГО РЕСУРСА ЗДЕСЬ НЕ БЫЛО?-->
+
+    <string name="EmptySpamerList">Скоро здесь появятся спамеры</string>
+    <string name="EmptySmsList">Нет СМС</string>
+
+    <string name="WaitMessage">Ожидание...</string>
+
+    <string name="AntiSpamOn">Защита включена</string>
+    <string name="AntiSpamOff">Защита выключена</string>
+
+    <string name="ExistsUnknownSms">Есть подозрительные СМС</string>
+
+	<string name="DateFormat">dd MMM yyyy HH:mm</string>
     <string name="ParentActivity">su.Jalapeno.AntiSpam.Activities.SettingsActivity</string>
+
 </resources>
