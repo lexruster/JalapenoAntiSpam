@@ -254,7 +254,7 @@ containing a value of this type.
         public static final int button8968InCont=0x7f070018;
         public static final int buttonAuthorization=0x7f07000e;
         public static final int buttonClearSpam=0x7f070012;
-        public static final int buttonDebug=0x7f070023;
+        public static final int buttonDebug=0x7f070022;
         public static final int buttonDropRegister=0x7f070011;
         public static final int buttonFillSpam=0x7f070013;
         public static final int buttonInfo=0x7f07000f;
@@ -268,13 +268,12 @@ containing a value of this type.
         public static final int buttonSmsSpam=0x7f07000d;
         public static final int buttonSmsTrash=0x7f070021;
         public static final int buttonSmsValidate=0x7f070020;
-        public static final int buttonSoundSettings=0x7f070022;
         public static final int buttonSpammerList=0x7f07001f;
         public static final int buttonTestInBaseSpam=0x7f070014;
         public static final int cbIsSender=0x7f07001d;
         public static final int hybrid=0x7f070004;
         public static final int imageView=0x7f070005;
-        public static final int llSmsItem=0x7f070024;
+        public static final int llSmsItem=0x7f070023;
         public static final int none=0x7f070000;
         public static final int normal=0x7f070001;
         public static final int satellite=0x7f070002;
@@ -283,9 +282,9 @@ containing a value of this type.
         public static final int textView=0x7f070006;
         public static final int toggleEnabled=0x7f07001e;
         public static final int tvSenderId=0x7f07001c;
-        public static final int tvSmsDate=0x7f070027;
-        public static final int tvSmsSender=0x7f070026;
-        public static final int tvSmsText=0x7f070025;
+        public static final int tvSmsDate=0x7f070026;
+        public static final int tvSmsSender=0x7f070025;
+        public static final int tvSmsText=0x7f070024;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f090000;

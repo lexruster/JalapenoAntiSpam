@@ -52,11 +52,6 @@
                 android:text="@string/SmsTrashList" />
 
             <Button
-                android:id="@+id/buttonSoundSettings"
-                style="@style/BaseControl.Button"
-                android:text="@string/SoundSettings" />
-
-            <Button
                 android:id="@+id/buttonDebug"
                 style="@style/BaseControl.Button.Debug"
                 android:text="@string/DebugActivity"/>
