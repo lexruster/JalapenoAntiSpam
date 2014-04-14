@@ -26,7 +26,7 @@
     <string name="RegisterText">Пожалуйста, зарегистрируйтесь через ваш Google-аккаунт</string>
     <string name="BannedRegister">К сожалению, пользователь забанен</string>
     <string name="ErrorRegister">Ошибка регистрации. Пожалуйста, проверьте Интернет-подключение, затем повторите попытку</string>
-    <string name="NeedPeekAccount">Выберите аккаунт</string><!--ПОЧЕМУ ЭТОГО РЕСУРСА ЗДЕСЬ НЕ БЫЛО?-->
+    <string name="NeedPeekAccount">Выберите аккаунт</string>
 
     <string name="EmptySpamerList">Скоро здесь появятся спамеры</string>
     <string name="EmptySmsList">Нет СМС</string>

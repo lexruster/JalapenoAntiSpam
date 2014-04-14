@@ -87,9 +87,14 @@ public class SmsAnalyzerService {
 	}
 
 	private void SaveSmsToPhoneBase(List<Sms> smsList) {
+		boolean read = false;
+		if (smsList.size() == 1) {
+			read = true;
+		}
+
 		for (Sms sms : smsList) {
 			Logger.Debug(LOG_TAG, "Save sms " + sms.SenderId + " " + sms.Text);
-			_smsService.PutSmsToDatabase(sms);
+			_smsService.PutSmsToDatabase(sms, read);
 		}
 	}
 
