@@ -31,9 +31,6 @@ public class SettingsActivity extends JalapenoActivity {
 	@InjectView(R.id.buttonDebug)
 	Button buttonDebug;
 
-	@InjectView(R.id.buttonSoundSettings)
-	Button buttonSoundSettings;
-
 	@InjectView(R.id.toggleEnabled)
 	ToggleButton toogleButton;
 
@@ -103,10 +100,8 @@ public class SettingsActivity extends JalapenoActivity {
 	private void SetDebugMode(boolean isDebug) {
 		if (isDebug) {
 			buttonDebug.setVisibility(View.VISIBLE);
-			buttonSoundSettings.setVisibility(View.VISIBLE);
 		} else {
 			buttonDebug.setVisibility(View.INVISIBLE);
-			buttonSoundSettings.setVisibility(View.INVISIBLE);
 		}
 	}
 
