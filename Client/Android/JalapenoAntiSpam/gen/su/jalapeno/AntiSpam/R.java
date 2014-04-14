@@ -305,36 +305,41 @@ containing a value of this type.
         public static final int cartoon010=0x7f050001;
     }
     public static final class string {
-        public static final int AntiSpamOff=0x7f080031;
-        public static final int AntiSpamOn=0x7f080030;
-        public static final int BannedRegister=0x7f080029;
-        public static final int DateFormat=0x7f08002f;
-        public static final int DebugActivity=0x7f080021;
-        public static final int DeleteButton=0x7f08002e;
-        public static final int EmptySmsList=0x7f080024;
-        public static final int EmptySpamerList=0x7f080022;
-        public static final int ErrorRegister=0x7f08002a;
-        public static final int ExistsUnknownSms=0x7f080032;
-        public static final int KnownSpammerList=0x7f08001d;
-        public static final int NeedPeekAccount=0x7f080035;
-        public static final int NotExistsUnknownSms=0x7f080033;
-        public static final int NotSpamButton=0x7f08002c;
-        public static final int ParentActivity=0x7f080034;
-        /**  register form 
- register form 
+        public static final int AntiSpamOff=0x7f080032;
+        public static final int AntiSpamOn=0x7f080031;
+        public static final int BannedRegister=0x7f08002b;
+        public static final int DateFormat=0x7f080034;
+        public static final int DebugActivity=0x7f080020;
+        public static final int DeleteButton=0x7f080026;
+        public static final int EmptySmsList=0x7f08002f;
+        public static final int EmptySpamerList=0x7f08002e;
+        public static final int ErrorRegister=0x7f08002c;
+        public static final int ExistsUnknownSms=0x7f080033;
+        /** НЕ НУЖНО
+НЕ НУЖНО
+НЕ НУЖНО
          */
-        public static final int RegisterButton=0x7f080027;
-        public static final int RegisterText=0x7f080028;
-        public static final int RegisterTitle=0x7f08001e;
-        public static final int SettingsTitle=0x7f08001c;
+        public static final int KnownSpammerList=0x7f08001c;
+        public static final int NeedPeekAccount=0x7f08002d;
+        public static final int NotExistsUnknownSms=0x7f080027;
+        public static final int NotSpamButton=0x7f080025;
+        public static final int ParentActivity=0x7f080035;
+        /** НЕ НУЖНО
+НЕ НУЖНО
+НЕ НУЖНО
+         */
+        public static final int RegisterButton=0x7f080029;
+        public static final int RegisterText=0x7f08002a;
+        public static final int RegisterTitle=0x7f080028;
+        public static final int SettingsTitle=0x7f08001b;
         public static final int SmsList=0x7f080023;
-        public static final int SmsTrashList=0x7f080026;
-        public static final int SmsValidateList=0x7f080025;
+        public static final int SmsTrashList=0x7f08001e;
+        public static final int SmsValidateList=0x7f08001d;
         public static final int SoundSettings=0x7f08001f;
-        public static final int SpamButton=0x7f08002d;
-        public static final int SpammerList=0x7f080020;
-        public static final int WaitMessage=0x7f08002b;
-        public static final int app_name=0x7f08001b;
+        public static final int SpamButton=0x7f080024;
+        public static final int SpammerList=0x7f080021;
+        public static final int WaitMessage=0x7f080030;
+        public static final int app_name=0x7f08001a;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
@@ -429,7 +434,7 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f080013;
-        public static final int isspamer=0x7f08001a;
+        public static final int isspamer=0x7f080022;
     }
     public static final class style {
         public static final int BaseControl=0x7f0c0000;

@@ -121,7 +121,7 @@ public class TrashSmsActivity extends JalapenoListActivity {
 	public void NeedSms(View view) {
 		if (_smsAdapter.HasCurrentItem()) {
 			TrashSms trashSms = _smsAdapter.GetSelectedItem();
-			_smsService.PutSmsToDatabase(trashSms);
+			_smsService.PutSmsToDatabase(trashSms, true);
 			_trashSmsService.Delete(trashSms);
 			Logger.Debug(LOG_TAG, "need sms - sender " + trashSms.SenderId);
 			UpdateList();
