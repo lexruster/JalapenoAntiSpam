@@ -3,7 +3,7 @@
     style="@style/BaseLayout"
     tools:context=".RegisterActivity" >
 
-     <ImageView
+    <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
@@ -13,24 +13,30 @@
 
     <TextView
         android:id="@+id/textView"
-        style="@style/BaseControl.TextHeader"
-        android:text="@string/RegisterTitle" />
-    
-    <TextView
-        android:id="@+id/textView"
         style="@style/BaseControl"
-        android:text="@string/RegisterText"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
-        android:typeface="normal"
+        android:text="@string/RegisterText"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        
-         />
-    
-     <Button
+        android:typeface="normal" />
+
+    <TextView
+        android:id="@+id/licenseLink"
+        style="@style/BaseControl"
+        android:layout_gravity="center_horizontal"
+        android:autoLink="web"
+        android:gravity="center_horizontal"
+        android:linksClickable="true"
+        android:text="@string/LicenseAgreement"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:typeface="normal" 
+        android:paddingBottom="20dp"/>
+
+    <Button
         android:id="@+id/buttonRegister"
-         style="@style/BaseControl.Button"
-         android:onClick="Register"
+        style="@style/BaseControl.Button"
+        android:onClick="Register"
+        
         android:text="@string/RegisterButton" />
 
 </LinearLayout>
