@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import roboguice.inject.ContentView;
+import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
@@ -24,11 +25,15 @@ import android.accounts.AccountManager;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
-import android.util.Log;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.GoogleAuthException;
@@ -46,7 +51,6 @@ public class RegisterActivity extends JalapenoActivity {
 	static final int REQUEST_CODE_RECOVER_FROM_AUTH_ERROR = 13001;
 	static final int REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR = 13002;
 
-	
 	public static final String EXTRA_ACCOUNTNAME = "extra_accountname";
 
 	@Inject
@@ -55,6 +59,10 @@ public class RegisterActivity extends JalapenoActivity {
 	Context _context;
 	@Inject
 	public SettingsService _settingsService;
+	@InjectView(R.id.licenseLink)
+	public TextView _licenseLink;
+
+	private String link;
 
 	public String Email;
 	public String Token;
@@ -62,22 +70,37 @@ public class RegisterActivity extends JalapenoActivity {
 	// private static final String SCOPE =
 	// "oauth2:https://www.googleapis.com/auth/userinfo.profile
 	// audience:server:client_id:140853970719-javp5dr54lnale1hvr0cc2iujeoq2t46.apps.googleusercontent.com";
-	//final private String CLIENT_ID = "140853970719-javp5dr54lnale1hvr0cc2iujeoq2t46.apps.googleusercontent.com";
-	final private String CLIENT_ID = "140853970719-4ohgmn0eojg2qeh75r96m9iojpra4omr.apps.googleusercontent.com"; // from web app id
-	final private List<String> SCOPES = Arrays.asList(new String[] { 
-			//"https://www.googleapis.com/auth/plus.login",
-			"oauth2:https://www.googleapis.com/auth/userinfo.profile",
-			//"https://www.googleapis.com/auth/userinfo.email"
+	// final private String CLIENT_ID =
+	// "140853970719-javp5dr54lnale1hvr0cc2iujeoq2t46.apps.googleusercontent.com";
+	final private String CLIENT_ID = "140853970719-4ohgmn0eojg2qeh75r96m9iojpra4omr.apps.googleusercontent.com"; // from
+																													// web
+																													// app
+																													// id
+	final private List<String> SCOPES = Arrays.asList(new String[] {
+	// "https://www.googleapis.com/auth/plus.login",
+	"oauth2:https://www.googleapis.com/auth/userinfo.profile",
+	// "https://www.googleapis.com/auth/userinfo.email"
 			});
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		link = _context.getResources().getString(R.string.LicenseAgreementUrl);
+		_licenseLink.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+				startActivity(browserIntent);
 
-		//SCOPE = String.format("audience:server:client_id:%s:api_scope:%s", CLIENT_ID, TextUtils.join(" ", SCOPES));
-		//SCOPE = String.format("oauth2:server:client_id:%s:api_scope:%s", CLIENT_ID, TextUtils.join(" ", SCOPES));
-		//SCOPE = String.format("oauth2:server:client_id:%s", CLIENT_ID);
-		//SCOPE = String.format("%s", TextUtils.join(" ", SCOPES));
+			}
+		});
+
+		// SCOPE = String.format("audience:server:client_id:%s:api_scope:%s",
+		// CLIENT_ID, TextUtils.join(" ", SCOPES));
+		// SCOPE = String.format("oauth2:server:client_id:%s:api_scope:%s",
+		// CLIENT_ID, TextUtils.join(" ", SCOPES));
+		// SCOPE = String.format("oauth2:server:client_id:%s", CLIENT_ID);
+		// SCOPE = String.format("%s", TextUtils.join(" ", SCOPES));
 		SCOPE = String.format("audience:server:client_id:%s", CLIENT_ID);
 
 		Logger.Debug(LOG_TAG, "onCreate");

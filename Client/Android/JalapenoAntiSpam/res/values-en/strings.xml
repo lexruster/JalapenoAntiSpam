@@ -20,10 +20,10 @@
     <string name="DeleteButton">Just delete it</string>
 
 	<string name="NotExistsUnknownSms">You have no spam!</string>
-
-    <string name="RegisterTitle"></string><!--НЕ НУЖНО-->
 	<string name="RegisterButton">Sign up</string>
-    <string name="RegisterText">Please, sign up via your Google account</string>
+    <string name="RegisterText">Please, sign up via your Google account. By registering as a user, you accept the terms of the License Agreement.</string>
+    <string name="LicenseAgreementUrl">http://jalapeno.su/license.en.html</string>
+    <string name="LicenseAgreement"><a href="http://jalapeno.su/license.en.html">License agreement</a></string>
     <string name="BannedRegister">Sorry, this user is banned</string>
     <string name="ErrorRegister">Registration error. Please, check the Internet connection, then try again</string>
     <string name="NeedPeekAccount">You have to choose an account</string>
