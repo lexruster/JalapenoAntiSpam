@@ -22,7 +22,7 @@
 	<string name="NotExistsUnknownSms">Спама нет!</string>
 
 	<string name="RegisterButton">Зарегистрироваться</string>
-    <string name="RegisterText">Пожалуйста, зарегистрируйтесь через ваш Google-аккаунт. Регистрируясь, вы принимаете лицензионное соглашение.</string>
+    <string name="RegisterText">Пожалуйста, зарегистрируйтесь через ваш Google-аккаунт. Регистрируясь, вы принимаете условия Лицензионного Соглашения.</string>
     <string name="LicenseAgreementUrl">http://jalapeno.su/license.ru.html</string>
     <string name="LicenseAgreement"><a href="http://jalapeno.su/license.ru.html">Лицензионное соглашение</a></string>
     <string name="BannedRegister">К сожалению, пользователь забанен</string>
