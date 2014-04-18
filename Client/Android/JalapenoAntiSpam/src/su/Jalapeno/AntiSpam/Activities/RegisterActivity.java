@@ -25,6 +25,7 @@ import android.accounts.AccountManager;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender.SendIntentException;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -41,11 +42,17 @@ import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.GooglePlayServicesAvailabilityException;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.AccountPicker;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
+import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.plus.Plus;
 import com.google.inject.Inject;
 
 @ContentView(R.layout.activity_register)
-public class RegisterActivity extends JalapenoActivity {
+public class RegisterActivity extends JalapenoActivity implements com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks, com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener
+{
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "RegisterActivity";
 	static final int REQUEST_CODE_PICK_ACCOUNT = 13000;
 	static final int REQUEST_CODE_RECOVER_FROM_AUTH_ERROR = 13001;
@@ -67,20 +74,37 @@ public class RegisterActivity extends JalapenoActivity {
 	public String Email;
 	public String Token;
 	static String SCOPE;
-	// private static final String SCOPE =
-	// "oauth2:https://www.googleapis.com/auth/userinfo.profile
+	 //private static final String SCOPE =
+	 //"oauth2:https://www.googleapis.com/auth/userinfo.profile
 	// audience:server:client_id:140853970719-javp5dr54lnale1hvr0cc2iujeoq2t46.apps.googleusercontent.com";
 	// final private String CLIENT_ID =
 	// "140853970719-javp5dr54lnale1hvr0cc2iujeoq2t46.apps.googleusercontent.com";
-	final private String CLIENT_ID = "140853970719-4ohgmn0eojg2qeh75r96m9iojpra4omr.apps.googleusercontent.com"; // from
-																													// web
-																													// app
-																													// id
+	// from web app id
+	final private String WEB_CLIENT_ID = "140853970719-4ohgmn0eojg2qeh75r96m9iojpra4omr.apps.googleusercontent.com"; 
 	final private List<String> SCOPES = Arrays.asList(new String[] {
-	// "https://www.googleapis.com/auth/plus.login",
-	"oauth2:https://www.googleapis.com/auth/userinfo.profile",
+	 //"https://www.googleapis.com/auth/plus.login",
+	 "profile"
+	//"https://www.googleapis.com/auth/userinfo.profile",
 	// "https://www.googleapis.com/auth/userinfo.email"
 			});
+	
+	 /* Request code used to invoke sign in user interactions. */
+	  private static final int RC_SIGN_IN = 615874;
+
+	  /* Client used to interact with Google APIs. */
+	  private GoogleApiClient mGoogleApiClient;
+
+	  /* A flag indicating that a PendingIntent is in progress and prevents
+	   * us from starting further intents.
+	   */
+	  private boolean mIntentInProgress;
+	  private boolean mSignInClicked;
+
+	  /* Store the connection result from onConnectionFailed callbacks so that we can
+	   * resolve them when the user clicks sign-in.
+	   */
+	  private ConnectionResult mConnectionResult;
+	  
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -94,14 +118,21 @@ public class RegisterActivity extends JalapenoActivity {
 
 			}
 		});
+		
+		mGoogleApiClient = new GoogleApiClient.Builder(this)
+        .addConnectionCallbacks(this)
+        .addOnConnectionFailedListener( this)
+        .addApi(Plus.API, null)
+        .addScope(Plus.SCOPE_PLUS_LOGIN)
+        .build();
+		Logger.Debug(LOG_TAG, "mGoogleApiClient build");
 
-		// SCOPE = String.format("audience:server:client_id:%s:api_scope:%s",
-		// CLIENT_ID, TextUtils.join(" ", SCOPES));
-		// SCOPE = String.format("oauth2:server:client_id:%s:api_scope:%s",
-		// CLIENT_ID, TextUtils.join(" ", SCOPES));
-		// SCOPE = String.format("oauth2:server:client_id:%s", CLIENT_ID);
-		// SCOPE = String.format("%s", TextUtils.join(" ", SCOPES));
-		SCOPE = String.format("audience:server:client_id:%s", CLIENT_ID);
+		 //SCOPE = String.format("audience:server:client_id:%s:api_scope:%s", CLIENT_ID, TextUtils.join(" ", SCOPES));
+		//SCOPE = String.format("audience:server:client_id:%s", WEB_CLIENT_ID);
+		//SCOPE = String.format("oauth2:server:client_id:%s:api_scope:%s", WEB_CLIENT_ID, TextUtils.join(" ", SCOPES));
+		 SCOPE = String.format("oauth2:%s", TextUtils.join(" ", SCOPES));
+		
+		//SCOPE = String.format("audience:server:client_id:%s", CLIENT_ID);
 
 		Logger.Debug(LOG_TAG, "onCreate");
 
@@ -111,6 +142,52 @@ public class RegisterActivity extends JalapenoActivity {
 			GetRegiseterTask().execute();
 		}
 	}
+	
+	 		  
+		  private void resolveSignInError() {
+			  Logger.Debug(LOG_TAG, "resolveSignInError");
+			  if (mConnectionResult.hasResolution()) {
+			    try {
+			      mIntentInProgress = true;
+			      mConnectionResult.startResolutionForResult(this, RC_SIGN_IN);
+			    } catch (SendIntentException e) {
+			      // The intent was canceled before it was sent.  Return to the default
+			      // state and attempt to connect to get an updated ConnectionResult.
+			      mIntentInProgress = false;
+			      mGoogleApiClient.connect();
+			    }
+			  }
+			}
+
+			public void onConnectionFailed(ConnectionResult result) {
+				Logger.Debug(LOG_TAG, "onConnectionFailed");
+			  if (!mIntentInProgress) {
+			    // Store the ConnectionResult so that we can use it later when the user clicks
+			    // 'sign-in'.
+			    mConnectionResult = result;
+
+			    if (mSignInClicked) {
+			      // The user has already clicked 'sign-in' so we attempt to resolve all
+			      // errors until the user is signed in, or they cancel.
+			      resolveSignInError();
+			    }
+			  }
+			}
+			
+		
+			
+			public void onConnected(Bundle connectionHint) {
+				 mSignInClicked = false;
+				 Logger.Debug(LOG_TAG, "onConnected");
+				  Toast.makeText(this, "User is connected!", Toast.LENGTH_LONG).show();
+				  getUsername();
+			}
+			
+			
+			public void onConnectionSuspended(int cause) {
+				Logger.Debug(LOG_TAG, "onConnectionSuspended");
+				  mGoogleApiClient.connect();
+				}
 
 	@Override
 	protected void onResume() {
@@ -136,11 +213,32 @@ public class RegisterActivity extends JalapenoActivity {
 		Logger.Debug(LOG_TAG, "Register");
 		Email = "";
 		Token = "";
-		getUsername();
+		mSignInClicked = true;
+		mGoogleApiClient.connect();
+		 if(!mGoogleApiClient.isConnecting()) {
+			    mSignInClicked = true;
+			    resolveSignInError();
+		 }
+			    
+		//getUsername();
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		 if (requestCode == RC_SIGN_IN) {
+			 Logger.Debug(LOG_TAG, "onActivityResult RC_SIGN_IN");
+			    if (resultCode != RESULT_OK) {
+			      mSignInClicked = false;
+			    }
+
+			    mIntentInProgress = false;
+
+			    if (!mGoogleApiClient.isConnecting()) {
+			      mGoogleApiClient.connect();
+			    }
+			  }
+		
+		
 		if (requestCode == REQUEST_CODE_PICK_ACCOUNT) {
 			if (resultCode == RESULT_OK) {
 				Logger.Debug(LOG_TAG, "onActivityResult RESULT_OK");
@@ -359,4 +457,6 @@ public class RegisterActivity extends JalapenoActivity {
 			activity.Token = token;
 		}
 	}
+
+	
 }
