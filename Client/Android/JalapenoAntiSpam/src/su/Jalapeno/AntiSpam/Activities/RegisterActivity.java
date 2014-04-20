@@ -48,10 +48,11 @@ import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailed
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.PlusClient;
 import com.google.inject.Inject;
 
 @ContentView(R.layout.activity_register)
-public class RegisterActivity extends JalapenoActivity implements com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks, com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener
+public class RegisterActivity extends JalapenoActivity implements/* com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks,*/ com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener, ConnectionCallbacks
 {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "RegisterActivity";
 	static final int REQUEST_CODE_PICK_ACCOUNT = 13000;
@@ -91,8 +92,8 @@ public class RegisterActivity extends JalapenoActivity implements com.google.and
 	 /* Request code used to invoke sign in user interactions. */
 	  private static final int RC_SIGN_IN = 615874;
 
-	  /* Client used to interact with Google APIs. */
-	  private GoogleApiClient mGoogleApiClient;
+	  //private GoogleApiClient mGoogleApiClient;
+	  private PlusClient mGoogleApiClient;
 
 	  /* A flag indicating that a PendingIntent is in progress and prevents
 	   * us from starting further intents.
@@ -119,12 +120,16 @@ public class RegisterActivity extends JalapenoActivity implements com.google.and
 			}
 		});
 		
-		mGoogleApiClient = new GoogleApiClient.Builder(this)
+		/*mGoogleApiClient = new GoogleApiClient.Builder(this)
         .addConnectionCallbacks(this)
         .addOnConnectionFailedListener( this)
         .addApi(Plus.API, null)
         .addScope(Plus.SCOPE_PLUS_LOGIN)
-        .build();
+        .build();*/
+		mGoogleApiClient = new PlusClient.Builder(this, this, this)
+         .setActions("http://schemas.google.com/AddActivity", "http://schemas.google.com/BuyActivity")
+         .setScopes("PLUS_LOGIN")
+         .build();
 		Logger.Debug(LOG_TAG, "mGoogleApiClient build");
 
 		 //SCOPE = String.format("audience:server:client_id:%s:api_scope:%s", CLIENT_ID, TextUtils.join(" ", SCOPES));
@@ -143,7 +148,10 @@ public class RegisterActivity extends JalapenoActivity implements com.google.and
 		}
 	}
 	
-	 		  
+	@Override
+    public void onDisconnected() {
+        Logger.Debug(LOG_TAG, "disconnected");
+    }
 		  private void resolveSignInError() {
 			  Logger.Debug(LOG_TAG, "resolveSignInError");
 			  if (mConnectionResult.hasResolution()) {
@@ -159,6 +167,7 @@ public class RegisterActivity extends JalapenoActivity implements com.google.and
 			  }
 			}
 
+		  
 			public void onConnectionFailed(ConnectionResult result) {
 				Logger.Debug(LOG_TAG, "onConnectionFailed");
 			  if (!mIntentInProgress) {
