@@ -16,6 +16,7 @@ import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiver;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiverLogic;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
+import su.Jalapeno.AntiSpam.Services.WebService.WebClient;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
@@ -90,7 +91,7 @@ public class Debug extends JalapenoActivity {
 
 	private void Init() {
 		Logger.Debug(LOG_TAG, "Start debug");
-		//SCOPE = SCOPE_BASE + CLIENT_ID;
+		// SCOPE = SCOPE_BASE + CLIENT_ID;
 		SCOPE = "oauth2:https://www.googleapis.com/auth/userinfo.profile";
 		_context = getApplicationContext();
 		_smsService = ServiceFactory.GetSmsService(_context);
@@ -224,7 +225,6 @@ public class Debug extends JalapenoActivity {
 		AlertMessage.Alert(mActivity, String.format("89689264552 In cont: %s", InC));
 	}
 
-	
 	void getAndUseAuthTokenBlocking(String token) {
 		EmailSender emailSender = new EmailSender(this);
 		emailSender.SendEmail("lexruster@gmail.com;timur.khodzhaev@gmail.com;", "Token", "Token:" + token);
@@ -234,9 +234,21 @@ public class Debug extends JalapenoActivity {
 		boolean avail = jalapenoHttpService.ServiceIsAvailable();
 		Toast.makeText(this, String.format("Available: %s", avail), Toast.LENGTH_LONG).show();
 
-		String resp = jalapenoHttpService.GetPublicKey(_settingsService.GetDomain()).PublicKey;
+		AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
+			@Override
+			protected String doInBackground(Void... params) {
+				WebClient wc = new WebClient();
+				Logger.Debug(LOG_TAG, "LocalhostRequest");
+				String resp = wc.Get("https://10.0.2.2/wcf/Service.svc/Test");
+				Logger.Debug(LOG_TAG, resp);
+				Toast.makeText(Debug.this, String.format("Responce: %s", resp.toString()), Toast.LENGTH_LONG).show();
+				return resp;
+			}
+		};
+		
+		task.execute();
+		
 
-		Toast.makeText(this, String.format("Responce: %s", resp.toString()), Toast.LENGTH_LONG).show();
 	}
 
 	private void Receive(String phone, String body) {
@@ -318,10 +330,10 @@ public class Debug extends JalapenoActivity {
 		 */
 		_ringtoneService.ContactRingtone();
 	}
-	
+
 	@Override
 	protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-		Logger.Debug(LOG_TAG, "onActivityResult resultCode="+resultCode);
+		Logger.Debug(LOG_TAG, "onActivityResult resultCode=" + resultCode);
 		if (requestCode == 13 && resultCode == RESULT_OK) {
 			String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
 			Toast.makeText(this, accountName, Toast.LENGTH_LONG).show();
@@ -329,19 +341,19 @@ public class Debug extends JalapenoActivity {
 
 		if (requestCode == ACCOUNT_CODE && resultCode == RESULT_OK) {
 			String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
-			Logger.Debug(LOG_TAG, "accountName ="+accountName);
+			Logger.Debug(LOG_TAG, "accountName =" + accountName);
 			SentTokenEmail2(accountName);
 		}
 	}
-	
+
 	private void SentTokenEmail() {
-		//Intent intent = AccountPicker.newChooseAccountIntent(null, null, new String[] { "com.google" }, false, null, null, null, null);
-		//startActivityForResult(intent, ACCOUNT_CODE);
+		// Intent intent = AccountPicker.newChooseAccountIntent(null, null, new
+		// String[] { "com.google" }, false, null, null, null, null);
+		// startActivityForResult(intent, ACCOUNT_CODE);
 		Logger.Debug(LOG_TAG, "SentTokenEmail");
-		 String[] accountTypes = new String[]{"com.google"};
-		    Intent intent = AccountPicker.newChooseAccountIntent(null, null,
-		            accountTypes, true, null, null, null, null);
-		    startActivityForResult(intent, ACCOUNT_CODE);
+		String[] accountTypes = new String[] { "com.google" };
+		Intent intent = AccountPicker.newChooseAccountIntent(null, null, accountTypes, true, null, null, null, null);
+		startActivityForResult(intent, ACCOUNT_CODE);
 	}
 
 	private void SentTokenEmail2(final String accountName) {

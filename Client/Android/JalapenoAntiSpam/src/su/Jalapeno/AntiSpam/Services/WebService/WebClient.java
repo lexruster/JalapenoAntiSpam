@@ -5,18 +5,34 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+import java.security.KeyStore;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+import org.apache.http.params.HttpProtocolParams;
+import org.apache.http.protocol.HTTP;
 
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
@@ -29,7 +45,8 @@ public class WebClient {
 
 		try {
 			Logger.Debug(LOG_TAG, "Get from: " + url);
-			HttpClient client = new DefaultHttpClient(SetTimeouts());
+			HttpClient client = GetHttpClient();
+
 			HttpGet get = new HttpGet(url);
 			HttpResponse response = client.execute(get);
 			StatusLine statusLine = response.getStatusLine();
@@ -53,7 +70,7 @@ public class WebClient {
 		} catch (Exception ex) {
 			Logger.Error(LOG_TAG, "Failed to send HTTP POST request due to: " + ex);
 		}
-		
+
 		return null;
 	}
 
@@ -63,7 +80,7 @@ public class WebClient {
 		try {
 			Logger.Debug(LOG_TAG, "Post to: " + url + " with data " + postData);
 			// Create an HTTP client
-			HttpClient client = new DefaultHttpClient(SetTimeouts());
+			HttpClient client = GetHttpClient();
 			HttpPost post = new HttpPost(url);
 			post.setEntity(CreateEntity(postData));
 			post.setHeader("Content-Type", "application/json");
@@ -96,14 +113,57 @@ public class WebClient {
 		return null;
 	}
 
-	private static HttpParams SetTimeouts() {
-		HttpParams httpParameters = new BasicHttpParams();
-		HttpConnectionParams.setConnectionTimeout(httpParameters, WebConstants.CONNECTION_TIMEOUT);
-		HttpConnectionParams.setSoTimeout(httpParameters, WebConstants.SOCKET_TIMEOUT);
-		
-		return httpParameters;
+	private static DefaultHttpClient GetHttpClient() {
+
+		try {
+			KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
+			trustStore.load(null, null);
+
+			SSLSocketFactory sf = new MySSLSocketFactory(trustStore);
+			sf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+
+			HttpParams params = new BasicHttpParams();
+
+			HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
+			HttpProtocolParams.setContentCharset(params, HTTP.UTF_8);
+
+			HttpConnectionParams.setConnectionTimeout(params, WebConstants.CONNECTION_TIMEOUT);
+			HttpConnectionParams.setSoTimeout(params, WebConstants.SOCKET_TIMEOUT);
+
+			SchemeRegistry registry = new SchemeRegistry();
+			registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+			registry.register(new Scheme("https", sf, 443));
+
+			ClientConnectionManager ccm = new ThreadSafeClientConnManager(params, registry);
+			Logger.Error(LOG_TAG, "GetHttpClient set params");
+
+			return new DefaultHttpClient(ccm, params);
+		} catch (Exception e) {
+			return new DefaultHttpClient();
+		}
 	}
 
+	/*
+	 * private static void SetSSLPolicy() { // Create a trust manager that does
+	 * not validate certificate chains TrustManager[] trustAllCerts = new
+	 * TrustManager[] { new X509TrustManager() { public
+	 * java.security.cert.X509Certificate[] getAcceptedIssuers() { return null;
+	 * }
+	 * 
+	 * public void checkClientTrusted(java.security.cert.X509Certificate[]
+	 * certs, String authType) { Logger.Debug(LOG_TAG, "checkClientTrusted"); }
+	 * 
+	 * public void checkServerTrusted(java.security.cert.X509Certificate[]
+	 * certs, String authType) { Logger.Debug(LOG_TAG, "checkServerTrusted"); }
+	 * } };
+	 * 
+	 * // Install the all-trusting trust manager try { SSLContext sc =
+	 * SSLContext.getInstance("SSL"); sc.init(null, trustAllCerts, new
+	 * java.security.SecureRandom());
+	 * HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+	 * Logger.Debug(LOG_TAG, "SetSSLPolicy"); } catch (GeneralSecurityException
+	 * e) { } }
+	 */
 	private static HttpEntity CreateEntity(String value) {
 		StringEntity se = null;
 		try {
@@ -118,12 +178,6 @@ public class WebClient {
 	}
 
 	private static String convertStreamToString(InputStream is) {
-		/*
-		 * To convert the InputStream to String we use the
-		 * BufferedReader.readLine() method. We iterate until the BufferedReader
-		 * return null which means there's no more data to read. Each line will
-		 * appended to a StringBuilder and returned as String.
-		 */
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 		StringBuilder sb = new StringBuilder();
 
