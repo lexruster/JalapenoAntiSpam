@@ -60,7 +60,7 @@ public class Debug extends JalapenoActivity {
 	private int ACCOUNT_CODE = 16307;
 	private String SCOPE_BASE = "audience:server:client_id:";
 	private String SCOPE;
-	private String CLIENT_ID = "140853970719-rqql16r33ppue25rmtpqiitnqj5bp8s5.apps.googleusercontent.com";
+	private String CLIENT_ID = "140853970719-4ohgmn0eojg2qeh75r96m9iojpra4omr.apps.googleusercontent.com";
 	private Debug mActivity;
 
 	private NotifyService _ringtoneService;
@@ -91,8 +91,8 @@ public class Debug extends JalapenoActivity {
 
 	private void Init() {
 		Logger.Debug(LOG_TAG, "Start debug");
-		// SCOPE = SCOPE_BASE + CLIENT_ID;
-		SCOPE = "oauth2:https://www.googleapis.com/auth/userinfo.profile";
+		 SCOPE = SCOPE_BASE + CLIENT_ID;
+		//SCOPE = "oauth2:https://www.googleapis.com/auth/userinfo.profile";
 		_context = getApplicationContext();
 		_smsService = ServiceFactory.GetSmsService(_context);
 		_settingsService = new SettingsService(_context);
