@@ -323,15 +323,15 @@ public class RegisterActivity extends JalapenoActivity
 				return registerClient;
 			}
 
-			PublicKeyResponse pbk = _jalapenoWebServiceWraper.GetPublicKey();
+			//PublicKeyResponse pbk = _jalapenoWebServiceWraper.GetPublicKey();
 
-			Logger.Debug(LOG_TAG, "doInBackground GetPublicKey  " + pbk.WasSuccessful);
-			if (pbk.WasSuccessful) {
+			//Logger.Debug(LOG_TAG, "doInBackground GetPublicKey  " + pbk.WasSuccessful);
+			/*if (pbk.WasSuccessful) {
 				PublicKeyInfo publicKeyInfo = CryptoService.GetPublicKeyInfo(pbk.PublicKey);
 				_settingsService.UpdatePublicKey(publicKeyInfo);
 			} else {
 				return registerClient;
-			}
+			}*/
 
 			Config config = _settingsService.LoadSettings();
 			config.ClientId = UUID.randomUUID();

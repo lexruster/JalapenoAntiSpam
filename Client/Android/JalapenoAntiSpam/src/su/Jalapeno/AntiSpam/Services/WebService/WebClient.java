@@ -135,7 +135,7 @@ public class WebClient {
 			registry.register(new Scheme("https", sf, 443));
 
 			ClientConnectionManager ccm = new ThreadSafeClientConnManager(params, registry);
-			Logger.Error(LOG_TAG, "GetHttpClient set params");
+			Logger.Debug(LOG_TAG, "GetHttpClient set params");
 
 			return new DefaultHttpClient(ccm, params);
 		} catch (Exception e) {
