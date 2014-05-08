@@ -5,7 +5,7 @@ import java.util.Locale;
 import java.util.Random;
 
 import roboguice.inject.ContentView;
-import su.Jalapeno.AntiSpam.R;
+import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.ContactsService;
@@ -237,9 +237,8 @@ public class Debug extends JalapenoActivity {
 		AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
 			@Override
 			protected String doInBackground(Void... params) {
-				WebClient wc = new WebClient();
 				Logger.Debug(LOG_TAG, "LocalhostRequest");
-				String resp = wc.Get("https://10.0.2.2/wcf/Service.svc/Test");
+				String resp = WebClient.Get("https://10.0.2.2/wcf/Service.svc/Test");
 				Logger.Debug(LOG_TAG, resp);
 				Toast.makeText(Debug.this, String.format("Responce: %s", resp.toString()), Toast.LENGTH_LONG).show();
 				return resp;

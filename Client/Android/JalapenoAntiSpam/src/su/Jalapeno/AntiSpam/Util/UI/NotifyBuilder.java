@@ -1,6 +1,6 @@
 package su.Jalapeno.AntiSpam.Util.UI;
 
-import su.Jalapeno.AntiSpam.R;
+import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Activities.SmsAnalyzerActivity;
 import android.app.Notification;
 import android.app.PendingIntent;

@@ -9,7 +9,6 @@ import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
 import su.Jalapeno.AntiSpam.Services.WebService.WebClient;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.RegisterClientRequest;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.PublicKeyResponse;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.RegisterClientResponse;
 import android.content.Context;
 
@@ -19,7 +18,6 @@ import com.google.gson.GsonBuilder;
 public class HttpTest extends AndroidTestCase {
 	private EncoderService encoding;
 	private SettingsService settings;
-	EncoderService encoder;
 	Context cntx;
 	Gson _gson;
 
@@ -28,9 +26,8 @@ public class HttpTest extends AndroidTestCase {
 		super.setUp();
 		cntx = getContext();
 		settings = new SettingsService(cntx);
-		encoding = new EncoderService(settings);
-		encoder = new EncoderService(settings);
-
+		encoding = new EncoderService();
+		
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setDateFormat("dd.MM.yy hh:mm:ss");
 		_gson = gsonBuilder.create();
@@ -38,8 +35,7 @@ public class HttpTest extends AndroidTestCase {
 
 	public void testRegisterClient() {
 		JalapenoHttpService jalapenoHttpService = new JalapenoHttpService(cntx, encoding);
-		EncoderService encoder = new EncoderService(settings);
-		// jalapenoHttpService.SendLocalTestRequest();
+		EncoderService encoder = new EncoderService();
 		JalapenoWebServiceWraper wrap = new JalapenoWebServiceWraper(jalapenoHttpService, settings, encoder);
 		RegisterClientRequest request = new RegisterClientRequest();
 		request.ClientId = UUID.randomUUID();
@@ -66,14 +62,5 @@ public class HttpTest extends AndroidTestCase {
 		String jsonPostData = _gson.toJson(postData);
 
 		return jsonPostData;
-	}
-
-	public void testGetKey() {
-		JalapenoHttpService jalapenoHttpService = new JalapenoHttpService(cntx, encoding);
-		// jalapenoHttpService.SendLocalTestRequest();
-		JalapenoWebServiceWraper wrap = new JalapenoWebServiceWraper(jalapenoHttpService, settings, encoder);
-		PublicKeyResponse res = wrap.GetPublicKey();
-
-		Assert.assertEquals(res.WasSuccessful, true);
 	}
 }

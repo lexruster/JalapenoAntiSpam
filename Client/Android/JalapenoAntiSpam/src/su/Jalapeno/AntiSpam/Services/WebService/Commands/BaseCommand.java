@@ -6,13 +6,10 @@ import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
 import su.Jalapeno.AntiSpam.Services.WebService.WebClient;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.BaseRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.BaseResponse;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.PublicKeyResponse;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.WebErrorEnum;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
-import su.Jalapeno.AntiSpam.Util.CryptoService;
 import su.Jalapeno.AntiSpam.Util.Logger;
-import su.Jalapeno.AntiSpam.Util.PublicKeyInfo;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
@@ -140,18 +137,6 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 			return false;
 		}
 
-		if (response.ErrorMessage == WebErrorEnum.InvalidPublicKey) {
-			PublicKeyResponse pbk = GetPublicKey();
-			if (pbk.WasSuccessful) {
-				PublicKeyInfo publicKeyInfo = CryptoService.GetPublicKeyInfo(pbk.PublicKey);
-				_settingsService.UpdatePublicKey(publicKeyInfo);
-				Logger.Debug(LOG_TAG, "UpdatePublicKey success " + response.ErrorMessage);
-				return true;
-			}
-
-			return false;
-		}
-
 		if (response.ErrorMessage == WebErrorEnum.InvalidToken || response.ErrorMessage == WebErrorEnum.UserBanned
 				|| response.ErrorMessage == WebErrorEnum.NotAuthorizedRequest) {
 			Logger.Debug(LOG_TAG, "Disable registration by error " + response.ErrorMessage);
@@ -165,15 +150,6 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 		}
 
 		return false;
-	}
-
-	private PublicKeyResponse GetPublicKey() {
-		PublicKeyResponse response = null;
-		if (_httpService.ServiceIsAvailable()) {
-			response = _httpService.GetPublicKey(_domain);
-		}
-
-		return response;
 	}
 
 	protected void FillNoConnection(BaseResponse response) {

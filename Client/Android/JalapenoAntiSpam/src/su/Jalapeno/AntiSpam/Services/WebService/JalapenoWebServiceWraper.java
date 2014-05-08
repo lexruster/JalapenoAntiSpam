@@ -2,7 +2,6 @@ package su.Jalapeno.AntiSpam.Services.WebService;
 
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.Commands.ComplainCommand;
-import su.Jalapeno.AntiSpam.Services.WebService.Commands.GetPublicKeyCommand;
 import su.Jalapeno.AntiSpam.Services.WebService.Commands.IsSpamerCommand;
 import su.Jalapeno.AntiSpam.Services.WebService.Commands.RegisterClientCommand;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.ComplainRequest;
@@ -10,7 +9,6 @@ import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.IsSpammerRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.RegisterClientRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.ComplainResponse;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.IsSpammerResponse;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.PublicKeyResponse;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.RegisterClientResponse;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
@@ -69,14 +67,6 @@ public class JalapenoWebServiceWraper {
 		ComplainResponse response = command.Execute(request);
 
 		Logger.Debug(LOG_TAG, "Complain resp " + response.WasSuccessful);
-		return response;
-	}
-
-	public PublicKeyResponse GetPublicKey() {
-		GetPublicKeyCommand command = new GetPublicKeyCommand(_jalapenoHttpService, _settingsService, _encoderService,
-				PublicKeyResponse.class);
-		PublicKeyResponse response = command.Execute(null);
-
 		return response;
 	}
 }

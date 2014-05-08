@@ -2,7 +2,7 @@ package su.Jalapeno.AntiSpam.Adapters;
 
 import java.util.ArrayList;
 
-import su.Jalapeno.AntiSpam.R;
+import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
 import su.Jalapeno.AntiSpam.Services.SenderService;
 import android.content.Context;
