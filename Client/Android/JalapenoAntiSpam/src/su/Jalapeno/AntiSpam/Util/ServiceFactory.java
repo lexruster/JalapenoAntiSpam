@@ -23,7 +23,7 @@ public class ServiceFactory {
 	public static SmsReceiverLogic GetSmsService(Context context) {
 		Repository repository = RepositoryFactory.getRepository();
 		SettingsService _settingsService = new SettingsService(context);
-		EncoderService encodeService = new EncoderService(_settingsService);
+		EncoderService encodeService = new EncoderService();
 		JalapenoHttpService jalapenoHttpService = new JalapenoHttpService(context, encodeService);
 		JalapenoWebServiceWraper jalapenoWebServiceWraper = new JalapenoWebServiceWraper(jalapenoHttpService, _settingsService,
 				encodeService);
@@ -48,7 +48,7 @@ public class ServiceFactory {
 	public static RequestQueue GetRequestQueue(Context context) {
 		Repository repository = RepositoryFactory.getRepository();
 		SettingsService _settingsService = new SettingsService(context);
-		EncoderService encodeService = new EncoderService(_settingsService);
+		EncoderService encodeService = new EncoderService();
 		JalapenoHttpService jalapenoHttpService = new JalapenoHttpService(context, encodeService);
 		JalapenoWebServiceWraper jalapenoWebServiceWraper = new JalapenoWebServiceWraper(jalapenoHttpService, _settingsService,
 				encodeService);

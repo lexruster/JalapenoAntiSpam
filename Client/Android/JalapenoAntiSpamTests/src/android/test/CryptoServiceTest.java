@@ -1,16 +1,8 @@
 package android.test;
 
-import android.annotation.SuppressLint;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-
 import junit.framework.Assert;
-import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.CryptoService;
-import su.Jalapeno.AntiSpam.Util.PrivateKeyInfo;
-import su.Jalapeno.AntiSpam.Util.PublicKeyInfo;
+import android.annotation.SuppressLint;
 
 @SuppressLint("TrulyRandom")
 public class CryptoServiceTest extends AndroidTestCase {
@@ -41,7 +33,7 @@ public class CryptoServiceTest extends AndroidTestCase {
 			Assert.assertEquals(hash, hashes[i]);
 		}
 	}
-
+/*
 	public void testParsePublicKey() {
 		String key = "<RSAKeyValue><Modulus>0fYCDz998w7i7Q6uENUinup+qCX1WrEtBaWZv4vhvr74q75yt5kezX/f9la9fP2uq9VQaRhj4c/RMjjxzRSi46l4/Pr5p5qv/7bRI4IeuzdUibZqZkUNbjpHp4JF5380OXMsSQRu5MjVUZ3fJaCwAwC+OmeovjX4EowonerGlxgscx798oxnU3DK3L7eMWykL/hIGgZ5A42VSIIY23/Ma9i/co8broR7MU58AFgRT2HStzOZjF6+70CiTpMBqAqxJGULVYNJImxl+UFWwFkckNUj/fYlng51QeNv07Wj6YxHt5Bwez1Hp4bE/iulmAoTjefn606bayxVV9LBy3tjiw==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
 
@@ -99,5 +91,5 @@ public class CryptoServiceTest extends AndroidTestCase {
 			e.printStackTrace();
 		}
 
-	}
+	}*/
 }

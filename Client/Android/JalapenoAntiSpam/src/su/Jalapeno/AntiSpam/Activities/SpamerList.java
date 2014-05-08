@@ -1,7 +1,7 @@
 package su.Jalapeno.AntiSpam.Activities;
 
 import roboguice.inject.ContentView;
-import su.Jalapeno.AntiSpam.R;
+import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Adapters.SenderAdapter;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;

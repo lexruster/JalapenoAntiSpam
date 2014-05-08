@@ -2,7 +2,7 @@ package su.Jalapeno.AntiSpam.Activities;
 
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
-import su.Jalapeno.AntiSpam.R;
+import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Adapters.TrashSmsAdapter;
 import su.Jalapeno.AntiSpam.DAL.Domain.TrashSms;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsService;

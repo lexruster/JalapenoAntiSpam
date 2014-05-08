@@ -1,37 +1,29 @@
 package su.Jalapeno.AntiSpam.Activities;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
-import su.Jalapeno.AntiSpam.R;
+import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.RegisterClientRequest;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.PublicKeyResponse;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.RegisterClientResponse;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.WebErrorEnum;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
-import su.Jalapeno.AntiSpam.Util.CryptoService;
 import su.Jalapeno.AntiSpam.Util.Logger;
-import su.Jalapeno.AntiSpam.Util.PublicKeyInfo;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
 import su.Jalapeno.AntiSpam.Util.UI.Spiner;
 import android.accounts.AccountManager;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender.SendIntentException;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -42,13 +34,7 @@ import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.GooglePlayServicesAvailabilityException;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.AccountPicker;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
-import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.plus.Plus;
-import com.google.android.gms.plus.PlusClient;
 import com.google.inject.Inject;
 
 @ContentView(R.layout.activity_register)
@@ -75,24 +61,9 @@ public class RegisterActivity extends JalapenoActivity
 	public String Email;
 	public String Token;
 	static String SCOPE;
-	 //private static final String SCOPE =
-	 //"oauth2:https://www.googleapis.com/auth/userinfo.profile
-	// audience:server:client_id:140853970719-javp5dr54lnale1hvr0cc2iujeoq2t46.apps.googleusercontent.com";
-	// final private String CLIENT_ID =
-	// "140853970719-javp5dr54lnale1hvr0cc2iujeoq2t46.apps.googleusercontent.com";
 	// from web app id
 	final private String WEB_CLIENT_ID = "140853970719-4ohgmn0eojg2qeh75r96m9iojpra4omr.apps.googleusercontent.com"; 
-	final private List<String> SCOPES = Arrays.asList(new String[] {
-	 //"https://www.googleapis.com/auth/plus.login",
-	 "profile"
-	//"https://www.googleapis.com/auth/userinfo.profile",
-	// "https://www.googleapis.com/auth/userinfo.email"
-			});
 	
-	 /* Request code used to invoke sign in user interactions. */
-	  private static final int RC_SIGN_IN = 615874;
-	  
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -107,14 +78,7 @@ public class RegisterActivity extends JalapenoActivity
 		});
 		
 		Logger.Debug(LOG_TAG, "mGoogleApiClient build");
-
-		// SCOPE = String.format("audience:server:client_id:%s:api_scope:%s", WEB_CLIENT_ID, TextUtils.join(" ", SCOPES));
 		SCOPE = String.format("audience:server:client_id:%s", WEB_CLIENT_ID);
-		//SCOPE = String.format("oauth2:server:client_id:%s:api_scope:%s", WEB_CLIENT_ID, TextUtils.join(" ", SCOPES));
-		 //SCOPE = String.format("oauth2:%s", TextUtils.join(" ", SCOPES));
-		
-		//SCOPE = String.format("audience:server:client_id:%s", CLIENT_ID);
-
 		Logger.Debug(LOG_TAG, "onCreate");
 
 		Bundle extras = getIntent().getExtras();
@@ -123,8 +87,6 @@ public class RegisterActivity extends JalapenoActivity
 			GetRegiseterTask().execute();
 		}
 	}
-	
-	
 
 	@Override
 	protected void onResume() {
@@ -317,21 +279,9 @@ public class RegisterActivity extends JalapenoActivity
 			} catch (Exception ex) {
 				Logger.Error(LOG_TAG, "doInBackground Exception", ex);
 			}
-			// return null;
-
 			if (TextUtils.isEmpty(activity.Token)) {
 				return registerClient;
 			}
-
-			//PublicKeyResponse pbk = _jalapenoWebServiceWraper.GetPublicKey();
-
-			//Logger.Debug(LOG_TAG, "doInBackground GetPublicKey  " + pbk.WasSuccessful);
-			/*if (pbk.WasSuccessful) {
-				PublicKeyInfo publicKeyInfo = CryptoService.GetPublicKeyInfo(pbk.PublicKey);
-				_settingsService.UpdatePublicKey(publicKeyInfo);
-			} else {
-				return registerClient;
-			}*/
 
 			Config config = _settingsService.LoadSettings();
 			config.ClientId = UUID.randomUUID();
