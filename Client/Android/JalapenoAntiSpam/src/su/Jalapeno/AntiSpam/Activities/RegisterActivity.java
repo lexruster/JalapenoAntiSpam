@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +56,9 @@ public class RegisterActivity extends JalapenoActivity
 	public SettingsService _settingsService;
 	@InjectView(R.id.licenseLink)
 	public TextView _licenseLink;
+	
+	@InjectView(R.id.buttonDebugRegister)
+	Button buttonDebugRegister;
 
 	private String link;
 
@@ -67,6 +71,8 @@ public class RegisterActivity extends JalapenoActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		SetDebugMode(Constants.VIEW_DEBUG_UI);
+		
 		link = _context.getResources().getString(R.string.LicenseAgreementUrl);
 		_licenseLink.setOnClickListener(new OnClickListener() {
 			@Override
@@ -324,6 +330,11 @@ public class RegisterActivity extends JalapenoActivity
 			activity.Token = token;
 		}
 	}
-
-	
+	private void SetDebugMode(boolean isDebug) {
+		if (isDebug) {
+			buttonDebugRegister.setVisibility(View.VISIBLE);
+		} else {
+			buttonDebugRegister.setVisibility(View.INVISIBLE);
+		}
+	}
 }
