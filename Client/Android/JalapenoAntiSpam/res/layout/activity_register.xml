@@ -27,16 +27,22 @@
         android:autoLink="web"
         android:gravity="center_horizontal"
         android:linksClickable="true"
+        android:paddingBottom="20dp"
         android:text="@string/LicenseAgreement"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:typeface="normal" 
-        android:paddingBottom="20dp"/>
+        android:typeface="normal" />
 
     <Button
         android:id="@+id/buttonRegister"
         style="@style/BaseControl.Button"
         android:onClick="Register"
-        
         android:text="@string/RegisterButton" />
+
+    <Button
+        android:id="@+id/buttonDebugRegister"
+        style="@style/BaseControl.Button.Debug"
+        android:text="@string/DebugActivity"
+        android:visibility="invisible" 
+        android:onClick=""/>
 
 </LinearLayout>

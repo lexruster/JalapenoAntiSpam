@@ -55,7 +55,8 @@
             <Button
                 android:id="@+id/buttonDebug"
                 style="@style/BaseControl.Button.Debug"
-                android:text="@string/DebugActivity"/>
+                android:text="@string/DebugActivity"
+                android:visibility="invisible"/>
         </LinearLayout>
     </ScrollView>
 
