@@ -13,11 +13,6 @@
         android:background="#80000000"
         android:src="@drawable/jalapeno" />
 
-    <TextView
-        android:id="@+id/textView"
-        style="@style/BaseControl.TextHeader"
-        android:text="@string/SettingsTitle" />
-
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
