@@ -41,14 +41,14 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/btnNeedSms"
+            android:id="@+id/btnNeedTrashSms"
             style="@style/BaseControl.ButtonSms"
             android:onClick="NeedSms"
             android:text="@string/NotSpamButton" >
         </Button>
 
         <Button
-            android:id="@+id/btnDeleteSms"
+            android:id="@+id/btnDeleteTrashSms"
             style="@style/BaseControl.ButtonSms"
             android:onClick="DeleteSms"
             android:text="@string/DeleteButton" >
