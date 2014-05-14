@@ -4,6 +4,7 @@ import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.Commands.ComplainCommand;
 import su.Jalapeno.AntiSpam.Services.WebService.Commands.IsSpamerCommand;
 import su.Jalapeno.AntiSpam.Services.WebService.Commands.RegisterClientCommand;
+import su.Jalapeno.AntiSpam.Services.WebService.Commands.RegisterTestClientCommand;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.ComplainRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.IsSpammerRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.RegisterClientRequest;
@@ -42,6 +43,17 @@ public class JalapenoWebServiceWraper {
 		Logger.Debug(LOG_TAG, "RegisterClient response " + response.WasSuccessful);
 		return response;
 	}
+	
+	public RegisterClientResponse RegisterTestClient(
+			RegisterClientRequest request) {
+		Logger.Debug(LOG_TAG, "RegisterTestClient  " + request.Token);
+
+		RegisterTestClientCommand command = new RegisterTestClientCommand(_jalapenoHttpService, _settingsService, _encoderService,
+				RegisterClientResponse.class);
+		RegisterClientResponse response = command.Execute(request);
+
+		Logger.Debug(LOG_TAG, "RegisterTestClient response " + response.WasSuccessful);
+		return response;	}
 
 	public boolean IsSpamer(String address, String smsTexthash) {
 		Logger.Debug(LOG_TAG, "IsSpamer " + address);

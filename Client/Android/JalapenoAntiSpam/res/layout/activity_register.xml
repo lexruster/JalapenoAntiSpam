@@ -41,8 +41,8 @@
     <Button
         android:id="@+id/buttonDebugRegister"
         style="@style/BaseControl.Button.Debug"
-        android:text="@string/DebugActivity"
+        android:text="@string/TestRegister"
         android:visibility="invisible" 
-        android:onClick=""/>
+        android:onClick="TestRegister"/>
 
 </LinearLayout>

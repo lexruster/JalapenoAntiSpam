@@ -100,7 +100,7 @@ public class RegisterActivity extends JalapenoActivity
 		Logger.Debug(LOG_TAG, "onResume");
 		Resume();
 	}
-
+	
 	private void Resume() {
 		Config config = _settingsService.LoadSettings();
 		if (config.ClientRegistered) {
@@ -120,6 +120,11 @@ public class RegisterActivity extends JalapenoActivity
 		Token = "";
 	
 		getUsername();
+	}
+	
+	public void TestRegister(View view) {
+		Logger.Debug(LOG_TAG, "TestRegister");
+		new TestRegisterTask().execute();;
 	}
 
 	@Override
@@ -330,6 +335,71 @@ public class RegisterActivity extends JalapenoActivity
 			activity.Token = token;
 		}
 	}
+	
+	class TestRegisterTask extends AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
+		final String LOG_TAG = Constants.BEGIN_LOG_TAG + "TestRegisterTask";
+		protected RegisterActivity activity;
+
+		Spiner spiner;
+
+		public TestRegisterTask() {
+			activity = RegisterActivity.this;
+			spiner = new Spiner(activity);
+		}
+
+		@Override
+		protected void onPostExecute(RegisterClientResponse registerClient) {
+			if (registerClient.WasSuccessful) {
+				Config config = _settingsService.LoadSettings();
+				config.ClientRegistered = true;
+				config.Enabled = true;
+				_settingsService.SaveSettings(config);
+				Logger.Debug(LOG_TAG, "Test Register with guid " + config.ClientId);
+				spiner.Hide();
+				UiUtils.NavigateAndClearHistory(SettingsActivity.class);
+			} else {
+				spiner.Hide();
+				if (registerClient.ErrorMessage == WebErrorEnum.UserBanned) {
+					ShowToast(R.string.BannedRegister);
+				} else {
+					ShowToast(R.string.ErrorRegister);
+				}
+			}
+		}
+
+		@Override
+		protected void onPreExecute() {
+			spiner.Show();
+		}
+
+		// @SuppressWarnings("deprecation")
+		@Override
+		protected RegisterClientResponse doInBackground(RegisterActivity... activitis) {
+			Logger.Debug(LOG_TAG, "doInBackground");
+			RegisterClientResponse registerClient = new RegisterClientResponse();
+			registerClient.ErrorMessage = WebErrorEnum.NoConnection;
+			registerClient.WasSuccessful = false;
+
+			Config config = _settingsService.LoadSettings();
+			config.ClientId = UUID.randomUUID();
+			RegisterClientRequest request = new RegisterClientRequest();
+			request.ClientId = config.ClientId;
+			request.Token = "Test_token";
+			_settingsService.SaveSettings(config);
+
+			registerClient = _jalapenoWebServiceWraper.RegisterTestClient(request);
+
+			return registerClient;
+		}
+
+		protected void onError(String msg, Exception e) {
+			if (e != null) {
+				Logger.Error(LOG_TAG, "Exception: ", e);
+			}
+			activity.show(msg); // will be run in UI thread
+		}
+	}
+	
 	private void SetDebugMode(boolean isDebug) {
 		if (isDebug) {
 			buttonDebugRegister.setVisibility(View.VISIBLE);

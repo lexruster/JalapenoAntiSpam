@@ -19,7 +19,9 @@
             android:layout_marginRight="20dp"
             android:layout_weight="1"
             android:gravity="left"
+            android:layout_gravity="bottom"
             android:text="TextView"
+            
             
             android:textSize="15sp" >
         </TextView>
