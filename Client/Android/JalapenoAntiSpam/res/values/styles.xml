@@ -43,6 +43,7 @@
         <item name="android:gravity">center_horizontal</item>
         <item name="android:typeface">normal</item>
         <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:layout_marginBottom">20dp</item>
     </style>
 
     <style name="BaseControl.ListView">

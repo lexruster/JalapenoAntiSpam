@@ -28,10 +28,10 @@ public class TrashSmsActivity extends JalapenoListActivity {
 
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "TrashSmsActivity";
 
-	@InjectView(R.id.btnNeedSms)
+	@InjectView(R.id.btnNeedTrashSms)
 	Button _needSmsButton;
 
-	@InjectView(R.id.btnDeleteSms)
+	@InjectView(R.id.btnDeleteTrashSms)
 	Button _deleteButton;
 
 	@Inject
