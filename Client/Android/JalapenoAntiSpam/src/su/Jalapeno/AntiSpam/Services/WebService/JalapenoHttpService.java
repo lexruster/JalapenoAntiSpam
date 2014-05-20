@@ -11,14 +11,19 @@ public class JalapenoHttpService {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "JalapenoHttpService";
 
 	private Context _context;
-	
+
 	@Inject
 	public JalapenoHttpService(Context context, EncoderService encoderService) {
 		_context = context;
 	}
 
 	public boolean ServiceIsAvailable() {
-		ConnectivityManager cm = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		if (Constants.DEBUG_STANDALONE_MODE) {
+			return false;
+		}
+
+		ConnectivityManager cm = (ConnectivityManager) _context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		if (cm == null) {
 			return false;
 		}
