@@ -53,10 +53,10 @@ public class SmsReceiverLogic {
 		Sender sender = _senderService.GetSender(sms.SenderId);
 		if (sender != null) {
 			if (!sender.IsSpammer) {
-				Logger.Debug(LOG_TAG, "Known spamer.");
+				Logger.Debug(LOG_TAG, "Known NOT spamer.");
 				return true;
 			} else {
-				Logger.Debug(LOG_TAG, "Known NOT spamer.");
+				Logger.Debug(LOG_TAG, "Known NOspamer.");
 				_trashSmsService.Add(sms);
 				return false;
 			}

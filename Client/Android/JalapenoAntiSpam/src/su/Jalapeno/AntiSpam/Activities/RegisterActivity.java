@@ -39,8 +39,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.inject.Inject;
 
 @ContentView(R.layout.activity_register)
-public class RegisterActivity extends JalapenoActivity
-{
+public class RegisterActivity extends JalapenoActivity {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "RegisterActivity";
 	static final int REQUEST_CODE_PICK_ACCOUNT = 13000;
 	static final int REQUEST_CODE_RECOVER_FROM_AUTH_ERROR = 13001;
@@ -56,7 +55,7 @@ public class RegisterActivity extends JalapenoActivity
 	public SettingsService _settingsService;
 	@InjectView(R.id.licenseLink)
 	public TextView _licenseLink;
-	
+
 	@InjectView(R.id.buttonDebugRegister)
 	Button buttonDebugRegister;
 
@@ -66,23 +65,23 @@ public class RegisterActivity extends JalapenoActivity
 	public String Token;
 	static String SCOPE;
 	// from web app id
-	final private String WEB_CLIENT_ID = "140853970719-4ohgmn0eojg2qeh75r96m9iojpra4omr.apps.googleusercontent.com"; 
-	
+	final private String WEB_CLIENT_ID = "140853970719-4ohgmn0eojg2qeh75r96m9iojpra4omr.apps.googleusercontent.com";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		SetDebugMode(Constants.VIEW_DEBUG_UI);
-		
+
 		link = _context.getResources().getString(R.string.LicenseAgreementUrl);
 		_licenseLink.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri
+						.parse(link));
 				startActivity(browserIntent);
-
 			}
 		});
-		
+
 		Logger.Debug(LOG_TAG, "mGoogleApiClient build");
 		SCOPE = String.format("audience:server:client_id:%s", WEB_CLIENT_ID);
 		Logger.Debug(LOG_TAG, "onCreate");
@@ -100,7 +99,7 @@ public class RegisterActivity extends JalapenoActivity
 		Logger.Debug(LOG_TAG, "onResume");
 		Resume();
 	}
-	
+
 	private void Resume() {
 		Config config = _settingsService.LoadSettings();
 		if (config.ClientRegistered) {
@@ -118,13 +117,27 @@ public class RegisterActivity extends JalapenoActivity
 		Logger.Debug(LOG_TAG, "Register");
 		Email = "";
 		Token = "";
-	
+
 		getUsername();
 	}
-	
+
 	public void TestRegister(View view) {
 		Logger.Debug(LOG_TAG, "TestRegister");
-		new TestRegisterTask().execute();;
+		if (!Constants.DEBUG_STANDALONE_MODE) {
+			new TestRegisterTask().execute();
+		} else {
+			DebugStandaloneRegister();
+		}
+	}
+
+	private void DebugStandaloneRegister() {
+		Config config = _settingsService.LoadSettings();
+		config.ClientId = UUID.randomUUID();
+		config.ClientRegistered = true;
+		config.Enabled = true;
+		_settingsService.SaveSettings(config);
+		Logger.Debug(LOG_TAG, "Test Register with guid " + config.ClientId);
+		UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 	}
 
 	@Override
@@ -140,7 +153,8 @@ public class RegisterActivity extends JalapenoActivity
 			}
 		} else if ((requestCode == REQUEST_CODE_RECOVER_FROM_AUTH_ERROR || requestCode == REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR)
 				&& resultCode == RESULT_OK) {
-			Logger.Debug(LOG_TAG, "onActivityResult REQUEST_CODE_RECOVER_FROM_AUTH_ERROR");
+			Logger.Debug(LOG_TAG,
+					"onActivityResult REQUEST_CODE_RECOVER_FROM_AUTH_ERROR");
 			handleAuthorizeResult(resultCode, data);
 			return;
 		}
@@ -164,7 +178,8 @@ public class RegisterActivity extends JalapenoActivity
 	private void pickUserAccount() {
 		Logger.Debug(LOG_TAG, "pickUserAccount");
 		String[] accountTypes = new String[] { "com.google" };
-		Intent intent = AccountPicker.newChooseAccountIntent(null, null, accountTypes, false, null, null, null, null);
+		Intent intent = AccountPicker.newChooseAccountIntent(null, null,
+				accountTypes, false, null, null, null, null);
 		startActivityForResult(intent, REQUEST_CODE_PICK_ACCOUNT);
 	}
 
@@ -192,7 +207,8 @@ public class RegisterActivity extends JalapenoActivity
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
+				Toast.makeText(RegisterActivity.this, message,
+						Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
@@ -201,7 +217,8 @@ public class RegisterActivity extends JalapenoActivity
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				Toast.makeText(RegisterActivity.this, res, Toast.LENGTH_SHORT).show();
+				Toast.makeText(RegisterActivity.this, res, Toast.LENGTH_SHORT)
+						.show();
 			}
 		});
 		Toast.makeText(this, res, Toast.LENGTH_SHORT).show();
@@ -217,8 +234,10 @@ public class RegisterActivity extends JalapenoActivity
 					// present.
 					// Show a dialog created by Google Play services that allows
 					// the user to update the APK
-					int statusCode = ((GooglePlayServicesAvailabilityException) e).getConnectionStatusCode();
-					Dialog dialog = GooglePlayServicesUtil.getErrorDialog(statusCode, RegisterActivity.this,
+					int statusCode = ((GooglePlayServicesAvailabilityException) e)
+							.getConnectionStatusCode();
+					Dialog dialog = GooglePlayServicesUtil.getErrorDialog(
+							statusCode, RegisterActivity.this,
 							REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR);
 					dialog.show();
 				} else if (e instanceof UserRecoverableAuthException) {
@@ -226,8 +245,10 @@ public class RegisterActivity extends JalapenoActivity
 					// granted
 					// the app access to the account, but the user can fix this.
 					// Forward the user to an activity in Google Play services.
-					Intent intent = ((UserRecoverableAuthException) e).getIntent();
-					startActivityForResult(intent, REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR);
+					Intent intent = ((UserRecoverableAuthException) e)
+							.getIntent();
+					startActivityForResult(intent,
+							REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR);
 				}
 			}
 		});
@@ -238,7 +259,8 @@ public class RegisterActivity extends JalapenoActivity
 		return new RegisterTask();
 	}
 
-	class RegisterTask extends AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
+	class RegisterTask extends
+			AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
 		final String LOG_TAG = Constants.BEGIN_LOG_TAG + "RegisterTask";
 		protected RegisterActivity activity;
 
@@ -276,7 +298,8 @@ public class RegisterActivity extends JalapenoActivity
 
 		// @SuppressWarnings("deprecation")
 		@Override
-		protected RegisterClientResponse doInBackground(RegisterActivity... activitis) {
+		protected RegisterClientResponse doInBackground(
+				RegisterActivity... activitis) {
 			Logger.Debug(LOG_TAG, "doInBackground");
 			RegisterClientResponse registerClient = new RegisterClientResponse();
 			registerClient.ErrorMessage = WebErrorEnum.NoConnection;
@@ -284,9 +307,11 @@ public class RegisterActivity extends JalapenoActivity
 
 			try {
 				fetchToken();
-				Logger.Debug(LOG_TAG, "fetchNameFromProfileServer token=" + activity.Token);
+				Logger.Debug(LOG_TAG, "fetchNameFromProfileServer token="
+						+ activity.Token);
 			} catch (IOException ex) {
-				onError("Following Error occured, please try again. " + ex.getMessage(), ex);
+				onError("Following Error occured, please try again. "
+						+ ex.getMessage(), ex);
 			} catch (Exception ex) {
 				Logger.Error(LOG_TAG, "doInBackground Exception", ex);
 			}
@@ -316,8 +341,10 @@ public class RegisterActivity extends JalapenoActivity
 		private void fetchToken() throws IOException {
 			String token = null;
 			try {
-				Logger.Debug(LOG_TAG, "fetchToken scope: " + RegisterActivity.SCOPE);
-				token = GoogleAuthUtil.getToken(activity, activity.Email, RegisterActivity.SCOPE);
+				Logger.Debug(LOG_TAG, "fetchToken scope: "
+						+ RegisterActivity.SCOPE);
+				token = GoogleAuthUtil.getToken(activity, activity.Email,
+						RegisterActivity.SCOPE);
 			} catch (UserRecoverableAuthException userRecoverableException) {
 				// GooglePlayServices.apk is either old, disabled, or not
 				// present, which is
@@ -325,7 +352,8 @@ public class RegisterActivity extends JalapenoActivity
 				// activity.
 				activity.handleException(userRecoverableException);
 			} catch (GoogleAuthException fatalException) {
-				onError("Unrecoverable error " + fatalException.getMessage(), fatalException);
+				onError("Unrecoverable error " + fatalException.getMessage(),
+						fatalException);
 			}
 
 			if (token == null) {
@@ -335,8 +363,9 @@ public class RegisterActivity extends JalapenoActivity
 			activity.Token = token;
 		}
 	}
-	
-	class TestRegisterTask extends AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
+
+	class TestRegisterTask extends
+			AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
 		final String LOG_TAG = Constants.BEGIN_LOG_TAG + "TestRegisterTask";
 		protected RegisterActivity activity;
 
@@ -354,7 +383,8 @@ public class RegisterActivity extends JalapenoActivity
 				config.ClientRegistered = true;
 				config.Enabled = true;
 				_settingsService.SaveSettings(config);
-				Logger.Debug(LOG_TAG, "Test Register with guid " + config.ClientId);
+				Logger.Debug(LOG_TAG, "Test Register with guid "
+						+ config.ClientId);
 				spiner.Hide();
 				UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 			} else {
@@ -374,7 +404,8 @@ public class RegisterActivity extends JalapenoActivity
 
 		// @SuppressWarnings("deprecation")
 		@Override
-		protected RegisterClientResponse doInBackground(RegisterActivity... activitis) {
+		protected RegisterClientResponse doInBackground(
+				RegisterActivity... activitis) {
 			Logger.Debug(LOG_TAG, "doInBackground");
 			RegisterClientResponse registerClient = new RegisterClientResponse();
 			registerClient.ErrorMessage = WebErrorEnum.NoConnection;
@@ -387,7 +418,8 @@ public class RegisterActivity extends JalapenoActivity
 			request.Token = "Test_token";
 			_settingsService.SaveSettings(config);
 
-			registerClient = _jalapenoWebServiceWraper.RegisterTestClient(request);
+			registerClient = _jalapenoWebServiceWraper
+					.RegisterTestClient(request);
 
 			return registerClient;
 		}
@@ -399,7 +431,7 @@ public class RegisterActivity extends JalapenoActivity
 			activity.show(msg); // will be run in UI thread
 		}
 	}
-	
+
 	private void SetDebugMode(boolean isDebug) {
 		if (isDebug) {
 			buttonDebugRegister.setVisibility(View.VISIBLE);
