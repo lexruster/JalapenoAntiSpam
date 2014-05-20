@@ -16,8 +16,8 @@
 
 	<string name="SmsList">СМС</string>
 	<string name="SpamButton">Это спам!</string>
-    <string name="NotSpamButton">Это не спам</string>
-    <string name="DeleteButton">Просто удалить СМС</string>
+    <string name="NotSpamButton">Не спам</string>
+    <string name="DeleteButton">Удалить</string>
 
 	<string name="NotExistsUnknownSms">Спама нет!</string>
 
