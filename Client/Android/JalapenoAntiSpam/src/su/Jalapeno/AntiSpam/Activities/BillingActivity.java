@@ -57,22 +57,26 @@ public class BillingActivity extends JalapenoActivity {
 	}
 
 	public void Buy(View view) {
-		Logger.Debug(LOG_TAG, "Buy");
+		Logger.Debug(LOG_TAG, "Buy pressed");
 		CryptoService cr = new CryptoService();
 		String base64EncodedPublicKey = cr
 				.Decrypt(Constants.ENCYPTED_LICENCE_KEY);
 
 		// compute your public key and store it in base64EncodedPublicKey
 		mHelper = new IabHelper(this, base64EncodedPublicKey);
-
+		Logger.Debug(LOG_TAG, "mHelper ready");
 		mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
 			public void onIabSetupFinished(IabResult result) {
+				
+				Logger.Debug(LOG_TAG, "onIabSetupFinished");
 				if (!result.isSuccess()) {
 					// Oh noes, there was a problem.
-					Logger.Debug(LOG_TAG, "Problem setting up In-app Billing: "
+					Logger.Error(LOG_TAG, "Problem setting up In-app Billing: "
 							+ result);
 				}
 				// Hooray, IAB is fully set up!
+				
+				Logger.Debug(LOG_TAG, "Billing initialized");
 			}
 		});
 	}
