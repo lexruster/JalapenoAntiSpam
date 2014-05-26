@@ -31,6 +31,9 @@ import android.util.Log;
 
 import org.json.JSONException;
 
+import su.Jalapeno.AntiSpam.Util.Constants;
+import su.Jalapeno.AntiSpam.Util.Logger;
+
 import com.android.vending.billing.IInAppBillingService;
 
 import java.util.ArrayList;
@@ -70,6 +73,7 @@ import java.util.List;
  *
  */
 public class IabHelper {
+	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "IabHelper";
     // Is debug logging enabled?
     boolean mDebugLog = false;
     String mDebugTag = "IabHelper";
@@ -978,14 +982,14 @@ public class IabHelper {
     }
 
     void logDebug(String msg) {
-        if (mDebugLog) Log.d(mDebugTag, msg);
+    	Logger.Debug(LOG_TAG, "In-app billing debug: " + msg);
     }
 
     void logError(String msg) {
-        Log.e(mDebugTag, "In-app billing error: " + msg);
+    	Logger.Error(LOG_TAG, "In-app billing error: " + msg);
     }
 
     void logWarn(String msg) {
-        Log.w(mDebugTag, "In-app billing warning: " + msg);
+        Logger.Debug(LOG_TAG, "In-app billing warning: " + msg);
     }
 }
