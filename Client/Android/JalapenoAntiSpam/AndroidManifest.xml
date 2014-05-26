@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="su.Jalapeno.AntiSpam.Filter"
-    android:versionCode="8"
+    android:versionCode="9"
     android:versionName="0.5" >
 
     <uses-sdk
@@ -22,6 +22,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RAISED_THREAD_PRIORITY" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.vending.BILLING" />
 
     <application
         android:allowBackup="true"
@@ -82,6 +83,14 @@
         </activity>
         <activity
             android:name="su.Jalapeno.AntiSpam.Activities.RegisterActivity"
+            android:parentActivityName="@string/ParentActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="su.Jalapeno.AntiSpam.Activities.SettingsActivity" />
+        </activity>
+        
+        <activity
+            android:name="su.Jalapeno.AntiSpam.Activities.BillingActivity"
             android:parentActivityName="@string/ParentActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

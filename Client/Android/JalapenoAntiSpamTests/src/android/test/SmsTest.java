@@ -2,12 +2,8 @@ package android.test;
 
 import java.util.Date;
 
-import junit.framework.Assert;
-import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
-import su.Jalapeno.AntiSpam.Services.ContactsService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsService;
 import su.Jalapeno.AntiSpam.Util.Constants;
-import su.Jalapeno.AntiSpam.Util.Logger;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;

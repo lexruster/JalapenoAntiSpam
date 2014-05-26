@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/BaseLayout"
-    tools:context=".RegisterActivity" >
+    tools:context=".BillingActivity" >
 
     <ImageView
         android:id="@+id/imageView"
@@ -11,40 +11,29 @@
         android:contentDescription="TitleImage"
         android:background="#80000000"
         android:layout_marginBottom="20dp"
-        android:src="@drawable/jalapeno"/>
+        android:src="@drawable/jalapeno"
+        />
 
     <TextView
         android:id="@+id/textView"
         style="@style/BaseControl"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
-        android:text="@string/RegisterText"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:typeface="normal" />
-
-    <TextView
-        android:id="@+id/licenseLink"
-        style="@style/BaseControl"
-        android:layout_gravity="center_horizontal"
-        android:autoLink="web"
-        android:gravity="center_horizontal"
-        android:linksClickable="true"
-        android:paddingBottom="20dp"
-        android:text="@string/LicenseAgreement"
+        android:text="@string/BillingBuyText"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:typeface="normal" />
 
     <Button
         android:id="@+id/buttonRegister"
         style="@style/BaseControl.Button"
-        android:onClick="Register"
-        android:text="@string/RegisterButton" />
+        android:onClick="Buy"
+        android:text="@string/BillingBuyButton" />
 
     <Button
         android:id="@+id/buttonDebugRegister"
         style="@style/BaseControl.Button.Debug"
         android:text="@string/TestRegister"
         android:visibility="invisible" 
-        android:onClick="TestRegister"/>
+        android:onClick="Buy"/>
 
 </LinearLayout>

@@ -214,6 +214,15 @@ public class Debug extends JalapenoActivity {
 		_settingsService.SaveSettings(config);
 		startService(new Intent(this, AppService.class));
 	}
+	
+	public void GoToBuy(View v) {
+		Config config = _settingsService.LoadSettings();
+		//config.ClientRegistered = false;
+		//config.ClientId = null;
+		//_settingsService.SaveSettings(config);
+		UiUtils.NavigateTo(BillingActivity.class);
+		//startService(new Intent(this, AppService.class));
+	}
 
 	protected void InContacts(String ph) {
 		boolean InC = contactsService.PhoneInContact(ph);

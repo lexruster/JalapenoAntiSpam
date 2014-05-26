@@ -8,7 +8,7 @@
 
     <instrumentation
         android:name="android.test.InstrumentationTestRunner"
-        android:targetPackage="su.Jalapeno.AntiSpam" />
+        android:targetPackage="su.Jalapeno.AntiSpam.Filter" />
 
     <application
         android:icon="@drawable/ic_launcher"
