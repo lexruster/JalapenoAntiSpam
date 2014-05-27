@@ -3,17 +3,6 @@
     style="@style/BaseLayout"
     tools:context=".BillingActivity" >
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:alpha="1"
-        android:contentDescription="TitleImage"
-        android:background="#80000000"
-        android:layout_marginBottom="20dp"
-        android:src="@drawable/jalapeno"
-        />
-
     <TextView
         android:id="@+id/textView"
         style="@style/BaseControl"

@@ -13,7 +13,7 @@ import android.support.v4.app.NotificationCompat;
 public class NotifyBuilder {
 	@SuppressWarnings("deprecation")
 	public static Notification CreateNotifacation(Context context, long count, boolean withAlert) {
-		Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.mailb);
+		Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher);
 
 		String title = context.getResources().getString(R.string.app_name);
 
@@ -24,7 +24,7 @@ public class NotifyBuilder {
 		int smallIcon = 0;
 		if (count == 0) {
 			smsStatus = context.getResources().getString(R.string.NotExistsUnknownSms);
-			smallIcon = R.drawable.mail;
+			smallIcon = R.drawable.gray_jalapeno;
 			notifBuilder.setSmallIcon(smallIcon);
 		} else {
 			notifBuilder.setNumber((int) count);

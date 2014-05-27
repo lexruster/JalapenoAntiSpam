@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="su.Jalapeno.AntiSpam.Filter"
-    android:versionCode="10"
-    android:versionName="0.5" >
+    android:versionCode="12"
+    android:versionName="0.6" >
 
     <uses-sdk
         android:maxSdkVersion="18"
         android:minSdkVersion="8"
         android:targetSdkVersion="16" />
 
+    <uses-permission android:name="android.vending.BILLING" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -22,8 +23,6 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RAISED_THREAD_PRIORITY" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.vending.BILLING" />
-
     <application
         android:allowBackup="true"
         android:name="su.Jalapeno.AntiSpam.MyApplication"
