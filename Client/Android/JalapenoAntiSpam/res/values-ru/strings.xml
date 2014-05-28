@@ -32,6 +32,8 @@
     
     <string name="BillingBuyText">Вы можете купить антиспам</string>
     <string name="BillingBuyButton">Купить антиспам</string>
+    <string name="ErrorBilling">Ошибка покупки. Пожалуйста, проверьте Интернет-подключение, затем повторите попытку</string>
+    <string name="PurchaseComplete">Поздравляю! Покупка успешно завершена.</string>
     
     <string name="EmptySpamerList">Скоро здесь появятся спамеры</string>
     <string name="EmptySmsList">Нет СМС</string>

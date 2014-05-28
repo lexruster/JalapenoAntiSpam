@@ -15,6 +15,13 @@
 
 package su.Jalapeno.AntiSpam.Billing.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONException;
+
+import su.Jalapeno.AntiSpam.Util.Constants;
+import su.Jalapeno.AntiSpam.Util.Logger;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -27,17 +34,8 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.text.TextUtils;
-import android.util.Log;
-
-import org.json.JSONException;
-
-import su.Jalapeno.AntiSpam.Util.Constants;
-import su.Jalapeno.AntiSpam.Util.Logger;
 
 import com.android.vending.billing.IInAppBillingService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**

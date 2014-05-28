@@ -14,8 +14,8 @@ public class CryptoService {
 
 	public CryptoService() {
 		try {
-			String someS = Constants.Hi + Constants.Down + Constants.Left
-					+ Constants.Lower;
+			String someS = BillingConstants.Hi + BillingConstants.Down + BillingConstants.Left
+					+ BillingConstants.Lower;
 			byte[] keyBytes = someS.getBytes(Constants.DEFAULT_ENCODING);
 			DESedeKeySpec keySpec = new DESedeKeySpec(keyBytes);
 			SecretKeyFactory factory = SecretKeyFactory.getInstance("DESede");
