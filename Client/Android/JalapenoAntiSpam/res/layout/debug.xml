@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/BaseLayout" >
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/BaseControl.TextHeader"
+        android:text="@string/DebugActivity" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal" >
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/BaseControl.ListGroup" >
+
+                <TextView
+                    android:id="@+id/textView"
+                    style="@style/BaseControl.TextHeader"
+                    android:text="Sound" />
+
+                <Button
+                    android:id="@+id/buttonNewSms"
+                    style="@style/BaseControl.Button"
+                    android:text="New sms sound" />
+
+                <Button
+                    android:id="@+id/buttonSmsSpam"
+                    style="@style/BaseControl.Button"
+                    android:text="Sms spam sound" />
+            </LinearLayout>
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/BaseControl.ListGroup" >
+
+                <TextView
+                    android:id="@+id/textView"
+                    style="@style/BaseControl.TextHeader"
+                    android:text="PhoneInfo" />
+
+                <Button
+                    android:id="@+id/buttonAuthorization"
+                    style="@style/BaseControl.Button"
+                    android:text="get Authorization gmail" />
+
+                <Button
+                    android:id="@+id/buttonInfo"
+                    style="@style/BaseControl.Button"
+                    android:text="Info - phone number + imei" />
+
+                <Button
+                    android:id="@+id/buttonSendTokenToEmail"
+                    style="@style/BaseControl.Button"
+                    android:text="Send token to email" />
+                
+                 <Button
+                    android:id="@+id/buttonDropRegister"
+                    style="@style/BaseControl.Button"
+                    android:onClick="DropRegister"
+                    android:text="Drop registration" />
+                 
+                 <Button
+                    android:id="@+id/buttonDropBuy"
+                    style="@style/BaseControl.Button"
+                    android:onClick="GoToBuy"
+                    android:text="Drop buy" />
+            </LinearLayout>
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/BaseControl.ListGroup" >
+
+                <TextView
+                    android:id="@+id/textView"
+                    style="@style/BaseControl.TextHeader"
+                    android:text="SpamBase" />
+
+                <Button
+                    android:id="@+id/buttonClearSpam"
+                    style="@style/BaseControl.Button"
+                    android:text="Clear spam base" />
+
+                <Button
+                    android:id="@+id/buttonFillSpam"
+                    style="@style/BaseControl.Button"
+                    android:text="add random numbers to base" />
+
+                <Button
+                    android:id="@+id/buttonTestInBaseSpam"
+                    style="@style/BaseControl.Button"
+                    android:text="phone +79999 in base?" />
+            </LinearLayout>
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/BaseControl.ListGroup" >
+
+                <TextView
+                    android:id="@+id/textView"
+                    style="@style/BaseControl.TextHeader"
+                    android:text="Sms receiver" />
+
+                <Button
+                    android:id="@+id/buttonRecieve9999"
+                    style="@style/BaseControl.Button"
+                    android:text="recieve from +79999" />
+
+                <Button
+                    android:id="@+id/buttonRecieve8888"
+                    style="@style/BaseControl.Button"
+                    android:text="recieve from +78888" />
+            </LinearLayout>
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/BaseControl.ListGroup" >
+
+                <TextView
+                    android:id="@+id/textView"
+                    style="@style/BaseControl.TextHeader"
+                    android:text="Contacts" />
+
+                <Button
+                    android:id="@+id/button7968InCont"
+                    style="@style/BaseControl.Button"
+                    android:text="+7968264552 in contacts" />
+
+                <Button
+                    android:id="@+id/button8968InCont"
+                    style="@style/BaseControl.Button"
+                    android:text="8968264552 in contacts" />
+                
+                <Button
+                    android:id="@+id/button32424InCont"
+                    style="@style/BaseControl.Button"
+                    android:text="545454654564 in contacts" />
+            </LinearLayout>
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/BaseControl.ListGroup" >
+
+                <TextView
+                    android:id="@+id/textView"
+                    style="@style/BaseControl.TextHeader"
+                    android:text="Http" />
+
+                <Button
+                    android:id="@+id/buttonLocalhostRequest"
+                    style="@style/BaseControl.Button"
+                    android:text="Request to localhost" />
+
+                <Button
+                    android:id="@+id/buttonSettingsTest"
+                    style="@style/BaseControl.Button"
+                    android:text="Test settings" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

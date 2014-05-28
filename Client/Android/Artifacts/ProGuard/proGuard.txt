@@ -1,0 +1,15 @@
+-keep class com.google.gson.** { *; }
+-keep class com.google.inject.** { *; }
+-keep class org.apache.http.** { *; }
+-keep class org.apache.james.mime4j.** { *; }
+-keep class javax.inject.** { *; }
+-keep class retrofit.** { *; }
+-keep class com.google.android.** { *; }
+-keep class com.j256.** { *; }
+-keep class org.droidparts.** { *; }
+
+-keep class com.google.**
+-dontwarn com.google.**
+-dontwarn org.droidparts.**
+-dontwarn retrofit.**
+-dontwarn com.j256.**

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BaseLayout"
+    tools:context=".SmsAnalyzerActivity" >
+   
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ToggleButton
+                android:id="@+id/toggleEnabled"
+                style="@style/BaseControl.Button.Toogle"
+                android:onClick="toggleClick"
+                android:text="ToggleButton"
+                android:textOff="@string/AntiSpamOff"
+                android:textOn="@string/AntiSpamOn" />
+
+            <Button
+                android:id="@+id/buttonSpammerList"
+                style="@style/BaseControl.Button"
+                android:text="@string/KnownSpammerList" />
+
+            <Button
+                android:id="@+id/buttonSmsValidate"
+                style="@style/BaseControl.Button"
+                android:onClick="smsValidate"
+                android:text="@string/SmsValidateList" />
+
+            <Button
+                android:id="@+id/buttonSmsTrash"
+                style="@style/BaseControl.Button"
+                android:onClick="smsTrash"
+                android:text="@string/SmsTrashList" />
+
+            <Button
+                android:id="@+id/buttonDebug"
+                style="@style/BaseControl.Button.Debug"
+                android:text="@string/DebugActivity"
+                android:visibility="invisible"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

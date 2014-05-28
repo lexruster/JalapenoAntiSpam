@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BaseLayout"
+    tools:context=".BillingActivity" >
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/BaseControl"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:text="@string/BillingBuyText"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:typeface="normal" />
+
+    <Button
+        android:id="@+id/buttonRegister"
+        style="@style/BaseControl.Button"
+        android:onClick="Buy"
+        android:text="@string/BillingBuyButton" />
+
+    <Button
+        android:id="@+id/buttonDebugRegister"
+        style="@style/BaseControl.Button.Debug"
+        android:text="@string/TestRegister"
+        android:visibility="invisible" 
+        android:onClick="Buy"/>
+
+</LinearLayout>
