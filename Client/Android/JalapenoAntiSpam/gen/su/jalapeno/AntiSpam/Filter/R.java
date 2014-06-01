@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package su.Jalapeno.AntiSpam;
+package su.Jalapeno.AntiSpam.Filter;
 
 public final class R {
     public static final class anim {
@@ -230,91 +230,94 @@ containing a value of this type.
         public static final int common_signin_btn_text_normal_light=0x7f020016;
         public static final int common_signin_btn_text_pressed_dark=0x7f020017;
         public static final int common_signin_btn_text_pressed_light=0x7f020018;
-        public static final int hbutton=0x7f020019;
-        public static final int hbutton_focused=0x7f02001a;
-        public static final int hbutton_normal=0x7f02001b;
-        public static final int hbutton_pressed=0x7f02001c;
-        public static final int ic_launcher=0x7f02001d;
-        public static final int ic_plusone_medium_off_client=0x7f02001e;
-        public static final int ic_plusone_small_off_client=0x7f02001f;
-        public static final int ic_plusone_standard_off_client=0x7f020020;
-        public static final int ic_plusone_tall_off_client=0x7f020021;
-        public static final int jalapeno=0x7f020022;
-        public static final int mail=0x7f020023;
-        public static final int mailb=0x7f020024;
-        public static final int spam_ico=0x7f020025;
-        public static final int spam_ico_orig=0x7f020026;
+        public static final int gray_jalapeno=0x7f020019;
+        public static final int hbutton=0x7f02001a;
+        public static final int hbutton_focused=0x7f02001b;
+        public static final int hbutton_normal=0x7f02001c;
+        public static final int hbutton_pressed=0x7f02001d;
+        public static final int ic_launcher=0x7f02001e;
+        public static final int ic_plusone_medium_off_client=0x7f02001f;
+        public static final int ic_plusone_small_off_client=0x7f020020;
+        public static final int ic_plusone_standard_off_client=0x7f020021;
+        public static final int ic_plusone_tall_off_client=0x7f020022;
+        public static final int spam_ico=0x7f020023;
     }
     public static final class id {
         public static final int btnDeleteSms=0x7f07000b;
-        public static final int btnNeedSms=0x7f070009;
-        public static final int btnSpamSms=0x7f07000a;
-        public static final int button32424InCont=0x7f07001a;
-        public static final int button7968InCont=0x7f070018;
-        public static final int button8968InCont=0x7f070019;
-        public static final int buttonAuthorization=0x7f07000f;
-        public static final int buttonClearSpam=0x7f070013;
-        public static final int buttonDebug=0x7f070023;
-        public static final int buttonDropRegister=0x7f070012;
-        public static final int buttonFillSpam=0x7f070014;
-        public static final int buttonInfo=0x7f070010;
-        public static final int buttonLocalhostRequest=0x7f07001b;
-        public static final int buttonNewSms=0x7f07000d;
-        public static final int buttonRecieve8888=0x7f070017;
-        public static final int buttonRecieve9999=0x7f070016;
-        public static final int buttonRegister=0x7f070008;
-        public static final int buttonSendTokenToEmail=0x7f070011;
-        public static final int buttonSettingsTest=0x7f07001c;
-        public static final int buttonSmsSpam=0x7f07000e;
-        public static final int buttonSmsTrash=0x7f070022;
-        public static final int buttonSmsValidate=0x7f070021;
-        public static final int buttonSpammerList=0x7f070020;
-        public static final int buttonTestInBaseSpam=0x7f070015;
-        public static final int cbIsSender=0x7f07001e;
+        public static final int btnDeleteTrashSms=0x7f07000d;
+        public static final int btnNeedSms=0x7f07000a;
+        public static final int btnNeedTrashSms=0x7f07000c;
+        public static final int btnSpamSms=0x7f070009;
+        public static final int button32424InCont=0x7f07001d;
+        public static final int button7968InCont=0x7f07001b;
+        public static final int button8968InCont=0x7f07001c;
+        public static final int buttonAuthorization=0x7f070011;
+        public static final int buttonClearSpam=0x7f070016;
+        public static final int buttonDebug=0x7f070026;
+        public static final int buttonDebugRegister=0x7f070007;
+        public static final int buttonDropBuy=0x7f070015;
+        public static final int buttonDropRegister=0x7f070014;
+        public static final int buttonFillSpam=0x7f070017;
+        public static final int buttonInfo=0x7f070012;
+        public static final int buttonLocalhostRequest=0x7f07001e;
+        public static final int buttonNewSms=0x7f07000f;
+        public static final int buttonRecieve8888=0x7f07001a;
+        public static final int buttonRecieve9999=0x7f070019;
+        public static final int buttonRegister=0x7f070006;
+        public static final int buttonSendTokenToEmail=0x7f070013;
+        public static final int buttonSettingsTest=0x7f07001f;
+        public static final int buttonSmsSpam=0x7f070010;
+        public static final int buttonSmsTrash=0x7f070025;
+        public static final int buttonSmsValidate=0x7f070024;
+        public static final int buttonSpammerList=0x7f070023;
+        public static final int buttonTestInBaseSpam=0x7f070018;
+        public static final int cbIsSender=0x7f070021;
         public static final int hybrid=0x7f070004;
-        public static final int imageView=0x7f070005;
-        public static final int licenseLink=0x7f070007;
-        public static final int llSmsItem=0x7f070024;
+        public static final int licenseLink=0x7f070008;
+        public static final int llSmsItem=0x7f070027;
         public static final int none=0x7f070000;
         public static final int normal=0x7f070001;
         public static final int satellite=0x7f070002;
-        public static final int scrollView=0x7f07000c;
+        public static final int scrollView=0x7f07000e;
         public static final int terrain=0x7f070003;
-        public static final int textView=0x7f070006;
-        public static final int toggleEnabled=0x7f07001f;
-        public static final int tvSenderId=0x7f07001d;
-        public static final int tvSmsDate=0x7f070027;
-        public static final int tvSmsSender=0x7f070026;
-        public static final int tvSmsText=0x7f070025;
+        public static final int textView=0x7f070005;
+        public static final int toggleEnabled=0x7f070022;
+        public static final int tvSenderId=0x7f070020;
+        public static final int tvSmsDate=0x7f07002a;
+        public static final int tvSmsSender=0x7f070029;
+        public static final int tvSmsText=0x7f070028;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f090000;
     }
     public static final class layout {
-        public static final int activity_register=0x7f030000;
-        public static final int activity_sms_analyzer=0x7f030001;
-        public static final int activity_trash_sms=0x7f030002;
-        public static final int debug=0x7f030003;
-        public static final int sender_list_item=0x7f030004;
-        public static final int settings=0x7f030005;
-        public static final int sms_list_item=0x7f030006;
-        public static final int spamer_list=0x7f030007;
+        public static final int activity_billing=0x7f030000;
+        public static final int activity_register=0x7f030001;
+        public static final int activity_sms_analyzer=0x7f030002;
+        public static final int activity_trash_sms=0x7f030003;
+        public static final int debug=0x7f030004;
+        public static final int sender_list_item=0x7f030005;
+        public static final int settings=0x7f030006;
+        public static final int sms_list_item=0x7f030007;
+        public static final int spamer_list=0x7f030008;
     }
     public static final class raw {
         public static final int cartoon003=0x7f050000;
         public static final int cartoon010=0x7f050001;
     }
     public static final class string {
-        public static final int AntiSpamOff=0x7f080033;
-        public static final int AntiSpamOn=0x7f080032;
+        public static final int AntiSpamOff=0x7f080036;
+        public static final int AntiSpamOn=0x7f080035;
         public static final int BannedRegister=0x7f08002c;
-        public static final int DateFormat=0x7f080035;
+        public static final int BillingBuyButton=0x7f080031;
+        public static final int BillingBuyText=0x7f080030;
+        public static final int DateFormat=0x7f080038;
         public static final int DebugActivity=0x7f080020;
         public static final int DeleteButton=0x7f080026;
-        public static final int EmptySmsList=0x7f080030;
-        public static final int EmptySpamerList=0x7f08002f;
+        public static final int EmptySmsList=0x7f080033;
+        public static final int EmptySpamerList=0x7f080032;
         public static final int ErrorRegister=0x7f08002d;
-        public static final int ExistsUnknownSms=0x7f080034;
+        public static final int ExistsUnknownSms=0x7f080037;
         /** НЕ НУЖНО
 НЕ НУЖНО
 НЕ НУЖНО
@@ -325,7 +328,7 @@ containing a value of this type.
         public static final int NeedPeekAccount=0x7f08002e;
         public static final int NotExistsUnknownSms=0x7f080027;
         public static final int NotSpamButton=0x7f080025;
-        public static final int ParentActivity=0x7f080036;
+        public static final int ParentActivity=0x7f080039;
         public static final int RegisterButton=0x7f080028;
         public static final int RegisterText=0x7f080029;
         public static final int SettingsTitle=0x7f08001b;
@@ -335,7 +338,8 @@ containing a value of this type.
         public static final int SoundSettings=0x7f08001f;
         public static final int SpamButton=0x7f080024;
         public static final int SpammerList=0x7f080021;
-        public static final int WaitMessage=0x7f080031;
+        public static final int TestRegister=0x7f08002f;
+        public static final int WaitMessage=0x7f080034;
         public static final int app_name=0x7f08001a;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
@@ -464,11 +468,11 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #AdsAttrs_adSize su.Jalapeno.AntiSpam:adSize}</code></td><td>
+           <tr><td><code>{@link #AdsAttrs_adSize su.Jalapeno.AntiSpam.Filter:adSize}</code></td><td>
     The size of the ad.</td></tr>
-           <tr><td><code>{@link #AdsAttrs_adSizes su.Jalapeno.AntiSpam:adSizes}</code></td><td>
+           <tr><td><code>{@link #AdsAttrs_adSizes su.Jalapeno.AntiSpam.Filter:adSizes}</code></td><td>
     A comma-separated list of the supported ad sizes.</td></tr>
-           <tr><td><code>{@link #AdsAttrs_adUnitId su.Jalapeno.AntiSpam:adUnitId}</code></td><td> The ad unit ID.</td></tr>
+           <tr><td><code>{@link #AdsAttrs_adUnitId su.Jalapeno.AntiSpam.Filter:adUnitId}</code></td><td> The ad unit ID.</td></tr>
            </table>
            @see #AdsAttrs_adSize
            @see #AdsAttrs_adSizes
@@ -494,7 +498,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name su.Jalapeno.AntiSpam:adSize
+          @attr name su.Jalapeno.AntiSpam.Filter:adSize
         */
         public static final int AdsAttrs_adSize = 0;
         /**
@@ -514,7 +518,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name su.Jalapeno.AntiSpam:adSizes
+          @attr name su.Jalapeno.AntiSpam.Filter:adSizes
         */
         public static final int AdsAttrs_adSizes = 1;
         /**
@@ -530,7 +534,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name su.Jalapeno.AntiSpam:adUnitId
+          @attr name su.Jalapeno.AntiSpam.Filter:adUnitId
         */
         public static final int AdsAttrs_adUnitId = 2;
         /** Attributes that can be used with a MapAttrs.
@@ -539,20 +543,20 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #MapAttrs_cameraBearing su.Jalapeno.AntiSpam:cameraBearing}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_cameraTargetLat su.Jalapeno.AntiSpam:cameraTargetLat}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_cameraTargetLng su.Jalapeno.AntiSpam:cameraTargetLng}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_cameraTilt su.Jalapeno.AntiSpam:cameraTilt}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_cameraZoom su.Jalapeno.AntiSpam:cameraZoom}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_mapType su.Jalapeno.AntiSpam:mapType}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_uiCompass su.Jalapeno.AntiSpam:uiCompass}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_uiRotateGestures su.Jalapeno.AntiSpam:uiRotateGestures}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_uiScrollGestures su.Jalapeno.AntiSpam:uiScrollGestures}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_uiTiltGestures su.Jalapeno.AntiSpam:uiTiltGestures}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_uiZoomControls su.Jalapeno.AntiSpam:uiZoomControls}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_uiZoomGestures su.Jalapeno.AntiSpam:uiZoomGestures}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_useViewLifecycle su.Jalapeno.AntiSpam:useViewLifecycle}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_zOrderOnTop su.Jalapeno.AntiSpam:zOrderOnTop}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraBearing su.Jalapeno.AntiSpam.Filter:cameraBearing}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraTargetLat su.Jalapeno.AntiSpam.Filter:cameraTargetLat}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraTargetLng su.Jalapeno.AntiSpam.Filter:cameraTargetLng}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraTilt su.Jalapeno.AntiSpam.Filter:cameraTilt}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraZoom su.Jalapeno.AntiSpam.Filter:cameraZoom}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_mapType su.Jalapeno.AntiSpam.Filter:mapType}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiCompass su.Jalapeno.AntiSpam.Filter:uiCompass}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiRotateGestures su.Jalapeno.AntiSpam.Filter:uiRotateGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiScrollGestures su.Jalapeno.AntiSpam.Filter:uiScrollGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiTiltGestures su.Jalapeno.AntiSpam.Filter:uiTiltGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiZoomControls su.Jalapeno.AntiSpam.Filter:uiZoomControls}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiZoomGestures su.Jalapeno.AntiSpam.Filter:uiZoomGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_useViewLifecycle su.Jalapeno.AntiSpam.Filter:useViewLifecycle}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_zOrderOnTop su.Jalapeno.AntiSpam.Filter:zOrderOnTop}</code></td><td></td></tr>
            </table>
            @see #MapAttrs_cameraBearing
            @see #MapAttrs_cameraTargetLat
@@ -576,7 +580,7 @@ containing a value of this type.
             0x7f01000f, 0x7f010010
         };
         /**
-          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.R.attr#cameraBearing}
+          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.Filter.R.attr#cameraBearing}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -586,11 +590,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name su.Jalapeno.AntiSpam:cameraBearing
+          @attr name su.Jalapeno.AntiSpam.Filter:cameraBearing
         */
         public static final int MapAttrs_cameraBearing = 1;
         /**
-          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.R.attr#cameraTargetLat}
+          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.Filter.R.attr#cameraTargetLat}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -600,11 +604,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name su.Jalapeno.AntiSpam:cameraTargetLat
+          @attr name su.Jalapeno.AntiSpam.Filter:cameraTargetLat
         */
         public static final int MapAttrs_cameraTargetLat = 2;
         /**
-          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.R.attr#cameraTargetLng}
+          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.Filter.R.attr#cameraTargetLng}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -614,11 +618,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name su.Jalapeno.AntiSpam:cameraTargetLng
+          @attr name su.Jalapeno.AntiSpam.Filter:cameraTargetLng
         */
         public static final int MapAttrs_cameraTargetLng = 3;
         /**
-          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.R.attr#cameraTilt}
+          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.Filter.R.attr#cameraTilt}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -628,11 +632,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name su.Jalapeno.AntiSpam:cameraTilt
+          @attr name su.Jalapeno.AntiSpam.Filter:cameraTilt
         */
         public static final int MapAttrs_cameraTilt = 4;
         /**
-          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.R.attr#cameraZoom}
+          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.Filter.R.attr#cameraZoom}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -642,11 +646,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name su.Jalapeno.AntiSpam:cameraZoom
+          @attr name su.Jalapeno.AntiSpam.Filter:cameraZoom
         */
         public static final int MapAttrs_cameraZoom = 5;
         /**
-          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.R.attr#mapType}
+          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.Filter.R.attr#mapType}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -662,11 +666,11 @@ containing a value of this type.
 <tr><td><code>terrain</code></td><td>3</td><td></td></tr>
 <tr><td><code>hybrid</code></td><td>4</td><td></td></tr>
 </table>
-          @attr name su.Jalapeno.AntiSpam:mapType
+          @attr name su.Jalapeno.AntiSpam.Filter:mapType
         */
         public static final int MapAttrs_mapType = 0;
         /**
-          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.R.attr#uiCompass}
+          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.Filter.R.attr#uiCompass}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -676,11 +680,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name su.Jalapeno.AntiSpam:uiCompass
+          @attr name su.Jalapeno.AntiSpam.Filter:uiCompass
         */
         public static final int MapAttrs_uiCompass = 6;
         /**
-          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.R.attr#uiRotateGestures}
+          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.Filter.R.attr#uiRotateGestures}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -690,11 +694,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name su.Jalapeno.AntiSpam:uiRotateGestures
+          @attr name su.Jalapeno.AntiSpam.Filter:uiRotateGestures
         */
         public static final int MapAttrs_uiRotateGestures = 7;
         /**
-          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.R.attr#uiScrollGestures}
+          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.Filter.R.attr#uiScrollGestures}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -704,11 +708,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name su.Jalapeno.AntiSpam:uiScrollGestures
+          @attr name su.Jalapeno.AntiSpam.Filter:uiScrollGestures
         */
         public static final int MapAttrs_uiScrollGestures = 8;
         /**
-          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.R.attr#uiTiltGestures}
+          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.Filter.R.attr#uiTiltGestures}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -718,11 +722,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name su.Jalapeno.AntiSpam:uiTiltGestures
+          @attr name su.Jalapeno.AntiSpam.Filter:uiTiltGestures
         */
         public static final int MapAttrs_uiTiltGestures = 9;
         /**
-          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.R.attr#uiZoomControls}
+          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.Filter.R.attr#uiZoomControls}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -732,11 +736,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name su.Jalapeno.AntiSpam:uiZoomControls
+          @attr name su.Jalapeno.AntiSpam.Filter:uiZoomControls
         */
         public static final int MapAttrs_uiZoomControls = 10;
         /**
-          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.R.attr#uiZoomGestures}
+          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.Filter.R.attr#uiZoomGestures}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -746,11 +750,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name su.Jalapeno.AntiSpam:uiZoomGestures
+          @attr name su.Jalapeno.AntiSpam.Filter:uiZoomGestures
         */
         public static final int MapAttrs_uiZoomGestures = 11;
         /**
-          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.R.attr#useViewLifecycle}
+          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.Filter.R.attr#useViewLifecycle}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -760,11 +764,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name su.Jalapeno.AntiSpam:useViewLifecycle
+          @attr name su.Jalapeno.AntiSpam.Filter:useViewLifecycle
         */
         public static final int MapAttrs_useViewLifecycle = 12;
         /**
-          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.R.attr#zOrderOnTop}
+          <p>This symbol is the offset where the {@link su.Jalapeno.AntiSpam.Filter.R.attr#zOrderOnTop}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -774,7 +778,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name su.Jalapeno.AntiSpam:zOrderOnTop
+          @attr name su.Jalapeno.AntiSpam.Filter:zOrderOnTop
         */
         public static final int MapAttrs_zOrderOnTop = 13;
     };
