@@ -306,18 +306,19 @@ containing a value of this type.
         public static final int cartoon010=0x7f050001;
     }
     public static final class string {
-        public static final int AntiSpamOff=0x7f080036;
-        public static final int AntiSpamOn=0x7f080035;
+        public static final int AntiSpamOff=0x7f080038;
+        public static final int AntiSpamOn=0x7f080037;
         public static final int BannedRegister=0x7f08002c;
         public static final int BillingBuyButton=0x7f080031;
         public static final int BillingBuyText=0x7f080030;
-        public static final int DateFormat=0x7f080038;
+        public static final int DateFormat=0x7f08003a;
         public static final int DebugActivity=0x7f080020;
         public static final int DeleteButton=0x7f080026;
-        public static final int EmptySmsList=0x7f080033;
-        public static final int EmptySpamerList=0x7f080032;
+        public static final int EmptySmsList=0x7f080035;
+        public static final int EmptySpamerList=0x7f080034;
+        public static final int ErrorBilling=0x7f080032;
         public static final int ErrorRegister=0x7f08002d;
-        public static final int ExistsUnknownSms=0x7f080037;
+        public static final int ExistsUnknownSms=0x7f080039;
         /** НЕ НУЖНО
 НЕ НУЖНО
 НЕ НУЖНО
@@ -328,7 +329,8 @@ containing a value of this type.
         public static final int NeedPeekAccount=0x7f08002e;
         public static final int NotExistsUnknownSms=0x7f080027;
         public static final int NotSpamButton=0x7f080025;
-        public static final int ParentActivity=0x7f080039;
+        public static final int ParentActivity=0x7f08003b;
+        public static final int PurchaseComplete=0x7f080033;
         public static final int RegisterButton=0x7f080028;
         public static final int RegisterText=0x7f080029;
         public static final int SettingsTitle=0x7f08001b;
@@ -339,7 +341,7 @@ containing a value of this type.
         public static final int SpamButton=0x7f080024;
         public static final int SpammerList=0x7f080021;
         public static final int TestRegister=0x7f08002f;
-        public static final int WaitMessage=0x7f080034;
+        public static final int WaitMessage=0x7f080036;
         public static final int app_name=0x7f08001a;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
