@@ -236,11 +236,12 @@ containing a value of this type.
         public static final int hbutton_normal=0x7f02001c;
         public static final int hbutton_pressed=0x7f02001d;
         public static final int ic_launcher=0x7f02001e;
-        public static final int ic_plusone_medium_off_client=0x7f02001f;
-        public static final int ic_plusone_small_off_client=0x7f020020;
-        public static final int ic_plusone_standard_off_client=0x7f020021;
-        public static final int ic_plusone_tall_off_client=0x7f020022;
-        public static final int spam_ico=0x7f020023;
+        public static final int ic_notif_white_pepper=0x7f02001f;
+        public static final int ic_plusone_medium_off_client=0x7f020020;
+        public static final int ic_plusone_small_off_client=0x7f020021;
+        public static final int ic_plusone_standard_off_client=0x7f020022;
+        public static final int ic_plusone_tall_off_client=0x7f020023;
+        public static final int spam_ico=0x7f020024;
     }
     public static final class id {
         public static final int btnDeleteSms=0x7f07000b;
