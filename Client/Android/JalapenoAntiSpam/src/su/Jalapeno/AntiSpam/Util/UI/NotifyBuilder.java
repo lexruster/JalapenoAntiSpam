@@ -13,12 +13,12 @@ import android.support.v4.app.NotificationCompat;
 public class NotifyBuilder {
 	@SuppressWarnings("deprecation")
 	public static Notification CreateNotifacation(Context context, long count, boolean withAlert) {
-		Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher);
+		Bitmap iconNotifyWhitePepper = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_notif_white_pepper);
 
 		String title = context.getResources().getString(R.string.app_name);
 
-		NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(context).setOngoing(true).setLargeIcon(bm)
-				.setWhen(System.currentTimeMillis()).setContentInfo(Long.toString(count)).setAutoCancel(false).setContentTitle(title);
+		NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(context).setOngoing(true).setLargeIcon(iconNotifyWhitePepper)
+				.setWhen(System.currentTimeMillis()).setAutoCancel(false).setContentTitle(title);
 
 		String smsStatus = "";
 		int smallIcon = 0;
