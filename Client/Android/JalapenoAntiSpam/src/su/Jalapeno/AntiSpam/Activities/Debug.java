@@ -216,10 +216,7 @@ public class Debug extends JalapenoActivity {
 	}
 	
 	public void GoToBuy(View v) {
-		Config config = _settingsService.LoadSettings();
-		//config.ClientRegistered = false;
-		//config.ClientId = null;
-		//_settingsService.SaveSettings(config);
+		_settingsService.DropUnlimitedAccess();
 		UiUtils.NavigateTo(BillingActivity.class);
 		//startService(new Intent(this, AppService.class));
 	}

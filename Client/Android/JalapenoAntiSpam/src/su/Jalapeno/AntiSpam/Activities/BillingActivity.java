@@ -3,27 +3,25 @@ package su.Jalapeno.AntiSpam.Activities;
 import java.util.ArrayList;
 
 import roboguice.inject.ContentView;
-import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.Billing.util.IabException;
 import su.Jalapeno.AntiSpam.Billing.util.IabHelper;
-import su.Jalapeno.AntiSpam.Billing.util.IabHelper.QueryInventoryFinishedListener;
 import su.Jalapeno.AntiSpam.Billing.util.IabResult;
 import su.Jalapeno.AntiSpam.Billing.util.Inventory;
 import su.Jalapeno.AntiSpam.Billing.util.SkuDetails;
 import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
+import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.NotifyAboutPaymentRequest;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.NotifyAboutPaymentResponse;
 import su.Jalapeno.AntiSpam.Util.BillingConstants;
-import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.CryptoService;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
-import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.inject.Inject;
@@ -37,6 +35,9 @@ public class BillingActivity extends JalapenoActivity {
 	Context _context;
 	@Inject
 	public SettingsService _settingsService;
+	
+	@Inject
+	JalapenoWebServiceWraper _jalapenoWebServiceWraper;
 
 	IabHelper mHelper;
 	protected boolean hasPremium;
@@ -56,12 +57,6 @@ public class BillingActivity extends JalapenoActivity {
 
 	private void Resume() {
 
-		Config config = _settingsService.LoadSettings();
-		/*
-		 * if (config.ClientRegistered) { Logger.Error(LOG_TAG,
-		 * "Init clientRegistered!");
-		 * UiUtils.NavigateAndClearHistory(SettingsActivity.class); }
-		 */
 	}
 
 	@Override
@@ -127,7 +122,6 @@ public class BillingActivity extends JalapenoActivity {
 			Logger.Error(LOG_TAG, "ProceedWithPurchase error", e);
 			ShowToast(R.string.ErrorBilling);
 		}
-
 	}
 
 	private void BuyAccess(Inventory inventory) {
@@ -138,6 +132,8 @@ public class BillingActivity extends JalapenoActivity {
 		if (inventory.hasPurchase(BillingConstants.ANTISPAM_ACCESS)) {
 			Logger.Debug(LOG_TAG, "ANTISPAM_ACCESS already purchase");
 			ShowToast(R.string.PurchaseComplete);
+			
+			ActivateAccess();
 		}
 
 		String accessPrice = skuDetails.getPrice();
@@ -180,6 +176,7 @@ public class BillingActivity extends JalapenoActivity {
 							+ hasPremium);
 					if (hasPremium) {
 						ShowToast(R.string.PurchaseComplete);
+						ActivateAccess();
 					} else {
 						Logger.Debug(LOG_TAG, "ANTISPAM_ACCESS purchase ERROR");
 						ShowToast(R.string.ErrorBilling);
@@ -191,6 +188,15 @@ public class BillingActivity extends JalapenoActivity {
 		mHelper.queryInventoryAsync(mGotInventoryListener);
 	}
 
+	private void ActivateAccess() {
+		NotifyAboutPaymentResponse notifyAboutPayment = _jalapenoWebServiceWraper.NotifyAboutPayment(new NotifyAboutPaymentRequest("Already buy"));
+		if(notifyAboutPayment.WasSuccessful)
+		{
+			_settingsService.ActivateUnlimitedAccess();
+			UiUtils.NavigateAndClearHistory(SettingsActivity.class);
+		}
+	}
+	
 	@Override
 	public void onDestroy() {
 		super.onDestroy();

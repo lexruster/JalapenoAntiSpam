@@ -3,13 +3,16 @@ package su.Jalapeno.AntiSpam.Services.WebService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.Commands.ComplainCommand;
 import su.Jalapeno.AntiSpam.Services.WebService.Commands.IsSpamerCommand;
+import su.Jalapeno.AntiSpam.Services.WebService.Commands.NotifyAboutPaymentCommand;
 import su.Jalapeno.AntiSpam.Services.WebService.Commands.RegisterClientCommand;
 import su.Jalapeno.AntiSpam.Services.WebService.Commands.RegisterTestClientCommand;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.ComplainRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.IsSpammerRequest;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.NotifyAboutPaymentRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.RegisterClientRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.ComplainResponse;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.IsSpammerResponse;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.NotifyAboutPaymentResponse;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.RegisterClientResponse;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
@@ -44,8 +47,18 @@ public class JalapenoWebServiceWraper {
 		return response;
 	}
 	
-	public RegisterClientResponse RegisterTestClient(
-			RegisterClientRequest request) {
+	public NotifyAboutPaymentResponse NotifyAboutPayment(NotifyAboutPaymentRequest request) {
+		Logger.Debug(LOG_TAG, "NotifyAboutPayment  " + request.PaymentInfo);
+
+		NotifyAboutPaymentCommand command = new NotifyAboutPaymentCommand(_jalapenoHttpService, _settingsService, _encoderService,
+				NotifyAboutPaymentResponse.class);
+		NotifyAboutPaymentResponse response = command.Execute(request);
+
+		Logger.Debug(LOG_TAG, "NotifyAboutPayment response " + response.WasSuccessful);
+		return response;
+	}
+
+	public RegisterClientResponse RegisterTestClient(RegisterClientRequest request) {
 		Logger.Debug(LOG_TAG, "RegisterTestClient  " + request.Token);
 
 		RegisterTestClientCommand command = new RegisterTestClientCommand(_jalapenoHttpService, _settingsService, _encoderService,
@@ -53,7 +66,8 @@ public class JalapenoWebServiceWraper {
 		RegisterClientResponse response = command.Execute(request);
 
 		Logger.Debug(LOG_TAG, "RegisterTestClient response " + response.WasSuccessful);
-		return response;	}
+		return response;
+	}
 
 	public boolean IsSpamer(String address, String smsTexthash) {
 		Logger.Debug(LOG_TAG, "IsSpamer " + address);
