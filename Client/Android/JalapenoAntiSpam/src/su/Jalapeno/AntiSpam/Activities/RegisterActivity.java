@@ -1,6 +1,7 @@
 package su.Jalapeno.AntiSpam.Activities;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.UUID;
 
 import roboguice.inject.ContentView;
@@ -13,6 +14,7 @@ import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.RegisterClientRespo
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.WebErrorEnum;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
+import su.Jalapeno.AntiSpam.Util.DateUtil;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
 import su.Jalapeno.AntiSpam.Util.UI.Spiner;
@@ -135,6 +137,7 @@ public class RegisterActivity extends JalapenoActivity {
 		config.ClientId = UUID.randomUUID();
 		config.ClientRegistered = true;
 		config.Enabled = true;
+		config.ExpirationDate=DateUtil.addDays(new Date(), 30);
 		_settingsService.SaveSettings(config);
 		Logger.Debug(LOG_TAG, "Test Register with guid " + config.ClientId);
 		UiUtils.NavigateAndClearHistory(SettingsActivity.class);
@@ -382,6 +385,7 @@ public class RegisterActivity extends JalapenoActivity {
 				Config config = _settingsService.LoadSettings();
 				config.ClientRegistered = true;
 				config.Enabled = true;
+				//config.
 				_settingsService.SaveSettings(config);
 				Logger.Debug(LOG_TAG, "Test Register with guid "
 						+ config.ClientId);

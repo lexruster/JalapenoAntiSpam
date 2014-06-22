@@ -1,9 +1,11 @@
 package su.Jalapeno.AntiSpam.Services;
 
+import java.util.Date;
 import java.util.UUID;
 
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
+import su.Jalapeno.AntiSpam.Util.DateUtil;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -33,7 +35,8 @@ public class SettingsService {
 
 	private void FillConfig(Config config, SharedPreferences jalapenoSettings) {
 		config.Enabled = jalapenoSettings.getBoolean(config.EnabledString, config.EnabledDefault);
-		config.UnknownSound = jalapenoSettings.getString(config.UnknownSoundString, config.UnknownSoundDefault);
+		config.UnlimitedAccess = jalapenoSettings.getBoolean(config.UnlimitedAccessString, config.UnlimitedAccessDefault);
+		config.ExpirationDate = new Date(jalapenoSettings.getLong(config.ExpirationDateString, config.ExpirationDateDefault.getTime()));
 
 		String clientId = jalapenoSettings.getString(config.ClientIdString, config.ClientIdDefault);
 		if (clientId.length() > 0) {
@@ -41,7 +44,6 @@ public class SettingsService {
 		}
 
 		config.ClientRegistered = jalapenoSettings.getBoolean(config.ClientRegisteredString, config.ClientRegisteredDefault);
-
 		config.DomainUrlPrimary = jalapenoSettings.getBoolean(config.DomainUrlPrimaryString, config.DomainUrlPrimaryDefault);
 	}
 
@@ -49,7 +51,8 @@ public class SettingsService {
 		SharedPreferences jalapenoSettings = _context.getSharedPreferences(APP_PREFERENCES, ContextMode);
 		SharedPreferences.Editor editor = jalapenoSettings.edit();
 		editor.putBoolean(config.EnabledString, config.Enabled);
-		editor.putString(config.UnknownSoundString, config.UnknownSound);
+		editor.putBoolean(config.UnlimitedAccessString, config.UnlimitedAccess);
+		editor.putLong(config.ExpirationDateString, config.ExpirationDate.getTime());
 
 		if (config.ClientId != null) {
 			editor.putString(config.ClientIdString, config.ClientId.toString());
@@ -64,11 +67,11 @@ public class SettingsService {
 	private void SetDefault(Config config, SharedPreferences jalapenoSettings) {
 		SharedPreferences.Editor editor = jalapenoSettings.edit();
 		editor.putBoolean(config.EnabledString, config.EnabledDefault);
-		editor.putString(config.UnknownSoundString, config.UnknownSoundDefault);
+		editor.putBoolean(config.UnlimitedAccessString, config.UnlimitedAccessDefault);
 		editor.putString(config.ClientIdString, config.ClientIdDefault);
 		editor.putBoolean(config.ClientRegisteredString, config.ClientRegisteredDefault);
-
 		editor.putBoolean(config.DomainUrlPrimaryString, config.DomainUrlPrimaryDefault);
+		editor.putLong(config.ExpirationDateString, config.ExpirationDateDefault.getTime());
 
 		editor.commit();
 	}
@@ -88,6 +91,36 @@ public class SettingsService {
 	public boolean AntispamEnabled() {
 		Config config = LoadSettings();
 
-		return config.Enabled && config.ClientRegistered;
+		return config.Enabled && config.ClientRegistered && AccessAllowed(config);
+	}
+
+	private boolean AccessAllowed(Config config) {
+		if(config.UnlimitedAccess)
+		{
+			return true;
+		}
+		
+		if(config.ExpirationDate.after(new Date()))
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public void DropUnlimitedAccess() {
+		Config config = LoadSettings();
+		config.UnlimitedAccess = false;
+		config.Enabled = false;
+		config.ExpirationDate = DateUtil.addDays(new Date(), -1);
+		SaveSettings(config);
+	}
+	
+	public void ActivateUnlimitedAccess() {
+		Config config = LoadSettings();
+		config.UnlimitedAccess = true;
+		config.Enabled = true;
+		config.ExpirationDate = DateUtil.addDays(new Date(), 30);
+		SaveSettings(config);
 	}
 }

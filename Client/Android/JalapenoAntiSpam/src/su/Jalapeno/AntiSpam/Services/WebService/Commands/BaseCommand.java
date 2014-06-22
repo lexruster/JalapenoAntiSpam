@@ -133,7 +133,7 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 		}
 		Logger.Debug(LOG_TAG, "ValidateAndNeedResend " + response.ErrorMessage);
 
-		if (response.ErrorMessage == WebErrorEnum.InvalidToken || response.ErrorMessage == WebErrorEnum.TooManyComplaintsFromUser) {
+		if (/* response.ErrorMessage == WebErrorEnum.InvalidToken || */response.ErrorMessage == WebErrorEnum.TooManyComplaintsFromUser) {
 			return false;
 		}
 
@@ -147,6 +147,10 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 			_settingsService.SaveSettings(_config);
 
 			return false;
+		}
+
+		if (response.ErrorMessage == WebErrorEnum.PaymentRequired) {
+			_settingsService.DropUnlimitedAccess();
 		}
 
 		return false;

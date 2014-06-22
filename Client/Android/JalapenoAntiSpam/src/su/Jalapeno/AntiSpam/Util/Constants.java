@@ -12,5 +12,6 @@ public class Constants {
 	public final static String BROADCAST_TRASH_SMS_ACTION = "su.Jalapeno.AntiSpam.BROADCAST_TRASH_SMS_ACTION";
 
 	public static final boolean VIEW_DEBUG_UI = true;
+	// when no internet
 	public static final boolean DEBUG_STANDALONE_MODE = false;
 }
