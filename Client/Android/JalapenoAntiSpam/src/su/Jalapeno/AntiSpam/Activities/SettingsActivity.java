@@ -28,8 +28,8 @@ public class SettingsActivity extends JalapenoActivity {
 	@Inject
 	SettingsService _settingsService;
 
-	@InjectView(R.id.buttonDebug)
-	Button buttonDebug;
+	@InjectView(R.id.buttonDebugPurchase)
+	Button buttonDebugPurchase;
 
 	@InjectView(R.id.toggleEnabled)
 	ToggleButton toogleButton;
@@ -37,7 +37,6 @@ public class SettingsActivity extends JalapenoActivity {
 	@Override
 	public void onBackPressed() {
 		Logger.Debug(LOG_TAG, "onBackPressed");
-
 		UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 	}
 
@@ -51,17 +50,20 @@ public class SettingsActivity extends JalapenoActivity {
 
 	private void SetEvent() {
 		Logger.Debug(LOG_TAG, "SetEvent");
-		UiUtils.SetTapForButton(R.id.buttonSpammerList, new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				ViewSpamerList();
-			}
-		});
+		UiUtils.SetTapForButton(R.id.buttonSpammerList,
+				new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						ViewSpamerList();
+					}
+				});
 
 		UiUtils.SetTapForButton(R.id.buttonDebug, new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				UiUtils.NavigateTo(Debug.class);
+				if (Constants.VIEW_DEBUG_UI) {
+					UiUtils.NavigateTo(Debug.class);
+				}
 			}
 		});
 	}
@@ -85,7 +87,8 @@ public class SettingsActivity extends JalapenoActivity {
 
 	private void Resume() {
 		Config config = _settingsService.LoadSettings();
-		Logger.Debug(LOG_TAG, "Init ClientRegistered " + config.ClientRegistered);
+		Logger.Debug(LOG_TAG, "Init ClientRegistered "
+				+ config.ClientRegistered);
 		if (config.ClientRegistered) {
 
 		} else {
@@ -99,9 +102,9 @@ public class SettingsActivity extends JalapenoActivity {
 
 	private void SetDebugMode(boolean isDebug) {
 		if (isDebug) {
-			buttonDebug.setVisibility(View.VISIBLE);
+			buttonDebugPurchase.setVisibility(View.VISIBLE);
 		} else {
-			buttonDebug.setVisibility(View.INVISIBLE);
+			buttonDebugPurchase.setVisibility(View.INVISIBLE);
 		}
 	}
 

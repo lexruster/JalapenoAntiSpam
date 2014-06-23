@@ -3,6 +3,8 @@ package su.Jalapeno.AntiSpam.Activities;
 import java.util.ArrayList;
 
 import roboguice.inject.ContentView;
+import roboguice.inject.InjectView;
+import su.Jalapeno.AntiSpam.Activities.RegisterActivity.TestRegisterTask;
 import su.Jalapeno.AntiSpam.Billing.util.IabException;
 import su.Jalapeno.AntiSpam.Billing.util.IabHelper;
 import su.Jalapeno.AntiSpam.Billing.util.IabResult;
@@ -22,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.inject.Inject;
@@ -38,6 +41,9 @@ public class BillingActivity extends JalapenoActivity {
 	
 	@Inject
 	JalapenoWebServiceWraper _jalapenoWebServiceWraper;
+	
+	@InjectView(R.id.buttonDebug)
+	Button buttonDebug;
 
 	IabHelper mHelper;
 	protected boolean hasPremium;
@@ -56,7 +62,10 @@ public class BillingActivity extends JalapenoActivity {
 	}
 
 	private void Resume() {
-
+	}
+	
+	private void Init() {
+		SetDebugMode(Constants.VIEW_DEBUG_UI);
 	}
 
 	@Override
@@ -76,6 +85,14 @@ public class BillingActivity extends JalapenoActivity {
 		}
 				
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+	
+	public void BuyTest(View view) {
+		Logger.Debug(LOG_TAG, "BuyTest");
+		if(Constants.VIEW_DEBUG_UI)
+		{
+			new TestRegisterTask().execute();
+		}
 	}
 
 	public void Buy(View view) {
@@ -214,5 +231,13 @@ public class BillingActivity extends JalapenoActivity {
 			}
 		});
 		Toast.makeText(this, res, Toast.LENGTH_SHORT).show();
+	}
+	
+	private void SetDebugMode(boolean isDebug) {
+		if (isDebug) {
+			buttonDebug.setVisibility(View.VISIBLE);
+		} else {
+			buttonDebug.setVisibility(View.INVISIBLE);
+		}
 	}
 }
