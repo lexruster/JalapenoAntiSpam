@@ -13,16 +13,16 @@
         android:typeface="normal" />
 
     <Button
-        android:id="@+id/buttonRegister"
+        android:id="@+id/buttonPurchase"
         style="@style/BaseControl.Button"
         android:onClick="Buy"
         android:text="@string/BillingBuyButton" />
 
     <Button
-        android:id="@+id/buttonDebugRegister"
+        android:id="@+id/buttonDebugPurchase"
         style="@style/BaseControl.Button.Debug"
         android:text="@string/TestRegister"
         android:visibility="invisible" 
-        android:onClick="Buy"/>
+        android:onClick="BuyTest"/>
 
 </LinearLayout>

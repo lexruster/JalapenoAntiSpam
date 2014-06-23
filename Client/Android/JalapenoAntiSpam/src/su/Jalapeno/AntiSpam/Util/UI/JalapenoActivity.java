@@ -6,7 +6,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockActivity;
 
 public class JalapenoActivity extends RoboSherlockActivity{
-    protected UiControlsUtil UiUtils;
+    public UiControlsUtil UiUtils;
 
     public JalapenoActivity() {
         UiUtils = new UiControlsUtil(this);

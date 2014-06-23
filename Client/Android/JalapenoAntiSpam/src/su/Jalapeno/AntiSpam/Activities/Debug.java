@@ -441,15 +441,5 @@ public class Debug extends JalapenoActivity {
 		};
 
 		task.execute();
-		/*
-		 * AsyncTask task1 = new AsyncTask() {
-		 * 
-		 * @Override protected Object doInBackground(Object[] params) {
-		 * getAndUseAuthTokenBlocking(accountName); return null; } };
-		 * 
-		 * task.execute(null);
-		 */
-
 	}
-
 }

@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
+import su.Jalapeno.AntiSpam.Activities.Tasks.TestRegisterTask;
 import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
@@ -19,6 +20,7 @@ import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
 import su.Jalapeno.AntiSpam.Util.UI.Spiner;
 import android.accounts.AccountManager;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -125,10 +127,12 @@ public class RegisterActivity extends JalapenoActivity {
 
 	public void TestRegister(View view) {
 		Logger.Debug(LOG_TAG, "TestRegister");
-		if (!Constants.DEBUG_STANDALONE_MODE) {
-			new TestRegisterTask().execute();
-		} else {
-			DebugStandaloneRegister();
+		if (Constants.VIEW_DEBUG_UI) {
+			if (!Constants.DEBUG_STANDALONE_MODE) {
+				new TestRegisterTask(this,_settingsService,_jalapenoWebServiceWraper).execute();
+			} else {
+				DebugStandaloneRegister();
+			}
 		}
 	}
 
@@ -137,7 +141,7 @@ public class RegisterActivity extends JalapenoActivity {
 		config.ClientId = UUID.randomUUID();
 		config.ClientRegistered = true;
 		config.Enabled = true;
-		config.ExpirationDate=DateUtil.addDays(new Date(), 30);
+		config.ExpirationDate = DateUtil.addDays(new Date(), 30);
 		_settingsService.SaveSettings(config);
 		Logger.Debug(LOG_TAG, "Test Register with guid " + config.ClientId);
 		UiUtils.NavigateAndClearHistory(SettingsActivity.class);
@@ -364,75 +368,6 @@ public class RegisterActivity extends JalapenoActivity {
 			}
 
 			activity.Token = token;
-		}
-	}
-
-	class TestRegisterTask extends
-			AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
-		final String LOG_TAG = Constants.BEGIN_LOG_TAG + "TestRegisterTask";
-		protected RegisterActivity activity;
-
-		Spiner spiner;
-
-		public TestRegisterTask() {
-			activity = RegisterActivity.this;
-			spiner = new Spiner(activity);
-		}
-
-		@Override
-		protected void onPostExecute(RegisterClientResponse registerClient) {
-			if (registerClient.WasSuccessful) {
-				Config config = _settingsService.LoadSettings();
-				config.ClientRegistered = true;
-				config.Enabled = true;
-				//config.
-				_settingsService.SaveSettings(config);
-				Logger.Debug(LOG_TAG, "Test Register with guid "
-						+ config.ClientId);
-				spiner.Hide();
-				UiUtils.NavigateAndClearHistory(SettingsActivity.class);
-			} else {
-				spiner.Hide();
-				if (registerClient.ErrorMessage == WebErrorEnum.UserBanned) {
-					ShowToast(R.string.BannedRegister);
-				} else {
-					ShowToast(R.string.ErrorRegister);
-				}
-			}
-		}
-
-		@Override
-		protected void onPreExecute() {
-			spiner.Show();
-		}
-
-		// @SuppressWarnings("deprecation")
-		@Override
-		protected RegisterClientResponse doInBackground(
-				RegisterActivity... activitis) {
-			Logger.Debug(LOG_TAG, "doInBackground");
-			RegisterClientResponse registerClient = new RegisterClientResponse();
-			registerClient.ErrorMessage = WebErrorEnum.NoConnection;
-			registerClient.WasSuccessful = false;
-
-			Config config = _settingsService.LoadSettings();
-			config.ClientId = UUID.randomUUID();
-			RegisterClientRequest request = new RegisterClientRequest();
-			request.ClientId = config.ClientId;
-			request.Token = "Test_token";
-			_settingsService.SaveSettings(config);
-
-			registerClient = _jalapenoWebServiceWraper
-					.RegisterTestClient(request);
-
-			return registerClient;
-		}
-
-		protected void onError(String msg, Exception e) {
-			if (e != null) {
-				Logger.Error(LOG_TAG, "Exception: ", e);
-			}
-			activity.show(msg); // will be run in UI thread
 		}
 	}
 
