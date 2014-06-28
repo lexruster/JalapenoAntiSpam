@@ -7,14 +7,11 @@ import android.content.Context;
 
 public class SmsReceiverWrapper {
 
-    public SmsReceiverWrapper() {
-    }
+	public SmsReceiverWrapper() {
+	}
 
-    public boolean Receive(Sms sms, Context context) {
-        SettingsService settingsService = new SettingsService(context);
-        SmsReceiverLogic smsService = ServiceFactory.GetSmsService(context);
-
-        SmsReceiver smsReceiver = new SmsReceiver(settingsService, smsService);
-        return smsReceiver.Receive(sms, context);
-    }
+	public boolean Receive(Sms sms, Context context) {
+		SmsReceiver smsReceiver = ServiceFactory.GetSmsReceiver(context);
+		return smsReceiver.Receive(sms, context);
+	}
 }

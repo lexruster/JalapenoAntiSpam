@@ -3,89 +3,46 @@ package su.Jalapeno.AntiSpam.Services;
 import java.util.Date;
 import java.util.UUID;
 
+import su.Jalapeno.AntiSpam.Services.WebService.WebConstants;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.DateUtil;
-import android.content.Context;
-import android.content.SharedPreferences;
 
 import com.google.inject.Inject;
 
 public class SettingsService {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "SettingsService";
-	public static final String APP_PREFERENCES = "jalapenoSettings";
-	private Context _context;
-	private int ContextMode = Context.MODE_PRIVATE | 0x4;
+	private ConfigService _configService;
 
 	@Inject
-	public SettingsService(Context context) {
-		_context = context;
+	public SettingsService(ConfigService configService) {
+		_configService = configService;
 	}
 
-	public Config LoadSettings() {
-		Config config = new Config();
-		SharedPreferences jalapenoSettings = _context.getSharedPreferences(APP_PREFERENCES, ContextMode);
-		if (!jalapenoSettings.contains(config.EnabledString)) {
-			SetDefault(new Config(), jalapenoSettings);
-		}
-		FillConfig(config, jalapenoSettings);
-
-		return config;
+	private void SaveSettings(Config config) {
+		_configService.SaveSettings(config);
 	}
 
-	private void FillConfig(Config config, SharedPreferences jalapenoSettings) {
-		config.Enabled = jalapenoSettings.getBoolean(config.EnabledString, config.EnabledDefault);
-		config.UnlimitedAccess = jalapenoSettings.getBoolean(config.UnlimitedAccessString, config.UnlimitedAccessDefault);
-		config.ExpirationDate = new Date(jalapenoSettings.getLong(config.ExpirationDateString, config.ExpirationDateDefault.getTime()));
-
-		String clientId = jalapenoSettings.getString(config.ClientIdString, config.ClientIdDefault);
-		if (clientId.length() > 0) {
-			config.ClientId = UUID.fromString(clientId);
-		}
-
-		config.ClientRegistered = jalapenoSettings.getBoolean(config.ClientRegisteredString, config.ClientRegisteredDefault);
-		config.DomainUrlPrimary = jalapenoSettings.getBoolean(config.DomainUrlPrimaryString, config.DomainUrlPrimaryDefault);
-	}
-
-	public void SaveSettings(Config config) {
-		SharedPreferences jalapenoSettings = _context.getSharedPreferences(APP_PREFERENCES, ContextMode);
-		SharedPreferences.Editor editor = jalapenoSettings.edit();
-		editor.putBoolean(config.EnabledString, config.Enabled);
-		editor.putBoolean(config.UnlimitedAccessString, config.UnlimitedAccess);
-		editor.putLong(config.ExpirationDateString, config.ExpirationDate.getTime());
-
-		if (config.ClientId != null) {
-			editor.putString(config.ClientIdString, config.ClientId.toString());
-		}
-		editor.putBoolean(config.ClientRegisteredString, config.ClientRegistered);
-
-		editor.putBoolean(config.DomainUrlPrimaryString, config.DomainUrlPrimary);
-
-		editor.commit();
-	}
-
-	private void SetDefault(Config config, SharedPreferences jalapenoSettings) {
-		SharedPreferences.Editor editor = jalapenoSettings.edit();
-		editor.putBoolean(config.EnabledString, config.EnabledDefault);
-		editor.putBoolean(config.UnlimitedAccessString, config.UnlimitedAccessDefault);
-		editor.putString(config.ClientIdString, config.ClientIdDefault);
-		editor.putBoolean(config.ClientRegisteredString, config.ClientRegisteredDefault);
-		editor.putBoolean(config.DomainUrlPrimaryString, config.DomainUrlPrimaryDefault);
-		editor.putLong(config.ExpirationDateString, config.ExpirationDateDefault.getTime());
-
-		editor.commit();
+	private Config LoadSettings() {
+		return _configService.LoadSettings();
 	}
 
 	public UUID GetClientId() {
 		Config config = LoadSettings();
-
 		return config.ClientId;
 	}
 
 	public String GetDomain() {
 		Config config = LoadSettings();
+		return GetDomain(config);
+	}
 
-		return config.GetDomain();
+	private String GetDomain(Config config) {
+		if (config.DomainUrlPrimary) {
+			return WebConstants.DOMAIN_URL_PRIMARY;
+		} else {
+			return WebConstants.DOMAIN_URL_SECONDARY;
+		}
 	}
 
 	public boolean AntispamEnabled() {
@@ -95,19 +52,17 @@ public class SettingsService {
 	}
 
 	private boolean AccessAllowed(Config config) {
-		if(config.UnlimitedAccess)
-		{
+		if (config.UnlimitedAccess) {
 			return true;
 		}
-		
-		if(config.ExpirationDate.after(new Date()))
-		{
+
+		if (config.ExpirationDate.after(new Date())) {
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	public void DropUnlimitedAccess() {
 		Config config = LoadSettings();
 		config.UnlimitedAccess = false;
@@ -115,12 +70,75 @@ public class SettingsService {
 		config.ExpirationDate = DateUtil.addDays(new Date(), -1);
 		SaveSettings(config);
 	}
-	
+
 	public void ActivateUnlimitedAccess() {
 		Config config = LoadSettings();
 		config.UnlimitedAccess = true;
 		config.Enabled = true;
 		config.ExpirationDate = DateUtil.addDays(new Date(), 30);
+		SaveSettings(config);
+	}
+
+	public void ChangeDomain() {
+		Config config = LoadSettings();
+		config.DomainUrlPrimary = !config.DomainUrlPrimary;
+		SaveSettings(config);
+	}
+
+	public boolean ClientIsRegistered() {
+		Config config = LoadSettings();
+		return config.ClientRegistered;
+	}
+
+	public void RegisterClient(UUID uuid, Date expirationDate) {
+		Config config = LoadSettings();
+		config.ClientId = uuid;
+		RegisterClient(expirationDate, config);
+		SaveSettings(config);
+	}
+
+	public void RegisterClient(Date expirationDate) {
+		Config config = LoadSettings();
+		RegisterClient(expirationDate, config);
+		SaveSettings(config);
+	}
+
+	private void RegisterClient(Date expirationDate, Config config) {
+		config.ClientRegistered = true;
+		config.Enabled = true;
+		config.ExpirationDate = expirationDate;
+		if (expirationDate == null) {
+			config.UnlimitedAccess = true;
+		}
+	}
+
+	public void PrepareClientForRegister(UUID uuid) {
+		Config config = LoadSettings();
+		config.ClientId = uuid;
+		SaveSettings(config);
+	}
+
+	public void DropRegistration() {
+		Config config = LoadSettings();
+		DropRegistration(config);
+		SaveSettings(config);
+	}
+
+	public void HandleClientNotRegistered() {
+		Config config = LoadSettings();
+		DropRegistration(config);
+		SaveSettings(config);
+	}
+
+	private void DropRegistration(Config config) {
+		config.ClientRegistered = false;
+		config.ClientId = null;
+		config.Enabled = false;
+	}
+
+	public void SetAntispamEnabled(boolean enabled) {
+		Config config = LoadSettings();
+		config.Enabled = enabled;
 		SaveSettings(config);
 	}
 }

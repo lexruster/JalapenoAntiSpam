@@ -43,8 +43,7 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setDateFormat("dd.MM.yy hh:mm:ss");
 		_gson = gsonBuilder.serializeNulls().create();
-		_config = _settingsService.LoadSettings();
-		_domain = _config.GetDomain();
+		_domain = _settingsService.GetDomain();
 	}
 
 	protected abstract String GetAction();
@@ -121,10 +120,8 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 
 	private void ChangeDomain() {
 		Logger.Debug(LOG_TAG, "ChangeDomain");
-		_config.DomainUrlPrimary = !_config.DomainUrlPrimary;
-		_settingsService.SaveSettings(_config);
-		_config = _settingsService.LoadSettings();
-		_domain = _config.GetDomain();
+		_settingsService.ChangeDomain();
+		_domain = _settingsService.GetDomain();
 	}
 
 	private boolean NeedResend(BaseResponse response) {
@@ -141,10 +138,7 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 				|| response.ErrorMessage == WebErrorEnum.NotAuthorizedRequest) {
 			Logger.Debug(LOG_TAG, "Disable registration by error " + response.ErrorMessage);
 
-			_config = _settingsService.LoadSettings();
-			_config.ClientRegistered = false;
-			_config.Enabled = false;
-			_settingsService.SaveSettings(_config);
+			_settingsService.DropRegistration();
 
 			return false;
 		}

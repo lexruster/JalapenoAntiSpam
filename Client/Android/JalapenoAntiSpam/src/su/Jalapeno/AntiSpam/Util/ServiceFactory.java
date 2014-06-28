@@ -2,6 +2,7 @@ package su.Jalapeno.AntiSpam.Util;
 
 import su.Jalapeno.AntiSpam.DAL.Repository;
 import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
+import su.Jalapeno.AntiSpam.Services.ConfigService;
 import su.Jalapeno.AntiSpam.Services.ContactsService;
 import su.Jalapeno.AntiSpam.Services.RequestQueue;
 import su.Jalapeno.AntiSpam.Services.NotifyService;
@@ -10,6 +11,7 @@ import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsHashService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsQueueService;
+import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiver;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiverLogic;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsService;
 import su.Jalapeno.AntiSpam.Services.Sms.TrashSmsService;
@@ -20,9 +22,9 @@ import android.content.Context;
 
 public class ServiceFactory {
 
-	public static SmsReceiverLogic GetSmsService(Context context) {
+	public static SmsReceiverLogic GetSmsReceiverLogic(Context context) {
 		Repository repository = RepositoryFactory.getRepository();
-		SettingsService _settingsService = new SettingsService(context);
+		SettingsService _settingsService = GetSettingsService(context);
 		EncoderService encodeService = new EncoderService();
 		JalapenoHttpService jalapenoHttpService = new JalapenoHttpService(context, encodeService);
 		JalapenoWebServiceWraper jalapenoWebServiceWraper = new JalapenoWebServiceWraper(jalapenoHttpService, _settingsService,
@@ -47,7 +49,7 @@ public class ServiceFactory {
 
 	public static RequestQueue GetRequestQueue(Context context) {
 		Repository repository = RepositoryFactory.getRepository();
-		SettingsService _settingsService = new SettingsService(context);
+		SettingsService _settingsService = GetSettingsService(context);
 		EncoderService encodeService = new EncoderService();
 		JalapenoHttpService jalapenoHttpService = new JalapenoHttpService(context, encodeService);
 		JalapenoWebServiceWraper jalapenoWebServiceWraper = new JalapenoWebServiceWraper(jalapenoHttpService, _settingsService,
@@ -55,5 +57,18 @@ public class ServiceFactory {
 		RequestQueue requestQueue = new RequestQueue(repository, jalapenoWebServiceWraper, _settingsService);
 
 		return requestQueue;
+	}
+
+	public static SettingsService GetSettingsService(Context context) {
+
+		ConfigService configService = new ConfigService(context);
+		SettingsService settingsService = new SettingsService(configService);
+
+		return settingsService;
+	}
+
+	public static SmsReceiver GetSmsReceiver(Context context) {
+		SmsReceiver smsReceiver = new SmsReceiver(GetSettingsService(context), GetSmsReceiverLogic(context));
+		return smsReceiver;
 	}
 }

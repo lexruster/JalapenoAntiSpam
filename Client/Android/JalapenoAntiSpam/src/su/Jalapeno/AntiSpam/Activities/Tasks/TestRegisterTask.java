@@ -36,12 +36,8 @@ public class TestRegisterTask extends
 	@Override
 	protected void onPostExecute(RegisterClientResponse registerClient) {
 		if (registerClient.WasSuccessful) {
-			Config config = _settingsService.LoadSettings();
-			config.ClientRegistered = true;
-			config.Enabled = true;
-			// config.
-			_settingsService.SaveSettings(config);
-			Logger.Debug(LOG_TAG, "Test Register with guid " + config.ClientId);
+			_settingsService.RegisterClient(registerClient.ExpirationDate);
+			Logger.Debug(LOG_TAG, "Test Register with guid " + _settingsService.GetClientId());
 			spiner.Hide();
 			_activity.UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 		} else {
@@ -68,13 +64,12 @@ public class TestRegisterTask extends
 		registerClient.ErrorMessage = WebErrorEnum.NoConnection;
 		registerClient.WasSuccessful = false;
 
-		Config config = _settingsService.LoadSettings();
-		config.ClientId = UUID.randomUUID();
+		UUID uuid= UUID.randomUUID();
+		_settingsService.PrepareClientForRegister(uuid);
 		RegisterClientRequest request = new RegisterClientRequest();
-		request.ClientId = config.ClientId;
+		request.ClientId = uuid;
 		request.Token = "Test_token";
-		_settingsService.SaveSettings(config);
-
+		
 		registerClient = _jalapenoWebServiceWraper.RegisterTestClient(request);
 
 		return registerClient;

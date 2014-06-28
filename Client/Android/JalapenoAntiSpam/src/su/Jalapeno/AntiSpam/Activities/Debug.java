@@ -48,11 +48,12 @@ public class Debug extends JalapenoActivity {
 	ContactsService contactsService;
 	@Inject
 	JalapenoHttpService jalapenoHttpService;
+	@Inject
+	SettingsService _settingsService;
 
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "DebugActivity";
 
 	SmsReceiverLogic _smsService;
-	SettingsService _settingsService;
 	SmsReceiver _smsReceiver;
 	Context _context;
 	private String spamPhone = "+79999";
@@ -94,8 +95,7 @@ public class Debug extends JalapenoActivity {
 		 SCOPE = SCOPE_BASE + CLIENT_ID;
 		//SCOPE = "oauth2:https://www.googleapis.com/auth/userinfo.profile";
 		_context = getApplicationContext();
-		_smsService = ServiceFactory.GetSmsService(_context);
-		_settingsService = new SettingsService(_context);
+		_smsService = ServiceFactory.GetSmsReceiverLogic(_context);
 
 		_smsReceiver = new SmsReceiver(_settingsService, _smsService);
 		_ringtoneService = new NotifyService(_context, _settingsService);
@@ -208,10 +208,7 @@ public class Debug extends JalapenoActivity {
 	}
 
 	public void DropRegister(View v) {
-		Config config = _settingsService.LoadSettings();
-		config.ClientRegistered = false;
-		config.ClientId = null;
-		_settingsService.SaveSettings(config);
+		_settingsService.DropRegistration();
 		startService(new Intent(this, AppService.class));
 	}
 	

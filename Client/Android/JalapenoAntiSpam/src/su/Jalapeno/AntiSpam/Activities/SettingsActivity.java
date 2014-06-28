@@ -50,13 +50,12 @@ public class SettingsActivity extends JalapenoActivity {
 
 	private void SetEvent() {
 		Logger.Debug(LOG_TAG, "SetEvent");
-		UiUtils.SetTapForButton(R.id.buttonSpammerList,
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						ViewSpamerList();
-					}
-				});
+		UiUtils.SetTapForButton(R.id.buttonSpammerList, new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				ViewSpamerList();
+			}
+		});
 
 		UiUtils.SetTapForButton(R.id.buttonDebug, new View.OnClickListener() {
 			@Override
@@ -86,18 +85,15 @@ public class SettingsActivity extends JalapenoActivity {
 	}
 
 	private void Resume() {
-		Config config = _settingsService.LoadSettings();
-		Logger.Debug(LOG_TAG, "Init ClientRegistered "
-				+ config.ClientRegistered);
-		if (config.ClientRegistered) {
-
+		boolean clientIsRegistered = _settingsService.ClientIsRegistered();
+		Logger.Debug(LOG_TAG, "Init ClientRegistered " + clientIsRegistered);
+		if (clientIsRegistered ) {
 		} else {
-			config.Enabled = false;
-			_settingsService.SaveSettings(config);
+			_settingsService.HandleClientNotRegistered();
 			Logger.Debug(LOG_TAG, "Init NavigateTo RegisterActivity");
 			UiUtils.NavigateTo(RegisterActivity.class);
 		}
-		toogleButton.setChecked(config.Enabled);
+		toogleButton.setChecked(_settingsService.AntispamEnabled());
 	}
 
 	private void SetDebugMode(boolean isDebug) {
@@ -113,9 +109,7 @@ public class SettingsActivity extends JalapenoActivity {
 	}
 
 	public void toggleClick(View view) {
-		Config config = _settingsService.LoadSettings();
-		config.Enabled = toogleButton.isChecked();
-		_settingsService.SaveSettings(config);
+		_settingsService.SetAntispamEnabled(toogleButton.isChecked());
 		startService(new Intent(this, AppService.class));
 	}
 
