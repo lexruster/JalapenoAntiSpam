@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
+import su.Jalapeno.AntiSpam.Activities.Tasks.RegisterTask;
 import su.Jalapeno.AntiSpam.Activities.Tasks.TestRegisterTask;
 import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
@@ -67,7 +68,7 @@ public class RegisterActivity extends JalapenoActivity {
 
 	public String Email;
 	public String Token;
-	static String SCOPE;
+	public static String SCOPE;
 	// from web app id
 	final private String WEB_CLIENT_ID = "140853970719-4ohgmn0eojg2qeh75r96m9iojpra4omr.apps.googleusercontent.com";
 
@@ -203,25 +204,6 @@ public class RegisterActivity extends JalapenoActivity {
 		ShowToast(R.string.ErrorRegister);
 	}
 
-	public void show(final String message) {
-		runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
-			}
-		});
-	}
-
-	public void ShowToast(final int res) {
-		runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				Toast.makeText(RegisterActivity.this, res, Toast.LENGTH_SHORT).show();
-			}
-		});
-		Toast.makeText(this, res, Toast.LENGTH_SHORT).show();
-	}
-
 	public void handleException(final Exception e) {
 		Logger.Error(LOG_TAG, "handleException", e);
 		runOnUiThread(new Runnable() {
@@ -250,104 +232,7 @@ public class RegisterActivity extends JalapenoActivity {
 
 	private RegisterTask GetRegiseterTask() {
 		Logger.Debug(LOG_TAG, "getTask");
-		return new RegisterTask();
-	}
-
-	class RegisterTask extends AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
-		final String LOG_TAG = Constants.BEGIN_LOG_TAG + "RegisterTask";
-		protected RegisterActivity activity;
-
-		Spiner spiner;
-
-		public RegisterTask() {
-			activity = RegisterActivity.this;
-			spiner = new Spiner(activity);
-		}
-
-		@Override
-		protected void onPostExecute(RegisterClientResponse registerClient) {
-			if (registerClient.WasSuccessful) {
-				
-				_settingsService.RegisterClient(registerClient.ExpirationDate);
-				
-				Logger.Debug(LOG_TAG, "Register with guid " + _settingsService.GetClientId());
-				spiner.Hide();
-				UiUtils.NavigateAndClearHistory(SettingsActivity.class);
-			} else {
-				spiner.Hide();
-				if (registerClient.ErrorMessage == WebErrorEnum.UserBanned) {
-					ShowToast(R.string.BannedRegister);
-				} else {
-					ShowToast(R.string.ErrorRegister);
-				}
-			}
-		}
-
-		@Override
-		protected void onPreExecute() {
-			spiner.Show();
-		}
-
-		// @SuppressWarnings("deprecation")
-		@Override
-		protected RegisterClientResponse doInBackground(RegisterActivity... activitis) {
-			Logger.Debug(LOG_TAG, "doInBackground");
-			RegisterClientResponse registerClient = new RegisterClientResponse();
-			registerClient.ErrorMessage = WebErrorEnum.NoConnection;
-			registerClient.WasSuccessful = false;
-
-			try {
-				fetchToken();
-				Logger.Debug(LOG_TAG, "fetchNameFromProfileServer token=" + activity.Token);
-			} catch (IOException ex) {
-				onError("Following Error occured, please try again. " + ex.getMessage(), ex);
-			} catch (Exception ex) {
-				Logger.Error(LOG_TAG, "doInBackground Exception", ex);
-			}
-			if (TextUtils.isEmpty(activity.Token)) {
-				return registerClient;
-			}
-
-			UUID uuid = UUID.randomUUID();
-			_settingsService.PrepareClientForRegister(uuid);
-			
-			RegisterClientRequest request = new RegisterClientRequest();
-			request.ClientId = uuid;
-			request.Token = activity.Token;
-
-			registerClient = _jalapenoWebServiceWraper.RegisterClient(request);
-
-			return registerClient;
-		}
-
-		protected void onError(String msg, Exception e) {
-			if (e != null) {
-				Logger.Error(LOG_TAG, "Exception: ", e);
-			}
-			activity.show(msg); // will be run in UI thread
-		}
-
-		private void fetchToken() throws IOException {
-			String token = null;
-			try {
-				Logger.Debug(LOG_TAG, "fetchToken scope: " + RegisterActivity.SCOPE);
-				token = GoogleAuthUtil.getToken(activity, activity.Email, RegisterActivity.SCOPE);
-			} catch (UserRecoverableAuthException userRecoverableException) {
-				// GooglePlayServices.apk is either old, disabled, or not
-				// present, which is
-				// recoverable, so we need to show the user some UI through the
-				// activity.
-				activity.handleException(userRecoverableException);
-			} catch (GoogleAuthException fatalException) {
-				onError("Unrecoverable error " + fatalException.getMessage(), fatalException);
-			}
-
-			if (token == null) {
-				return;
-			}
-
-			activity.Token = token;
-		}
+		return new RegisterTask(this, _settingsService, _jalapenoWebServiceWraper);
 	}
 
 	private void SetDebugMode(boolean isDebug) {
