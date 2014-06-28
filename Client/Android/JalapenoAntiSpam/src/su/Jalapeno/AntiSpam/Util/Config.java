@@ -7,37 +7,27 @@ import su.Jalapeno.AntiSpam.Services.WebService.WebConstants;
 
 public class Config {
 
-	public String EnabledString = "Enabled";
+	public String NAME_Enabled = "Enabled";
 	public boolean Enabled;
-	public boolean EnabledDefault = false;
+	public boolean DEFAULT_Enabled = false;
 
-	public String ClientRegisteredString = "ClientRegistered";
+	public String NAME_ClientRegistered = "ClientRegistered";
 	public boolean ClientRegistered;
-	public boolean ClientRegisteredDefault = false;
+	public boolean DEFAULT_ClientRegistered = false;
 
-	public String UnlimitedAccessString = "UnlimitedAccess";
-	public boolean UnlimitedAccess;
-	public boolean UnlimitedAccessDefault = false;
-
-	public String ClientIdString = "ClientId";
+	public String NAME_ClientId = "ClientId";
 	public UUID ClientId;
-	public String ClientIdDefault = "";
+	public String DEFAULT_ClientId = "";
 
-	public String DomainUrlPrimaryString = "DomainUrlPrimary";
+	public String NAME_DomainUrlPrimary = "DomainUrlPrimary";
 	public boolean DomainUrlPrimary;
-	public boolean DomainUrlPrimaryDefault = true;
+	public boolean DEFAULT_DomainUrlPrimary = true;
 
-	public String ExpirationDateString = "ExpirationDate";
+	public String NAME_ExpirationDate = "ExpirationDate";
 	public Date ExpirationDate;
-	public Date ExpirationDateDefault = DateUtil.addDays(new Date(), 30);
-
-	public String GetDomain() {
-		if (DomainUrlPrimary) {
-			return WebConstants.DOMAIN_URL_PRIMARY;
-		} else {
-			return WebConstants.DOMAIN_URL_SECONDARY;
-		}
-	}
-
+	public Date DEFAULT_ExpirationDate = DateUtil.addDays(new Date(), 30);
 	
+	public String NAME_UnlimitedAccess = "UnlimitedAccess";
+	public boolean UnlimitedAccess;
+	public boolean DEFAULT_UnlimitedAccess = false;
 }

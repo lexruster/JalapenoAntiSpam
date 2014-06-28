@@ -81,20 +81,19 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 	}
 
 	private void Resume() {
-		Config config = _settingsService.LoadSettings();
-		Logger.Debug(LOG_TAG, "Resume ClientRegistered " + config.ClientRegistered);
-		if (config.ClientRegistered) {
+		boolean clientIsRegistered = _settingsService.ClientIsRegistered();
+		Logger.Debug(LOG_TAG, "Resume ClientRegistered " + clientIsRegistered );
+		if (clientIsRegistered ) {
 
 		} else {
-			config.Enabled = false;
-			_settingsService.SaveSettings(config);
+			_settingsService.HandleClientNotRegistered();
 			Logger.Debug(LOG_TAG, "Init NavigateTo RegisterActivity");
 			UiUtils.NavigateTo(RegisterActivity.class);
 			return;
 		}
 
 		registerReceiver(_receiver, _intFilt);
-
+		
 		_context.startService(new Intent(_context, AppService.class));
 		_smsAdapter.LoadData();
 		LoadList();

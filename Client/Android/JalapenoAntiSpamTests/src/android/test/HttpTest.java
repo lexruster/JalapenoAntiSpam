@@ -2,6 +2,8 @@ package android.test;
 
 import java.util.UUID;
 
+import org.apache.http.entity.SerializableEntity;
+
 import junit.framework.Assert;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.EncoderService;
@@ -10,6 +12,7 @@ import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
 import su.Jalapeno.AntiSpam.Services.WebService.WebClient;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.RegisterClientRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.RegisterClientResponse;
+import su.Jalapeno.AntiSpam.Util.ServiceFactory;
 import android.content.Context;
 
 import com.google.gson.Gson;
@@ -25,7 +28,7 @@ public class HttpTest extends AndroidTestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		cntx = getContext();
-		settings = new SettingsService(cntx);
+		settings = ServiceFactory.GetSettingsService(cntx);
 		encoding = new EncoderService();
 		
 		GsonBuilder gsonBuilder = new GsonBuilder();
