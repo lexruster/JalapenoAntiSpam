@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
-import su.Jalapeno.AntiSpam.Activities.RegisterActivity.TestRegisterTask;
+import su.Jalapeno.AntiSpam.Activities.Tasks.TestPurchaseAntispamTask;
 import su.Jalapeno.AntiSpam.Billing.util.IabException;
 import su.Jalapeno.AntiSpam.Billing.util.IabHelper;
 import su.Jalapeno.AntiSpam.Billing.util.IabResult;
@@ -25,7 +25,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.inject.Inject;
 
@@ -38,10 +37,10 @@ public class BillingActivity extends JalapenoActivity {
 	Context _context;
 	@Inject
 	public SettingsService _settingsService;
-	
+
 	@Inject
 	JalapenoWebServiceWraper _jalapenoWebServiceWraper;
-	
+
 	@InjectView(R.id.buttonDebug)
 	Button buttonDebug;
 
@@ -63,7 +62,7 @@ public class BillingActivity extends JalapenoActivity {
 
 	private void Resume() {
 	}
-	
+
 	private void Init() {
 		SetDebugMode(Constants.VIEW_DEBUG_UI);
 	}
@@ -73,7 +72,7 @@ public class BillingActivity extends JalapenoActivity {
 		Logger.Debug(LOG_TAG, "onBackPressed");
 		UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == PURCHASE_RESULT) {
@@ -83,23 +82,21 @@ public class BillingActivity extends JalapenoActivity {
 				ShowToast(R.string.PurchaseComplete);
 			}
 		}
-				
+
 		super.onActivityResult(requestCode, resultCode, data);
 	}
-	
+
 	public void BuyTest(View view) {
 		Logger.Debug(LOG_TAG, "BuyTest");
-		if(Constants.VIEW_DEBUG_UI)
-		{
-			new TestRegisterTask().execute();
+		if (Constants.VIEW_DEBUG_UI) {
+			new TestPurchaseAntispamTask(this, _settingsService, _jalapenoWebServiceWraper).execute();
 		}
 	}
 
 	public void Buy(View view) {
 		Logger.Debug(LOG_TAG, "Buy pressed");
 		CryptoService cr = new CryptoService();
-		String base64EncodedPublicKey = cr
-				.Decrypt(BillingConstants.ENCYPTED_LICENCE_KEY);
+		String base64EncodedPublicKey = cr.Decrypt(BillingConstants.ENCYPTED_LICENCE_KEY);
 
 		// compute your public key and store it in base64EncodedPublicKey
 		mHelper = new IabHelper(this, base64EncodedPublicKey);
@@ -112,8 +109,7 @@ public class BillingActivity extends JalapenoActivity {
 				if (!result.isSuccess()) {
 					ShowToast(R.string.ErrorBilling);
 					// Oh noes, there was a problem.
-					Logger.Error(LOG_TAG, "Problem setting up In-app Billing: "
-							+ result);
+					Logger.Error(LOG_TAG, "Problem setting up In-app Billing: " + result);
 				}
 				// Hooray, IAB is fully set up!
 				Logger.Debug(LOG_TAG, "Billing initialized");
@@ -128,8 +124,7 @@ public class BillingActivity extends JalapenoActivity {
 		additionalSkuList.add(BillingConstants.ANTISPAM_ACCESS);
 
 		try {
-			Inventory inventory = mHelper.queryInventory(true,
-					additionalSkuList);
+			Inventory inventory = mHelper.queryInventory(true, additionalSkuList);
 
 			BuyAccess(inventory);
 
@@ -143,13 +138,12 @@ public class BillingActivity extends JalapenoActivity {
 
 	private void BuyAccess(Inventory inventory) {
 		Logger.Debug(LOG_TAG, "BuyAccess");
-		SkuDetails skuDetails = inventory
-				.getSkuDetails(BillingConstants.ANTISPAM_ACCESS);
+		SkuDetails skuDetails = inventory.getSkuDetails(BillingConstants.ANTISPAM_ACCESS);
 
 		if (inventory.hasPurchase(BillingConstants.ANTISPAM_ACCESS)) {
 			Logger.Debug(LOG_TAG, "ANTISPAM_ACCESS already purchase");
 			ShowToast(R.string.PurchaseComplete);
-			
+
 			ActivateAccess();
 		}
 
@@ -157,40 +151,33 @@ public class BillingActivity extends JalapenoActivity {
 		Logger.Debug(LOG_TAG, "Available access with cost " + accessPrice);
 
 		IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
-			public void onIabPurchaseFinished(IabResult result,
-					su.Jalapeno.AntiSpam.Billing.util.Purchase purchase) {
+			public void onIabPurchaseFinished(IabResult result, su.Jalapeno.AntiSpam.Billing.util.Purchase purchase) {
 				if (result.isFailure()) {
 					Logger.Debug(LOG_TAG, "Error purchasing: " + result);
 					ShowToast(R.string.ErrorBilling);
 					return;
-				} else if (purchase.getSku().equals(
-						BillingConstants.ANTISPAM_ACCESS)) {
-					Logger.Debug(LOG_TAG,
-							"onIabPurchaseFinished Successfully result");
+				} else if (purchase.getSku().equals(BillingConstants.ANTISPAM_ACCESS)) {
+					Logger.Debug(LOG_TAG, "onIabPurchaseFinished Successfully result");
 					CheckComplete();
 				}
 			}
 		};
 
-		mHelper.launchPurchaseFlow(this, BillingConstants.ANTISPAM_ACCESS,
-				PURCHASE_RESULT, mPurchaseFinishedListener, "");
+		mHelper.launchPurchaseFlow(this, BillingConstants.ANTISPAM_ACCESS, PURCHASE_RESULT, mPurchaseFinishedListener, "");
 	}
 
 	protected void CheckComplete() {
 		Logger.Debug(LOG_TAG, "CheckComplete");
 
 		IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
-			public void onQueryInventoryFinished(IabResult result,
-					Inventory inventory) {
+			public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
 
 				if (result.isFailure()) {
 
 				} else {
-					hasPremium = inventory
-							.hasPurchase(BillingConstants.ANTISPAM_ACCESS);
+					hasPremium = inventory.hasPurchase(BillingConstants.ANTISPAM_ACCESS);
 
-					Logger.Debug(LOG_TAG, "ANTISPAM_ACCESS  purchase status "
-							+ hasPremium);
+					Logger.Debug(LOG_TAG, "ANTISPAM_ACCESS  purchase status " + hasPremium);
 					if (hasPremium) {
 						ShowToast(R.string.PurchaseComplete);
 						ActivateAccess();
@@ -206,14 +193,14 @@ public class BillingActivity extends JalapenoActivity {
 	}
 
 	private void ActivateAccess() {
-		NotifyAboutPaymentResponse notifyAboutPayment = _jalapenoWebServiceWraper.NotifyAboutPayment(new NotifyAboutPaymentRequest("Already buy"));
-		if(notifyAboutPayment.WasSuccessful)
-		{
+		NotifyAboutPaymentResponse notifyAboutPayment = _jalapenoWebServiceWraper.NotifyAboutPayment(new NotifyAboutPaymentRequest(
+				"Already buy"));
+		if (notifyAboutPayment.WasSuccessful) {
 			_settingsService.ActivateUnlimitedAccess();
 			UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 		}
 	}
-	
+
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
@@ -222,17 +209,6 @@ public class BillingActivity extends JalapenoActivity {
 		mHelper = null;
 	}
 
-	public void ShowToast(final int res) {
-		runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				Toast.makeText(BillingActivity.this, res, Toast.LENGTH_SHORT)
-						.show();
-			}
-		});
-		Toast.makeText(this, res, Toast.LENGTH_SHORT).show();
-	}
-	
 	private void SetDebugMode(boolean isDebug) {
 		if (isDebug) {
 			buttonDebug.setVisibility(View.VISIBLE);
