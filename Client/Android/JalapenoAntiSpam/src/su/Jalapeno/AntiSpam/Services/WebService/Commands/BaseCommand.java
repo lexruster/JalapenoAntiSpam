@@ -27,7 +27,6 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 
 	private Class<TResp> _respClazz;
 	private EncoderService _encoderService;
-	private Config _config;
 
 	@Inject
 	public BaseCommand(JalapenoHttpService httpService, SettingsService settingsService, EncoderService encoderService,
@@ -41,7 +40,7 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 
 	private void Init() {
 		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.setDateFormat("dd.MM.yy hh:mm:ss");
+		gsonBuilder.setDateFormat(Constants.DATE_TIME_FORMAT);
 		_gson = gsonBuilder.serializeNulls().create();
 		_domain = _settingsService.GetDomain();
 	}

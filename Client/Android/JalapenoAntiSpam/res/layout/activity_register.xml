@@ -5,12 +5,8 @@
 
     <TextView
         android:id="@+id/textView"
-        style="@style/BaseControl"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
         android:text="@string/RegisterText"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:typeface="normal" />
+        style="@style/BaseControl.Text" />
 
     <TextView
         android:id="@+id/licenseLink"

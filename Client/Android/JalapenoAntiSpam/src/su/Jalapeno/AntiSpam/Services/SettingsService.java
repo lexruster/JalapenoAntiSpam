@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.UUID;
 
 import su.Jalapeno.AntiSpam.Services.WebService.WebConstants;
+import su.Jalapeno.AntiSpam.Util.AccessInfo;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.DateUtil;
@@ -140,5 +141,17 @@ public class SettingsService {
 		Config config = LoadSettings();
 		config.Enabled = enabled;
 		SaveSettings(config);
+	}
+
+	public AccessInfo GetAccessInfo() {
+		Config config = LoadSettings();
+		AccessInfo info = new AccessInfo();
+		info.AccessIsAllowed = AccessAllowed(config);
+		info.IsUnlimitedAccess = config.UnlimitedAccess;
+		if (!config.UnlimitedAccess) {
+			info.EvaluationDaysLast = DateUtil.DiffInDays(new Date(), config.ExpirationDate);
+		}
+
+		return info;
 	}
 }

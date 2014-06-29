@@ -51,7 +51,9 @@ public class ConfigService {
 		SharedPreferences.Editor editor = jalapenoSettings.edit();
 		editor.putBoolean(config.NAME_Enabled, config.Enabled);
 		editor.putBoolean(config.NAME_UnlimitedAccess, config.UnlimitedAccess);
-		editor.putLong(config.NAME_ExpirationDate, config.ExpirationDate.getTime());
+		if (config.ExpirationDate != null) {
+			editor.putLong(config.NAME_ExpirationDate, config.ExpirationDate.getTime());
+		}
 
 		if (config.ClientId != null) {
 			editor.putString(config.NAME_ClientId, config.ClientId.toString());
