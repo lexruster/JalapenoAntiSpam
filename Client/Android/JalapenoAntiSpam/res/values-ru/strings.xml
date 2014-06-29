@@ -34,14 +34,15 @@
     <string name="BillingBuyButton">Купить антиспам</string>
     <string name="ErrorBilling">Ошибка покупки. Пожалуйста, проверьте Интернет-подключение, затем повторите попытку</string>
     <string name="PurchaseComplete">Поздравляю! Покупка успешно завершена.</string>
+    <string name="AccessInfo">Пробный период: %d дней</string>
     
     <string name="EmptySpamerList">Скоро здесь появятся спамеры</string>
     <string name="EmptySmsList">Нет СМС</string>
 
     <string name="WaitMessage">Ожидание&#8230;</string>
 
-    <string name="AntiSpamOn">Защита включена</string>
-    <string name="AntiSpamOff">Защита выключена</string>
+    <string name="AntiSpamOn">Включено</string>
+    <string name="AntiSpamOff">Включить</string>
 
     <string name="ExistsUnknownSms">Есть подозрительные СМС</string>
 

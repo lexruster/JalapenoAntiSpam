@@ -14,4 +14,6 @@ public class Constants {
 	public static final boolean VIEW_DEBUG_UI = true;
 	// when no internet
 	public static final boolean DEBUG_STANDALONE_MODE = false;
+	
+	public static final String DATE_TIME_FORMAT = "yyyy.MM.dd hh:mm:ss";
 }

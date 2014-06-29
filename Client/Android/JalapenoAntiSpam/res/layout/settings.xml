@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/BaseLayout"
     tools:context=".SmsAnalyzerActivity" >
-   
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
@@ -12,6 +12,53 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textAccessInfo"
+                style="@style/BaseControl.Text"
+                android:layout_marginBottom="20dp"
+                android:visibility="invisible" />
+
+            <LinearLayout
+                android:id="@+id/LinearLayout02"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <su.Jalapeno.AntiSpam.Util.UI.SquareButton
+                    android:id="@+id/button001"
+                    style="@style/button_text"
+                    android:layout_weight="1"
+                    android:background="@drawable/main_button_blue"
+                    android:text="@string/KnownSpammerList" />
+
+                <su.Jalapeno.AntiSpam.Util.UI.SquareButton
+                    android:id="@+id/button002"
+                    style="@style/button_text"
+                    android:layout_weight="1"
+                    android:background="@drawable/main_button_orange"
+                    android:text="@string/SmsValidateList" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/LinearLayout03"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <su.Jalapeno.AntiSpam.Util.UI.SquareButton
+                    android:id="@+id/button111"
+                    style="@style/button_text"
+                    android:layout_weight="1"
+                    android:background="@drawable/main_button_red"
+                    android:text="@string/SmsTrashList" />
+
+                <su.Jalapeno.AntiSpam.Util.UI.SquareButton
+                    android:id="@+id/button122"
+                    style="@style/button_text"
+                    android:layout_weight="1"
+                    android:background="@drawable/main_button_green"
+                    android:text="@string/AntiSpamOn" />
+            </LinearLayout>
 
             <ToggleButton
                 android:id="@+id/toggleEnabled"
@@ -24,6 +71,7 @@
             <Button
                 android:id="@+id/buttonSpammerList"
                 style="@style/BaseControl.Button"
+                android:onClick="ViewSpamerList"
                 android:text="@string/KnownSpammerList" />
 
             <Button
@@ -41,8 +89,9 @@
             <Button
                 android:id="@+id/buttonDebug"
                 style="@style/BaseControl.Button.Debug"
+                android:onClick="NavigateToDebug"
                 android:text="@string/DebugActivity"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
         </LinearLayout>
     </ScrollView>
 
