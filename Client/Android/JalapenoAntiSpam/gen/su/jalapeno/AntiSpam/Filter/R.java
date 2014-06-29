@@ -256,16 +256,12 @@ containing a value of this type.
         public static final int btnNeedSms=0x7f07000c;
         public static final int btnNeedTrashSms=0x7f07000e;
         public static final int btnSpamSms=0x7f07000b;
-        public static final int button001=0x7f070026;
-        public static final int button002=0x7f070027;
-        public static final int button111=0x7f070029;
-        public static final int button122=0x7f07002a;
         public static final int button32424InCont=0x7f07001f;
         public static final int button7968InCont=0x7f07001d;
         public static final int button8968InCont=0x7f07001e;
         public static final int buttonAuthorization=0x7f070013;
         public static final int buttonClearSpam=0x7f070018;
-        public static final int buttonDebug=0x7f07002f;
+        public static final int buttonDebug=0x7f07002b;
         public static final int buttonDebugPurchase=0x7f070007;
         public static final int buttonDebugRegister=0x7f07000a;
         public static final int buttonDropBuy=0x7f070017;
@@ -281,14 +277,14 @@ containing a value of this type.
         public static final int buttonSendTokenToEmail=0x7f070015;
         public static final int buttonSettingsTest=0x7f070021;
         public static final int buttonSmsSpam=0x7f070012;
-        public static final int buttonSmsTrash=0x7f07002e;
-        public static final int buttonSmsValidate=0x7f07002d;
-        public static final int buttonSpammerList=0x7f07002c;
+        public static final int buttonSmsTrash=0x7f070029;
+        public static final int buttonSmsValidate=0x7f070027;
+        public static final int buttonSpammerList=0x7f070026;
         public static final int buttonTestInBaseSpam=0x7f07001a;
         public static final int cbIsSender=0x7f070023;
         public static final int hybrid=0x7f070004;
         public static final int licenseLink=0x7f070008;
-        public static final int llSmsItem=0x7f070030;
+        public static final int llSmsItem=0x7f07002c;
         public static final int none=0x7f070000;
         public static final int normal=0x7f070001;
         public static final int satellite=0x7f070002;
@@ -296,11 +292,11 @@ containing a value of this type.
         public static final int terrain=0x7f070003;
         public static final int textAccessInfo=0x7f070024;
         public static final int textView=0x7f070005;
-        public static final int toggleEnabled=0x7f07002b;
+        public static final int toggleEnabled=0x7f07002a;
         public static final int tvSenderId=0x7f070022;
-        public static final int tvSmsDate=0x7f070033;
-        public static final int tvSmsSender=0x7f070032;
-        public static final int tvSmsText=0x7f070031;
+        public static final int tvSmsDate=0x7f07002f;
+        public static final int tvSmsSender=0x7f07002e;
+        public static final int tvSmsText=0x7f07002d;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f090000;
