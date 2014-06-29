@@ -6,7 +6,6 @@ import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
 import su.Jalapeno.AntiSpam.Util.AccessInfo;
-import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
@@ -16,7 +15,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.google.inject.Inject;
 
@@ -34,11 +32,10 @@ public class SettingsActivity extends JalapenoActivity {
 	Button buttonDebug;
 
 	@InjectView(R.id.toggleEnabled)
-	ToggleButton toogleButton;
-	
+	Button toogleButton;
+
 	@InjectView(R.id.textAccessInfo)
 	TextView textAccessInfo;
-	
 
 	@Override
 	public void onBackPressed() {
@@ -52,13 +49,13 @@ public class SettingsActivity extends JalapenoActivity {
 		Logger.Debug(LOG_TAG, "onCreate");
 		Init();
 	}
-	
+
 	public void NavigateToDebug(View v) {
 		if (Constants.VIEW_DEBUG_UI) {
 			UiUtils.NavigateTo(Debug.class);
 		}
 	}
-	
+
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -79,28 +76,37 @@ public class SettingsActivity extends JalapenoActivity {
 	private void Resume() {
 		boolean clientIsRegistered = _settingsService.ClientIsRegistered();
 		Logger.Debug(LOG_TAG, "Init ClientRegistered " + clientIsRegistered);
-		if (!clientIsRegistered ) {
+		if (!clientIsRegistered) {
 			_settingsService.HandleClientNotRegistered();
 			Logger.Debug(LOG_TAG, "Init NavigateTo RegisterActivity");
 			UiUtils.NavigateTo(RegisterActivity.class);
 		}
-		toogleButton.setChecked(_settingsService.AntispamEnabled());
-		
+
+		UpdateOnOffButton(_settingsService.AntispamEnabled());
+
 		AccessInfo accessInfo = _settingsService.GetAccessInfo();
-		if (!accessInfo.AccessIsAllowed ) {
+		if (!accessInfo.AccessIsAllowed) {
 			Logger.Debug(LOG_TAG, "Init NavigateTo BuyActivity");
 			UiUtils.NavigateTo(BillingActivity.class);
 		}
-		
-		if(accessInfo.IsUnlimitedAccess)
-		{
+
+		if (accessInfo.IsUnlimitedAccess) {
 			textAccessInfo.setVisibility(View.INVISIBLE);
-		}
-		else
-		{
+		} else {
 			textAccessInfo.setVisibility(View.VISIBLE);
 			String info = _context.getString(R.string.AccessInfo, accessInfo.EvaluationDaysLast);
 			textAccessInfo.setText(info);
+		}
+	}
+
+	@SuppressWarnings("deprecation")
+	private void UpdateOnOffButton(boolean antispamEnabled) {
+		if (antispamEnabled) {
+			toogleButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.main_button_green));
+			toogleButton.setText(R.string.AntiSpamOn);
+		} else {
+			toogleButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.main_button_black));
+			toogleButton.setText(R.string.AntiSpamOff);
 		}
 	}
 
@@ -117,7 +123,8 @@ public class SettingsActivity extends JalapenoActivity {
 	}
 
 	public void toggleClick(View view) {
-		_settingsService.SetAntispamEnabled(toogleButton.isChecked());
+		boolean enabled = _settingsService.ToggleAntispamEnabled();
+		UpdateOnOffButton(enabled);
 		startService(new Intent(this, AppService.class));
 	}
 

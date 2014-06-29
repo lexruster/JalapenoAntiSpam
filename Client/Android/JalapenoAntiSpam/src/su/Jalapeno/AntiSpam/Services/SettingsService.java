@@ -143,6 +143,13 @@ public class SettingsService {
 		SaveSettings(config);
 	}
 
+	public boolean ToggleAntispamEnabled() {
+		Config config = LoadSettings();
+		config.Enabled = !config.Enabled;
+		SaveSettings(config);
+		return config.Enabled;
+	}
+
 	public AccessInfo GetAccessInfo() {
 		Config config = LoadSettings();
 		AccessInfo info = new AccessInfo();

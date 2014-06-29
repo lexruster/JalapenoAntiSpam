@@ -26,14 +26,16 @@
                 android:orientation="horizontal" >
 
                 <su.Jalapeno.AntiSpam.Util.UI.SquareButton
-                    android:id="@+id/button001"
+                    android:id="@+id/buttonSpammerList"
+                    android:onClick="ViewSpamerList"
                     style="@style/button_text"
                     android:layout_weight="1"
                     android:background="@drawable/main_button_blue"
                     android:text="@string/KnownSpammerList" />
 
                 <su.Jalapeno.AntiSpam.Util.UI.SquareButton
-                    android:id="@+id/button002"
+                    android:id="@+id/buttonSmsValidate"
+                    android:onClick="smsValidate"
                     style="@style/button_text"
                     android:layout_weight="1"
                     android:background="@drawable/main_button_orange"
@@ -46,46 +48,21 @@
                 android:orientation="horizontal" >
 
                 <su.Jalapeno.AntiSpam.Util.UI.SquareButton
-                    android:id="@+id/button111"
+                    android:id="@+id/buttonSmsTrash"
+                    android:onClick="smsTrash"
                     style="@style/button_text"
                     android:layout_weight="1"
                     android:background="@drawable/main_button_red"
                     android:text="@string/SmsTrashList" />
 
                 <su.Jalapeno.AntiSpam.Util.UI.SquareButton
-                    android:id="@+id/button122"
+                    android:id="@+id/toggleEnabled"
+                    android:onClick="toggleClick"
                     style="@style/button_text"
                     android:layout_weight="1"
                     android:background="@drawable/main_button_green"
                     android:text="@string/AntiSpamOn" />
             </LinearLayout>
-
-            <ToggleButton
-                android:id="@+id/toggleEnabled"
-                style="@style/BaseControl.Button.Toogle"
-                android:onClick="toggleClick"
-                android:text="ToggleButton"
-                android:textOff="@string/AntiSpamOff"
-                android:textOn="@string/AntiSpamOn" />
-
-            <Button
-                android:id="@+id/buttonSpammerList"
-                style="@style/BaseControl.Button"
-                android:onClick="ViewSpamerList"
-                android:text="@string/KnownSpammerList" />
-
-            <Button
-                android:id="@+id/buttonSmsValidate"
-                style="@style/BaseControl.Button"
-                android:onClick="smsValidate"
-                android:text="@string/SmsValidateList" />
-
-            <Button
-                android:id="@+id/buttonSmsTrash"
-                style="@style/BaseControl.Button"
-                android:onClick="smsTrash"
-                android:text="@string/SmsTrashList" />
-
             <Button
                 android:id="@+id/buttonDebug"
                 style="@style/BaseControl.Button.Debug"
