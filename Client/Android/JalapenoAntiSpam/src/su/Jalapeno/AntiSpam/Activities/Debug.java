@@ -5,6 +5,7 @@ import java.util.Locale;
 import java.util.Random;
 
 import roboguice.inject.ContentView;
+import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
@@ -32,6 +33,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.GoogleAuthException;
@@ -50,6 +52,9 @@ public class Debug extends JalapenoActivity {
 	JalapenoHttpService jalapenoHttpService;
 	@Inject
 	SettingsService _settingsService;
+	
+	@InjectView(R.id.textDeviceInfo)
+	TextView textDeviceInfo;
 
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "DebugActivity";
 
@@ -100,6 +105,18 @@ public class Debug extends JalapenoActivity {
 		_smsReceiver = new SmsReceiver(_settingsService, _smsService);
 		_ringtoneService = new NotifyService(_context, _settingsService);
 		mActivity = this;
+		
+		
+		String info=String.format("Enabled: %b, Registered: %b, AccesAllowed: %b, DaysLast: %d, Unlimited: %b, ClientId: %s, Domain: %s", 
+				_settingsService.AntispamEnabled(),
+				_settingsService.ClientIsRegistered(),
+				_settingsService.GetAccessInfo().AccessIsAllowed,
+				_settingsService.GetAccessInfo().EvaluationDaysLast,
+				_settingsService.GetAccessInfo().IsUnlimitedAccess,
+				_settingsService.GetClientId(),
+				_settingsService.GetDomain()
+				);
+		textDeviceInfo.setText(info);
 	}
 
 	private void SetEvent() {

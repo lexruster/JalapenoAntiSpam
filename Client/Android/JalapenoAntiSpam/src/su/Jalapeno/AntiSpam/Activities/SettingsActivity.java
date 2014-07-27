@@ -102,11 +102,12 @@ public class SettingsActivity extends JalapenoActivity {
 	@SuppressWarnings("deprecation")
 	private void UpdateOnOffButton(boolean antispamEnabled) {
 		if (antispamEnabled) {
-			toogleButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.main_button_green));
 			toogleButton.setText(R.string.AntiSpamOn);
+			toogleButton.setTextColor(getResources().getColor(R.color.toogle_green));
 		} else {
-			toogleButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.main_button_black));
+			//toogleButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.main_button_black_off));
 			toogleButton.setText(R.string.AntiSpamOff);
+			toogleButton.setTextColor(getResources().getColor(R.color.toogle_red));
 		}
 	}
 
