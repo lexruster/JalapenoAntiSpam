@@ -24,6 +24,11 @@
                 style="@style/BaseControl.ListGroup" >
 
                 <TextView
+                    android:id="@+id/textDeviceInfo"
+                    style="@style/BaseControl.Text"
+                    android:text="Info" />
+                
+                <TextView
                     android:id="@+id/textView"
                     style="@style/BaseControl.TextHeader"
                     android:text="Sound" />

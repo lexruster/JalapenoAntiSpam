@@ -6,7 +6,7 @@
 
 	<string name="SettingsTitle"></string><!--НЕ НУЖНО-->
 	<string name="KnownSpammerList">Спамеры</string>
-	<string name="SmsValidateList">Подозрительные СМС</string>
+	<string name="SmsValidateList">СМС</string>
     <string name="SmsTrashList">Корзина</string>
 	<string name="SoundSettings">Звуки</string>
 	<string name="DebugActivity">Отладка</string>

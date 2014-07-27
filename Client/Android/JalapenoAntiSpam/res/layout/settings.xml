@@ -16,13 +16,15 @@
             <TextView
                 android:id="@+id/textAccessInfo"
                 style="@style/BaseControl.Text"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="50dp"
                 android:visibility="invisible" />
 
             <LinearLayout
                 android:id="@+id/LinearLayout02"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:orientation="horizontal" >
 
                 <su.Jalapeno.AntiSpam.Util.UI.SquareButton
@@ -38,13 +40,15 @@
                     android:onClick="smsValidate"
                     style="@style/button_text"
                     android:layout_weight="1"
-                    android:background="@drawable/main_button_orange"
+                    android:background="@drawable/main_button_green"
                     android:text="@string/SmsValidateList" />
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/LinearLayout03"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:orientation="horizontal" >
 
                 <su.Jalapeno.AntiSpam.Util.UI.SquareButton
@@ -60,7 +64,7 @@
                     android:onClick="toggleClick"
                     style="@style/button_text"
                     android:layout_weight="1"
-                    android:background="@drawable/main_button_green"
+                    android:background="@drawable/main_button_black"
                     android:text="@string/AntiSpamOn" />
             </LinearLayout>
             <Button
