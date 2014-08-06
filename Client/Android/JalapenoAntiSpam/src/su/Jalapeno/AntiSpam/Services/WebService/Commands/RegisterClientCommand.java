@@ -1,6 +1,7 @@
 package su.Jalapeno.AntiSpam.Services.WebService.Commands;
 
 import su.Jalapeno.AntiSpam.Services.SettingsService;
+import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.Services.WebService.EncoderService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
 import su.Jalapeno.AntiSpam.Services.WebService.WebConstants;
@@ -8,11 +9,15 @@ import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.RegisterClientReques
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.RegisterClientResponse;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.WebErrorEnum;
 
-public class RegisterClientCommand extends BaseCommand<RegisterClientRequest, RegisterClientResponse> {
+public class RegisterClientCommand extends
+		BaseCommand<RegisterClientRequest, RegisterClientResponse> {
 
-	public RegisterClientCommand(JalapenoHttpService httpService, SettingsService settingsService, EncoderService encoderService,
+	public RegisterClientCommand(JalapenoHttpService httpService,
+			SettingsService settingsService, EncoderService encoderService,
+			SmsAnalyzerService smsAnalyzerService,
 			Class<RegisterClientResponse> respClazz) {
-		super(httpService, settingsService, encoderService, respClazz);
+		super(httpService, settingsService, encoderService, smsAnalyzerService,
+				respClazz);
 	}
 
 	@Override

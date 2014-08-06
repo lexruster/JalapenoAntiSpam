@@ -91,7 +91,7 @@ public class SettingsActivity extends JalapenoActivity {
 		AccessInfo accessInfo = _settingsService.GetAccessInfo();
 		if (!accessInfo.AccessIsAllowed) {
 			Logger.Debug(LOG_TAG, "Init NavigateTo BuyActivity");
-			_settingsService.HandleAccessNotAllowed(false);
+			_smsAnalyzerService.HandleAccessNotAllowed(false);
 			UiUtils.NavigateTo(BillingActivity.class);
 		}
 

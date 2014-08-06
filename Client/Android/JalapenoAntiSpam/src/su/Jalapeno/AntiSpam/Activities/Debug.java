@@ -14,6 +14,7 @@ import su.Jalapeno.AntiSpam.Services.EmailSender;
 import su.Jalapeno.AntiSpam.Services.NotifyService;
 import su.Jalapeno.AntiSpam.Services.SenderService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
+import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiver;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiverLogic;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
@@ -101,9 +102,8 @@ public class Debug extends JalapenoActivity {
 		//SCOPE = "oauth2:https://www.googleapis.com/auth/userinfo.profile";
 		_context = getApplicationContext();
 		_smsService = ServiceFactory.GetSmsReceiverLogic(_context);
-
 		_smsReceiver = new SmsReceiver(_settingsService, _smsService);
-		_ringtoneService = new NotifyService(_context, _settingsService);
+		_ringtoneService = new NotifyService(_context);
 		mActivity = this;
 		
 		

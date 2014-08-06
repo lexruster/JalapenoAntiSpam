@@ -6,6 +6,7 @@ import org.apache.http.entity.SerializableEntity;
 
 import junit.framework.Assert;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
+import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.Services.WebService.EncoderService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
@@ -21,6 +22,7 @@ import com.google.gson.GsonBuilder;
 public class HttpTest extends AndroidTestCase {
 	private EncoderService encoding;
 	private SettingsService settings;
+	private SmsAnalyzerService analyzer;
 	Context cntx;
 	Gson _gson;
 
@@ -30,16 +32,18 @@ public class HttpTest extends AndroidTestCase {
 		cntx = getContext();
 		settings = ServiceFactory.GetSettingsService(cntx);
 		encoding = new EncoderService();
-		
+
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setDateFormat("dd.MM.yy hh:mm:ss");
 		_gson = gsonBuilder.create();
 	}
 
 	public void testRegisterClient() {
-		JalapenoHttpService jalapenoHttpService = new JalapenoHttpService(cntx, encoding);
+		JalapenoHttpService jalapenoHttpService = new JalapenoHttpService(cntx,
+				encoding);
 		EncoderService encoder = new EncoderService();
-		JalapenoWebServiceWraper wrap = new JalapenoWebServiceWraper(jalapenoHttpService, settings, encoder);
+		JalapenoWebServiceWraper wrap = new JalapenoWebServiceWraper(
+				jalapenoHttpService, settings, encoder, analyzer);
 		RegisterClientRequest request = new RegisterClientRequest();
 		request.ClientId = UUID.randomUUID();
 		request.Token = "TOKEN";
@@ -55,8 +59,11 @@ public class HttpTest extends AndroidTestCase {
 
 		String json = _gson.toJson(request);
 		String postData = PrepareJsonRequest(json);
-		String requestString = WebClient.Post("http://10.0.2.2:33500/AntispamService.svc/RegisterClient", postData);
-		RegisterClientResponse response = _gson.fromJson(requestString, RegisterClientResponse.class);
+		String requestString = WebClient.Post(
+				"http://10.0.2.2:33500/AntispamService.svc/RegisterClient",
+				postData);
+		RegisterClientResponse response = _gson.fromJson(requestString,
+				RegisterClientResponse.class);
 		Assert.assertEquals(response.WasSuccessful, true);
 	}
 
