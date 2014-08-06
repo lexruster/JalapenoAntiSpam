@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
+import su.Jalapeno.AntiSpam.Services.NotifyService;
 import su.Jalapeno.AntiSpam.Services.RequestQueue;
 import su.Jalapeno.AntiSpam.Services.SenderService;
+import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import android.content.Context;
@@ -23,18 +25,25 @@ public class SmsAnalyzerService {
 	private SmsHashService _smsHashService;
 	private SenderService _senderService;
 	private SmsService _smsService;
-
 	private Context _context;
+	private SettingsService _settingsService;
+
+	private NotifyService _notifyService;
 
 	@Inject
-	public SmsAnalyzerService(Context context, SmsQueueService smsQueueService, RequestQueue queue, SmsHashService smsHashService,
-			SenderService senderService, SmsService smsService) {
+	public SmsAnalyzerService(Context context, SmsQueueService smsQueueService,
+			RequestQueue queue, SmsHashService smsHashService,
+			SenderService senderService, SmsService smsService,
+			SettingsService settingsService, NotifyService notifyService  )
+	{
 		_context = context;
 		_smsQueueService = smsQueueService;
 		_requestQueue = queue;
 		_smsHashService = smsHashService;
 		_senderService = senderService;
 		_smsService = smsService;
+		_settingsService = settingsService;
+		_notifyService = notifyService;
 	}
 
 	public void AddSmsToValidate(Sms sms) {
@@ -98,6 +107,14 @@ public class SmsAnalyzerService {
 
 	public void DeleteSms(Sms sms) {
 		_smsQueueService.Delete(sms);
+	}
+
+	public void HandleAccessNotAllowed(boolean needSet) {
+		if (needSet) {
+			_settingsService.DropUnlimitedAccess();
+		}
+		SaveUncheckedSms();
+		_notifyService.OnAccessNotAllowed();
 	}
 
 	public void SaveUncheckedSms() {

@@ -15,15 +15,10 @@ import com.google.inject.Inject;
 public class SettingsService {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "SettingsService";
 	private ConfigService _configService;
-	private NotifyService _notifyService;
-	private SmsAnalyzerService _smsAnalyzerService;
 
 	@Inject
-	public SettingsService(ConfigService configService,
-			NotifyService notifyService, SmsAnalyzerService smsAnalyzerService) {
+	public SettingsService(ConfigService configService) {
 		_configService = configService;
-		_notifyService = notifyService;
-		_smsAnalyzerService = smsAnalyzerService;
 	}
 
 	private void SaveSettings(Config config) {
@@ -136,15 +131,6 @@ public class SettingsService {
 		Config config = LoadSettings();
 		DropRegistration(config);
 		SaveSettings(config);
-	}
-
-	public void HandleAccessNotAllowed(boolean needSet) {
-		_notifyService.OnAccessNotAllowed();
-		if (needSet) {
-			DropUnlimitedAccess();
-		}
-		
-		_smsAnalyzerService.SaveUncheckedSms();
 	}
 
 	private void DropRegistration(Config config) {
