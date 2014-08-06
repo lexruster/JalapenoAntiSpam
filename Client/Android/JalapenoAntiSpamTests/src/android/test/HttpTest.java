@@ -45,8 +45,7 @@ public class HttpTest extends AndroidTestCase {
 		EncoderService encoder = new EncoderService();
 		JalapenoWebServiceWraper wrap = new JalapenoWebServiceWraper(
 				jalapenoHttpService, settings, encoder, _accessService);
-		RegisterClientRequest request = new RegisterClientRequest();
-		request.ClientId = UUID.randomUUID();
+		RegisterClientRequest request = new RegisterClientRequest(UUID.randomUUID());
 		request.Token = "TOKEN";
 		RegisterClientResponse res = wrap.RegisterClient(request);
 
@@ -54,8 +53,7 @@ public class HttpTest extends AndroidTestCase {
 	}
 
 	public void testRegisterClient2() {
-		RegisterClientRequest request = new RegisterClientRequest();
-		request.ClientId = UUID.randomUUID();
+		RegisterClientRequest request = new RegisterClientRequest(UUID.randomUUID());
 		request.Token = "TOKEN";
 
 		String json = _gson.toJson(request);

@@ -85,10 +85,9 @@ public class JalapenoWebServiceWraper {
 
 	public boolean IsSpamer(String address, String smsTexthash) {
 		Logger.Debug(LOG_TAG, "IsSpamer " + address);
-		IsSpammerRequest isSpamerRequest = new IsSpammerRequest();
+		IsSpammerRequest isSpamerRequest = new IsSpammerRequest(_settingsService.GetClientId());
 		isSpamerRequest.Hash = smsTexthash;
 		isSpamerRequest.SenderId = address;
-		isSpamerRequest.ClientId = _settingsService.GetClientId();
 
 		IsSpamerCommand command = new IsSpamerCommand(_jalapenoHttpService,
 				_settingsService, _encoderService, _accessService,
@@ -101,8 +100,7 @@ public class JalapenoWebServiceWraper {
 
 	public ComplainResponse Complain(String sender, String hash) {
 		Logger.Debug(LOG_TAG, "Complain " + sender + " hash " + hash);
-		ComplainRequest request = new ComplainRequest();
-		request.ClientId = _settingsService.GetClientId();
+		ComplainRequest request = new ComplainRequest(_settingsService.GetClientId());
 		request.Hash = hash;
 		request.SenderId = sender;
 		ComplainCommand command = new ComplainCommand(_jalapenoHttpService,

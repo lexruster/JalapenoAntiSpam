@@ -21,7 +21,8 @@ import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 
-public class RegisterTask extends AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
+public class RegisterTask extends
+		AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "RegisterTask";
 	protected RegisterActivity _activity;
 
@@ -29,7 +30,9 @@ public class RegisterTask extends AsyncTask<RegisterActivity, Void, RegisterClie
 	private SettingsService _settingsService;
 	private JalapenoWebServiceWraper _jalapenoWebServiceWraper;
 
-	public RegisterTask(RegisterActivity activity, SettingsService settingsService, JalapenoWebServiceWraper serviceWraper) {
+	public RegisterTask(RegisterActivity activity,
+			SettingsService settingsService,
+			JalapenoWebServiceWraper serviceWraper) {
 		_activity = activity;
 		_settingsService = settingsService;
 		_jalapenoWebServiceWraper = serviceWraper;
@@ -40,7 +43,8 @@ public class RegisterTask extends AsyncTask<RegisterActivity, Void, RegisterClie
 	protected void onPostExecute(RegisterClientResponse registerClient) {
 		if (registerClient.WasSuccessful) {
 			_settingsService.RegisterClient(registerClient.ExpirationDate);
-			Logger.Debug(LOG_TAG, "Register with guid " + _settingsService.GetClientId());
+			Logger.Debug(LOG_TAG,
+					"Register with guid " + _settingsService.GetClientId());
 			spiner.Hide();
 			_activity.UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 		} else {
@@ -60,7 +64,8 @@ public class RegisterTask extends AsyncTask<RegisterActivity, Void, RegisterClie
 
 	// @SuppressWarnings("deprecation")
 	@Override
-	protected RegisterClientResponse doInBackground(RegisterActivity... activitis) {
+	protected RegisterClientResponse doInBackground(
+			RegisterActivity... activitis) {
 		Logger.Debug(LOG_TAG, "doInBackground");
 		RegisterClientResponse registerClient = new RegisterClientResponse();
 		registerClient.ErrorMessage = WebErrorEnum.NoConnection;
@@ -68,9 +73,11 @@ public class RegisterTask extends AsyncTask<RegisterActivity, Void, RegisterClie
 
 		try {
 			fetchToken();
-			Logger.Debug(LOG_TAG, "fetchNameFromProfileServer token=" + _activity.Token);
+			Logger.Debug(LOG_TAG, "fetchNameFromProfileServer token="
+					+ _activity.Token);
 		} catch (IOException ex) {
-			onError("Following Error occured, please try again. " + ex.getMessage(), ex);
+			onError("Following Error occured, please try again. "
+					+ ex.getMessage(), ex);
 		} catch (Exception ex) {
 			Logger.Error(LOG_TAG, "doInBackground Exception", ex);
 		}
@@ -81,8 +88,7 @@ public class RegisterTask extends AsyncTask<RegisterActivity, Void, RegisterClie
 		UUID uuid = UUID.randomUUID();
 		_settingsService.PrepareClientForRegister(uuid);
 
-		RegisterClientRequest request = new RegisterClientRequest();
-		request.ClientId = uuid;
+		RegisterClientRequest request = new RegisterClientRequest(uuid);
 		request.Token = _activity.Token;
 
 		registerClient = _jalapenoWebServiceWraper.RegisterClient(request);
@@ -101,7 +107,8 @@ public class RegisterTask extends AsyncTask<RegisterActivity, Void, RegisterClie
 		String token = null;
 		try {
 			Logger.Debug(LOG_TAG, "fetchToken scope: " + _activity.SCOPE);
-			token = GoogleAuthUtil.getToken(_activity, _activity.Email, _activity.SCOPE);
+			token = GoogleAuthUtil.getToken(_activity, _activity.Email,
+					_activity.SCOPE);
 		} catch (UserRecoverableAuthException userRecoverableException) {
 			// GooglePlayServices.apk is either old, disabled, or not
 			// present, which is
@@ -109,7 +116,8 @@ public class RegisterTask extends AsyncTask<RegisterActivity, Void, RegisterClie
 			// activity.
 			_activity.handleException(userRecoverableException);
 		} catch (GoogleAuthException fatalException) {
-			onError("Unrecoverable error " + fatalException.getMessage(), fatalException);
+			onError("Unrecoverable error " + fatalException.getMessage(),
+					fatalException);
 		}
 
 		if (token == null) {
