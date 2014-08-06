@@ -29,7 +29,8 @@
     <string name="NeedPeekAccount">You have to choose an account</string>
     <string name="TestRegister">Test register</string>
     
-    <string name="BillingBuyText">You may muy antispam</string>
+    <string name="BillingBuyText">You may buy antispam</string>
+    <string name="NeedBuyAccessText">Antispam expired. Bay unlimited access</string>
     <string name="BillingBuyButton">Buy antispam</string>
     <string name="ErrorBilling">Billing error. Please, check the Internet connection, then try again</string>
     <string name="PurchaseComplete">Congratulations! Purchase successfully complete.</string>

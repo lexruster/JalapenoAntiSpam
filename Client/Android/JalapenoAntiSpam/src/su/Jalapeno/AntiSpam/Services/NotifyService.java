@@ -16,12 +16,11 @@ public class NotifyService {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "NotifyService";
 
 	@Inject
-	public NotifyService(Context context, SettingsService settingsService) {
+	public NotifyService(Context context) {
 		_context = context;
 	}
 
 	public void ContactRingtone() {
-
 	}
 
 	public void OnIncomeSms() {
@@ -49,5 +48,12 @@ public class NotifyService {
 		if (ringtone != null) {
 			ringtone.play();
 		}
+	}
+
+	public void OnAccessNotAllowed() {
+		Logger.Debug(LOG_TAG, "OnAccessNotAllowed.");
+		PlayRingtone();
+		_context.startService(new Intent(_context, AppService.class).putExtra(
+				"Alarm", 1));
 	}
 }

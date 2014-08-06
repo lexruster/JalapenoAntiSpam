@@ -31,6 +31,7 @@
     <string name="TestRegister">Тест регистрация</string>
     
     <string name="BillingBuyText">Вы можете купить антиспам</string>
+    <string name="NeedBuyAccessText">Необходимо купить неограниченный доступ.</string>
     <string name="BillingBuyButton">Купить антиспам</string>
     <string name="ErrorBilling">Ошибка покупки. Пожалуйста, проверьте Интернет-подключение, затем повторите попытку</string>
     <string name="PurchaseComplete">Поздравляю! Покупка успешно завершена.</string>

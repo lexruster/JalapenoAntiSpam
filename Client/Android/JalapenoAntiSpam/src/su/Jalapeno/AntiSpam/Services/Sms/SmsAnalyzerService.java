@@ -80,9 +80,7 @@ public class SmsAnalyzerService {
 	public void SetSenderAsTrusted(String sender) {
 		_senderService.AddOrUpdateSender(sender, false);
 		List<Sms> smsList = _smsQueueService.GetAllBySender(sender);
-
 		SaveSmsToPhoneBase(smsList);
-
 		_smsQueueService.DeleteBySender(sender);
 	}
 
@@ -100,5 +98,11 @@ public class SmsAnalyzerService {
 
 	public void DeleteSms(Sms sms) {
 		_smsQueueService.Delete(sms);
+	}
+
+	public void SaveUncheckedSms() {
+		List<Sms> smsList = _smsQueueService.GetAll();
+		SaveSmsToPhoneBase(smsList);
+		_smsQueueService.Clear();
 	}
 }
