@@ -16,14 +16,17 @@ import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.Spiner;
 import android.os.AsyncTask;
 
-public class TestRegisterTask extends AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
+public class TestRegisterTask extends
+		AsyncTask<RegisterActivity, Void, RegisterClientResponse> {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "TestRegisterTask";
 	protected RegisterActivity _activity;
 	protected SettingsService _settingsService;
 	protected JalapenoWebServiceWraper _jalapenoWebServiceWraper;
 	Spiner spiner;
 
-	public TestRegisterTask(RegisterActivity activity, SettingsService settingsService, JalapenoWebServiceWraper jalapenoWebServiceWraper) {
+	public TestRegisterTask(RegisterActivity activity,
+			SettingsService settingsService,
+			JalapenoWebServiceWraper jalapenoWebServiceWraper) {
 		_activity = activity;
 		_settingsService = settingsService;
 		_jalapenoWebServiceWraper = jalapenoWebServiceWraper;
@@ -34,7 +37,8 @@ public class TestRegisterTask extends AsyncTask<RegisterActivity, Void, Register
 	protected void onPostExecute(RegisterClientResponse registerClient) {
 		if (registerClient.WasSuccessful) {
 			_settingsService.RegisterClient(registerClient.ExpirationDate);
-			Logger.Debug(LOG_TAG, "Test Register with guid " + _settingsService.GetClientId());
+			Logger.Debug(LOG_TAG,
+					"Test Register with guid " + _settingsService.GetClientId());
 			spiner.Hide();
 			_activity.UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 		} else {
@@ -54,7 +58,8 @@ public class TestRegisterTask extends AsyncTask<RegisterActivity, Void, Register
 
 	// @SuppressWarnings("deprecation")
 	@Override
-	protected RegisterClientResponse doInBackground(RegisterActivity... activitis) {
+	protected RegisterClientResponse doInBackground(
+			RegisterActivity... activitis) {
 		Logger.Debug(LOG_TAG, "doInBackground");
 		RegisterClientResponse registerClient = new RegisterClientResponse();
 		registerClient.ErrorMessage = WebErrorEnum.NoConnection;
@@ -62,8 +67,7 @@ public class TestRegisterTask extends AsyncTask<RegisterActivity, Void, Register
 
 		UUID uuid = UUID.randomUUID();
 		_settingsService.PrepareClientForRegister(uuid);
-		RegisterClientRequest request = new RegisterClientRequest();
-		request.ClientId = uuid;
+		RegisterClientRequest request = new RegisterClientRequest(uuid);
 		request.Token = "Test_token";
 
 		registerClient = _jalapenoWebServiceWraper.RegisterTestClient(request);

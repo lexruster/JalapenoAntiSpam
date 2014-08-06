@@ -53,7 +53,9 @@ public class TestPurchaseAntispamTask extends
 			JalapenoActivity... activitis) {
 		Logger.Debug(LOG_TAG, "doInBackground");
 		NotifyAboutPaymentResponse notifyAboutPayment = _jalapenoWebServiceWraper
-				.NotifyAboutPayment(new NotifyAboutPaymentRequest("Test ClientId: "+_settingsService.GetClientId()));
+				.NotifyAboutPayment(new NotifyAboutPaymentRequest(
+						"Test ClientId: " + _settingsService.GetClientId(),
+						_settingsService.GetClientId()));
 
 		return notifyAboutPayment;
 	}
