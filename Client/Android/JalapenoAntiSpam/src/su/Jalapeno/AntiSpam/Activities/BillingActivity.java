@@ -41,7 +41,7 @@ public class BillingActivity extends JalapenoActivity {
 	@Inject
 	JalapenoWebServiceWraper _jalapenoWebServiceWraper;
 
-	@InjectView(R.id.buttonDebug)
+	@InjectView(R.id.buttonDebugPurchase)
 	Button buttonDebug;
 
 	IabHelper mHelper;
