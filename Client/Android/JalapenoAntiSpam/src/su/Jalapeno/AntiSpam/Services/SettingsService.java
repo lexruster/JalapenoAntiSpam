@@ -3,6 +3,7 @@ package su.Jalapeno.AntiSpam.Services;
 import java.util.Date;
 import java.util.UUID;
 
+import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.Services.WebService.WebConstants;
 import su.Jalapeno.AntiSpam.Util.AccessInfo;
 import su.Jalapeno.AntiSpam.Util.Config;
@@ -14,10 +15,15 @@ import com.google.inject.Inject;
 public class SettingsService {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "SettingsService";
 	private ConfigService _configService;
+	private NotifyService _notifyService;
+	private SmsAnalyzerService _smsAnalyzerService;
 
 	@Inject
-	public SettingsService(ConfigService configService) {
+	public SettingsService(ConfigService configService,
+			NotifyService notifyService, SmsAnalyzerService smsAnalyzerService) {
 		_configService = configService;
+		_notifyService = notifyService;
+		_smsAnalyzerService = smsAnalyzerService;
 	}
 
 	private void SaveSettings(Config config) {
@@ -49,7 +55,8 @@ public class SettingsService {
 	public boolean AntispamEnabled() {
 		Config config = LoadSettings();
 
-		return config.Enabled && config.ClientRegistered && AccessAllowed(config);
+		return config.Enabled && config.ClientRegistered
+				&& AccessAllowed(config);
 	}
 
 	private boolean AccessAllowed(Config config) {
@@ -131,6 +138,15 @@ public class SettingsService {
 		SaveSettings(config);
 	}
 
+	public void HandleAccessNotAllowed(boolean needSet) {
+		_notifyService.OnAccessNotAllowed();
+		if (needSet) {
+			DropUnlimitedAccess();
+		}
+		
+		_smsAnalyzerService.SaveUncheckedSms();
+	}
+
 	private void DropRegistration(Config config) {
 		config.ClientRegistered = false;
 		config.ClientId = null;
@@ -156,7 +172,8 @@ public class SettingsService {
 		info.AccessIsAllowed = AccessAllowed(config);
 		info.IsUnlimitedAccess = config.UnlimitedAccess;
 		if (!config.UnlimitedAccess) {
-			info.EvaluationDaysLast = DateUtil.DiffInDays(new Date(), config.ExpirationDate);
+			info.EvaluationDaysLast = DateUtil.DiffInDays(new Date(),
+					config.ExpirationDate);
 		}
 
 		return info;

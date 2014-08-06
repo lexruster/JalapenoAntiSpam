@@ -51,12 +51,18 @@ public class AppService extends RoboService {
 	}
 
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Logger.Debug(LOG_TAG, "onStartCommand flag " + flags + " start " + startId);
+		Logger.Debug(LOG_TAG, "onStartCommand flag " + flags + " start "
+				+ startId);
 		if (_settingsService.AntispamEnabled()) {
 			boolean needAlarm = intent.getIntExtra("Alarm", 0) == 1;
 			StartNotify(needAlarm);
 		} else {
 			StopNotify();
+		}
+
+		if (!_settingsService.GetAccessInfo().AccessIsAllowed) {
+			// TODO: access not allowed
+			StartNotifyNotAccess();
 		}
 
 		return START_STICKY;
@@ -70,12 +76,20 @@ public class AppService extends RoboService {
 		Logger.Debug(LOG_TAG, "StartNotify");
 		if (_smsQueueService != null) {
 			long count = _smsQueueService.Count();
-			Notification notification = NotifyBuilder.CreateNotifacation(_context, count, needAlarm);
+			Notification notification = NotifyBuilder.CreateNotifacation(
+					_context, count, needAlarm);
 			Logger.Debug(LOG_TAG, "Start notify count " + count);
 			startForeground(NOTIFY_ID, notification);
 		} else {
 			Logger.Debug(LOG_TAG, "onStartCommand _smsQueueService = null ");
 		}
+	}
+
+	private void StartNotifyNotAccess() {
+		Logger.Debug(LOG_TAG, "StartNotifyNotAccess");
+		Notification notification = NotifyBuilder
+				.CreateNotifacationNotAccess(_context);
+		startForeground(NOTIFY_ID, notification);
 	}
 
 	public void onDestroy() {

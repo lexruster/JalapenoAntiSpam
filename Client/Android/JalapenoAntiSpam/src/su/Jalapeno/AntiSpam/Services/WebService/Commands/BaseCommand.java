@@ -29,7 +29,8 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 	private EncoderService _encoderService;
 
 	@Inject
-	public BaseCommand(JalapenoHttpService httpService, SettingsService settingsService, EncoderService encoderService,
+	public BaseCommand(JalapenoHttpService httpService,
+			SettingsService settingsService, EncoderService encoderService,
 			Class<TResp> respClazz) {
 		_httpService = httpService;
 		_settingsService = settingsService;
@@ -109,7 +110,9 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 			FillNoConnection(Response);
 		} else {
 			Response = _gson.fromJson(requestString, _respClazz);
-			Logger.Debug(LOG_TAG, "ParseResponse response Success: " + Response.WasSuccessful + " error: " + Response.ErrorMessage);
+			Logger.Debug(LOG_TAG, "ParseResponse response Success: "
+					+ Response.WasSuccessful + " error: "
+					+ Response.ErrorMessage);
 		}
 	}
 
@@ -133,9 +136,11 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 			return false;
 		}
 
-		if (response.ErrorMessage == WebErrorEnum.InvalidToken || response.ErrorMessage == WebErrorEnum.UserBanned
+		if (response.ErrorMessage == WebErrorEnum.InvalidToken
+				|| response.ErrorMessage == WebErrorEnum.UserBanned
 				|| response.ErrorMessage == WebErrorEnum.NotAuthorizedRequest) {
-			Logger.Debug(LOG_TAG, "Disable registration by error " + response.ErrorMessage);
+			Logger.Debug(LOG_TAG, "Disable registration by error "
+					+ response.ErrorMessage);
 
 			_settingsService.DropRegistration();
 
@@ -143,7 +148,7 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 		}
 
 		if (response.ErrorMessage == WebErrorEnum.PaymentRequired) {
-			_settingsService.DropUnlimitedAccess();
+			_settingsService.HandleAccessNotAllowed(true);
 		}
 
 		return false;
