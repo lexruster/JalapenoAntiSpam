@@ -6,6 +6,7 @@ import org.apache.http.entity.SerializableEntity;
 
 import junit.framework.Assert;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
+import su.Jalapeno.AntiSpam.Services.Sms.AccessService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.Services.WebService.EncoderService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
@@ -22,7 +23,7 @@ import com.google.gson.GsonBuilder;
 public class HttpTest extends AndroidTestCase {
 	private EncoderService encoding;
 	private SettingsService settings;
-	private SmsAnalyzerService analyzer;
+	private AccessService _accessService;
 	Context cntx;
 	Gson _gson;
 
@@ -43,7 +44,7 @@ public class HttpTest extends AndroidTestCase {
 				encoding);
 		EncoderService encoder = new EncoderService();
 		JalapenoWebServiceWraper wrap = new JalapenoWebServiceWraper(
-				jalapenoHttpService, settings, encoder, analyzer);
+				jalapenoHttpService, settings, encoder, _accessService);
 		RegisterClientRequest request = new RegisterClientRequest();
 		request.ClientId = UUID.randomUUID();
 		request.Token = "TOKEN";

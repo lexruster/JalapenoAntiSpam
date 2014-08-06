@@ -1,6 +1,7 @@
 package su.Jalapeno.AntiSpam.Services.WebService.Commands;
 
 import su.Jalapeno.AntiSpam.Services.SettingsService;
+import su.Jalapeno.AntiSpam.Services.Sms.AccessService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.Services.WebService.EncoderService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
@@ -23,7 +24,7 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 	public TResp Response;
 	protected JalapenoHttpService _httpService;
 	protected SettingsService _settingsService;
-	protected SmsAnalyzerService _smsAnalyzerService;
+	protected AccessService _accessService;
 	protected String _domain;
 	private Gson _gson;
 
@@ -33,12 +34,12 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 	@Inject
 	public BaseCommand(JalapenoHttpService httpService,
 			SettingsService settingsService, EncoderService encoderService,
-			SmsAnalyzerService smsAnalyzerService,
+			AccessService accessService,
 			Class<TResp> respClazz) {
 		_httpService = httpService;
 		_settingsService = settingsService;
 		_encoderService = encoderService;
-		_smsAnalyzerService=smsAnalyzerService;
+		_accessService=accessService;
 		_respClazz = respClazz;
 		Init();
 	}
@@ -152,7 +153,7 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 		}
 
 		if (response.ErrorMessage == WebErrorEnum.PaymentRequired) {
-			_smsAnalyzerService.HandleAccessNotAllowed(true);
+			_accessService.HandleAccessNotAllowed(true);
 		}
 
 		return false;

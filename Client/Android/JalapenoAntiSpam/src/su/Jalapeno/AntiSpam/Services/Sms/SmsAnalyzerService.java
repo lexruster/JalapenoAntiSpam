@@ -26,24 +26,17 @@ public class SmsAnalyzerService {
 	private SenderService _senderService;
 	private SmsService _smsService;
 	private Context _context;
-	private SettingsService _settingsService;
-
-	private NotifyService _notifyService;
 
 	@Inject
 	public SmsAnalyzerService(Context context, SmsQueueService smsQueueService,
 			RequestQueue queue, SmsHashService smsHashService,
-			SenderService senderService, SmsService smsService,
-			SettingsService settingsService, NotifyService notifyService  )
-	{
+			SenderService senderService, SmsService smsService) {
 		_context = context;
 		_smsQueueService = smsQueueService;
 		_requestQueue = queue;
 		_smsHashService = smsHashService;
 		_senderService = senderService;
 		_smsService = smsService;
-		_settingsService = settingsService;
-		_notifyService = notifyService;
 	}
 
 	public void AddSmsToValidate(Sms sms) {
@@ -94,32 +87,10 @@ public class SmsAnalyzerService {
 	}
 
 	private void SaveSmsToPhoneBase(List<Sms> smsList) {
-		boolean read = false;
-		if (smsList.size() == 1) {
-			read = true;
-		}
-
-		for (Sms sms : smsList) {
-			Logger.Debug(LOG_TAG, "Save sms " + sms.SenderId + " " + sms.Text);
-			_smsService.PutSmsToDatabase(sms, read);
-		}
+		_smsService.SaveSmsToPhoneBase(smsList);
 	}
 
 	public void DeleteSms(Sms sms) {
 		_smsQueueService.Delete(sms);
-	}
-
-	public void HandleAccessNotAllowed(boolean needSet) {
-		if (needSet) {
-			_settingsService.DropUnlimitedAccess();
-		}
-		SaveUncheckedSms();
-		_notifyService.OnAccessNotAllowed();
-	}
-
-	public void SaveUncheckedSms() {
-		List<Sms> smsList = _smsQueueService.GetAll();
-		SaveSmsToPhoneBase(smsList);
-		_smsQueueService.Clear();
 	}
 }

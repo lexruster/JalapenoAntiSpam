@@ -1,6 +1,7 @@
 package su.Jalapeno.AntiSpam.Services.Sms;
 
 import java.util.Date;
+import java.util.List;
 
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Util.Constants;
@@ -86,5 +87,17 @@ public class SmsService {
 		// Push row into the SMS table
 		contentResolver.insert(Uri.parse(SMS_URI), values);
 		Logger.Debug(LOG_TAG, "inserted " + sms.SenderId);
+	}
+	
+	public void SaveSmsToPhoneBase(List<Sms> smsList) {
+		boolean read = false;
+		if (smsList.size() == 1) {
+			read = true;
+		}
+
+		for (Sms sms : smsList) {
+			Logger.Debug(LOG_TAG, "Save sms " + sms.SenderId + " " + sms.Text);
+			PutSmsToDatabase(sms, read);
+		}
 	}
 }
