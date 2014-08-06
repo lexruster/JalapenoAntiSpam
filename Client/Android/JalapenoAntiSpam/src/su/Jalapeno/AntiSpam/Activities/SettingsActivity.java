@@ -4,6 +4,7 @@ import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
+import su.Jalapeno.AntiSpam.Services.Sms.AccessService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
 import su.Jalapeno.AntiSpam.Util.AccessInfo;
@@ -27,7 +28,7 @@ public class SettingsActivity extends JalapenoActivity {
 	Context _context;
 
 	@Inject
-	SmsAnalyzerService _smsAnalyzerService;
+	AccessService _accessService;
 	
 	@Inject
 	SettingsService _settingsService;
@@ -91,7 +92,7 @@ public class SettingsActivity extends JalapenoActivity {
 		AccessInfo accessInfo = _settingsService.GetAccessInfo();
 		if (!accessInfo.AccessIsAllowed) {
 			Logger.Debug(LOG_TAG, "Init NavigateTo BuyActivity");
-			_smsAnalyzerService.HandleAccessNotAllowed(false);
+			_accessService.HandleAccessNotAllowed(false);
 			UiUtils.NavigateTo(BillingActivity.class);
 		}
 

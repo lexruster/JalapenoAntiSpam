@@ -1,6 +1,7 @@
 package su.Jalapeno.AntiSpam.Services.WebService.Commands;
 
 import su.Jalapeno.AntiSpam.Services.SettingsService;
+import su.Jalapeno.AntiSpam.Services.Sms.AccessService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.Services.WebService.EncoderService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
@@ -14,9 +15,8 @@ public class RegisterClientCommand extends
 
 	public RegisterClientCommand(JalapenoHttpService httpService,
 			SettingsService settingsService, EncoderService encoderService,
-			SmsAnalyzerService smsAnalyzerService,
-			Class<RegisterClientResponse> respClazz) {
-		super(httpService, settingsService, encoderService, smsAnalyzerService,
+			AccessService accessService, Class<RegisterClientResponse> respClazz) {
+		super(httpService, settingsService, encoderService, accessService,
 				respClazz);
 	}
 
