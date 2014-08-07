@@ -21,7 +21,7 @@
     <Button
         android:id="@+id/buttonDebugPurchase"
         style="@style/BaseControl.Button.Debug"
-        android:text="@string/TestRegister"
+        android:text="@string/TestBuyText"
         android:visibility="invisible" 
         android:onClick="BuyTest"/>
 

@@ -28,6 +28,7 @@
     <string name="ErrorRegister">Registration error. Please, check the Internet connection, then try again</string>
     <string name="NeedPeekAccount">You have to choose an account</string>
     <string name="TestRegister">Test register</string>
+    <string name="TestBuyText">Test buy</string>
     
     <string name="BillingBuyText">You may buy antispam</string>
     <string name="NeedBuyAccessText">Antispam expired. Buy it.</string>

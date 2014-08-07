@@ -1,6 +1,7 @@
 package su.Jalapeno.AntiSpam.Util.UI;
 
 import su.Jalapeno.AntiSpam.Filter.R;
+import su.Jalapeno.AntiSpam.Activities.BillingActivity;
 import su.Jalapeno.AntiSpam.Activities.SmsAnalyzerActivity;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -76,7 +77,7 @@ public class NotifyBuilder {
 		notifBuilder.setContentText(smsStatus);
 
 		Intent notificationIntent = new Intent(context,
-				SmsAnalyzerActivity.class);
+				BillingActivity.class);
 		PendingIntent pendingIntent = PendingIntent.getActivity(context, 131,
 				notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		notifBuilder.setContentIntent(pendingIntent);
