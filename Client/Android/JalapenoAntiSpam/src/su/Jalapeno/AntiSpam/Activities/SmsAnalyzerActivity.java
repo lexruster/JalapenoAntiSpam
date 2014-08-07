@@ -5,8 +5,10 @@ import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Adapters.SmsAdapter;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
+import su.Jalapeno.AntiSpam.Services.Sms.AccessService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
+import su.Jalapeno.AntiSpam.Util.AccessInfo;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
@@ -47,6 +49,9 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 
 	@Inject
 	SettingsService _settingsService;
+	
+	@Inject
+	AccessService _accessService;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +95,11 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 			Logger.Debug(LOG_TAG, "Init NavigateTo RegisterActivity");
 			UiUtils.NavigateTo(RegisterActivity.class);
 			return;
+		}
+		
+		if(!_accessService.AccessCheck())
+		{
+			UiUtils.NavigateTo(BillingActivity.class);
 		}
 
 		registerReceiver(_receiver, _intFilt);

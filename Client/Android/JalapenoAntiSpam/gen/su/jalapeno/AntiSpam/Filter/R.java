@@ -520,20 +520,20 @@ containing a value of this type.
         public static final int cartoon010=0x7f050001;
     }
     public static final class string {
-        public static final int AccessInfo=0x7f06003b;
-        public static final int AntiSpamOff=0x7f060040;
-        public static final int AntiSpamOn=0x7f06003f;
+        public static final int AccessInfo=0x7f06003c;
+        public static final int AntiSpamOff=0x7f060041;
+        public static final int AntiSpamOn=0x7f060040;
         public static final int BannedRegister=0x7f060032;
-        public static final int BillingBuyButton=0x7f060038;
-        public static final int BillingBuyText=0x7f060036;
-        public static final int DateFormat=0x7f060042;
+        public static final int BillingBuyButton=0x7f060039;
+        public static final int BillingBuyText=0x7f060037;
+        public static final int DateFormat=0x7f060043;
         public static final int DebugActivity=0x7f060026;
         public static final int DeleteButton=0x7f06002c;
-        public static final int EmptySmsList=0x7f06003d;
-        public static final int EmptySpamerList=0x7f06003c;
-        public static final int ErrorBilling=0x7f060039;
+        public static final int EmptySmsList=0x7f06003e;
+        public static final int EmptySpamerList=0x7f06003d;
+        public static final int ErrorBilling=0x7f06003a;
         public static final int ErrorRegister=0x7f060033;
-        public static final int ExistsUnknownSms=0x7f060041;
+        public static final int ExistsUnknownSms=0x7f060042;
         /** НЕ НУЖНО
 НЕ НУЖНО
 НЕ НУЖНО
@@ -541,12 +541,12 @@ containing a value of this type.
         public static final int KnownSpammerList=0x7f060022;
         public static final int LicenseAgreement=0x7f060031;
         public static final int LicenseAgreementUrl=0x7f060030;
-        public static final int NeedBuyAccessText=0x7f060037;
+        public static final int NeedBuyAccessText=0x7f060038;
         public static final int NeedPeekAccount=0x7f060034;
         public static final int NotExistsUnknownSms=0x7f06002d;
         public static final int NotSpamButton=0x7f06002b;
-        public static final int ParentActivity=0x7f060043;
-        public static final int PurchaseComplete=0x7f06003a;
+        public static final int ParentActivity=0x7f060044;
+        public static final int PurchaseComplete=0x7f06003b;
         public static final int RegisterButton=0x7f06002e;
         public static final int RegisterText=0x7f06002f;
         public static final int SettingsTitle=0x7f060021;
@@ -556,8 +556,9 @@ containing a value of this type.
         public static final int SoundSettings=0x7f060025;
         public static final int SpamButton=0x7f06002a;
         public static final int SpammerList=0x7f060027;
+        public static final int TestBuyText=0x7f060036;
         public static final int TestRegister=0x7f060035;
-        public static final int WaitMessage=0x7f06003e;
+        public static final int WaitMessage=0x7f06003f;
         public static final int app_name=0x7f060020;
         public static final int auth_client_needs_enabling_title=0x7f060001;
         public static final int auth_client_needs_installation_title=0x7f060002;

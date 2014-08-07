@@ -29,6 +29,7 @@
     <string name="ErrorRegister">Ошибка регистрации. Пожалуйста, проверьте Интернет-подключение, затем повторите попытку</string>
     <string name="NeedPeekAccount">Выберите аккаунт</string>
     <string name="TestRegister">Тест регистрация</string>
+    <string name="TestBuyText">Тест покупка</string>
     
     <string name="BillingBuyText">Вы можете купить антиспам</string>
     <string name="NeedBuyAccessText">Кончился пробный период.</string>

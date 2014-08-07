@@ -88,14 +88,12 @@ public class SettingsActivity extends JalapenoActivity {
 		}
 
 		UpdateOnOffButton(_settingsService.AntispamEnabled());
-
-		AccessInfo accessInfo = _settingsService.GetAccessInfo();
-		if (!accessInfo.AccessIsAllowed) {
-			Logger.Debug(LOG_TAG, "Init NavigateTo BuyActivity");
-			_accessService.HandleAccessNotAllowed(false);
+		
+		if(!_accessService.AccessCheck())
+		{
 			UiUtils.NavigateTo(BillingActivity.class);
 		}
-
+		AccessInfo accessInfo = _settingsService.GetAccessInfo();
 		if (accessInfo.IsUnlimitedAccess) {
 			textAccessInfo.setVisibility(View.INVISIBLE);
 		} else {

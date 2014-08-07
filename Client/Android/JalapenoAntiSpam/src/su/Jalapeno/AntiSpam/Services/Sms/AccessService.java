@@ -3,11 +3,13 @@ package su.Jalapeno.AntiSpam.Services.Sms;
 import java.util.ArrayList;
 import java.util.List;
 
+import su.Jalapeno.AntiSpam.Activities.BillingActivity;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.NotifyService;
 import su.Jalapeno.AntiSpam.Services.RequestQueue;
 import su.Jalapeno.AntiSpam.Services.SenderService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
+import su.Jalapeno.AntiSpam.Util.AccessInfo;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import android.content.Context;
@@ -34,12 +36,27 @@ public class AccessService {
 		_smsService = smsService;
 	}
 
+	public boolean AccessCheck() {
+		AccessInfo accessInfo = _settingsService.GetAccessInfo();
+		if (!accessInfo.AccessIsAllowed) {
+			Logger.Debug(LOG_TAG, "Init ProceedAccessCheck with FALSE result");
+			HandleAccessNotAllowed(false);
+			return false;
+		}
+		return true;
+	}
+
 	public void HandleAccessNotAllowed(boolean needSet) {
 		if (needSet) {
 			_settingsService.DropUnlimitedAccess();
 		}
 		SaveUncheckedSms();
 		_notifyService.OnAccessNotAllowed();
+	}
+	
+	public void HandleUnlimitedAccessEnabled() {
+		_settingsService.ActivateUnlimitedAccess();
+		_notifyService.OnAccessAllowed();
 	}
 
 	public void SaveUncheckedSms() {

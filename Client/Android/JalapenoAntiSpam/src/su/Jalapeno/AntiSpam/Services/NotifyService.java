@@ -56,4 +56,9 @@ public class NotifyService {
 		_context.startService(new Intent(_context, AppService.class).putExtra(
 				"Alarm", 1));
 	}
+
+	public void OnAccessAllowed() {
+		Logger.Debug(LOG_TAG, "OnAccessAllowed.");
+		OnIncomeSms();
+	}
 }

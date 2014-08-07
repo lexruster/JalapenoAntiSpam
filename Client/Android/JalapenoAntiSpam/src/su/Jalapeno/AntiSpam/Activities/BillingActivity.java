@@ -12,6 +12,7 @@ import su.Jalapeno.AntiSpam.Billing.util.Inventory;
 import su.Jalapeno.AntiSpam.Billing.util.SkuDetails;
 import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
+import su.Jalapeno.AntiSpam.Services.Sms.AccessService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.NotifyAboutPaymentRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.NotifyAboutPaymentResponse;
@@ -37,6 +38,9 @@ public class BillingActivity extends JalapenoActivity {
 	Context _context;
 	@Inject
 	public SettingsService _settingsService;
+
+	@Inject
+	public AccessService _accessService;
 
 	@Inject
 	JalapenoWebServiceWraper _jalapenoWebServiceWraper;
@@ -86,8 +90,8 @@ public class BillingActivity extends JalapenoActivity {
 	public void BuyTest(View view) {
 		Logger.Debug(LOG_TAG, "BuyTest");
 		if (Constants.VIEW_DEBUG_UI) {
-			new TestPurchaseAntispamTask(this, _settingsService,
-					_jalapenoWebServiceWraper).execute();
+			new TestPurchaseAntispamTask(this, _accessService,
+					_settingsService, _jalapenoWebServiceWraper).execute();
 		}
 	}
 
@@ -206,7 +210,7 @@ public class BillingActivity extends JalapenoActivity {
 				.NotifyAboutPayment(new NotifyAboutPaymentRequest(
 						"Already buy", _settingsService.GetClientId()));
 		if (notifyAboutPayment.WasSuccessful) {
-			_settingsService.ActivateUnlimitedAccess();
+			_accessService.HandleUnlimitedAccessEnabled();
 			UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 		}
 	}
