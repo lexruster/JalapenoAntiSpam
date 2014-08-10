@@ -3,7 +3,6 @@ package su.Jalapeno.AntiSpam.Services;
 import java.util.Date;
 import java.util.UUID;
 
-import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.Services.WebService.WebConstants;
 import su.Jalapeno.AntiSpam.Util.AccessInfo;
 import su.Jalapeno.AntiSpam.Util.Config;

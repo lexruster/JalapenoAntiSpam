@@ -2,14 +2,12 @@ package su.Jalapeno.AntiSpam.Services.WebService.Commands;
 
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.Sms.AccessService;
-import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.Services.WebService.EncoderService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
 import su.Jalapeno.AntiSpam.Services.WebService.WebClient;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.BaseRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.BaseResponse;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.WebErrorEnum;
-import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import android.text.TextUtils;

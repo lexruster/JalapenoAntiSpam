@@ -2,14 +2,12 @@ package su.Jalapeno.AntiSpam.Activities;
 
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
-import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Adapters.SmsAdapter;
+import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.Sms.AccessService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
-import su.Jalapeno.AntiSpam.Util.AccessInfo;
-import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;

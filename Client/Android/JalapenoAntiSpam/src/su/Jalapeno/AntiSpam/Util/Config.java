@@ -3,8 +3,6 @@ package su.Jalapeno.AntiSpam.Util;
 import java.util.Date;
 import java.util.UUID;
 
-import su.Jalapeno.AntiSpam.Services.WebService.WebConstants;
-
 public class Config {
 
 	public String NAME_Enabled = "Enabled";

@@ -30,7 +30,7 @@
     <string name="TestRegister">Test register</string>
     <string name="TestBuyText">Test buy</string>
     
-    <string name="BillingBuyText">You may buy antispam</string>
+    <string name="BillingBuyText">You may buy or restore antispam</string>
     <string name="NeedBuyAccessText">Antispam expired. Buy it.</string>
     <string name="BillingBuyButton">Buy antispam</string>
     <string name="ErrorBilling">Billing error. Please, check the Internet connection, then try again</string>
