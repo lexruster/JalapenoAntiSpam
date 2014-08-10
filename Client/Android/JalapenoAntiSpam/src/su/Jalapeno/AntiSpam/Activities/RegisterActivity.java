@@ -1,6 +1,5 @@
 package su.Jalapeno.AntiSpam.Activities;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.UUID;
 
@@ -11,32 +10,22 @@ import su.Jalapeno.AntiSpam.Activities.Tasks.TestRegisterTask;
 import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.RegisterClientRequest;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.RegisterClientResponse;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.WebErrorEnum;
-import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.DateUtil;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
-import su.Jalapeno.AntiSpam.Util.UI.Spiner;
 import android.accounts.AccountManager;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.auth.GoogleAuthException;
-import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.GooglePlayServicesAvailabilityException;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.AccountPicker;
@@ -68,7 +57,7 @@ public class RegisterActivity extends JalapenoActivity {
 
 	public String Email;
 	public String Token;
-	public static String SCOPE;
+	public String SCOPE;
 	// from web app id
 	final private String WEB_CLIENT_ID = "140853970719-4ohgmn0eojg2qeh75r96m9iojpra4omr.apps.googleusercontent.com";
 

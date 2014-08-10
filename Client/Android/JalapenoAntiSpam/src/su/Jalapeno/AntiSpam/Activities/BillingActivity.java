@@ -1,9 +1,11 @@
 package su.Jalapeno.AntiSpam.Activities;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
+import su.Jalapeno.AntiSpam.Activities.Tasks.PurchaseAntispamTask;
 import su.Jalapeno.AntiSpam.Activities.Tasks.TestPurchaseAntispamTask;
 import su.Jalapeno.AntiSpam.Billing.util.IabException;
 import su.Jalapeno.AntiSpam.Billing.util.IabHelper;
@@ -14,13 +16,12 @@ import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.Sms.AccessService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.NotifyAboutPaymentRequest;
-import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.NotifyAboutPaymentResponse;
 import su.Jalapeno.AntiSpam.Util.BillingConstants;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.CryptoService;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
+import su.Jalapeno.AntiSpam.Util.UI.Spiner;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -51,10 +52,16 @@ public class BillingActivity extends JalapenoActivity {
 	IabHelper mHelper;
 	protected boolean hasPremium;
 
+	Spiner spiner;
+	private JalapenoActivity _activity;
+	private UUID _clientId;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Logger.Debug(LOG_TAG, "onCreate");
+		spiner = new Spiner(this);
+		_activity = this;
 	}
 
 	@Override
@@ -65,6 +72,7 @@ public class BillingActivity extends JalapenoActivity {
 	}
 
 	private void Resume() {
+		_clientId = _settingsService.GetClientId();
 		SetDebugMode(Constants.VIEW_DEBUG_UI);
 	}
 
@@ -90,16 +98,15 @@ public class BillingActivity extends JalapenoActivity {
 	public void BuyTest(View view) {
 		Logger.Debug(LOG_TAG, "BuyTest");
 		if (Constants.VIEW_DEBUG_UI) {
-			new TestPurchaseAntispamTask(this, _accessService,
-					_settingsService, _jalapenoWebServiceWraper).execute();
+			new TestPurchaseAntispamTask(this, _accessService, _settingsService, _jalapenoWebServiceWraper).execute();
 		}
 	}
 
 	public void Buy(View view) {
 		Logger.Debug(LOG_TAG, "Buy pressed");
+		spiner.Show();
 		CryptoService cr = new CryptoService();
-		String base64EncodedPublicKey = cr
-				.Decrypt(BillingConstants.ENCYPTED_LICENCE_KEY);
+		String base64EncodedPublicKey = cr.Decrypt(BillingConstants.ENCYPTED_LICENCE_KEY);
 
 		// compute your public key and store it in base64EncodedPublicKey
 		mHelper = new IabHelper(this, base64EncodedPublicKey);
@@ -110,10 +117,10 @@ public class BillingActivity extends JalapenoActivity {
 
 				Logger.Debug(LOG_TAG, "onIabSetupFinished");
 				if (!result.isSuccess()) {
+					spiner.Hide();
 					ShowToast(R.string.ErrorBilling);
 					// Oh noes, there was a problem.
-					Logger.Error(LOG_TAG, "Problem setting up In-app Billing: "
-							+ result);
+					Logger.Error(LOG_TAG, "Problem setting up In-app Billing: " + result);
 				}
 				// Hooray, IAB is fully set up!
 				Logger.Debug(LOG_TAG, "Billing initialized");
@@ -128,13 +135,12 @@ public class BillingActivity extends JalapenoActivity {
 		additionalSkuList.add(BillingConstants.ANTISPAM_ACCESS);
 
 		try {
-			Inventory inventory = mHelper.queryInventory(true,
-					additionalSkuList);
+			Inventory inventory = mHelper.queryInventory(true, additionalSkuList);
 
 			BuyAccess(inventory);
 
 		} catch (IabException e) {
-			// TODO Auto-generated catch block
+			spiner.Hide();
 			e.printStackTrace();
 			Logger.Error(LOG_TAG, "ProceedWithPurchase error", e);
 			ShowToast(R.string.ErrorBilling);
@@ -143,59 +149,55 @@ public class BillingActivity extends JalapenoActivity {
 
 	private void BuyAccess(Inventory inventory) {
 		Logger.Debug(LOG_TAG, "BuyAccess");
-		SkuDetails skuDetails = inventory
-				.getSkuDetails(BillingConstants.ANTISPAM_ACCESS);
+		SkuDetails skuDetails = inventory.getSkuDetails(BillingConstants.ANTISPAM_ACCESS);
 
 		if (inventory.hasPurchase(BillingConstants.ANTISPAM_ACCESS)) {
 			Logger.Debug(LOG_TAG, "ANTISPAM_ACCESS already purchase");
 			ShowToast(R.string.PurchaseComplete);
 
-			ActivateAccess();
-		}
-
-		String accessPrice = skuDetails.getPrice();
-		Logger.Debug(LOG_TAG, "Available access with cost " + accessPrice);
-
-		IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
-			public void onIabPurchaseFinished(IabResult result,
-					su.Jalapeno.AntiSpam.Billing.util.Purchase purchase) {
-				if (result.isFailure()) {
-					Logger.Debug(LOG_TAG, "Error purchasing: " + result);
-					ShowToast(R.string.ErrorBilling);
-					return;
-				} else if (purchase.getSku().equals(
-						BillingConstants.ANTISPAM_ACCESS)) {
-					Logger.Debug(LOG_TAG,
-							"onIabPurchaseFinished Successfully result");
-					CheckComplete();
+			ActivateAccess(false, "");
+		} else {
+			String accessPrice = skuDetails.getPrice();
+			Logger.Debug(LOG_TAG, "Available access with cost " + accessPrice);
+			IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
+				public void onIabPurchaseFinished(IabResult result, su.Jalapeno.AntiSpam.Billing.util.Purchase purchase) {
+					if (result.isFailure()) {
+						spiner.Hide();
+						Logger.Debug(LOG_TAG, "Error purchasing: " + result);
+						ShowToast(R.string.ErrorBilling);
+						return;
+					} else if (purchase.getSku().equals(BillingConstants.ANTISPAM_ACCESS)) {
+						Logger.Debug(LOG_TAG, "onIabPurchaseFinished Successfully result");
+						String orderId = purchase.getOrderId();
+						CheckComplete(orderId);
+					}
 				}
-			}
-		};
+			};
 
-		mHelper.launchPurchaseFlow(this, BillingConstants.ANTISPAM_ACCESS,
-				PURCHASE_RESULT, mPurchaseFinishedListener, "");
+			mHelper.launchPurchaseFlow(this, BillingConstants.ANTISPAM_ACCESS, PURCHASE_RESULT, mPurchaseFinishedListener,
+					_clientId.toString());
+		}
 	}
 
-	protected void CheckComplete() {
+	protected void CheckComplete(final String orderId) {
 		Logger.Debug(LOG_TAG, "CheckComplete");
 
 		IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
-			public void onQueryInventoryFinished(IabResult result,
-					Inventory inventory) {
+			public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
 
 				if (result.isFailure()) {
-
+					spiner.Hide();
 				} else {
-					hasPremium = inventory
-							.hasPurchase(BillingConstants.ANTISPAM_ACCESS);
+					hasPremium = inventory.hasPurchase(BillingConstants.ANTISPAM_ACCESS);
 
-					Logger.Debug(LOG_TAG, "ANTISPAM_ACCESS  purchase status "
-							+ hasPremium);
+					Logger.Debug(LOG_TAG, "ANTISPAM_ACCESS  purchase status " + hasPremium);
 					if (hasPremium) {
+						spiner.Hide();
 						ShowToast(R.string.PurchaseComplete);
-						ActivateAccess();
+						ActivateAccess(true, orderId);
 					} else {
 						Logger.Debug(LOG_TAG, "ANTISPAM_ACCESS purchase ERROR");
+						spiner.Hide();
 						ShowToast(R.string.ErrorBilling);
 					}
 				}
@@ -205,14 +207,13 @@ public class BillingActivity extends JalapenoActivity {
 		mHelper.queryInventoryAsync(mGotInventoryListener);
 	}
 
-	private void ActivateAccess() {
-		NotifyAboutPaymentResponse notifyAboutPayment = _jalapenoWebServiceWraper
-				.NotifyAboutPayment(new NotifyAboutPaymentRequest(
-						"Already buy", _settingsService.GetClientId()));
-		if (notifyAboutPayment.WasSuccessful) {
-			_accessService.HandleUnlimitedAccessEnabled();
-			UiUtils.NavigateAndClearHistory(SettingsActivity.class);
-		}
+	private void ActivateAccess(boolean newBuy, String orderId) {
+		GetPurchaseAntispamTask(newBuy, orderId, _clientId).execute();
+	}
+
+	private PurchaseAntispamTask GetPurchaseAntispamTask(boolean newBuy, String orderId, UUID clientId) {
+		return new PurchaseAntispamTask(_activity, _accessService, _settingsService, _jalapenoWebServiceWraper, spiner, newBuy, orderId,
+				clientId);
 	}
 
 	@Override

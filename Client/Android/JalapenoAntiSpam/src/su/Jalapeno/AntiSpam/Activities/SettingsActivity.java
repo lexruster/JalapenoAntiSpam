@@ -5,7 +5,6 @@ import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.Sms.AccessService;
-import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
 import su.Jalapeno.AntiSpam.Util.AccessInfo;
 import su.Jalapeno.AntiSpam.Util.Constants;
@@ -29,7 +28,7 @@ public class SettingsActivity extends JalapenoActivity {
 
 	@Inject
 	AccessService _accessService;
-	
+
 	@Inject
 	SettingsService _settingsService;
 
@@ -88,9 +87,8 @@ public class SettingsActivity extends JalapenoActivity {
 		}
 
 		UpdateOnOffButton(_settingsService.AntispamEnabled());
-		
-		if(!_accessService.AccessCheck())
-		{
+
+		if (!_accessService.AccessCheck()) {
 			UiUtils.NavigateTo(BillingActivity.class);
 		}
 		AccessInfo accessInfo = _settingsService.GetAccessInfo();
@@ -103,13 +101,12 @@ public class SettingsActivity extends JalapenoActivity {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	private void UpdateOnOffButton(boolean antispamEnabled) {
 		if (antispamEnabled) {
 			toogleButton.setText(R.string.AntiSpamOn);
 			toogleButton.setTextColor(getResources().getColor(R.color.toogle_green));
 		} else {
-			//toogleButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.main_button_black_off));
+			// toogleButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.main_button_black_off));
 			toogleButton.setText(R.string.AntiSpamOff);
 			toogleButton.setTextColor(getResources().getColor(R.color.toogle_red));
 		}

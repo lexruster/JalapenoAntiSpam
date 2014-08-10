@@ -10,7 +10,6 @@ import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.RegisterClientRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.RegisterClientResponse;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.WebErrorEnum;
-import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.Spiner;

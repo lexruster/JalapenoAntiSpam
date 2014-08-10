@@ -1,7 +1,6 @@
 package su.Jalapeno.AntiSpam.Services.Sms;
 
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
-import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Util.ServiceFactory;
 import android.content.Context;
 

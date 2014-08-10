@@ -1,19 +1,14 @@
 package su.Jalapeno.AntiSpam.Services.Sms;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import su.Jalapeno.AntiSpam.Activities.BillingActivity;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Services.NotifyService;
-import su.Jalapeno.AntiSpam.Services.RequestQueue;
-import su.Jalapeno.AntiSpam.Services.SenderService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Util.AccessInfo;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import android.content.Context;
-import android.content.Intent;
 
 import com.google.inject.Inject;
 
