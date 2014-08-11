@@ -5,13 +5,14 @@
 
     <TextView
         android:id="@+id/textView"
-        android:text="@string/RegisterText"
-        style="@style/BaseControl.Text" />
+        style="@style/BaseControl.Text"
+        android:text="@string/RegisterText" />
 
     <TextView
         android:id="@+id/licenseLink"
         style="@style/BaseControl"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="50dp"
         android:autoLink="web"
         android:gravity="center_horizontal"
         android:linksClickable="true"
@@ -20,17 +21,31 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:typeface="normal" />
 
-    <Button
-        android:id="@+id/buttonRegister"
-        style="@style/BaseControl.Button"
-        android:onClick="Register"
-        android:text="@string/RegisterButton" />
+    <LinearLayout
+        android:id="@+id/LinearLayout02"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1.0" >
+
+        <su.Jalapeno.AntiSpam.Util.UI.SquareButton
+            android:id="@+id/buttonRegister"
+            style="@style/button_text"
+            android:layout_width="0dp"
+            android:layout_weight=".5"
+            android:background="@drawable/main_button_green"
+            android:onClick="Register"
+            android:text="@string/RegisterButton" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/buttonDebugRegister"
         style="@style/BaseControl.Button.Debug"
+        android:onClick="TestRegister"
         android:text="@string/TestRegister"
-        android:visibility="invisible" 
-        android:onClick="TestRegister"/>
+        android:visibility="invisible" />
 
 </LinearLayout>

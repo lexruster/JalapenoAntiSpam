@@ -32,7 +32,7 @@
     
     <string name="BillingBuyText">You may buy or restore antispam</string>
     <string name="NeedBuyAccessText">Antispam expired. Buy it.</string>
-    <string name="BillingBuyButton">Buy antispam</string>
+    <string name="BillingBuyButton">Buy</string>
     <string name="ErrorBilling">Billing error. Please, check the Internet connection, then try again</string>
     <string name="PurchaseComplete">Congratulations! Purchase successfully complete.</string>
 	<string name="AccessInfo">Evaluation period: %d days</string>
