@@ -19,18 +19,16 @@ public class PurchaseAntispamTask extends AsyncTask<JalapenoActivity, Void, Noti
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "PurchaseAntispamTask";
 	protected JalapenoActivity _activity;
 	protected AccessService _accessService;
-	protected SettingsService _settingsService;
 	protected JalapenoWebServiceWraper _jalapenoWebServiceWraper;
 	Spiner _spiner;
 	private boolean _newBuy;
 	private String _orderId;
 	private UUID _clientId;
 
-	public PurchaseAntispamTask(JalapenoActivity activity, AccessService accessService, SettingsService settingsService,
+	public PurchaseAntispamTask(JalapenoActivity activity, AccessService accessService,
 			JalapenoWebServiceWraper jalapenoWebServiceWraper, Spiner spiner, boolean newBuy, String orderId, UUID clientId) {
 		_activity = activity;
 		_accessService = accessService;
-		_settingsService = settingsService;
 		_jalapenoWebServiceWraper = jalapenoWebServiceWraper;
 		_newBuy = newBuy;
 		_spiner = spiner;
@@ -66,7 +64,7 @@ public class PurchaseAntispamTask extends AsyncTask<JalapenoActivity, Void, Noti
 			message=String.format("ClientId:%s Already buy it", _clientId.toString());
 		}
 		NotifyAboutPaymentResponse notifyAboutPayment = _jalapenoWebServiceWraper.NotifyAboutPayment(new NotifyAboutPaymentRequest(
-				message, _settingsService.GetClientId()));
+				message, _clientId));
 
 		return notifyAboutPayment;
 	}
