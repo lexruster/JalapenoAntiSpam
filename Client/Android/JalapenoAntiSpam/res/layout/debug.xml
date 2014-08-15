@@ -79,6 +79,12 @@
                     style="@style/BaseControl.Button"
                     android:onClick="GoToBuy"
                     android:text="Drop buy" />
+                 
+                 <Button
+                    android:id="@+id/buttonConsumeAccess"
+                    style="@style/BaseControl.Button"
+                    android:onClick="Consume"
+                    android:text="Consume access" />
             </LinearLayout>
 
             <LinearLayout

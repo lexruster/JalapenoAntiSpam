@@ -13,6 +13,7 @@ import su.Jalapeno.AntiSpam.Billing.util.IabResult;
 import su.Jalapeno.AntiSpam.Billing.util.Inventory;
 import su.Jalapeno.AntiSpam.Billing.util.SkuDetails;
 import su.Jalapeno.AntiSpam.Filter.R;
+import su.Jalapeno.AntiSpam.Services.BillingService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.Sms.AccessService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
@@ -48,6 +49,8 @@ public class BillingActivity extends JalapenoActivity {
 
 	@InjectView(R.id.buttonDebugPurchase)
 	Button buttonDebug;
+	
+	BillingService _billingService; 
 
 	IabHelper mHelper;
 	protected boolean hasPremium;
@@ -62,6 +65,7 @@ public class BillingActivity extends JalapenoActivity {
 		Logger.Debug(LOG_TAG, "onCreate");
 		spiner = new Spiner(this);
 		_activity = this;
+		_billingService=new BillingService(_context);
 	}
 
 	@Override
@@ -212,7 +216,7 @@ public class BillingActivity extends JalapenoActivity {
 	}
 
 	private PurchaseAntispamTask GetPurchaseAntispamTask(boolean newBuy, String orderId, UUID clientId) {
-		return new PurchaseAntispamTask(_activity, _accessService, _settingsService, _jalapenoWebServiceWraper, spiner, newBuy, orderId,
+		return new PurchaseAntispamTask(_activity, _accessService, _jalapenoWebServiceWraper, spiner, newBuy, orderId,
 				clientId);
 	}
 
