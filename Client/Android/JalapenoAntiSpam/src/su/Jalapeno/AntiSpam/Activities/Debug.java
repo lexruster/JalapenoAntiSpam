@@ -101,6 +101,7 @@ public class Debug extends JalapenoActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		SetBiling();
 	}
 
 	@Override
@@ -120,7 +121,7 @@ public class Debug extends JalapenoActivity {
 		mActivity = this;
 
 		_billingService = new BillingService(_context);
-		SetBiling();
+		
 	}
 
 	private void SetBiling() {
