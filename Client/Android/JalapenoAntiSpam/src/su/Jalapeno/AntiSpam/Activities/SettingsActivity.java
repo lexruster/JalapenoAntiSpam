@@ -93,9 +93,8 @@ public class SettingsActivity extends JalapenoActivity {
 		}
 		AccessInfo accessInfo = _settingsService.GetAccessInfo();
 		if (accessInfo.IsUnlimitedAccess) {
-			textAccessInfo.setVisibility(View.INVISIBLE);
+			textAccessInfo.setText(R.string.AccessFullInfo);
 		} else {
-			textAccessInfo.setVisibility(View.VISIBLE);
 			String info = _context.getString(R.string.AccessInfo, accessInfo.EvaluationDaysLast);
 			textAccessInfo.setText(info);
 		}
