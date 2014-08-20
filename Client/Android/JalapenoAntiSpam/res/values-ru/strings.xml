@@ -37,6 +37,7 @@
     <string name="ErrorBilling">Ошибка покупки. Пожалуйста, проверьте Интернет-подключение, затем повторите попытку</string>
     <string name="PurchaseComplete">Поздравляю! Покупка успешно завершена.</string>
     <string name="AccessInfo">Пробный период: %d дней</string>
+    <string name="AccessFullInfo">Полная версия</string>
     
     <string name="EmptySpamerList">Скоро здесь появятся спамеры</string>
     <string name="EmptySmsList">Нет СМС</string>

@@ -36,6 +36,7 @@
     <string name="ErrorBilling">Billing error. Please, check the Internet connection, then try again</string>
     <string name="PurchaseComplete">Congratulations! Purchase successfully complete.</string>
 	<string name="AccessInfo">Evaluation period: %d days</string>
+	<string name="AccessFullInfo">Full version</string>
 
     <string name="EmptySpamerList">List empty</string>
     <string name="EmptySmsList">List empty</string>
