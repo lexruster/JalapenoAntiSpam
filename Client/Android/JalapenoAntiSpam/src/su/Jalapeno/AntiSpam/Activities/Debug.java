@@ -258,8 +258,8 @@ public class Debug extends JalapenoActivity {
 		_settingsService.DropRegistration();
 		startService(new Intent(this, AppService.class));
 	}
-
-	public void Consume() {
+	
+	public void Consume(View v) {
 		Consume(_token, new ConsumeListener());
 	}
 
