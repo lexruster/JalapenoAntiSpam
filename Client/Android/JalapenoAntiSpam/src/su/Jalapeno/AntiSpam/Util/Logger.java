@@ -3,10 +3,8 @@ package su.Jalapeno.AntiSpam.Util;
 import android.util.Log;
 
 public class Logger {
-	public static final boolean LOG_DEBUG = true;
-
 	public static void Debug(String LOG_TAG, String string) {
-		if (LOG_DEBUG) {
+		if (Constants.LOG_DEBUG) {
 			Log.d(LOG_TAG, string);
 		}
 	}
