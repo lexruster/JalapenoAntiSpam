@@ -1,21 +1,29 @@
 package su.Jalapeno.AntiSpam.Activities;
 
+import static org.solovyev.android.checkout.ProductTypes.IN_APP;
+
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
 
+import javax.annotation.Nonnull;
+
+import org.solovyev.android.checkout.ActivityCheckout;
+import org.solovyev.android.checkout.BillingRequests;
+import org.solovyev.android.checkout.Checkout;
+import org.solovyev.android.checkout.Inventory;
+import org.solovyev.android.checkout.Purchase;
+import org.solovyev.android.checkout.RequestListener;
+import org.solovyev.android.checkout.ResponseCodes;
+import org.solovyev.android.checkout.Sku;
+
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
-import su.Jalapeno.AntiSpam.Billing.util.IabException;
-import su.Jalapeno.AntiSpam.Billing.util.IabHelper;
-import su.Jalapeno.AntiSpam.Billing.util.IabResult;
-import su.Jalapeno.AntiSpam.Billing.util.Inventory;
+import su.Jalapeno.AntiSpam.MyApplication;
 import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Services.AccessService;
-import su.Jalapeno.AntiSpam.Services.BillingService;
 import su.Jalapeno.AntiSpam.Services.ContactsService;
 import su.Jalapeno.AntiSpam.Services.EmailSender;
 import su.Jalapeno.AntiSpam.Services.NotifyService;
@@ -26,9 +34,7 @@ import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiverLogic;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
 import su.Jalapeno.AntiSpam.Services.WebService.WebClient;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
-import su.Jalapeno.AntiSpam.Util.BillingConstants;
 import su.Jalapeno.AntiSpam.Util.Constants;
-import su.Jalapeno.AntiSpam.Util.CryptoService;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.ServiceFactory;
 import su.Jalapeno.AntiSpam.Util.UI.AlertMessage;
@@ -40,6 +46,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,13 +71,19 @@ public class Debug extends JalapenoActivity {
 	@Inject
 	AccessService _accessService;
 
+	private Sku _skuAccess;
+	private String _token;
+
 	@InjectView(R.id.textDeviceInfo)
 	TextView textDeviceInfo;
 
-	IabHelper mHelper;
-	BillingService _billingService;
-
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "DebugActivity";
+
+	@Nonnull
+	protected final ActivityCheckout checkout = Checkout.forActivity(this, MyApplication.get().getCheckout());
+
+	@Nonnull
+	protected Inventory inventory;
 
 	SmsReceiverLogic _smsService;
 	SmsReceiver _smsReceiver;
@@ -90,6 +103,12 @@ public class Debug extends JalapenoActivity {
 		super.onCreate(savedInstanceState);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		SetEvent();
+
+		checkout.start();
+		Logger.Debug(LOG_TAG, "onCreate createPurchaseFlow");
+		inventory = checkout.loadInventory();
+		inventory.whenLoaded(new InventoryLoadedListener());
+
 		Init();
 	}
 
@@ -101,7 +120,6 @@ public class Debug extends JalapenoActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		SetBiling();
 	}
 
 	@Override
@@ -119,39 +137,6 @@ public class Debug extends JalapenoActivity {
 		_smsReceiver = new SmsReceiver(_settingsService, _smsService);
 		_ringtoneService = new NotifyService(_context);
 		mActivity = this;
-
-		_billingService = new BillingService(_context);
-		
-	}
-
-	private void SetBiling() {
-		CryptoService cr = new CryptoService();
-		String base64EncodedPublicKey = cr.Decrypt(BillingConstants.ENCYPTED_LICENCE_KEY);
-
-		// compute your public key and store it in base64EncodedPublicKey
-		mHelper = new IabHelper(this, base64EncodedPublicKey);
-		Logger.Debug(LOG_TAG, "mHelper ready");
-
-		mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
-			public void onIabSetupFinished(IabResult result) {
-
-				Logger.Debug(LOG_TAG, "onIabSetupFinished");
-				if (!result.isSuccess()) {
-					ShowToast(R.string.ErrorBilling);
-					// Oh noes, there was a problem.
-					Logger.Error(LOG_TAG, "Problem setting up In-app Billing: " + result);
-				}
-				// Hooray, IAB is fully set up!
-				Logger.Debug(LOG_TAG, "Billing initialized");
-				CheckAccess();
-			}
-		});
-	}
-
-	protected void CheckAccess() {
-		_billingService.Init(this, mHelper);
-		boolean checkPurchase = _billingService.CheckPurchaseSync();
-		SetText(checkPurchase);
 	}
 
 	private void SetText(boolean checkPurchase) {
@@ -273,11 +258,20 @@ public class Debug extends JalapenoActivity {
 		_settingsService.DropRegistration();
 		startService(new Intent(this, AppService.class));
 	}
-	
-	public void Consume(View v) {
-		_billingService.ConsumePurchaseAsyncNoWait();
+
+	public void Consume() {
+		Consume(_token, new ConsumeListener());
 	}
-	
+
+	private void Consume(@Nonnull final String token, @Nonnull final RequestListener<Object> onConsumed) {
+		checkout.whenReady(new Checkout.ListenerAdapter() {
+			@Override
+			public void onReady(@Nonnull BillingRequests requests) {
+				requests.consume(token, onConsumed);
+			}
+		});
+	}
+
 	public void GoToBuy(View v) {
 		_accessService.HandleAccessNotAllowed(true);
 		UiUtils.NavigateTo(BillingActivity.class);
@@ -375,26 +369,11 @@ public class Debug extends JalapenoActivity {
 
 	private void Spam() {
 		Toast.makeText(this, "Spam", Toast.LENGTH_LONG).show();
-		/*
-		 * MediaPlayer mp = MediaPlayer.create(Debug.this, R.raw.cartoon003);
-		 * mp.start();
-		 */
 		_ringtoneService.OnIncomeSms();
 	}
 
-	/*
-	 * Uri notification =
-	 * RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-	 * Ringtone r = RingtoneManager.getRingtone(getApplicationContext(),
-	 * notification); r.play();
-	 */
-
 	private void NewSms() {
 		Toast.makeText(this, "SMS", Toast.LENGTH_LONG).show();
-		/*
-		 * MediaPlayer mp = MediaPlayer.create(Debug.this, R.raw.cartoon010);
-		 * mp.start();
-		 */
 		_ringtoneService.ContactRingtone();
 	}
 
@@ -414,9 +393,6 @@ public class Debug extends JalapenoActivity {
 	}
 
 	private void SentTokenEmail() {
-		// Intent intent = AccountPicker.newChooseAccountIntent(null, null, new
-		// String[] { "com.google" }, false, null, null, null, null);
-		// startActivityForResult(intent, ACCOUNT_CODE);
 		Logger.Debug(LOG_TAG, "SentTokenEmail");
 		String[] accountTypes = new String[] { "com.google" };
 		Intent intent = AccountPicker.newChooseAccountIntent(null, null, accountTypes, true, null, null, null, null);
@@ -424,13 +400,6 @@ public class Debug extends JalapenoActivity {
 	}
 
 	private void SentTokenEmail2(final String accountName) {
-		/*
-		 * AccountManager accountManager =
-		 * AccountManager.get(getApplicationContext()); Account[] allAccounts =
-		 * accountManager.getAccountsByType(GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE);
-		 * Account myAccount = null; for (Account account : allAccounts) { if
-		 * (account.name.equals(accountName)) { myAccount = account; } }
-		 */
 		Logger.Debug(LOG_TAG, "SentTokenEmail2");
 		final String[] error = new String[1];
 		error[0] = "";
@@ -440,20 +409,6 @@ public class Debug extends JalapenoActivity {
 			@Override
 			protected String doInBackground(Void... params) {
 				String token = "";
-				/*
-				 * try { Log.i(TAG, "Begin get token"); token =
-				 * GoogleAuthUtil.getToken(Debug.this, accountName, SCOPE); }
-				 * catch (IOException transientEx) { // Network or server error,
-				 * try later Log.e(TAG, transientEx.toString()); } catch
-				 * (UserRecoverableAuthException e) { // Recover (with
-				 * e.getIntent()) Log.e(TAG, e.toString()); Intent recover =
-				 * e.getIntent(); startActivityForResult(recover, ACCOUNT_CODE);
-				 * } catch (GoogleAuthException authEx) { // The call is not
-				 * ever expected to succeed // assuming you have already
-				 * verified that // Google Play services is installed.
-				 * Log.e(TAG, authEx.toString()); }
-				 */
-				// String token = null;
 				try {
 
 					Logger.Debug(LOG_TAG, "Scope: " + SCOPE);
@@ -504,4 +459,61 @@ public class Debug extends JalapenoActivity {
 
 		task.execute();
 	}
+
+	private class InventoryLoadedListener implements Inventory.Listener {
+
+		@Override
+		public void onLoaded(@Nonnull Inventory.Products products) {
+			Logger.Debug(LOG_TAG, "InventoryLoadedListener onLoaded");
+			final Inventory.Product product = products.get(IN_APP);
+			if (product.isSupported()) {
+				_skuAccess = product.getSkus().get(0);
+				Logger.Debug(LOG_TAG, "InventoryLoadedListener isSupported " + _skuAccess.title + " cost " + _skuAccess.price);
+				final Purchase purchase = product.getPurchaseInState(_skuAccess, Purchase.State.PURCHASED);
+				boolean isPurchased = purchase != null && !TextUtils.isEmpty(purchase.token);
+				if (purchase != null) {
+					_token = purchase.token;
+				}
+				String message = "Ready to buy " + _skuAccess.title + " and status Purch= " + isPurchased;
+				Logger.Debug(LOG_TAG, "InventoryLoadedListener " + message);
+				SetText(isPurchased);
+			} else {
+				Logger.Error(LOG_TAG, "InventoryLoadedListener  support false");
+				ShowToast(R.string.ErrorBilling);
+			}
+		}
+	}
+
+	private abstract class BaseRequestListener<Req> implements RequestListener<Req> {
+
+		@Override
+		public void onError(int response, @Nonnull Exception ex) {
+			Logger.Error(LOG_TAG, "PurchaseListener BaseRequestListener onError", ex);
+			ShowToast(R.string.ErrorBilling);
+		}
+	}
+
+	private class ConsumeListener extends BaseRequestListener<Object> {
+		@Override
+		public void onSuccess(@Nonnull Object result) {
+			onConsumed();
+		}
+
+		private void onConsumed() {
+			inventory.load().whenLoaded(new InventoryLoadedListener());
+			ShowToast("Success consume");
+		}
+
+		@Override
+		public void onError(int response, @Nonnull Exception e) {
+			// it is possible that our data is not synchronized with data on
+			// Google Play => need to handle some errors
+			if (response == ResponseCodes.ITEM_NOT_OWNED) {
+				onConsumed();
+			} else {
+				super.onError(response, e);
+			}
+		}
+	}
+
 }

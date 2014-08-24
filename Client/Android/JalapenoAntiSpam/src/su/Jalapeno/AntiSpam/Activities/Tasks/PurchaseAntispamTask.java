@@ -5,7 +5,6 @@ import java.util.UUID;
 import su.Jalapeno.AntiSpam.Activities.SettingsActivity;
 import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Services.AccessService;
-import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.NotifyAboutPaymentRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.NotifyAboutPaymentResponse;
@@ -21,16 +20,14 @@ public class PurchaseAntispamTask extends AsyncTask<JalapenoActivity, Void, Noti
 	protected AccessService _accessService;
 	protected JalapenoWebServiceWraper _jalapenoWebServiceWraper;
 	Spiner _spiner;
-	private boolean _newBuy;
 	private String _orderId;
 	private UUID _clientId;
 
-	public PurchaseAntispamTask(JalapenoActivity activity, AccessService accessService,
-			JalapenoWebServiceWraper jalapenoWebServiceWraper, Spiner spiner, boolean newBuy, String orderId, UUID clientId) {
+	public PurchaseAntispamTask(JalapenoActivity activity, AccessService accessService, JalapenoWebServiceWraper jalapenoWebServiceWraper,
+			Spiner spiner, String orderId, UUID clientId) {
 		_activity = activity;
 		_accessService = accessService;
 		_jalapenoWebServiceWraper = jalapenoWebServiceWraper;
-		_newBuy = newBuy;
 		_spiner = spiner;
 		_orderId = orderId;
 		_clientId = clientId;
@@ -54,17 +51,10 @@ public class PurchaseAntispamTask extends AsyncTask<JalapenoActivity, Void, Noti
 	@Override
 	protected NotifyAboutPaymentResponse doInBackground(JalapenoActivity... activitis) {
 		Logger.Debug(LOG_TAG, "doInBackground");
-		String message="";
-		if(_newBuy)
-		{
-			message=String.format("ClientId:%s, OrderId:%s", _clientId.toString(),_orderId);
-		}
-		else
-		{
-			message=String.format("ClientId:%s Already buy it", _clientId.toString());
-		}
-		NotifyAboutPaymentResponse notifyAboutPayment = _jalapenoWebServiceWraper.NotifyAboutPayment(new NotifyAboutPaymentRequest(
-				message, _clientId));
+		String message = "";
+		message = String.format("ClientId:%s, OrderId:%s", _clientId.toString(), _orderId);
+		NotifyAboutPaymentResponse notifyAboutPayment = _jalapenoWebServiceWraper.NotifyAboutPayment(new NotifyAboutPaymentRequest(message,
+				_clientId));
 
 		return notifyAboutPayment;
 	}
