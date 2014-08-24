@@ -1,10 +1,10 @@
-package su.Jalapeno.AntiSpam.Services.Sms;
+package su.Jalapeno.AntiSpam.Services;
 
 import java.util.List;
 
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
-import su.Jalapeno.AntiSpam.Services.NotifyService;
-import su.Jalapeno.AntiSpam.Services.SettingsService;
+import su.Jalapeno.AntiSpam.Services.Sms.SmsQueueService;
+import su.Jalapeno.AntiSpam.Services.Sms.SmsService;
 import su.Jalapeno.AntiSpam.Util.AccessInfo;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;

@@ -2,8 +2,8 @@ package su.Jalapeno.AntiSpam.Activities.Tasks;
 
 import su.Jalapeno.AntiSpam.Activities.SettingsActivity;
 import su.Jalapeno.AntiSpam.Filter.R;
+import su.Jalapeno.AntiSpam.Services.AccessService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
-import su.Jalapeno.AntiSpam.Services.Sms.AccessService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.NotifyAboutPaymentRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.NotifyAboutPaymentResponse;
