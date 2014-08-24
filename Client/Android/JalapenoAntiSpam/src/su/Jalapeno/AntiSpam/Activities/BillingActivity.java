@@ -93,6 +93,9 @@ public class BillingActivity extends JalapenoActivity {
 			if (resultCode == RESULT_OK) {
 				Logger.Debug(LOG_TAG, "onActivityResult RESULT_OK");
 				ShowToast(R.string.PurchaseComplete);
+				//CheckComplete("Unknown");
+				ShowToast(R.string.PurchaseComplete);
+				ActivateAccess(true, orderId);
 			}
 		}
 
@@ -165,6 +168,7 @@ public class BillingActivity extends JalapenoActivity {
 			Logger.Debug(LOG_TAG, "Available access with cost " + accessPrice);
 			IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
 				public void onIabPurchaseFinished(IabResult result, su.Jalapeno.AntiSpam.Billing.util.Purchase purchase) {
+					Logger.Debug(LOG_TAG, "onIabPurchaseFinished");
 					if (result.isFailure()) {
 						spiner.Hide();
 						Logger.Debug(LOG_TAG, "Error purchasing: " + result);
@@ -196,7 +200,7 @@ public class BillingActivity extends JalapenoActivity {
 
 					Logger.Debug(LOG_TAG, "ANTISPAM_ACCESS  purchase status " + hasPremium);
 					if (hasPremium) {
-						spiner.Hide();
+						//spiner.Hide();
 						ShowToast(R.string.PurchaseComplete);
 						ActivateAccess(true, orderId);
 					} else {
