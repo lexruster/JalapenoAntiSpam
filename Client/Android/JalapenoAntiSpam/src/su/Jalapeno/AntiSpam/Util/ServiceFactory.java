@@ -2,13 +2,13 @@ package su.Jalapeno.AntiSpam.Util;
 
 import su.Jalapeno.AntiSpam.DAL.Repository;
 import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
+import su.Jalapeno.AntiSpam.Services.AccessService;
 import su.Jalapeno.AntiSpam.Services.ConfigService;
 import su.Jalapeno.AntiSpam.Services.ContactsService;
 import su.Jalapeno.AntiSpam.Services.RequestQueue;
 import su.Jalapeno.AntiSpam.Services.NotifyService;
 import su.Jalapeno.AntiSpam.Services.SenderService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
-import su.Jalapeno.AntiSpam.Services.Sms.AccessService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsHashService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsQueueService;

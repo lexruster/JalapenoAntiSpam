@@ -1,7 +1,7 @@
 package su.Jalapeno.AntiSpam.Services.WebService;
 
+import su.Jalapeno.AntiSpam.Services.AccessService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
-import su.Jalapeno.AntiSpam.Services.Sms.AccessService;
 import su.Jalapeno.AntiSpam.Services.WebService.Commands.ComplainCommand;
 import su.Jalapeno.AntiSpam.Services.WebService.Commands.IsSpamerCommand;
 import su.Jalapeno.AntiSpam.Services.WebService.Commands.NotifyAboutPaymentCommand;
