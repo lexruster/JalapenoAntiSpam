@@ -47,5 +47,12 @@
         android:onClick="TestRegister"
         android:text="@string/TestRegister"
         android:visibility="invisible" />
+    
+    <Button
+                android:id="@+id/buttonGoToDebugRegister"
+                style="@style/BaseControl.Button.Debug"
+                android:onClick="NavigateToDebug"
+                android:text="@string/DebugActivity"
+                android:visibility="invisible" />
 
 </LinearLayout>

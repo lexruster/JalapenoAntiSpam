@@ -52,6 +52,9 @@ public class RegisterActivity extends JalapenoActivity {
 
 	@InjectView(R.id.buttonDebugRegister)
 	Button buttonDebugRegister;
+	
+	@InjectView(R.id.buttonGoToDebugRegister)
+	Button buttonGoToDebug;
 
 	private String link;
 
@@ -121,6 +124,12 @@ public class RegisterActivity extends JalapenoActivity {
 			} else {
 				DebugStandaloneRegister();
 			}
+		}
+	}
+	
+	public void NavigateToDebug(View v) {
+		if (Constants.VIEW_DEBUG_UI) {
+			UiUtils.NavigateTo(Debug.class);
 		}
 	}
 
@@ -227,8 +236,10 @@ public class RegisterActivity extends JalapenoActivity {
 	private void SetDebugMode(boolean isDebug) {
 		if (isDebug) {
 			buttonDebugRegister.setVisibility(View.VISIBLE);
+			buttonGoToDebug.setVisibility(View.VISIBLE);
 		} else {
 			buttonDebugRegister.setVisibility(View.INVISIBLE);
+			buttonGoToDebug.setVisibility(View.INVISIBLE);
 		}
 	}
 }
