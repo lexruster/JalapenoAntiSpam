@@ -167,6 +167,12 @@
                     android:text="Http" />
 
                 <Button
+                    android:id="@+id/buttonChangeDomain"
+                    style="@style/BaseControl.Button"
+                    android:onClick="ChangeDomain"
+                    android:text="Change domain" />
+                
+                <Button
                     android:id="@+id/buttonLocalhostRequest"
                     style="@style/BaseControl.Button"
                     android:text="Request to localhost" />

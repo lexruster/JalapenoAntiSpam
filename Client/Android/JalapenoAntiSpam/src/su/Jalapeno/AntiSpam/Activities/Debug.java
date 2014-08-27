@@ -259,6 +259,11 @@ public class Debug extends JalapenoActivity {
 		startService(new Intent(this, AppService.class));
 	}
 	
+	public void ChangeDomain(View v) {
+		_settingsService.ChangeDomain();
+		startService(new Intent(this, AppService.class));
+	}
+	
 	public void Consume(View v) {
 		Consume(_token, new ConsumeListener());
 	}
@@ -479,6 +484,7 @@ public class Debug extends JalapenoActivity {
 				SetText(isPurchased);
 			} else {
 				Logger.Error(LOG_TAG, "InventoryLoadedListener  support false");
+				SetText(false);
 				ShowToast(R.string.ErrorBilling);
 			}
 		}
