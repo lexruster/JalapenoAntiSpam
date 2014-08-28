@@ -1,0 +1,65 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BaseLayout"
+    tools:context=".SmsAnalyzerActivity" >
+
+    <LinearLayout
+        style="@style/BaseLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true" 
+        android:paddingBottom="60dp">
+       
+        <TextView
+            android:id="@+id/textView"
+            style="@style/BaseControl.TextHeader"
+            android:text="@string/SmsList" />
+
+        <ListView
+            android:id="@android:id/list"
+            style="@style/BaseControl.ListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:choiceMode="singleChoice"
+            android:textFilterEnabled="false" 
+            android:dividerHeight="4dp"
+            
+            />
+
+        <TextView
+            android:id="@android:id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/EmptySmsList" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btnSpamSms"
+            style="@style/BaseControl.ButtonSms"
+            android:onClick="ToSpam"
+            android:text="@string/SpamButton" >
+        </Button>
+        
+        <Button
+            android:id="@+id/btnNeedSms"
+            style="@style/BaseControl.ButtonSms"
+            android:onClick="NeedSms"
+            android:text="@string/NotSpamButton" >
+        </Button>
+
+        <Button
+            android:id="@+id/btnDeleteSms"
+            style="@style/BaseControl.ButtonSms"
+            android:onClick="DeleteSms"
+            android:text="@string/DeleteButton" >
+        </Button>
+    </LinearLayout>
+
+</RelativeLayout>

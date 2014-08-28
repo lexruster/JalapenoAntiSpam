@@ -1,0 +1,22 @@
+syntax: glob
+Code/Sourse/Client/Android/JalapenoAntiSpam/Test Results - Test.html
+*/out/production/*
+*/Test Results - Test.html
+Research/Android/Test2/bin/*
+Research/Android/Test2/gen/*
+Client/Android/JalapenoAntiSpam/bin/*
+Client/Android/JalapenoAntiSpam/gen/*
+Client/Android/JalapenoAntiSpam/Tests/bin/*
+Client/JalapenoAntiSpamTestsTest/bin/*
+Client/JalapenoAntiSpamTestsTest/gen/*
+Client/Android/JalapenoAntiSpamTests/bin/*
+Client/Android/JalapenoAntiSpamTests/gen/*
+Research/Android/Example/SecureMessages/bin/*
+Research/Android/Example/SecureMessages/gen/org/secure/sms/BuildConfig.java
+Research/Android/Example/SecureMessages/project.properties
+Research/Android/Example/SecureMessages/.settings/org.eclipse.jdt.core.prefs
+Client/Android/Artifacts/APK/JalapenoAntiSpamSign.apk
+Research/Android/Example/auth/bin/*
+Research/Android/Example/auth/gen/*
+Client/Android/Artifacts/APK/JalapenoAntiSpam.apk
+Client/Android/Artifacts/APK/JalapenoAntiSpamStandalone.apk
