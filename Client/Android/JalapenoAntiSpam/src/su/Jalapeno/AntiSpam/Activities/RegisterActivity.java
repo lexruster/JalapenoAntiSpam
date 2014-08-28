@@ -136,7 +136,7 @@ public class RegisterActivity extends JalapenoActivity {
 	private void DebugStandaloneRegister() {
 		Date expirationDate = DateUtil.addDays(new Date(), 30);
 		UUID uuid = UUID.randomUUID();
-		_settingsService.RegisterClient(uuid, expirationDate);
+		_settingsService.RegisterClient(uuid, expirationDate, false);
 		Logger.Debug(LOG_TAG, "Test Register with guid " + uuid);
 		UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 	}

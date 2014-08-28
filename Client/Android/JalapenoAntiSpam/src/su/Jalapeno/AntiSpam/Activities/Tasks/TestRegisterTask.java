@@ -35,7 +35,7 @@ public class TestRegisterTask extends
 	@Override
 	protected void onPostExecute(RegisterClientResponse registerClient) {
 		if (registerClient.WasSuccessful) {
-			_settingsService.RegisterClient(registerClient.ExpirationDate);
+			_settingsService.RegisterClient(registerClient.ExpirationDate, registerClient.UnlimitedAccess);
 			Logger.Debug(LOG_TAG,
 					"Test Register with guid " + _settingsService.GetClientId());
 			spiner.Hide();

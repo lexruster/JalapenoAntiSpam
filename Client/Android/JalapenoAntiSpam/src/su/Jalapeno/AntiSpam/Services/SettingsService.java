@@ -92,26 +92,24 @@ public class SettingsService {
 		return config.ClientRegistered;
 	}
 
-	public void RegisterClient(UUID uuid, Date expirationDate) {
+	public void RegisterClient(UUID uuid, Date expirationDate, boolean unlimitedAccess) {
 		Config config = LoadSettings();
 		config.ClientId = uuid;
-		RegisterClient(expirationDate, config);
+		RegisterClient(expirationDate, unlimitedAccess, config);
 		SaveSettings(config);
 	}
 
-	public void RegisterClient(Date expirationDate) {
+	public void RegisterClient(Date expirationDate, boolean unlimitedAccess) {
 		Config config = LoadSettings();
-		RegisterClient(expirationDate, config);
+		RegisterClient(expirationDate, unlimitedAccess, config);
 		SaveSettings(config);
 	}
 
-	private void RegisterClient(Date expirationDate, Config config) {
+	private void RegisterClient(Date expirationDate, boolean unlimitedAccess, Config config) {
 		config.ClientRegistered = true;
 		config.Enabled = true;
 		config.ExpirationDate = expirationDate;
-		if (expirationDate == null) {
-			config.UnlimitedAccess = true;
-		}
+		config.UnlimitedAccess = unlimitedAccess;
 	}
 
 	public void PrepareClientForRegister(UUID uuid) {

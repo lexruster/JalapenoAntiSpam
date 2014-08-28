@@ -4,4 +4,5 @@ import java.util.Date;
 
 public class RegisterClientResponse extends BaseResponse {
 	public Date ExpirationDate;
+	public boolean UnlimitedAccess;
 }
