@@ -21,25 +21,25 @@
 
 	<string name="NotExistsUnknownSms">You have no spam!</string>
 	<string name="RegisterButton">Sign up</string>
-    <string name="RegisterText">Please, sign up via your Google account. By registering as a user, you accept the terms of the License Agreement.</string>
+    <string name="RegisterText">Please, sign up via your Google account. Note: performing registration, you accept the terms of the License Agreement</string>
     <string name="LicenseAgreementUrl">http://jalapeno.su/license.en.html</string>
     <string name="LicenseAgreement"><a href="http://jalapeno.su/license.en.html">License agreement</a></string>
-    <string name="BannedRegister">Sorry, this user is banned</string>
+    <string name="BannedRegister">Sorry, this user was banned</string>
     <string name="ErrorRegister">Registration error. Please, check the Internet connection, then try again</string>
     <string name="NeedPeekAccount">You have to choose an account</string>
-    <string name="TestRegister">Test register</string>
-    <string name="TestBuyText">Test buy</string>
-    
-    <string name="BillingBuyText">You may buy or restore antispam</string>
-    <string name="NeedBuyAccessText">Antispam expired. Buy it.</string>
+    <string name="TestRegister">Test registration</string>
+    <string name="TestBuyText">Test payment</string>
+
+    <string name="BillingBuyText">You can buy Jalapeno Antispam or restore your payment</string>
+    <string name="NeedBuyAccessText">Your trial period is expired. If you want to keep using Jalapeno Antispam, please, buy it</string>
     <string name="BillingBuyButton">Buy</string>
-    <string name="ErrorBilling">Billing error. Please, check the Internet connection, then try again</string>
-    <string name="PurchaseComplete">Congratulations! Purchase successfully complete.</string>
+    <string name="ErrorBilling">Payment error. Please, check the Internet connection, then try again</string>
+    <string name="PurchaseComplete">Congratulations! Your payment was successfully completed</string>
 	<string name="AccessInfo">Evaluation period: %d days</string>
 	<string name="AccessFullInfo">Full version</string>
 
-    <string name="EmptySpamerList">List empty</string>
-    <string name="EmptySmsList">List empty</string>
+    <string name="EmptySpamerList">No Spammers...</string>
+    <string name="EmptySmsList">No SMS to check...</string>
 
     <string name="WaitMessage">Please, wait</string>
 
