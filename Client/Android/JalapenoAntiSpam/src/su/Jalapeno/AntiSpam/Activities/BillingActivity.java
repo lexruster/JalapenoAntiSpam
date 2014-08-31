@@ -13,7 +13,6 @@ import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.MyApplication;
 import su.Jalapeno.AntiSpam.Activities.Tasks.PurchaseAntispamTask;
 import su.Jalapeno.AntiSpam.Activities.Tasks.TestPurchaseAntispamTask;
-
 import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Services.AccessService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
@@ -79,11 +78,19 @@ public class BillingActivity extends JalapenoActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Logger.Debug(LOG_TAG, "onResume");
 		Resume();
 	}
 
 	private void Resume() {
+		boolean clientIsRegistered = _settingsService.ClientIsRegistered();
+		Logger.Debug(LOG_TAG, "onResume ClientRegistered:" + clientIsRegistered);
+		if (!clientIsRegistered) {
+			_settingsService.HandleClientNotRegistered();
+			Logger.Debug(LOG_TAG, "onResume NavigateTo RegisterActivity");
+			UiUtils.NavigateTo(RegisterActivity.class);
+			return;
+		}
+		
 		_clientId = _settingsService.GetClientId();
 		SetDebugMode(Constants.VIEW_DEBUG_UI);
 	}
