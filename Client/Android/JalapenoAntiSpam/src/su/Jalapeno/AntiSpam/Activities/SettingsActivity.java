@@ -84,12 +84,15 @@ public class SettingsActivity extends JalapenoActivity {
 			_settingsService.HandleClientNotRegistered();
 			Logger.Debug(LOG_TAG, "Init NavigateTo RegisterActivity");
 			UiUtils.NavigateTo(RegisterActivity.class);
+			return;
 		}
 
 		UpdateOnOffButton(_settingsService.AntispamEnabled());
 
 		if (!_accessService.AccessCheck()) {
+			Logger.Debug(LOG_TAG, "Init NavigateTo BillingActivity");
 			UiUtils.NavigateTo(BillingActivity.class);
+			return;
 		}
 		AccessInfo accessInfo = _settingsService.GetAccessInfo();
 		if (accessInfo.IsUnlimitedAccess) {
@@ -101,6 +104,7 @@ public class SettingsActivity extends JalapenoActivity {
 	}
 
 	private void UpdateOnOffButton(boolean antispamEnabled) {
+		Logger.Debug(LOG_TAG, "UpdateOnOffButton enabled: " + antispamEnabled);
 		if (antispamEnabled) {
 			toogleButton.setText(R.string.AntiSpamOn);
 			toogleButton.setTextColor(getResources().getColor(R.color.toogle_green));
