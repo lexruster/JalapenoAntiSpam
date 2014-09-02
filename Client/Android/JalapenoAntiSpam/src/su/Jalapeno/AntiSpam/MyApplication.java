@@ -43,7 +43,6 @@ public class MyApplication extends Application {
 		@Nonnull
 		@Override
 		public String getPublicKey() {
-
 			CryptoService cr = new CryptoService();
 			String base64EncodedPublicKey = cr.Decrypt(BillingConstants.ENCYPTED_LICENCE_KEY);
 
