@@ -34,6 +34,7 @@
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:textColor">#FF0000</item>
         <item name="android:typeface">normal</item>
+        
     </style>
 
     <style name="BaseControl.TextHeader">

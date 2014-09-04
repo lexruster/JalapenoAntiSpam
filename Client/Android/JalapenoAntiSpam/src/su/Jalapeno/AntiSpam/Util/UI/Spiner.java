@@ -11,6 +11,7 @@ public class Spiner {
 	public Spiner(Context context) {
 		_context = context;
 		_progressDialog = new ProgressDialog(_context);
+		_progressDialog.setCanceledOnTouchOutside(false); 
 	}
 
 	public void Hide() {
