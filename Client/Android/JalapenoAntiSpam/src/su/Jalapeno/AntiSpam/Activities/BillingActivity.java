@@ -216,6 +216,7 @@ public class BillingActivity extends JalapenoActivity {
 		@Override
 		public void onError(int response, @Nonnull Exception ex) {
 			Logger.Error(LOG_TAG, "PurchaseListener BaseRequestListener onError", ex);
+			spiner.Hide();
 			ShowToast(R.string.ErrorBilling);
 		}
 	}
