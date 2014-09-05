@@ -52,7 +52,7 @@ public class ServiceFactory {
 
 		SmsAnalyzerService smsAnalyzerService = new SmsAnalyzerService(context,
 				smsQueueService, _requestQueue, smsHashService, senderService,
-				smsService);
+				smsService, _trashSmsService);
 
 		SmsReceiverLogic _smsReceiverLogic = new SmsReceiverLogic(context,
 				contactsService, jalapenoWebServiceWraper, smsAnalyzerService,
