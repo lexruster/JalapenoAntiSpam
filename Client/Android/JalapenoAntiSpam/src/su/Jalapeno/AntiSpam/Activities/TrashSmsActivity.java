@@ -49,6 +49,7 @@ public class TrashSmsActivity extends JalapenoListActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		Init();
+		SetSelected(0);
 	}
 
 	@Override

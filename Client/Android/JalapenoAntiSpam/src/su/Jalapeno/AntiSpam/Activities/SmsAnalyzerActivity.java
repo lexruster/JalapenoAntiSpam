@@ -56,6 +56,7 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 		super.onCreate(savedInstanceState);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		Init();
+		SetSelected(0);
 	}
 
 	@Override

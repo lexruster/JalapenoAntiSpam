@@ -23,17 +23,20 @@ public class SmsAnalyzerService {
 	private SenderService _senderService;
 	private SmsService _smsService;
 	private Context _context;
+	private TrashSmsService _trashSmsService;
 
 	@Inject
 	public SmsAnalyzerService(Context context, SmsQueueService smsQueueService,
 			RequestQueue queue, SmsHashService smsHashService,
-			SenderService senderService, SmsService smsService) {
+			SenderService senderService, SmsService smsService,
+			TrashSmsService trashSmsService) {
 		_context = context;
 		_smsQueueService = smsQueueService;
 		_requestQueue = queue;
 		_smsHashService = smsHashService;
 		_senderService = senderService;
 		_smsService = smsService;
+		_trashSmsService = trashSmsService;
 	}
 
 	public void AddSmsToValidate(Sms sms) {
@@ -45,10 +48,18 @@ public class SmsAnalyzerService {
 	public void SetSenderAsSpamer(String sender) {
 		_senderService.AddOrUpdateSender(sender, true);
 
-		List<String> hashes = FindHashes(sender);
+		List<Sms> smsList = _smsQueueService.GetAllBySender(sender);
+		List<String> hashes = FindHashes(smsList);
 		ProcessingComplains(sender, hashes);
 
+		SaveToTrash(smsList);
 		_smsQueueService.DeleteBySender(sender);
+	}
+
+	private void SaveToTrash(List<Sms> smsList) {
+		for (Sms sms : smsList) {
+		_trashSmsService.Add(sms);
+		}
 	}
 
 	private void ProcessingComplains(String sender, List<String> hashes) {
@@ -62,9 +73,9 @@ public class SmsAnalyzerService {
 		}
 	}
 
-	private List<String> FindHashes(String sender) {
+	private List<String> FindHashes(List<Sms> smsList) {
 		List<String> hashes = new ArrayList<String>();
-		List<Sms> smsList = _smsQueueService.GetAllBySender(sender);
+		
 		for (Sms sms : smsList) {
 			String smsTexthash = null;
 			if (sms.Text.length() > MIN_MESSAGE_LENGTH) {
