@@ -23,7 +23,7 @@
             android:choiceMode="singleChoice"
             android:textFilterEnabled="false" 
             android:dividerHeight="4dp"
-            
+            android:divider="#000000"
             />
 
         <TextView

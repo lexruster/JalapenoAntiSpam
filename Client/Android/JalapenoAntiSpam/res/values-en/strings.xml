@@ -17,7 +17,7 @@
 	<string name="SmsList">SMS</string>
 	<string name="SpamButton">Spam!</string>
     <string name="NotSpamButton">Not spam</string>
-    <string name="DeleteButton">Just delete it</string>
+    <string name="DeleteButton">Delete</string>
 
 	<string name="NotExistsUnknownSms">You have no spam!</string>
 	<string name="RegisterButton">Sign up</string>

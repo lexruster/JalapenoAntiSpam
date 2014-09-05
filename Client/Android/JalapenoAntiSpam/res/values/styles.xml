@@ -27,7 +27,8 @@
     <style name="BaseControl.ButtonSms">
         <item name="android:layout_marginTop">2dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:padding">1dp</item>
     </style>
 
     <style name="BaseControl.Button.Debug">

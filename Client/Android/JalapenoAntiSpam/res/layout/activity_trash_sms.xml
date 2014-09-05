@@ -23,7 +23,7 @@
             android:choiceMode="singleChoice"
             android:textFilterEnabled="false" 
             android:dividerHeight="4dp"
-            
+            android:divider="#000000"
             />
 
         <TextView
@@ -43,6 +43,7 @@
         <Button
             android:id="@+id/btnNeedTrashSms"
             style="@style/BaseControl.ButtonSms"
+            
             android:onClick="NeedSms"
             android:text="@string/NotSpamButton" >
         </Button>
