@@ -1,0 +1,58 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BaseLayout"
+    tools:context=".RegisterActivity" >
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/BaseControl.Text"
+        android:text="@string/RegisterText" />
+
+    <TextView
+        android:id="@+id/licenseLink"
+        style="@style/BaseControl"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:autoLink="web"
+        android:gravity="center_horizontal"
+        android:linksClickable="true"
+        android:paddingBottom="10dp"
+        android:text="@string/LicenseAgreement"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:typeface="normal" />
+
+    <LinearLayout
+        android:id="@+id/LinearLayout02"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1.0" >
+
+        <su.Jalapeno.AntiSpam.Util.UI.SquareButton
+            android:id="@+id/buttonRegister"
+            style="@style/button_text"
+            android:layout_width="0dp"
+            android:layout_weight=".25"
+            android:background="@drawable/main_button_green"
+            android:onClick="Register"
+            android:text="@string/RegisterButton" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonDebugRegister"
+        style="@style/BaseControl.Button.Debug"
+        android:onClick="TestRegister"
+        android:text="@string/TestRegister"
+        android:visibility="invisible" />
+    
+    <Button
+                android:id="@+id/buttonGoToDebugRegister"
+                style="@style/BaseControl.Button.Debug"
+                android:onClick="NavigateToDebug"
+                android:text="@string/DebugActivity"
+                android:visibility="invisible" />
+
+</LinearLayout>
