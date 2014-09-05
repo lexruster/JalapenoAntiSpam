@@ -1,5 +1,7 @@
 package su.Jalapeno.AntiSpam.Services.Sms;
 
+import java.util.ArrayList;
+
 import su.Jalapeno.AntiSpam.DAL.Repository;
 import su.Jalapeno.AntiSpam.DAL.DAO.JalapenoDao;
 import su.Jalapeno.AntiSpam.DAL.DAO.TrashSmsDao;
@@ -39,5 +41,16 @@ public class TrashSmsService extends JalapenoService<TrashSms> {
 		Add(new TrashSms(sms));
 		Intent intent = new Intent(Constants.BROADCAST_TRASH_SMS_ACTION);
 		_context.sendBroadcast(intent);
+	}
+	
+	public ArrayList<Sms> GetAllBySender(String sender) {
+		ArrayList<Sms> list = new ArrayList<Sms>();
+		list.addAll(GetTrashSmsDao().FindSmsBySender(sender));
+
+		return list;
+	}
+
+	public void DeleteBySender(String senderId) {
+		GetTrashSmsDao().DeleteBySender(senderId);
 	}
 }
