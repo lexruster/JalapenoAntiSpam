@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BaseLayout"
+    tools:context=".SmsAnalyzerActivity" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textAccessInfo"
+            style="@style/BaseControl.Text"
+            android:layout_marginBottom="30dp" />
+
+        <LinearLayout
+            android:id="@+id/LinearLayout02"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/buttonSpammerList"
+                style="@style/button_text"
+                android:layout_weight="1"
+                android:background="@drawable/main_button_blue"
+                android:onClick="ViewSpamerList"
+                android:text="@string/KnownSpammerList" />
+
+            <Button
+                android:id="@+id/buttonSmsValidate"
+                style="@style/button_text"
+                android:layout_weight="1"
+                android:background="@drawable/main_button_green"
+                android:onClick="smsValidate"
+                android:text="@string/SmsValidateList" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout03"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/buttonSmsTrash"
+                style="@style/button_text"
+                android:layout_weight="1"
+                android:background="@drawable/main_button_red"
+                android:onClick="smsTrash"
+                android:text="@string/SmsTrashList" />
+
+            <Button
+                android:id="@+id/toggleEnabled"
+                style="@style/button_text"
+                android:layout_weight="1"
+                android:background="@drawable/main_button_black"
+                android:onClick="toggleClick"
+                android:text="@string/AntiSpamOn" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonDebug"
+            style="@style/BaseControl.Button.Debug"
+            android:height="10dp"
+            android:onClick="NavigateToDebug"
+            android:text="@string/DebugActivity"
+            android:textSize="8dp"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+</LinearLayout>
