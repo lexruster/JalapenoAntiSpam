@@ -1,10 +1,15 @@
 package su.Jalapeno.AntiSpam.Activities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Adapters.TrashSmsAdapter;
+import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 import su.Jalapeno.AntiSpam.DAL.Domain.TrashSms;
+import su.Jalapeno.AntiSpam.Services.SenderService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsService;
 import su.Jalapeno.AntiSpam.Services.Sms.TrashSmsService;
 import su.Jalapeno.AntiSpam.Util.Constants;
@@ -36,6 +41,9 @@ public class TrashSmsActivity extends JalapenoListActivity {
 
 	@Inject
 	private SmsService _smsService;
+
+	@Inject
+	private SenderService _senderService;
 
 	@Inject
 	TrashSmsAdapter _smsAdapter;
@@ -122,11 +130,18 @@ public class TrashSmsActivity extends JalapenoListActivity {
 	public void NeedSms(View view) {
 		if (_smsAdapter.HasCurrentItem()) {
 			TrashSms trashSms = _smsAdapter.GetSelectedItem();
-			_smsService.PutSmsToDatabase(trashSms, true);
-			_trashSmsService.Delete(trashSms);
+			SaveSms(trashSms);
 			Logger.Debug(LOG_TAG, "need sms - sender " + trashSms.SenderId);
 			UpdateList();
 		}
+	}
+
+	private void SaveSms(TrashSms trashSms) {
+		List<Sms> smsList = _trashSmsService.GetAllBySender(trashSms.SenderId);
+		_smsService.SaveSmsToPhoneBase(smsList);
+		_senderService.AddOrUpdateSender(trashSms.SenderId, false);
+
+		_trashSmsService.DeleteBySender(trashSms.SenderId);
 	}
 
 	public void DeleteSms(View view) {
