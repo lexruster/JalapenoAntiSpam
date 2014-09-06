@@ -47,16 +47,17 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 
 	@Inject
 	SettingsService _settingsService;
-	
+
 	@Inject
 	AccessService _accessService;
+
+	boolean FirstRun;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		Init();
-		SetSelected(0);
 	}
 
 	@Override
@@ -86,27 +87,37 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 
 	private void Resume() {
 		boolean clientIsRegistered = _settingsService.ClientIsRegistered();
-		Logger.Debug(LOG_TAG, "Resume ClientRegistered " + clientIsRegistered );
-		if (clientIsRegistered ) {
+		Logger.Debug(LOG_TAG, "Resume ClientRegistered " + clientIsRegistered);
+		if (clientIsRegistered) {
 
 		} else {
 			_settingsService.HandleClientNotRegistered();
-			Logger.Debug(LOG_TAG, "Init NavigateTo RegisterActivity");
+			Logger.Debug(LOG_TAG, "Resume NavigateTo RegisterActivity");
 			UiUtils.NavigateTo(RegisterActivity.class);
 			return;
 		}
-		
-		if(!_accessService.AccessCheck())
-		{
+
+		if (!_accessService.AccessCheck()) {
+			Logger.Debug(LOG_TAG, "Resume NavigateTo BillingActivity");
 			UiUtils.NavigateTo(BillingActivity.class);
 		}
 
 		registerReceiver(_receiver, _intFilt);
-		
+
 		_context.startService(new Intent(_context, AppService.class));
 		_smsAdapter.LoadData();
+		HandleFirstRun();
 		LoadList();
 		UpdateButtons();
+	}
+
+	private void HandleFirstRun() {
+		if (FirstRun) {
+			FirstRun = false;
+			if (_smsAdapter.getCount() > 0) {
+				SetSelected(0);
+			}
+		}
 	}
 
 	private void Init() {
@@ -118,6 +129,7 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 		};
 
 		_intFilt = new IntentFilter(Constants.BROADCAST_SMS_ANALYZER_ACTION);
+		FirstRun = true;
 	}
 
 	private void SetSelected(int position) {

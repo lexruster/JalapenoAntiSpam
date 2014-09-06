@@ -51,13 +51,13 @@ public class TrashSmsActivity extends JalapenoListActivity {
 	@Inject
 	TrashSmsService _trashSmsService;
 
+	boolean FirstRun;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 		Init();
-		SetSelected(0);
 	}
 
 	@Override
@@ -77,9 +77,19 @@ public class TrashSmsActivity extends JalapenoListActivity {
 	private void Resume() {
 		registerReceiver(_receiver, _intFilt);
 		_smsAdapter.LoadData();
+		HandleFirstRun();
 		LoadList();
 		UpdateButtons();
 		Logger.Debug(LOG_TAG, "loaded");
+	}
+
+	private void HandleFirstRun() {
+		if (FirstRun) {
+			FirstRun = false;
+			if (_smsAdapter.getCount() > 0) {
+				SetSelected(0);
+			}
+		}
 	}
 
 	@Override
@@ -97,6 +107,7 @@ public class TrashSmsActivity extends JalapenoListActivity {
 		};
 
 		_intFilt = new IntentFilter(Constants.BROADCAST_TRASH_SMS_ACTION);
+		FirstRun = true;
 	}
 
 	@Override
