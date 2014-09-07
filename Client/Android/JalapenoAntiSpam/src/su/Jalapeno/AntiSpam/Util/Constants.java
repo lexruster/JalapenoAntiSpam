@@ -17,6 +17,4 @@ public class Constants {
 	public static final boolean FULL_DEBUG = true;
 	public static final boolean LOG_DEBUG = FULL_DEBUG;
 	public static final boolean VIEW_DEBUG_UI = FULL_DEBUG;
-	// when no internet
-	public static final boolean DEBUG_STANDALONE_MODE = false;
 }
