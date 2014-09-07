@@ -18,10 +18,6 @@ public class JalapenoHttpService {
 	}
 
 	public boolean ServiceIsAvailable() {
-		if (Constants.DEBUG_STANDALONE_MODE) {
-			return false;
-		}
-
 		ConnectivityManager cm = (ConnectivityManager) _context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		if (cm == null) {
