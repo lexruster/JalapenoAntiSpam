@@ -6,13 +6,18 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
-import org.solovyev.android.checkout.*;
+import org.solovyev.android.checkout.ActivityCheckout;
+import org.solovyev.android.checkout.BillingRequests;
+import org.solovyev.android.checkout.Checkout;
+import org.solovyev.android.checkout.Inventory;
+import org.solovyev.android.checkout.Purchase;
+import org.solovyev.android.checkout.RequestListener;
+import org.solovyev.android.checkout.ResponseCodes;
+import org.solovyev.android.checkout.Sku;
 
 import roboguice.inject.ContentView;
-import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.MyApplication;
 import su.Jalapeno.AntiSpam.Activities.Tasks.PurchaseAntispamTask;
-import su.Jalapeno.AntiSpam.Activities.Tasks.TestPurchaseAntispamTask;
 import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Services.AccessService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
@@ -26,7 +31,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 
 import com.google.inject.Inject;
 
@@ -49,9 +53,6 @@ public class BillingActivity extends JalapenoActivity {
 
 	@Inject
 	JalapenoWebServiceWraper _jalapenoWebServiceWraper;
-
-	@InjectView(R.id.buttonDebugPurchase)
-	Button buttonDebug;
 
 	@Nonnull
 	protected Inventory inventory;
@@ -92,7 +93,6 @@ public class BillingActivity extends JalapenoActivity {
 		}
 		
 		_clientId = _settingsService.GetClientId();
-		SetDebugMode(Constants.VIEW_DEBUG_UI);
 	}
 
 	@Override
@@ -119,13 +119,6 @@ public class BillingActivity extends JalapenoActivity {
 		return checkout;
 	}
 
-	public void BuyTest(View view) {
-		Logger.Debug(LOG_TAG, "BuyTest");
-		if (Constants.VIEW_DEBUG_UI) {
-			new TestPurchaseAntispamTask(this, _accessService, _settingsService, _jalapenoWebServiceWraper).execute();
-		}
-	}
-
 	public void Buy(View view) {
 		Logger.Debug(LOG_TAG, "Buy pressed");
 		spiner.Show();
@@ -139,14 +132,6 @@ public class BillingActivity extends JalapenoActivity {
 
 	private PurchaseAntispamTask GetPurchaseAntispamTask(String orderId, UUID clientId) {
 		return new PurchaseAntispamTask(_activity, _accessService, _jalapenoWebServiceWraper, spiner, orderId, clientId);
-	}
-
-	private void SetDebugMode(boolean isDebug) {
-		if (isDebug) {
-			buttonDebug.setVisibility(View.VISIBLE);
-		} else {
-			buttonDebug.setVisibility(View.INVISIBLE);
-		}
 	}
 
 	private void purchase(@Nonnull final Sku sku) {
