@@ -1,6 +1,7 @@
 package su.Jalapeno.AntiSpam.DAL.DAO;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
@@ -56,5 +57,22 @@ public class SenderDao extends JalapenoDao<Sender> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public List<Sender> GetAll() {
+		try {
+			QueryBuilder<Sender, Integer> qb = queryBuilder();
+			qb.orderBy(Sender.SENDER_FIELD_NAME, true);
+
+			PreparedQuery<Sender> preparedQuery = qb.prepare();
+			List<Sender> senderList = query(preparedQuery);
+
+			return senderList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return new ArrayList<Sender>();
 	}
 }

@@ -6,7 +6,6 @@ import java.util.List;
 
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
 
-import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -58,18 +57,5 @@ public class SmsBaseDao<T extends Sms> extends JalapenoDao<T> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public List<String> GetAllSenders() {
-		ArrayList<String> senders = new ArrayList<String>();
-		try {
-			GenericRawResults<String[]> rawResults = queryRaw("SELECT DISTINTC " + Sms.SENDER_FIELD_NAME + " FROM Sms");
-			for (String[] resultColumns : rawResults) {
-				senders.add(resultColumns[0]);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return senders;
 	}
 }

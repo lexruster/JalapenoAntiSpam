@@ -20,13 +20,6 @@ public class SmsQueueService extends JalapenoService<Sms> {
 		super(repository);
 	}
 
-	public ArrayList<String> GetAllSenders() {
-		ArrayList<String> list = new ArrayList<String>();
-		list.addAll(GetSmsDao().GetAllSenders());
-
-		return list;
-	}
-
 	public ArrayList<Sms> GetAllBySender(String sender) {
 		ArrayList<Sms> list = new ArrayList<Sms>();
 		list.addAll(GetSmsDao().FindSmsBySender(sender));
