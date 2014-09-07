@@ -32,7 +32,6 @@ public class SpamerList extends JalapenoListActivity {
 	@Override
 	public void onBackPressed() {
 		Logger.Debug(LOG_TAG, "onBackPressed");
-		Logger.Debug(LOG_TAG, "onBackPressed2");
 		UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 	}
 
