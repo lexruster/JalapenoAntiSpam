@@ -109,7 +109,6 @@ public class SettingsActivity extends JalapenoActivity {
 			toogleButton.setText(R.string.AntiSpamOn);
 			toogleButton.setTextColor(getResources().getColor(R.color.toogle_green));
 		} else {
-			// toogleButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.main_button_black_off));
 			toogleButton.setText(R.string.AntiSpamOff);
 			toogleButton.setTextColor(getResources().getColor(R.color.toogle_red));
 		}
