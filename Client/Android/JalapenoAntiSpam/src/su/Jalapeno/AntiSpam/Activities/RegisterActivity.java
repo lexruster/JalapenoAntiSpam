@@ -1,8 +1,5 @@
 package su.Jalapeno.AntiSpam.Activities;
 
-import java.util.Date;
-import java.util.UUID;
-
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.Activities.Tasks.RegisterTask;
@@ -11,7 +8,6 @@ import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
 import su.Jalapeno.AntiSpam.Util.Constants;
-import su.Jalapeno.AntiSpam.Util.DateUtil;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
 import android.accounts.AccountManager;
@@ -52,7 +48,7 @@ public class RegisterActivity extends JalapenoActivity {
 
 	@InjectView(R.id.buttonDebugRegister)
 	Button buttonDebugRegister;
-	
+
 	@InjectView(R.id.buttonGoToDebugRegister)
 	Button buttonGoToDebug;
 
@@ -119,26 +115,14 @@ public class RegisterActivity extends JalapenoActivity {
 	public void TestRegister(View view) {
 		Logger.Debug(LOG_TAG, "TestRegister");
 		if (Constants.VIEW_DEBUG_UI) {
-			if (!Constants.DEBUG_STANDALONE_MODE) {
-				new TestRegisterTask(this, _settingsService, _jalapenoWebServiceWraper).execute();
-			} else {
-				DebugStandaloneRegister();
-			}
+			new TestRegisterTask(this, _settingsService, _jalapenoWebServiceWraper).execute();
 		}
 	}
-	
+
 	public void NavigateToDebug(View v) {
 		if (Constants.VIEW_DEBUG_UI) {
 			UiUtils.NavigateTo(Debug.class);
 		}
-	}
-
-	private void DebugStandaloneRegister() {
-		Date expirationDate = DateUtil.addDays(new Date(), 30);
-		UUID uuid = UUID.randomUUID();
-		_settingsService.RegisterClient(uuid, expirationDate, false);
-		Logger.Debug(LOG_TAG, "Test Register with guid " + uuid);
-		UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 	}
 
 	@Override
