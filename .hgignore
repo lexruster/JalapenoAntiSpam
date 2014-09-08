@@ -24,3 +24,7 @@ Client/Android/JalapenoAntiSpam/proguard/usage.txt
 Client/Android/JalapenoAntiSpam/proguard/seeds.txt
 Client/Android/JalapenoAntiSpam/proguard/dump.txt
 Client/Android/JalapenoAntiSpam/proguard/mapping.txt
+Client/Android/Artifacts/Libs/actionbarsherlock/bin/*
+Client/Android/Artifacts/Libs/actionbarsherlock/gen/*
+Client/Android/Artifacts/Libs/google-play-services_lib/bin/*
+Client/Android/Artifacts/Libs/google-play-services_lib/gen/*
