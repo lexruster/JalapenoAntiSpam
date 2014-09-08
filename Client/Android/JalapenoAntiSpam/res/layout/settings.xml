@@ -64,14 +64,6 @@
                 android:text="@string/AntiSpamOn" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/buttonDebug"
-            style="@style/BaseControl.Button.Debug"
-            android:height="10dp"
-            android:onClick="NavigateToDebug"
-            android:text="@string/DebugActivity"
-            android:textSize="8dp"
-            android:visibility="invisible" />
     </LinearLayout>
 
 </LinearLayout>
