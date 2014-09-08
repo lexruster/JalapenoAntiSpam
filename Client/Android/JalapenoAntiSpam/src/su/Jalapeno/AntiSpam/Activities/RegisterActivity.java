@@ -3,7 +3,6 @@ package su.Jalapeno.AntiSpam.Activities;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.Activities.Tasks.RegisterTask;
-import su.Jalapeno.AntiSpam.Activities.Tasks.TestRegisterTask;
 import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
@@ -19,7 +18,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.GooglePlayServicesAvailabilityException;
@@ -46,12 +44,6 @@ public class RegisterActivity extends JalapenoActivity {
 	@InjectView(R.id.licenseLink)
 	public TextView _licenseLink;
 
-	@InjectView(R.id.buttonDebugRegister)
-	Button buttonDebugRegister;
-
-	@InjectView(R.id.buttonGoToDebugRegister)
-	Button buttonGoToDebug;
-
 	private String link;
 
 	public String Email;
@@ -63,7 +55,6 @@ public class RegisterActivity extends JalapenoActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		SetDebugMode(Constants.VIEW_DEBUG_UI);
 
 		link = _context.getResources().getString(R.string.LicenseAgreementUrl);
 		_licenseLink.setOnClickListener(new OnClickListener() {
@@ -110,19 +101,6 @@ public class RegisterActivity extends JalapenoActivity {
 		Token = "";
 
 		getUsername();
-	}
-
-	public void TestRegister(View view) {
-		Logger.Debug(LOG_TAG, "TestRegister");
-		if (Constants.VIEW_DEBUG_UI) {
-			new TestRegisterTask(this, _settingsService, _jalapenoWebServiceWraper).execute();
-		}
-	}
-
-	public void NavigateToDebug(View v) {
-		if (Constants.VIEW_DEBUG_UI) {
-			UiUtils.NavigateTo(Debug.class);
-		}
 	}
 
 	@Override
@@ -215,15 +193,5 @@ public class RegisterActivity extends JalapenoActivity {
 	private RegisterTask GetRegiseterTask() {
 		Logger.Debug(LOG_TAG, "getTask");
 		return new RegisterTask(this, _settingsService, _jalapenoWebServiceWraper);
-	}
-
-	private void SetDebugMode(boolean isDebug) {
-		if (isDebug) {
-			buttonDebugRegister.setVisibility(View.VISIBLE);
-			buttonGoToDebug.setVisibility(View.VISIBLE);
-		} else {
-			buttonDebugRegister.setVisibility(View.INVISIBLE);
-			buttonGoToDebug.setVisibility(View.INVISIBLE);
-		}
 	}
 }
