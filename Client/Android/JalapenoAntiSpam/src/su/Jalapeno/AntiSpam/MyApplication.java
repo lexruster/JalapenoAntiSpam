@@ -28,8 +28,15 @@ import android.content.Intent;
  * Created by alexander.kiryushkin on 09.01.14.
  */
 @ReportsCrashes(formKey = "", mailTo = MyApplication.MAIL, mode = ReportingInteractionMode.SILENT, customReportContent = {
-		ReportField.ANDROID_VERSION, ReportField.PHONE_MODEL, ReportField.CUSTOM_DATA, ReportField.STACK_TRACE, ReportField.LOGCAT }, logcatArguments = {
-		"-t", "200", "-v", "long", "test:I", "*:D", "*:S" })
+		ReportField.ANDROID_VERSION,
+		ReportField.APP_VERSION_NAME, 
+		ReportField.APP_VERSION_CODE, 
+		ReportField.APPLICATION_LOG,
+		ReportField.PHONE_MODEL, 
+		ReportField.CUSTOM_DATA,
+		ReportField.STACK_TRACE,
+		ReportField.LOGCAT }, logcatArguments = { "-t", "200",
+		"-v", "long", "test:I", "*:D", "*:S" })
 public class MyApplication extends Application {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "MyApplication";
 	@Nonnull
