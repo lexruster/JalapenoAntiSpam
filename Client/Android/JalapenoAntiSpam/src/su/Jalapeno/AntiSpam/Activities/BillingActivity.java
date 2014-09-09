@@ -16,6 +16,7 @@ import org.solovyev.android.checkout.ResponseCodes;
 import org.solovyev.android.checkout.Sku;
 
 import roboguice.inject.ContentView;
+import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.MyApplication;
 import su.Jalapeno.AntiSpam.Activities.Tasks.PurchaseAntispamTask;
 import su.Jalapeno.AntiSpam.Filter.R;
