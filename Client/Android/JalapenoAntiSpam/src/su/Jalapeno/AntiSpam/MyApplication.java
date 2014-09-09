@@ -17,6 +17,7 @@ import org.solovyev.android.checkout.Products;
 
 import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
+import su.Jalapeno.AntiSpam.SystemService.NotifyType;
 import su.Jalapeno.AntiSpam.Util.BillingConstants;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.CryptoService;
@@ -79,7 +80,7 @@ public class MyApplication extends Application {
 		Logger.Debug(LOG_TAG, "onCreate ");
 		billing.connect();
 		ACRA.init(this);
-		startService(new Intent(this, AppService.class));
+		startService(new Intent(this, AppService.class).putExtra(NotifyType.ExtraConstant, NotifyType.RefreshSmsNotify));
 		RepositoryFactory.initRepository(getApplicationContext());
 	}
 

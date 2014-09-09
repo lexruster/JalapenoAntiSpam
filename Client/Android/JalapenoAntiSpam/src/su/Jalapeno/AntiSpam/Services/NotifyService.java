@@ -1,6 +1,7 @@
 package su.Jalapeno.AntiSpam.Services;
 
 import su.Jalapeno.AntiSpam.SystemService.AppService;
+import su.Jalapeno.AntiSpam.SystemService.NotifyType;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import android.content.Context;
@@ -26,25 +27,20 @@ public class NotifyService {
 	public void OnIncomeSms() {
 		Logger.Debug(LOG_TAG, "OnIncomeSms.");
 		PlayRingtone();
-		_context.startService(new Intent(_context, AppService.class).putExtra(
-				"Alarm", 1));
+		_context.startService(new Intent(_context, AppService.class).putExtra(NotifyType.ExtraConstant, NotifyType.IncomeUnknownSms));
 	}
 
 	private void PlayRingtone() {
 		Uri notificationAlarm;
-		notificationAlarm = RingtoneManager
-				.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+		notificationAlarm = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 		if (notificationAlarm == null) {
-			notificationAlarm = RingtoneManager
-					.getDefaultUri(RingtoneManager.TYPE_ALARM);
+			notificationAlarm = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 		}
 		if (notificationAlarm == null) {
-			notificationAlarm = RingtoneManager
-					.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+			notificationAlarm = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
 		}
 
-		Ringtone ringtone = RingtoneManager.getRingtone(_context,
-				notificationAlarm);
+		Ringtone ringtone = RingtoneManager.getRingtone(_context, notificationAlarm);
 		if (ringtone != null) {
 			ringtone.play();
 		}
@@ -53,12 +49,11 @@ public class NotifyService {
 	public void OnAccessNotAllowed() {
 		Logger.Debug(LOG_TAG, "OnAccessNotAllowed.");
 		PlayRingtone();
-		_context.startService(new Intent(_context, AppService.class).putExtra(
-				"Alarm", 1));
+		_context.startService(new Intent(_context, AppService.class).putExtra(NotifyType.ExtraConstant, NotifyType.AccessFailAlarm));
 	}
 
 	public void OnAccessAllowed() {
 		Logger.Debug(LOG_TAG, "OnAccessAllowed.");
-		OnIncomeSms();
+		_context.startService(new Intent(_context, AppService.class).putExtra(NotifyType.ExtraConstant, NotifyType.RefreshSmsNotify));
 	}
 }

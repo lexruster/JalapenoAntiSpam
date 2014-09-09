@@ -9,6 +9,7 @@
     <string name="SmsValidateList">СМС</string>
     <string name="SmsTrashList">Корзина</string>
     <string name="AccessInfo">Пробный период: %d дней</string>
+    <string name="AccessLastDay">Пробный период истекает сегодня</string>
     <string name="AccessFullInfo">Полная версия</string>
     <string name="AntiSpamOn">Включено</string>
     <string name="AntiSpamOff">Включить</string>
@@ -31,7 +32,7 @@
 
     <!-- Notification -->
     <string name="NotExistsUnknownSms">Спама нет!</string>
-    <string name="NeedBuyAccessText">Закончился пробный период. Пожалуйста, купите лицензию</string>
+    <string name="NeedBuyAccessText">Пробный период истек. Пожалуйста, купите лицензию</string>
     <string name="ExistsUnknownSms">Есть подозрительные СМС</string>
 
     <!-- Register acticity -->
@@ -51,6 +52,7 @@
     <!-- Buy acticity -->
     <string name="BillingBuyText">Вы можете купить Jalapeno Antispam или восстановить произведенную оплату</string>
     <string name="BillingBuyButton">Купить лицензию</string>
+    <string name="PriceInfo">Стоимость: %s</string>
 
     <!-- Buy acticity message -->
     <string name="ErrorBilling">Ошибка оплаты. Пожалуйста, проверьте Интернет-подключение, затем повторите попытку</string>
