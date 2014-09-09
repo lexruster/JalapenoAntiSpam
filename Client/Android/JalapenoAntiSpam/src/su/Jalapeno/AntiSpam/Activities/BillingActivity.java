@@ -141,25 +141,18 @@ public class BillingActivity extends JalapenoActivity {
 	private void purchase(@Nonnull final Sku sku) {
 		boolean billingSupported = checkout.isBillingSupported(IN_APP);
 		Logger.Debug(LOG_TAG, "purchase started billingSupported = " + billingSupported);
-		if(!billingSupported)
-		{
+		if (!billingSupported) {
 			Logger.Error(LOG_TAG, "purchase billingSupported FALSE");
 			spiner.Hide();
 			ShowToast(R.string.ErrorBilling);
 			return;
 		}
-		
+
 		checkout.whenReady(new Checkout.ListenerAdapter() {
 			@Override
 			public void onReady(@Nonnull BillingRequests requests) {
-				//try {
-					Logger.Debug(LOG_TAG, "purchase onReady start purchase");
-					requests.purchase(sku, null, checkout.getPurchaseFlow());
-				/*} catch (Exception ex) {
-					Logger.Error(LOG_TAG, "purchase ListenerAdapter onReady support false", ex);
-					spiner.Hide();
-					ShowToast(R.string.ErrorBilling);
-				}*/
+				Logger.Debug(LOG_TAG, "purchase onReady start purchase");
+				requests.purchase(sku, null, checkout.getPurchaseFlow());
 			}
 		});
 	}
