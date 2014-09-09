@@ -1279,46 +1279,89 @@ containing a value of this type.
         public static final int spamer_list=0x7f03001f;
     }
     public static final class string {
-        public static final int AccessFullInfo=0x7f0a0044;
-        public static final int AccessInfo=0x7f0a0043;
-        public static final int AntiSpamOff=0x7f0a0049;
-        public static final int AntiSpamOn=0x7f0a0048;
-        public static final int BannedRegister=0x7f0a0039;
-        public static final int BillingBuyButton=0x7f0a0040;
-        public static final int BillingBuyText=0x7f0a003e;
-        public static final int DateFormat=0x7f0a004b;
-        public static final int DebugActivity=0x7f0a002d;
-        public static final int DeleteButton=0x7f0a0033;
-        public static final int EmptySmsList=0x7f0a0046;
-        public static final int EmptySpamerList=0x7f0a0045;
-        public static final int ErrorBilling=0x7f0a0041;
-        public static final int ErrorRegister=0x7f0a003a;
-        public static final int ExistsUnknownSms=0x7f0a004a;
-        /** НЕ НУЖНО
-НЕ НУЖНО
-НЕ НУЖНО
+        public static final int AccessFullInfo=0x7f0a002c;
+        public static final int AccessInfo=0x7f0a002b;
+        public static final int AntiSpamOff=0x7f0a002e;
+        public static final int AntiSpamOn=0x7f0a002d;
+        /**  Register acticity message 
+ Register acticity message 
+ Register acticity message 
          */
-        public static final int KnownSpammerList=0x7f0a0029;
-        public static final int LicenseAgreement=0x7f0a0038;
-        public static final int LicenseAgreementUrl=0x7f0a0037;
-        public static final int NeedBuyAccessText=0x7f0a003f;
-        public static final int NeedPeekAccount=0x7f0a003b;
-        public static final int NotExistsUnknownSms=0x7f0a0034;
-        public static final int NotSpamButton=0x7f0a0032;
-        public static final int ParentActivity=0x7f0a004c;
-        public static final int PurchaseComplete=0x7f0a0042;
-        public static final int RegisterButton=0x7f0a0035;
-        public static final int RegisterText=0x7f0a0036;
-        public static final int SettingsTitle=0x7f0a0028;
-        public static final int SmsList=0x7f0a0030;
-        public static final int SmsTrashList=0x7f0a002b;
-        public static final int SmsValidateList=0x7f0a002a;
-        public static final int SoundSettings=0x7f0a002c;
-        public static final int SpamButton=0x7f0a0031;
-        public static final int SpammerList=0x7f0a002e;
-        public static final int TestBuyText=0x7f0a003d;
-        public static final int TestRegister=0x7f0a003c;
-        public static final int WaitMessage=0x7f0a0047;
+        public static final int BannedRegister=0x7f0a0040;
+        public static final int BillingBuyButton=0x7f0a0045;
+        /**  Buy acticity 
+ Buy acticity 
+ Buy acticity 
+         */
+        public static final int BillingBuyText=0x7f0a0044;
+        public static final int DateFormat=0x7f0a004a;
+        public static final int DebugActivity=0x7f0a0030;
+        public static final int DeleteButton=0x7f0a0037;
+        public static final int EmptySmsList=0x7f0a0038;
+        public static final int EmptySpamerList=0x7f0a0033;
+        /**  Buy acticity message 
+ Buy acticity message 
+ Buy acticity message 
+         */
+        public static final int ErrorBilling=0x7f0a0046;
+        public static final int ErrorRegister=0x7f0a0041;
+        public static final int ExistsUnknownSms=0x7f0a003b;
+        /**  main acticity 
+ main acticity 
+ main acticity 
+         */
+        public static final int KnownSpammerList=0x7f0a0028;
+        public static final int LicenseAgreement=0x7f0a003f;
+        public static final int LicenseAgreementUrl=0x7f0a003e;
+        public static final int NeedBuyAccessText=0x7f0a003a;
+        public static final int NeedPeekAccount=0x7f0a0042;
+        /**  Notification 
+ Notification 
+ Notification 
+         */
+        public static final int NotExistsUnknownSms=0x7f0a0039;
+        public static final int NotSpamButton=0x7f0a0036;
+        public static final int ParentActivity=0x7f0a004b;
+        public static final int PurchaseComplete=0x7f0a0047;
+        /**  Register acticity 
+ Register acticity 
+ Register acticity 
+         */
+        public static final int RegisterButton=0x7f0a003c;
+        public static final int RegisterText=0x7f0a003d;
+        /**  Sms list acticity 
+ Sms list acticity 
+ Sms list acticity 
+         */
+        public static final int SmsList=0x7f0a0034;
+        public static final int SmsTrashList=0x7f0a002a;
+        public static final int SmsValidateList=0x7f0a0029;
+        /**  Debug acticity 
+ Debug acticity 
+ Debug acticity 
+         */
+        public static final int SoundSettings=0x7f0a002f;
+        public static final int SpamButton=0x7f0a0035;
+        /**  Spamer list acticity 
+ Spamer list acticity 
+ Spamer list acticity 
+         */
+        public static final int SpammerList=0x7f0a0031;
+        /**  Buy debug acticity 
+ Buy debug acticity 
+ Buy debug acticity 
+         */
+        public static final int TestBuyText=0x7f0a0048;
+        /**  Register debug acticity 
+ Register debug acticity 
+ Register debug acticity 
+         */
+        public static final int TestRegister=0x7f0a0043;
+        /**  Misc 
+ Misc 
+ Misc 
+         */
+        public static final int WaitMessage=0x7f0a0049;
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
          */
         public static final int abs__action_bar_home_description=0x7f0a0000;
@@ -1358,6 +1401,10 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abs__shareactionprovider_share_with_application=0x7f0a0007;
+        /**  app name 
+ app name 
+ app name 
+         */
         public static final int app_name=0x7f0a0027;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
@@ -1453,7 +1500,7 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f0a0020;
-        public static final int isspamer=0x7f0a002f;
+        public static final int isspamer=0x7f0a0032;
     }
     public static final class style {
         public static final int BaseControl=0x7f0b0059;

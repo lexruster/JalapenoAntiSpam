@@ -1,54 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <resources>
 
-	<string name="app_name">Jalapeno Antispam</string>
+    <!-- app name -->
+    <string name="app_name">Jalapeno Antispam</string>
 
-	<string name="SettingsTitle"></string><!--НЕ НУЖНО-->
-	<string name="KnownSpammerList">Spammers</string>
-	<string name="SmsValidateList">SMS</string>
+    <!-- main acticity -->
+    <string name="KnownSpammerList">Spammers</string>
+    <string name="SmsValidateList">SMS</string>
     <string name="SmsTrashList">Trash</string>
-	<string name="SoundSettings">Sounds</string>
-	<string name="DebugActivity">Debug</string>
-
-    <string name="SpammerList">Spammers</string>
-	<string name="isspamer">Spammer?</string>   
-
-	<string name="SmsList">SMS</string>
-	<string name="SpamButton">Spam!</string>
-    <string name="NotSpamButton">Not spam</string>
-    <string name="DeleteButton">Delete</string>
-
-	<string name="NotExistsUnknownSms">You have no spam!</string>
-	<string name="RegisterButton">Sign up</string>
-    <string name="RegisterText">Please, sign up via your Google account. Note: performing registration, you accept the terms of the License Agreement</string>
-    <string name="LicenseAgreementUrl">http://jalapeno.su/license.en.html</string>
-    <string name="LicenseAgreement"><a href="http://jalapeno.su/license.en.html">License agreement</a></string>
-    <string name="BannedRegister">Sorry, this user was banned</string>
-    <string name="ErrorRegister">Registration error. Please, check the Internet connection, then try again</string>
-    <string name="NeedPeekAccount">You have to choose an account</string>
-    <string name="TestRegister">Test registration</string>
-    <string name="TestBuyText">Test payment</string>
-
-    <string name="BillingBuyText">You can buy Jalapeno Antispam or restore your payment</string>
-    <string name="NeedBuyAccessText">Your trial period is expired. If you want to keep using Jalapeno Antispam, please, buy it</string>
-    <string name="BillingBuyButton">Buy</string>
-    <string name="ErrorBilling">Payment error. Please, check the Internet connection, then try again</string>
-    <string name="PurchaseComplete">Congratulations! Your payment was successfully completed</string>
-	<string name="AccessInfo">Evaluation period: %d days</string>
-	<string name="AccessFullInfo">Full version</string>
-
-    <string name="EmptySpamerList">No Spammers...</string>
-    <string name="EmptySmsList">No SMS to check...</string>
-
-    <string name="WaitMessage">Please, wait</string>
-
+    <string name="AccessInfo">Evaluation period: %d days</string>
+    <string name="AccessFullInfo">Full version</string>
     <string name="AntiSpamOn">On</string>
     <string name="AntiSpamOff">Turn on</string>
 
+    <!-- Debug acticity -->
+    <string name="SoundSettings">Sounds</string>
+    <string name="DebugActivity">Debug</string>
+
+    <!-- Spamer list acticity -->
+    <string name="SpammerList">Spammers</string>
+    <string name="isspamer">Spammer?</string>
+    <string name="EmptySpamerList">No Spammers...</string>
+
+    <!-- Sms list acticity -->
+    <string name="SmsList">SMS</string>
+    <string name="SpamButton">Spam!</string>
+    <string name="NotSpamButton">Not spam</string>
+    <string name="DeleteButton">Delete</string>
+    <string name="EmptySmsList">No SMS to check...</string>
+
+    <!-- Notification -->
+    <string name="NotExistsUnknownSms">You have no spam!</string>
+    <string name="NeedBuyAccessText">Your trial period is expired. If you want to keep using Jalapeno Antispam, please, buy it</string>
     <string name="ExistsUnknownSms">You have some SMS to check</string>
 
-	<string name="DateFormat">dd MMM yyyy HH:mm</string>
-    <string name="ParentActivity">su.Jalapeno.AntiSpam.Activities.SettingsActivity</string>
+    <!-- Register acticity -->
+    <string name="RegisterButton">Sign up</string>
+    <string name="RegisterText">Please, sign up via your Google account. Note: performing registration, you accept the terms of the License Agreement</string>
+    <string name="LicenseAgreementUrl">http://jalapeno.su/license.en.html</string>
+    <string name="LicenseAgreement"><a href="http://jalapeno.su/license.en.html">License agreement</a></string>
 
+    <!-- Register acticity message -->
+    <string name="BannedRegister">Sorry, this user was banned</string>
+    <string name="ErrorRegister">Registration error. Please, check the Internet connection, then try again</string>
+    <string name="NeedPeekAccount">You have to choose an account</string>
+
+    <!-- Register debug acticity -->
+    <string name="TestRegister">Test registration</string>
+
+    <!-- Buy acticity -->
+    <string name="BillingBuyText">You can buy Jalapeno Antispam or restore your payment</string>
+    <string name="BillingBuyButton">Buy</string>
+
+    <!-- Buy acticity message -->
+    <string name="ErrorBilling">Payment error. Please, check the Internet connection, then try again</string>
+    <string name="PurchaseComplete">Congratulations! Your payment was successfully completed</string>
+
+    <!-- Buy debug acticity -->
+    <string name="TestBuyText">Test payment</string>
+
+    <!-- Misc -->
+    <string name="WaitMessage">Please, wait</string>
+    <string name="DateFormat">dd MMM yyyy HH:mm</string>
+    <string name="ParentActivity">su.Jalapeno.AntiSpam.Activities.SettingsActivity</string>
+    
 </resources>
