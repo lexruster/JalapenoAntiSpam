@@ -12,9 +12,11 @@ import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.NotifyBuilder;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.text.TextUtils;
 
 import com.google.inject.Inject;
 
@@ -28,9 +30,10 @@ public class AppService extends RoboService {
 	private SmsQueueService _smsQueueService;
 	@Inject
 	private RequestQueue _requestQueue;
-
 	@Inject
 	private SettingsService _settingsService;
+
+	NotificationManager nm;
 
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "AppService";
 
@@ -38,6 +41,7 @@ public class AppService extends RoboService {
 		super.onCreate();
 		StartSchedule();
 		Logger.Debug(LOG_TAG, "onCreate");
+		nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 	}
 
 	private void StartSchedule() {
@@ -51,33 +55,47 @@ public class AppService extends RoboService {
 	}
 
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Logger.Debug(LOG_TAG, "onStartCommand flag " + flags + " start "
-				+ startId);
-		if (_settingsService.AntispamEnabled()) {
-			boolean needAlarm = intent.getIntExtra("Alarm", 0) == 1;
-			StartNotify(needAlarm);
-		} else {
-			StopNotify();
-		}
+		int notifyType = intent.getIntExtra(NotifyType.ExtraConstant, NotifyType.RefreshSmsNotify);
+		Logger.Debug(LOG_TAG, "onStartCommand flag " + flags + " start " + startId + " notifyType " + notifyType);
 
-		if (!_settingsService.GetAccessInfo().AccessIsAllowed) {
-			// TODO: access not allowed
+		switch (notifyType) {
+		case NotifyType.AccessFailAlarm:
 			StartNotifyNotAccess();
+			break;
+		case NotifyType.IncomeUnknownSms:
+		case NotifyType.RefreshSmsNotify:
+			if (_settingsService.AntispamEnabled()) {
+				ShowNotifyForSms(notifyType);
+			} else {
+				StopNotify();
+			}
+			break;
 		}
 
 		return START_STICKY;
 	}
 
+	private void ShowNotifyForSms(int notifyType) {
+		switch (notifyType) {
+		case NotifyType.IncomeUnknownSms:
+			StartNotifyForSms(true);
+			break;
+		case NotifyType.RefreshSmsNotify:
+			StartNotifyForSms(false);
+			break;
+		}
+	}
+
 	private void StopNotify() {
+		Logger.Debug(LOG_TAG, "StopNotify");
 		stopForeground(true);
 	}
 
-	private void StartNotify(boolean needAlarm) {
-		Logger.Debug(LOG_TAG, "StartNotify");
+	private void StartNotifyForSms(boolean needAlarm) {
+		Logger.Debug(LOG_TAG, "StartNotifyForSms alarm" + needAlarm);
 		if (_smsQueueService != null) {
 			long count = _smsQueueService.Count();
-			Notification notification = NotifyBuilder.CreateNotifacation(
-					_context, count, needAlarm);
+			Notification notification = NotifyBuilder.CreateNotifacation(_context, count, needAlarm);
 			Logger.Debug(LOG_TAG, "Start notify count " + count);
 			startForeground(NOTIFY_ID, notification);
 		} else {
@@ -87,9 +105,10 @@ public class AppService extends RoboService {
 
 	private void StartNotifyNotAccess() {
 		Logger.Debug(LOG_TAG, "StartNotifyNotAccess");
-		Notification notification = NotifyBuilder
-				.CreateNotifacationNotAccess(_context);
-		startForeground(NOTIFY_ID, notification);
+		StopNotify();
+		Notification notification = NotifyBuilder.CreateNotifacationNotAccess(_context);
+		nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		nm.notify(NOTIFY_ID, notification);
 	}
 
 	public void onDestroy() {

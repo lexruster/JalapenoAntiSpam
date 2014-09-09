@@ -6,6 +6,7 @@ import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Services.AccessService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
+import su.Jalapeno.AntiSpam.SystemService.NotifyType;
 import su.Jalapeno.AntiSpam.Util.AccessInfo;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
@@ -94,9 +95,21 @@ public class SettingsActivity extends JalapenoActivity {
 			UiUtils.NavigateTo(BillingActivity.class);
 			return;
 		}
+		ShowAccessInfo();
+	}
+
+	private void ShowAccessInfo() {
 		AccessInfo accessInfo = _settingsService.GetAccessInfo();
 		if (accessInfo.IsUnlimitedAccess) {
 			textAccessInfo.setText(R.string.AccessFullInfo);
+		} else {
+			ShowLimitedAccessInfo(accessInfo);
+		}
+	}
+
+	private void ShowLimitedAccessInfo(AccessInfo accessInfo) {
+		if (accessInfo.EvaluationDaysLast < 1) {
+			textAccessInfo.setText(R.string.AccessLastDay);
 		} else {
 			String info = _context.getString(R.string.AccessInfo, accessInfo.EvaluationDaysLast);
 			textAccessInfo.setText(info);
@@ -129,7 +142,7 @@ public class SettingsActivity extends JalapenoActivity {
 	public void toggleClick(View view) {
 		boolean enabled = _settingsService.ToggleAntispamEnabled();
 		UpdateOnOffButton(enabled);
-		startService(new Intent(this, AppService.class));
+		startService(new Intent(this, AppService.class).putExtra(NotifyType.ExtraConstant, NotifyType.RefreshSmsNotify));
 	}
 
 	public void smsTrash(View view) {

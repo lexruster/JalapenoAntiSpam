@@ -33,7 +33,6 @@ import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiver;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiverLogic;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
 import su.Jalapeno.AntiSpam.Services.WebService.WebClient;
-import su.Jalapeno.AntiSpam.SystemService.AppService;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.ServiceFactory;
@@ -256,12 +255,10 @@ public class Debug extends JalapenoActivity {
 
 	public void DropRegister(View v) {
 		_settingsService.DropRegistration();
-		startService(new Intent(this, AppService.class));
 	}
 	
 	public void ChangeDomain(View v) {
 		_settingsService.ChangeDomain();
-		startService(new Intent(this, AppService.class));
 	}
 	
 	public void Consume(View v) {
@@ -314,7 +311,6 @@ public class Debug extends JalapenoActivity {
 		};
 
 		task.execute();
-
 	}
 
 	private void Receive(String phone, String body) {

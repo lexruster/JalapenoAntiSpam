@@ -27,6 +27,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.inject.Inject;
 
@@ -52,6 +53,9 @@ public class BillingActivity extends JalapenoActivity {
 
 	@InjectView(R.id.buttonDebugPurchase)
 	Button buttonDebug;
+
+	@InjectView(R.id.textPriceInfo)
+	TextView textPriceInfo;
 
 	@Nonnull
 	protected Inventory inventory;
@@ -90,7 +94,7 @@ public class BillingActivity extends JalapenoActivity {
 			UiUtils.NavigateTo(RegisterActivity.class);
 			return;
 		}
-		
+
 		_clientId = _settingsService.GetClientId();
 		SetDebugMode(Constants.VIEW_DEBUG_UI);
 	}
@@ -150,14 +154,35 @@ public class BillingActivity extends JalapenoActivity {
 	}
 
 	private void purchase(@Nonnull final Sku sku) {
-		Logger.Debug(LOG_TAG, "purchase started");
+		boolean billingSupported = checkout.isBillingSupported(IN_APP);
+		Logger.Debug(LOG_TAG, "purchase started billingSupported = " + billingSupported);
+		if(!billingSupported)
+		{
+			Logger.Error(LOG_TAG, "purchase billingSupported FALSE");
+			spiner.Hide();
+			ShowToast(R.string.ErrorBilling);
+			return;
+		}
+		
 		checkout.whenReady(new Checkout.ListenerAdapter() {
 			@Override
 			public void onReady(@Nonnull BillingRequests requests) {
-				Logger.Debug(LOG_TAG, "purchase onReady start purchase");
-				requests.purchase(sku, null, checkout.getPurchaseFlow());
+				//try {
+					Logger.Debug(LOG_TAG, "purchase onReady start purchase");
+					requests.purchase(sku, null, checkout.getPurchaseFlow());
+				/*} catch (Exception ex) {
+					Logger.Error(LOG_TAG, "purchase ListenerAdapter onReady support false", ex);
+					spiner.Hide();
+					ShowToast(R.string.ErrorBilling);
+				}*/
 			}
 		});
+	}
+
+	private void SetPriceInfo(String price) {
+		String info = _context.getString(R.string.PriceInfo, price);
+		textPriceInfo.setText(info);
+		textPriceInfo.setVisibility(View.VISIBLE);
 	}
 
 	private class PurchaseListener extends BaseRequestListener<Purchase> {
@@ -195,6 +220,7 @@ public class BillingActivity extends JalapenoActivity {
 			if (product.isSupported()) {
 				_skuAccess = product.getSkus().get(0);
 				Logger.Debug(LOG_TAG, "InventoryLoadedListener isSupported " + _skuAccess.title + " cost " + _skuAccess.price);
+				SetPriceInfo(_skuAccess.price);
 				final Purchase purchase = product.getPurchaseInState(_skuAccess, Purchase.State.PURCHASED);
 				boolean isPurchased = purchase != null && !TextUtils.isEmpty(purchase.token);
 				String message = "Ready to buy " + _skuAccess.title + " and status Purch= " + isPurchased;
@@ -205,7 +231,8 @@ public class BillingActivity extends JalapenoActivity {
 					spiner.Hide();
 				}
 			} else {
-				Logger.Error(LOG_TAG, "InventoryLoadedListener  support false");
+				Logger.Error(LOG_TAG, "InventoryLoadedListener support false");
+				spiner.Hide();
 				ShowToast(R.string.ErrorBilling);
 			}
 		}

@@ -9,6 +9,7 @@
     <string name="SmsValidateList">SMS</string>
     <string name="SmsTrashList">Trash</string>
     <string name="AccessInfo">Evaluation period: %d days</string>
+    <string name="AccessLastDay">Trial expires today</string>
     <string name="AccessFullInfo">Full version</string>
     <string name="AntiSpamOn">On</string>
     <string name="AntiSpamOff">Turn on</string>
@@ -31,7 +32,7 @@
 
     <!-- Notification -->
     <string name="NotExistsUnknownSms">You have no spam!</string>
-    <string name="NeedBuyAccessText">Your trial period is expired. If you want to keep using Jalapeno Antispam, please, buy it</string>
+    <string name="NeedBuyAccessText">Trial expired. Please, buy it</string>
     <string name="ExistsUnknownSms">You have some SMS to check</string>
 
     <!-- Register acticity -->
@@ -51,6 +52,7 @@
     <!-- Buy acticity -->
     <string name="BillingBuyText">You can buy Jalapeno Antispam or restore your payment</string>
     <string name="BillingBuyButton">Buy</string>
+    <string name="PriceInfo">Price: %s</string>
 
     <!-- Buy acticity message -->
     <string name="ErrorBilling">Payment error. Please, check the Internet connection, then try again</string>
@@ -63,5 +65,5 @@
     <string name="WaitMessage">Please, wait</string>
     <string name="DateFormat">dd MMM yyyy HH:mm</string>
     <string name="ParentActivity">su.Jalapeno.AntiSpam.Activities.SettingsActivity</string>
-    
+
 </resources>

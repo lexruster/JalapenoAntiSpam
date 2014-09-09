@@ -8,12 +8,18 @@
         android:id="@+id/textView"
         style="@style/BaseControl"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center_horizontal"
         android:text="@string/BillingBuyText"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:typeface="normal" />
 
+    <TextView
+            android:id="@+id/textPriceInfo"
+            style="@style/BaseControl.Text"
+            android:layout_marginBottom="10dp"
+            android:visibility="invisible" />
+    
     <LinearLayout
         android:id="@+id/LinearLayout02"
         android:layout_width="fill_parent"

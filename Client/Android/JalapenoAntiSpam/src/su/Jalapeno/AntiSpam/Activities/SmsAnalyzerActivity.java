@@ -8,6 +8,7 @@ import su.Jalapeno.AntiSpam.Services.AccessService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
+import su.Jalapeno.AntiSpam.SystemService.NotifyType;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;
@@ -104,7 +105,7 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 
 		registerReceiver(_receiver, _intFilt);
 
-		_context.startService(new Intent(_context, AppService.class));
+		_context.startService(new Intent(_context, AppService.class).putExtra(NotifyType.ExtraConstant, NotifyType.RefreshSmsNotify));
 		_smsAdapter.LoadData();
 		HandleFirstRun();
 		LoadList();
@@ -181,6 +182,6 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 	private void UpdateList() {
 		_smsAdapter.Refresh();
 		UpdateButtons();
-		startService(new Intent(this, AppService.class));
+		_context.startService(new Intent(_context, AppService.class).putExtra(NotifyType.ExtraConstant, NotifyType.RefreshSmsNotify));
 	}
 }
