@@ -33,9 +33,6 @@ public class SettingsActivity extends JalapenoActivity {
 	@Inject
 	SettingsService _settingsService;
 
-	@InjectView(R.id.buttonDebug)
-	Button buttonDebug;
-
 	@InjectView(R.id.toggleEnabled)
 	Button toogleButton;
 
@@ -55,12 +52,6 @@ public class SettingsActivity extends JalapenoActivity {
 		Init();
 	}
 
-	public void NavigateToDebug(View v) {
-		if (Constants.VIEW_DEBUG_UI) {
-			UiUtils.NavigateTo(Debug.class);
-		}
-	}
-
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -75,7 +66,6 @@ public class SettingsActivity extends JalapenoActivity {
 	}
 
 	private void Init() {
-		SetDebugMode(Constants.VIEW_DEBUG_UI);
 	}
 
 	private void Resume() {
@@ -124,14 +114,6 @@ public class SettingsActivity extends JalapenoActivity {
 		} else {
 			toogleButton.setText(R.string.AntiSpamOff);
 			toogleButton.setTextColor(getResources().getColor(R.color.toogle_red));
-		}
-	}
-
-	private void SetDebugMode(boolean isDebug) {
-		if (isDebug) {
-			buttonDebug.setVisibility(View.VISIBLE);
-		} else {
-			buttonDebug.setVisibility(View.INVISIBLE);
 		}
 	}
 
