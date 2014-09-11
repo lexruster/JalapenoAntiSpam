@@ -5,8 +5,8 @@
     tools:context=".SmsAnalyzerActivity" >
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
         android:orientation="vertical" >
 
         <TextView
@@ -16,52 +16,36 @@
 
         <LinearLayout
             android:id="@+id/LinearLayout02"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="4"
             android:orientation="horizontal" >
 
-            <Button
+            <ImageButton
                 android:id="@+id/buttonSpammerList"
-                style="@style/button_text"
-                android:layout_weight="1"
-                android:background="@drawable/main_button_blue"
+                style="@style/JalapenoImageButton.Horizontal"
                 android:onClick="ViewSpamerList"
-                android:text="@string/KnownSpammerList" />
+                android:src="@drawable/ico_spammers" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/buttonSmsValidate"
-                style="@style/button_text"
-                android:layout_weight="1"
-                android:background="@drawable/main_button_green"
+                style="@style/JalapenoImageButton.Horizontal"
                 android:onClick="smsValidate"
-                android:text="@string/SmsValidateList" />
-        </LinearLayout>
+                android:src="@drawable/ico_sms" />
 
-        <LinearLayout
-            android:id="@+id/LinearLayout03"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:orientation="horizontal" >
-
-            <Button
+            <ImageButton
                 android:id="@+id/buttonSmsTrash"
-                style="@style/button_text"
-                android:layout_weight="1"
-                android:background="@drawable/main_button_red"
+                style="@style/JalapenoImageButton.Horizontal"
                 android:onClick="smsTrash"
-                android:text="@string/SmsTrashList" />
+                android:src="@drawable/ico_trash" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/toggleEnabled"
-                style="@style/button_text"
-                android:layout_weight="1"
-                android:background="@drawable/main_button_black"
+                style="@style/JalapenoImageButton.Horizontal"
                 android:onClick="toggleClick"
-                android:text="@string/AntiSpamOn" />
+                android:src="@drawable/ico_switch_on" />
         </LinearLayout>
 
         <Button
@@ -70,7 +54,7 @@
             android:height="10dp"
             android:onClick="NavigateToDebug"
             android:text="@string/DebugActivity"
-            android:textSize="8dp"
+            android:textSize="8sp"
             android:visibility="invisible" />
     </LinearLayout>
 

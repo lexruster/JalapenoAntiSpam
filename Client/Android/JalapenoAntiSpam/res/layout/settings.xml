@@ -5,7 +5,7 @@
     tools:context=".SmsAnalyzerActivity" >
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
@@ -16,7 +16,7 @@
 
         <LinearLayout
             android:id="@+id/LinearLayout02"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -24,33 +24,15 @@
 
             <ImageButton
                 android:id="@+id/buttonSpammerList"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/button_spammers"
-    android:onClick="ViewSpamerList" />
-            
-             <ImageButton
-                android:id="@+id/buttonSmsValidate"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/button_spammers"
-    android:onClick="smsValidate"/>
-            
-            <!-- <su.Jalapeno.AntiSpam.Util.UI.SquareButton
-                android:id="@+id/buttonSpammerList"
-                style="@style/button_text"
-                android:layout_weight="1"
-                android:background="@drawable/main_button_blue"
+                style="@style/JalapenoImageButton"
                 android:onClick="ViewSpamerList"
-                android:text="@string/KnownSpammerList" />
+                android:src="@drawable/ico_spammers" />
 
-            <su.Jalapeno.AntiSpam.Util.UI.SquareButton
+            <ImageButton
                 android:id="@+id/buttonSmsValidate"
-                style="@style/button_text"
-                android:layout_weight="1"
-                android:background="@drawable/main_button_green"
+                style="@style/JalapenoImageButton"
                 android:onClick="smsValidate"
-                android:text="@string/SmsValidateList" /> -->
+                android:src="@drawable/ico_sms" />
         </LinearLayout>
 
         <LinearLayout
@@ -61,35 +43,17 @@
             android:layout_marginRight="10dp"
             android:orientation="horizontal" >
 
-              <ImageButton
+            <ImageButton
                 android:id="@+id/buttonSmsTrash"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/button_trash"
-    android:onClick="smsTrash"/>
-              
-                <ImageButton
-                android:id="@+id/toggleEnabled"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/switch_on"
-    android:onClick="toggleClick"
-    />
-            <!-- <su.Jalapeno.AntiSpam.Util.UI.SquareButton
-                android:id="@+id/buttonSmsTrash"
-                style="@style/button_text"
-                android:layout_weight="1"
-                android:background="@drawable/main_button_red"
+                style="@style/JalapenoImageButton"
                 android:onClick="smsTrash"
-                android:text="@string/SmsTrashList" />
+                android:src="@drawable/ico_trash" />
 
-            <su.Jalapeno.AntiSpam.Util.UI.SquareButton
+            <ImageButton
                 android:id="@+id/toggleEnabled"
-                style="@style/button_text"
-                android:layout_weight="1"
-                android:background="@drawable/main_button_black"
+                style="@style/JalapenoImageButton"
                 android:onClick="toggleClick"
-                android:text="@string/AntiSpamOn" />-->
+                android:src="@drawable/ico_switch_on" />
         </LinearLayout>
 
         <Button
