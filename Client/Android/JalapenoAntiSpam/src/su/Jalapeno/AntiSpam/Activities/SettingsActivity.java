@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.inject.Inject;
@@ -37,7 +38,7 @@ public class SettingsActivity extends JalapenoActivity {
 	Button buttonDebug;
 
 	@InjectView(R.id.toggleEnabled)
-	Button toogleButton;
+	ImageButton toogleButton;
 
 	@InjectView(R.id.textAccessInfo)
 	TextView textAccessInfo;
@@ -119,11 +120,11 @@ public class SettingsActivity extends JalapenoActivity {
 	private void UpdateOnOffButton(boolean antispamEnabled) {
 		Logger.Debug(LOG_TAG, "UpdateOnOffButton enabled: " + antispamEnabled);
 		if (antispamEnabled) {
-			toogleButton.setText(R.string.AntiSpamOn);
-			toogleButton.setTextColor(getResources().getColor(R.color.toogle_green));
+			//toogleButton.setText(R.string.AntiSpamOn);
+			//toogleButton.setTextColor(getResources().getColor(R.color.toogle_green));
 		} else {
-			toogleButton.setText(R.string.AntiSpamOff);
-			toogleButton.setTextColor(getResources().getColor(R.color.toogle_red));
+			//toogleButton.setText(R.string.AntiSpamOff);
+			//toogleButton.setTextColor(getResources().getColor(R.color.toogle_red));
 		}
 	}
 

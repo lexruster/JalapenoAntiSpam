@@ -22,7 +22,21 @@
             android:layout_marginRight="10dp"
             android:orientation="horizontal" >
 
-            <su.Jalapeno.AntiSpam.Util.UI.SquareButton
+            <ImageButton
+                android:id="@+id/buttonSpammerList"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/button_spammers"
+    android:onClick="ViewSpamerList" />
+            
+             <ImageButton
+                android:id="@+id/buttonSmsValidate"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/button_spammers"
+    android:onClick="smsValidate"/>
+            
+            <!-- <su.Jalapeno.AntiSpam.Util.UI.SquareButton
                 android:id="@+id/buttonSpammerList"
                 style="@style/button_text"
                 android:layout_weight="1"
@@ -36,7 +50,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/main_button_green"
                 android:onClick="smsValidate"
-                android:text="@string/SmsValidateList" />
+                android:text="@string/SmsValidateList" /> -->
         </LinearLayout>
 
         <LinearLayout
@@ -47,7 +61,21 @@
             android:layout_marginRight="10dp"
             android:orientation="horizontal" >
 
-            <su.Jalapeno.AntiSpam.Util.UI.SquareButton
+              <ImageButton
+                android:id="@+id/buttonSmsTrash"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/button_trash"
+    android:onClick="smsTrash"/>
+              
+                <ImageButton
+                android:id="@+id/toggleEnabled"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/switch_on"
+    android:onClick="toggleClick"
+    />
+            <!-- <su.Jalapeno.AntiSpam.Util.UI.SquareButton
                 android:id="@+id/buttonSmsTrash"
                 style="@style/button_text"
                 android:layout_weight="1"
@@ -61,7 +89,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/main_button_black"
                 android:onClick="toggleClick"
-                android:text="@string/AntiSpamOn" />
+                android:text="@string/AntiSpamOn" />-->
         </LinearLayout>
 
         <Button
