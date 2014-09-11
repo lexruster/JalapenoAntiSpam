@@ -97,6 +97,7 @@ public class SettingsActivity extends JalapenoActivity {
 			return;
 		}
 		ShowAccessInfo();
+		startService(new Intent(this, AppService.class).putExtra(NotifyType.ExtraConstant, NotifyType.RefreshSmsNotify));
 	}
 
 	private void ShowAccessInfo() {
@@ -120,11 +121,9 @@ public class SettingsActivity extends JalapenoActivity {
 	private void UpdateOnOffButton(boolean antispamEnabled) {
 		Logger.Debug(LOG_TAG, "UpdateOnOffButton enabled: " + antispamEnabled);
 		if (antispamEnabled) {
-			//toogleButton.setText(R.string.AntiSpamOn);
-			//toogleButton.setTextColor(getResources().getColor(R.color.toogle_green));
+			toogleButton.setImageResource(R.drawable.ico_switch_on);
 		} else {
-			//toogleButton.setText(R.string.AntiSpamOff);
-			//toogleButton.setTextColor(getResources().getColor(R.color.toogle_red));
+			toogleButton.setImageResource(R.drawable.ico_switch_off);
 		}
 	}
 

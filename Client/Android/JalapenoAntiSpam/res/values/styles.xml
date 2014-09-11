@@ -35,7 +35,6 @@
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:textColor">#FF0000</item>
         <item name="android:typeface">normal</item>
-        
     </style>
 
     <style name="BaseControl.TextHeader">
@@ -45,12 +44,33 @@
         <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
         <item name="android:layout_marginBottom">20dp</item>
     </style>
+
+    <style name="BaseControl.Text">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:typeface">normal</item>
+    </style>
+
+    <style name="JalapenoImageButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:cropToPadding">false</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">20dp</item>
+		<item name="android:background">@drawable/state_background</item>
+        <!--
+           <item name="android:background">@null</item>
+           <item name="android:src">@drawable/people</item>
+        -->
+
+    </style>
     
-      <style name="BaseControl.Text">
-          <item name="android:layout_gravity">center_horizontal</item>
-          <item name="android:gravity">center_horizontal</item>
-          <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
-          <item name="android:typeface">normal</item>
+    <style name="JalapenoImageButton.Horizontal">
+        <item name="android:padding">10dp</item>
     </style>
 
     <style name="BaseControl.ListView">
