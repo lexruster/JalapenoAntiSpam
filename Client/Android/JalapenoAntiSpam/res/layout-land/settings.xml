@@ -12,7 +12,7 @@
         <TextView
             android:id="@+id/textAccessInfo"
             style="@style/BaseControl.Text"
-            android:layout_marginBottom="30dp" />
+            android:layout_marginBottom="10dp" />
 
         <LinearLayout
             android:id="@+id/LinearLayout02"
@@ -23,38 +23,39 @@
             android:layout_weight="4"
             android:orientation="horizontal" >
 
-            <ImageButton
+            <Button
                 android:id="@+id/buttonSpammerList"
-                style="@style/JalapenoImageButton.Horizontal"
+                style="@style/JalapenoImageButton"
+                android:drawableTop="@drawable/ico_spammers"
                 android:onClick="ViewSpamerList"
-                android:src="@drawable/ico_spammers" />
+                android:text="@string/KnownSpammerList" />
 
-            <ImageButton
+            <Button
                 android:id="@+id/buttonSmsValidate"
-                style="@style/JalapenoImageButton.Horizontal"
+                style="@style/JalapenoImageButton"
+                android:drawableTop="@drawable/ico_sms"
                 android:onClick="smsValidate"
-                android:src="@drawable/ico_sms" />
+                android:text="@string/SmsValidateList" />
 
-            <ImageButton
+            <Button
                 android:id="@+id/buttonSmsTrash"
-                style="@style/JalapenoImageButton.Horizontal"
+                style="@style/JalapenoImageButton"
+                android:drawableTop="@drawable/ico_trash"
                 android:onClick="smsTrash"
-                android:src="@drawable/ico_trash" />
+                android:text="@string/SmsTrashList" />
 
-            <ImageButton
+            <Button
                 android:id="@+id/toggleEnabled"
-                style="@style/JalapenoImageButton.Horizontal"
+                style="@style/JalapenoImageButton"
+                android:drawableTop="@drawable/ico_switch_on"
                 android:onClick="toggleClick"
-                android:src="@drawable/ico_switch_on" />
+                android:text="@string/AntiSpamOn" />
         </LinearLayout>
 
         <Button
             android:id="@+id/buttonDebug"
             style="@style/BaseControl.Button.Debug"
-            android:height="10dp"
             android:onClick="NavigateToDebug"
-            android:text="@string/DebugActivity"
-            android:textSize="8sp"
             android:visibility="invisible" />
     </LinearLayout>
 

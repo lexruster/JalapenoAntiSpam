@@ -24,20 +24,21 @@
         android:id="@+id/LinearLayout02"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:gravity="center"
-        android:layout_gravity="center"
         android:orientation="horizontal" >
 
-        <ImageButton
+        <Button
             android:id="@+id/buttonPurchase"
             style="@style/JalapenoImageButton"
+            android:layout_gravity="center_horizontal"
+            android:drawableTop="@drawable/ico_check"
             android:onClick="Buy"
-            android:src="@drawable/ico_check" 
-            android:layout_gravity="center_horizontal"/>
+            android:text="@string/BillingBuyButton" />
     </LinearLayout>
-
+    
     <Button
         android:id="@+id/buttonDebugPurchase"
         style="@style/BaseControl.Button.Debug"
