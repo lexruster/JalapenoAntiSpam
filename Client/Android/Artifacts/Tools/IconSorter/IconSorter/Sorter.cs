@@ -53,7 +53,7 @@ namespace IconSorter
             string density = _sizeToDensitiesMap[sizeInfo];
             CopyTo(fileInfo.FullName, fileName, density, _destination);
 
-            if (density == "xhdpi")
+            if (density == "hdpi")
             {
                 CopyTo(fileInfo.FullName, fileName, _destination);
             }
