@@ -1,5 +1,6 @@
 package su.Jalapeno.AntiSpam.Util.UI;
 
+import su.Jalapeno.AntiSpam.Activities.SettingsActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
@@ -34,7 +35,15 @@ public class UiControlsUtil {
 
 	public void NavigateAndClearHistory(Class<?> cls) {
 		Intent intent = new Intent(_activity, cls);
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		_activity.startActivity(intent);
+		_activity.finish();
+	}
+
+	public void NavigateToExit() {
+		Intent intent = new Intent(_activity, SettingsActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		intent.putExtra("EXIT", true);
 		_activity.startActivity(intent);
 		_activity.finish();
 	}

@@ -102,7 +102,11 @@ public class BillingActivity extends JalapenoActivity {
 	@Override
 	public void onBackPressed() {
 		Logger.Debug(LOG_TAG, "onBackPressed");
-		UiUtils.NavigateAndClearHistory(SettingsActivity.class);
+		if (_accessService.AccessCheck()) {
+			UiUtils.NavigateTo(SettingsActivity.class);
+		} else {
+			UiUtils.NavigateToExit();
+		}
 	}
 
 	@Override
