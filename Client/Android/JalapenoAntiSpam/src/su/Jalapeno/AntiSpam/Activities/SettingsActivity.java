@@ -13,6 +13,7 @@ import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,7 +39,7 @@ public class SettingsActivity extends JalapenoActivity {
 	Button buttonDebug;
 
 	@InjectView(R.id.toggleEnabled)
-	ImageButton toogleButton;
+	Button toogleButton;
 
 	@InjectView(R.id.textAccessInfo)
 	TextView textAccessInfo;
@@ -121,9 +122,11 @@ public class SettingsActivity extends JalapenoActivity {
 	private void UpdateOnOffButton(boolean antispamEnabled) {
 		Logger.Debug(LOG_TAG, "UpdateOnOffButton enabled: " + antispamEnabled);
 		if (antispamEnabled) {
-			toogleButton.setImageResource(R.drawable.ico_switch_on);
+			toogleButton.setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.ico_switch_on,0,0);
+			toogleButton.setText(R.string.AntiSpamOn);
 		} else {
-			toogleButton.setImageResource(R.drawable.ico_switch_off);
+			toogleButton.setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.ico_switch_off,0,0);
+			toogleButton.setText(R.string.AntiSpamOff);
 		}
 	}
 

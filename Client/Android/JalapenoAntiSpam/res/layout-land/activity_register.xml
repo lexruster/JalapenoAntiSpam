@@ -31,12 +31,14 @@
         android:layout_gravity="center"
         android:orientation="horizontal" >
 
-        <ImageButton
+        <Button
             android:id="@+id/buttonRegister"
             style="@style/JalapenoImageButton"
+            android:layout_gravity="center_horizontal"
             android:onClick="Register"
-            android:src="@drawable/ico_register"
-            android:layout_gravity="center_horizontal" />
+            android:text="@string/RegisterButton"
+            android:drawableTop="@drawable/ico_register"
+             />
     </LinearLayout>
 
     <Button
