@@ -28,3 +28,8 @@ Client/Android/Artifacts/Libs/actionbarsherlock/bin/*
 Client/Android/Artifacts/Libs/actionbarsherlock/gen/*
 Client/Android/Artifacts/Libs/google-play-services_lib/bin/*
 Client/Android/Artifacts/Libs/google-play-services_lib/gen/*
+Client/Android/Artifacts/Themes/Icons/res/*
+Client/Android/Artifacts/Tools/IconSorter/IconSorter.v11.suo
+Client/Android/Artifacts/Tools/IconSorter/IconSorter/bin/*
+Client/Android/Artifacts/Tools/IconSorter/IconSorter/obj/*
+Client/Android/Artifacts/Themes/Icons/DrawRes/*
