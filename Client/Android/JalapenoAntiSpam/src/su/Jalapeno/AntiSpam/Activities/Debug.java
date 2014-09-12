@@ -275,8 +275,8 @@ public class Debug extends JalapenoActivity {
 	}
 
 	public void GoToBuy(View v) {
-		_accessService.HandleAccessNotAllowed(true);
-		UiUtils.NavigateTo(BillingActivity.class);
+		_accessService.HandleAccessNotAllowed();
+		UiUtils.NavigateAndClearHistory(BillingActivity.class);
 		// startService(new Intent(this, AppService.class));
 	}
 
