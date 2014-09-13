@@ -59,15 +59,13 @@ public class SettingsActivity extends JalapenoActivity {
 		super.onCreate(savedInstanceState);
 		Logger.Debug(LOG_TAG, "onCreate");
 		if (getIntent().getBooleanExtra("EXIT", false)) {
-            finish();
-            return;
-        }
+			finish();
+			return;
+		}
 		Init();
 	}
 
 	private void Init() {
-		SetDebugMode(Constants.VIEW_DEBUG_UI);
-
 		_receiver = new BroadcastReceiver() {
 			public void onReceive(Context context, Intent intent) {
 				Logger.Debug(LOG_TAG, "BroadcastReceiver onReceive");
@@ -76,6 +74,8 @@ public class SettingsActivity extends JalapenoActivity {
 		};
 
 		_intFilt = new IntentFilter(Constants.BROADCAST_TRASH_SMS_ACTION);
+	}
+
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -149,12 +149,6 @@ public class SettingsActivity extends JalapenoActivity {
 	public void onBackPressed() {
 		Logger.Debug(LOG_TAG, "onBackPressed");
 		finish();
-	}
-
-	public void NavigateToDebug(View v) {
-		if (Constants.VIEW_DEBUG_UI) {
-			UiUtils.NavigateTo(Debug.class);
-		}
 	}
 
 	public void ViewSpamerList(View v) {
