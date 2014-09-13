@@ -52,11 +52,6 @@
                 android:text="@string/AntiSpamOn" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/buttonDebug"
-            style="@style/BaseControl.Button.Debug"
-            android:onClick="NavigateToDebug"
-            android:visibility="invisible" />
     </LinearLayout>
 
 </LinearLayout>
