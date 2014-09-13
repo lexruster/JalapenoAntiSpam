@@ -65,12 +65,6 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/buttonDebug"
-            style="@style/BaseControl.Button.Debug"
-            android:onClick="NavigateToDebug"
-            android:text="@string/DebugActivity"
-            android:visibility="invisible" />
     </LinearLayout>
 
 </LinearLayout>
