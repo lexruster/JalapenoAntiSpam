@@ -25,20 +25,20 @@
         android:id="@+id/LinearLayout02"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        
+        android:layout_gravity="center"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:layout_gravity="center"
-        android:orientation="horizontal" ><Button
+        android:orientation="horizontal" >
+
+        <Button
             android:id="@+id/buttonRegister"
             style="@style/JalapenoImageButton"
             android:layout_gravity="center_horizontal"
             android:drawableTop="@drawable/ico_register"
             android:onClick="Register"
             android:text="@string/RegisterButton" />
-        
     </LinearLayout>
 
     <Button
