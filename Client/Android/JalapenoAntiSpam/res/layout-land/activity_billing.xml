@@ -39,11 +39,4 @@
             android:text="@string/BillingBuyButton" />
     </LinearLayout>
     
-    <Button
-        android:id="@+id/buttonDebugPurchase"
-        style="@style/BaseControl.Button.Debug"
-        android:onClick="BuyTest"
-        android:text="@string/TestBuyText"
-        android:visibility="invisible" />
-
 </LinearLayout>
