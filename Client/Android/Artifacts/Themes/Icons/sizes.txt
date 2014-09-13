@@ -14,3 +14,5 @@ XXXHDPI
 36x36	48x48	72x72	96x96	144x144	192x192
 
 64 96 144 192 288 384
+
+http://www.gieson.com/Library/projects/utilities/icon_slayer/
