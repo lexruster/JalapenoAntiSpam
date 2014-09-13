@@ -22,21 +22,22 @@
             android:layout_marginRight="10dp"
             android:orientation="horizontal" >
 
-            <su.Jalapeno.AntiSpam.Util.UI.SquareButton
+            <Button
                 android:id="@+id/buttonSpammerList"
-                style="@style/button_text"
-                android:layout_weight="1"
-                android:background="@drawable/main_button_blue"
+                style="@style/JalapenoImageButton"
                 android:onClick="ViewSpamerList"
-                android:text="@string/KnownSpammerList" />
+                android:text="@string/KnownSpammerList"
+                android:drawableTop="@drawable/ico_spammers"
+                />
 
-            <su.Jalapeno.AntiSpam.Util.UI.SquareButton
+            <Button
                 android:id="@+id/buttonSmsValidate"
-                style="@style/button_text"
-                android:layout_weight="1"
-                android:background="@drawable/main_button_green"
+                style="@style/JalapenoImageButton"
                 android:onClick="smsValidate"
-                android:text="@string/SmsValidateList" />
+                
+                android:drawableTop="@drawable/ico_sms"
+                android:text="@string/SmsValidateList"
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -47,21 +48,21 @@
             android:layout_marginRight="10dp"
             android:orientation="horizontal" >
 
-            <su.Jalapeno.AntiSpam.Util.UI.SquareButton
+            <Button
                 android:id="@+id/buttonSmsTrash"
-                style="@style/button_text"
-                android:layout_weight="1"
-                android:background="@drawable/main_button_red"
+                style="@style/JalapenoImageButton"
                 android:onClick="smsTrash"
-                android:text="@string/SmsTrashList" />
+                 
+                android:drawableTop="@drawable/ico_trash"
+                android:text="@string/SmsTrashList"/>
 
-            <su.Jalapeno.AntiSpam.Util.UI.SquareButton
+            <Button
                 android:id="@+id/toggleEnabled"
-                style="@style/button_text"
-                android:layout_weight="1"
-                android:background="@drawable/main_button_black"
+                style="@style/JalapenoImageButton"
+                android:drawableTop="@drawable/ico_switch_on"
                 android:onClick="toggleClick"
                 android:text="@string/AntiSpamOn" />
+
         </LinearLayout>
 
     </LinearLayout>

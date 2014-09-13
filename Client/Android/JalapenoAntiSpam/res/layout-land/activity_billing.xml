@@ -15,29 +15,28 @@
         android:typeface="normal" />
 
     <TextView
-            android:id="@+id/textPriceInfo"
-            style="@style/BaseControl.Text"
-            android:layout_marginBottom="10dp"
-            android:visibility="invisible" />
-    
+        android:id="@+id/textPriceInfo"
+        style="@style/BaseControl.Text"
+        android:layout_marginBottom="10dp"
+        android:visibility="invisible" />
+
     <LinearLayout
         android:id="@+id/LinearLayout02"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="1.0" >
+        android:orientation="horizontal" >
 
-        <su.Jalapeno.AntiSpam.Util.UI.SquareButton
+        <Button
             android:id="@+id/buttonPurchase"
-            style="@style/button_text"
-            android:layout_width="0dp"
-            android:layout_weight=".25"
-            android:background="@drawable/main_button_green"
+            style="@style/JalapenoImageButton"
+            android:layout_gravity="center_horizontal"
+            android:drawableTop="@drawable/ico_check"
             android:onClick="Buy"
             android:text="@string/BillingBuyButton" />
     </LinearLayout>
-
+    
 </LinearLayout>

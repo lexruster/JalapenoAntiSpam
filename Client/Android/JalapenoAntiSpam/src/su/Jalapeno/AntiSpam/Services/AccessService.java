@@ -22,8 +22,7 @@ public class AccessService {
 	private SmsService _smsService;
 
 	@Inject
-	public AccessService(Context context, SmsQueueService smsQueueService,
-			SettingsService settingsService, NotifyService notifyService,
+	public AccessService(Context context, SmsQueueService smsQueueService, SettingsService settingsService, NotifyService notifyService,
 			SmsService smsService) {
 		_smsQueueService = smsQueueService;
 		_settingsService = settingsService;
@@ -35,20 +34,17 @@ public class AccessService {
 		AccessInfo accessInfo = _settingsService.GetAccessInfo();
 		if (!accessInfo.AccessIsAllowed) {
 			Logger.Debug(LOG_TAG, "Init ProceedAccessCheck with FALSE result");
-			HandleAccessNotAllowed(false);
 			return false;
 		}
 		return true;
 	}
 
-	public void HandleAccessNotAllowed(boolean needSet) {
-		if (needSet) {
-			_settingsService.DropUnlimitedAccess();
-		}
+	public void HandleAccessNotAllowed() {
+		_settingsService.DropUnlimitedAccess();
 		SaveUncheckedSms();
 		_notifyService.OnAccessNotAllowed();
 	}
-	
+
 	public void HandleUnlimitedAccessEnabled() {
 		_settingsService.ActivateUnlimitedAccess();
 		_notifyService.OnAccessAllowed();

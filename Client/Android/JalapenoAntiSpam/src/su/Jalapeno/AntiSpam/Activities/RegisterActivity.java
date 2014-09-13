@@ -93,6 +93,7 @@ public class RegisterActivity extends JalapenoActivity {
 	@Override
 	public void onBackPressed() {
 		Logger.Debug(LOG_TAG, "onBackPressed");
+		UiUtils.NavigateToExit();
 	}
 
 	public void Register(View view) {

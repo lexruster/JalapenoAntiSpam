@@ -151,7 +151,7 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 		}
 
 		if (response.ErrorMessage == WebErrorEnum.PaymentRequired) {
-			_accessService.HandleAccessNotAllowed(true);
+			_accessService.HandleAccessNotAllowed();
 		}
 
 		return false;
