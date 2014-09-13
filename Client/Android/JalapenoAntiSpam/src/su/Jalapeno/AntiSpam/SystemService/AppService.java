@@ -54,6 +54,8 @@ public class AppService extends RoboService {
 	}
 
 	public int onStartCommand(Intent intent, int flags, int startId) {
+		if (intent == null)
+			return START_STICKY;
 		int notifyType = intent.getIntExtra(NotifyType.ExtraConstant, NotifyType.RefreshSmsNotify);
 		Logger.Debug(LOG_TAG, "onStartCommand flag " + flags + " start " + startId + " notifyType " + notifyType);
 
