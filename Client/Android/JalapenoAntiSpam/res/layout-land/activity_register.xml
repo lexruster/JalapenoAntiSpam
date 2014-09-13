@@ -23,22 +23,23 @@
 
     <LinearLayout
         android:id="@+id/LinearLayout02"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="1.0" >
+        android:layout_gravity="center"
+        android:orientation="horizontal" >
 
-        <su.Jalapeno.AntiSpam.Util.UI.SquareButton
+        <Button
             android:id="@+id/buttonRegister"
-            style="@style/button_text"
-            android:layout_width="0dp"
-            android:layout_weight=".25"
-            android:background="@drawable/main_button_green"
+            style="@style/JalapenoImageButton"
+            android:layout_gravity="center_horizontal"
             android:onClick="Register"
-            android:text="@string/RegisterButton" />
+            android:text="@string/RegisterButton"
+            android:drawableTop="@drawable/ico_register"
+             />
     </LinearLayout>
+
 
 </LinearLayout>

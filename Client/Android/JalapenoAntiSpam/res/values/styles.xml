@@ -36,6 +36,13 @@
         <item name="android:textColor">#FF0000</item>
         <item name="android:typeface">normal</item>
         
+        <item name="android:height">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:textSize">9sp</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:padding">3dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:text">@string/DebugActivity</item>
     </style>
 
     <style name="BaseControl.TextHeader">
@@ -45,12 +52,32 @@
         <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
         <item name="android:layout_marginBottom">20dp</item>
     </style>
-    
-      <style name="BaseControl.Text">
-          <item name="android:layout_gravity">center_horizontal</item>
-          <item name="android:gravity">center_horizontal</item>
-          <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
-          <item name="android:typeface">normal</item>
+
+    <style name="BaseControl.Text">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:typeface">normal</item>
+    </style>
+
+    <style name="JalapenoImageButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/state_background</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:drawablePadding">0dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+
+<!--         <item name="android:drawableTop">@drawable/ico_spammers</item> -->
+
+    </style>
+
+    <style name="JalapenoImageButton.Horizontal">
+        <item name="android:padding">10dp</item>
     </style>
 
     <style name="BaseControl.ListView">
