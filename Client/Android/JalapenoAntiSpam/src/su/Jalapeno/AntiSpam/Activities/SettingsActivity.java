@@ -1,5 +1,7 @@
 package su.Jalapeno.AntiSpam.Activities;
 
+import java.util.Locale;
+
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.Filter.R;
@@ -184,7 +186,7 @@ public class SettingsActivity extends JalapenoActivity {
 			if (result > 0) {
 				Logger.Debug(LOG_TAG, "UpdateTrashTextAsync onPostExecute trash " + result);
 				String trashText = _context.getResources().getString(R.string.SmsTrashList);
-				String newTrashText = String.format("%s (%d)", trashText, result);
+				String newTrashText = String.format(Locale.getDefault(), "%s (%d)", trashText, result);
 				buttonSmsTrash.setText(newTrashText);
 			} else {
 				buttonSmsTrash.setText(R.string.SmsTrashList);
