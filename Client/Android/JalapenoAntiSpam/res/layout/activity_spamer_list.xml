@@ -7,12 +7,12 @@
   
     <TextView
         android:id="@+id/textView"
-        style="@style/BaseControl.TextHeader"
+        style="@style/BaseText.BaseControl.TextHeader"
         android:text="@string/SpammerList" />
 
     <ListView
         android:id="@android:id/list"
-        style="@style/BaseControl.ListView"
+        style="@style/BaseText.BaseControl.ListView"
         android:textFilterEnabled="false"
         android:choiceMode="none" 
         />

@@ -5,18 +5,18 @@
 
     <TextView
         android:id="@+id/textView"
-        style="@style/BaseControl.Text"
+        style="@style/BaseText.BaseControl.Text"
+        android:layout_marginBottom="15dp"
         android:text="@string/RegisterText" />
 
     <TextView
         android:id="@+id/licenseLink"
-        style="@style/BaseControl"
+        style="@style/BaseText.BaseControl"
+        android:layout_width="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="0dp"
         android:autoLink="web"
-        android:gravity="center_horizontal"
         android:linksClickable="true"
-        android:paddingBottom="20dp"
         android:text="@string/LicenseAgreement"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:typeface="normal" />
@@ -24,22 +24,33 @@
     <LinearLayout
         android:id="@+id/LinearLayout02"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal"
         android:layout_weight="1"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:orientation="horizontal" >
 
         <Button
             android:id="@+id/buttonRegister"
-            style="@style/JalapenoImageButton"
-            android:layout_gravity="center_horizontal"
+            style="@style/BaseText.JalapenoImageButton"
+            android:layout_width="wrap_content"
             android:drawableTop="@drawable/ico_register"
             android:onClick="Register"
             android:text="@string/RegisterButton" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/buttonDebugRegister"
+        style="@style/BaseControl.Button.Debug"
+        android:onClick="TestRegister"
+        android:text="@string/TestRegister"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/buttonGoToDebugRegister"
+        style="@style/BaseControl.Button.Debug"
+        android:onClick="NavigateToDebug"
+        android:text="@string/DebugActivity"
+        android:visibility="invisible" />
 
 </LinearLayout>
