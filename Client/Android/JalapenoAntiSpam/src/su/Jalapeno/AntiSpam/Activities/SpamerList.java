@@ -11,7 +11,7 @@ import android.os.Bundle;
 
 import com.google.inject.Inject;
 
-@ContentView(R.layout.spamer_list)
+@ContentView(R.layout.activity_spamer_list)
 public class SpamerList extends JalapenoListActivity {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "SpamerList";
 	final String ATTRIBUTE_NAME_SENDER_ID = "SenderId";

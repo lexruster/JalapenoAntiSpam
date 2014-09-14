@@ -26,7 +26,7 @@ import android.widget.TextView;
 
 import com.google.inject.Inject;
 
-@ContentView(R.layout.settings)
+@ContentView(R.layout.activity_settings)
 public class SettingsActivity extends JalapenoActivity {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "Settings";
 

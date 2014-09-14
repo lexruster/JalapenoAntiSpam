@@ -4,58 +4,77 @@
     style="@style/BaseLayout"
     tools:context=".SmsAnalyzerActivity" >
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" >
+    <TextView
+        android:id="@+id/textAccessInfo"
+        style="@style/BaseText.BaseControl.Text"
+        android:layout_marginBottom="0dp"
+        android:gravity="center_horizontal" />
 
-        <TextView
-            android:id="@+id/textAccessInfo"
-            style="@style/BaseControl.Text"
-            android:layout_marginBottom="10dp" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
 
         <LinearLayout
             android:id="@+id/LinearLayout02"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_weight="4"
             android:orientation="horizontal" >
 
             <Button
                 android:id="@+id/buttonSpammerList"
-                style="@style/JalapenoImageButton"
+                style="@style/BaseText.JalapenoImageButton"
                 android:drawableTop="@drawable/ico_spammers"
                 android:onClick="ViewSpamerList"
                 android:text="@string/KnownSpammerList" />
 
             <Button
                 android:id="@+id/buttonSmsValidate"
-                style="@style/JalapenoImageButton"
+                style="@style/BaseText.JalapenoImageButton"
                 android:drawableTop="@drawable/ico_sms"
                 android:onClick="smsValidate"
                 android:text="@string/SmsValidateList" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout03"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal" >
 
             <Button
                 android:id="@+id/buttonSmsTrash"
-                style="@style/JalapenoImageButton"
+                style="@style/BaseText.JalapenoImageButton"
                 android:drawableTop="@drawable/ico_trash"
                 android:onClick="smsTrash"
                 android:text="@string/SmsTrashList" />
 
             <Button
                 android:id="@+id/toggleEnabled"
-                style="@style/JalapenoImageButton"
+                style="@style/BaseText.JalapenoImageButton"
                 android:drawableTop="@drawable/ico_switch_on"
                 android:onClick="toggleClick"
                 android:text="@string/AntiSpamOn" />
         </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout023"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:orientation="vertical" >
 
         <Button
             android:id="@+id/buttonDebug"
-            style="@style/BaseControl.Button.Debug"
+            style="@style/BaseText.BaseControl.Button.Debug"
             android:onClick="NavigateToDebug"
+            android:text="@string/DebugActivity"
             android:visibility="invisible" />
     </LinearLayout>
 

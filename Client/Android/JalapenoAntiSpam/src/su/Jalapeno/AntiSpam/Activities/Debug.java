@@ -58,7 +58,7 @@ import com.google.android.gms.common.AccountPicker;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.inject.Inject;
 
-@ContentView(R.layout.debug)
+@ContentView(R.layout.activity_debug)
 public class Debug extends JalapenoActivity {
 	@Inject
 	ContactsService contactsService;
