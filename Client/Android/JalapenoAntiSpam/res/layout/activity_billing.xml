@@ -21,10 +21,10 @@
         android:gravity="center_vertical"
         android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/LinearLayout02"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <LinearLayout
+            android:id="@+id/LinearLayout02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <TextView
@@ -33,26 +33,13 @@
                 android:layout_marginBottom="10dp"
                 android:visibility="invisible" />
 
-     <Button
-            android:id="@+id/buttonPurchase"
+            <Button
+                android:id="@+id/buttonPurchase"
                 style="@style/BaseText.JalapenoImageButton"
-            android:drawableTop="@drawable/ico_check"
-            android:onClick="Buy"
-            android:text="@string/BillingBuyButton" />
+                android:drawableTop="@drawable/ico_check"
+                android:onClick="Buy"
+                android:text="@string/BillingBuyButton" />
+        </LinearLayout>
     </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/LinearLayout023"
-        android:layout_width="fill_parent"
-        android:layout_height="30dp"
-        android:orientation="vertical" >
-
-    <Button
-        android:id="@+id/buttonDebugPurchase"
-        style="@style/BaseControl.Button.Debug"
-        android:onClick="BuyTest"
-        android:text="@string/TestBuyText"
-        android:visibility="invisible" />
 
 </LinearLayout>
