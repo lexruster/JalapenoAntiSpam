@@ -17,4 +17,4 @@ XXXHDPI
 
 http://www.gieson.com/Library/projects/utilities/icon_slayer/
 
-All checks off
+smoothing only on
