@@ -16,3 +16,5 @@ XXXHDPI
 64 96 144 192 288 384
 
 http://www.gieson.com/Library/projects/utilities/icon_slayer/
+
+All checks off

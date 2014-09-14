@@ -12,12 +12,12 @@
        
         <TextView
             android:id="@+id/textView"
-            style="@style/BaseControl.TextHeader"
+            style="@style/BaseText.BaseControl.TextHeader"
             android:text="@string/SmsList" />
 
         <ListView
             android:id="@android:id/list"
-            style="@style/BaseControl.ListView"
+            style="@style/BaseText.BaseControl.ListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:choiceMode="singleChoice"
@@ -42,21 +42,21 @@
 
         <Button
             android:id="@+id/btnSpamSms"
-            style="@style/BaseControl.ButtonSms"
+            style="@style/BaseText.BaseControl.ButtonSms"
             android:onClick="ToSpam"
             android:text="@string/SpamButton" >
         </Button>
         
         <Button
             android:id="@+id/btnNeedSms"
-            style="@style/BaseControl.ButtonSms"
+            style="@style/BaseText.BaseControl.ButtonSms"
             android:onClick="NeedSms"
             android:text="@string/NotSpamButton" >
         </Button>
 
         <Button
             android:id="@+id/btnDeleteSms"
-            style="@style/BaseControl.ButtonSms"
+            style="@style/BaseText.BaseControl.ButtonSms"
             android:onClick="DeleteSms"
             android:text="@string/DeleteButton" >
         </Button>
