@@ -187,7 +187,7 @@ public class BillingActivity extends JalapenoActivity {
 		if (sku != null) {
 			String message = "Ready to buy " + _skuAccessToBuy.title + " price " + _skuAccessToBuy.price;
 			Logger.Debug(LOG_TAG, "InventoryLoadedListener " + message);
-			textPriceInfo.setText(String.format(Locale.getDefault(), "%s: %s", sku.title, sku.price));
+			textPriceInfo.setText(String.format(Locale.getDefault(), "%s: %s", sku.description, sku.price));
 			textPriceInfo.setVisibility(View.VISIBLE);
 		} else {
 			Logger.Error(LOG_TAG, "SetPriceInfo failed find sku");
