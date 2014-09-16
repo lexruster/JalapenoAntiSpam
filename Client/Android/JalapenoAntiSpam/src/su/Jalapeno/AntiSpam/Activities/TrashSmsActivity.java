@@ -14,8 +14,10 @@ import su.Jalapeno.AntiSpam.Services.Sms.TrashSmsService;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -37,6 +39,9 @@ public class TrashSmsActivity extends JalapenoListActivity {
 
 	@InjectView(R.id.btnDeleteTrashSms)
 	Button _deleteButton;
+
+	@InjectView(R.id.btnTrashClearAll)
+	Button _clearButton;
 
 	@Inject
 	private SmsService _smsService;
@@ -126,11 +131,21 @@ public class TrashSmsActivity extends JalapenoListActivity {
 		} else {
 			SetButtonEnabled(false);
 		}
+
+		if (_smsAdapter.getCount() > 0) {
+			SetClearEnabled(true);
+		} else {
+			SetClearEnabled(false);
+		}
 	}
 
 	private void SetButtonEnabled(boolean enabled) {
 		_needSmsButton.setEnabled(enabled);
 		_deleteButton.setEnabled(enabled);
+	}
+
+	private void SetClearEnabled(boolean enabled) {
+		_clearButton.setEnabled(enabled);
 	}
 
 	private void LoadList() {
@@ -161,6 +176,24 @@ public class TrashSmsActivity extends JalapenoListActivity {
 			Logger.Debug(LOG_TAG, "delete sms - sender " + trashSms.SenderId);
 			UpdateList();
 		}
+	}
+
+	public void ClearAll(View view) {
+		Logger.Debug(LOG_TAG, "clear all trash click");
+		OnClearAll();
+	}
+
+	private void OnClearAll() {
+		new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setMessage(R.string.ClearConfirmationMessage)
+				.setPositiveButton(R.string.DialogYes, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						_trashSmsService.Clear();
+						UpdateList();
+						Logger.Debug(LOG_TAG, "Trash cleared");
+					}
+
+				}).setNegativeButton(R.string.DialogNo, null).show();
 	}
 
 	private void UpdateList() {
