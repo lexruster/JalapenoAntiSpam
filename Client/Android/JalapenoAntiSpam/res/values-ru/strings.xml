@@ -13,6 +13,7 @@
     <string name="AccessFullInfo">Полная версия</string>
     <string name="AntiSpamOn">Включено</string>
     <string name="AntiSpamOff">Включить</string>
+    <string name="EarlyAccessText"><a href="http://jalapeno.su">Купите сейчас и получите скидку</a></string>
 
     <!-- Debug acticity -->
     <string name="SoundSettings">Звуки</string>
@@ -29,7 +30,7 @@
     <string name="NotSpamButton">Не спам</string>
     <string name="DeleteButton">Удалить</string>
     <string name="EmptySmsList">Подозрительных СМС пока нет...</string>
-    
+
     <!-- Sms trash acticity -->
     <string name="ClearAll">Очистить</string>
     <string name="ClearConfirmationMessage">Вы уверены, что хотите очистить корзину?</string>

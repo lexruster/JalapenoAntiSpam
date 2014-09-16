@@ -2,11 +2,14 @@ package su.Jalapeno.AntiSpam.Activities;
 
 import static org.solovyev.android.checkout.ProductTypes.IN_APP;
 
+import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
 import org.solovyev.android.checkout.*;
+import org.solovyev.android.checkout.Inventory.Product;
 
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
@@ -17,6 +20,7 @@ import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Services.AccessService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
+import su.Jalapeno.AntiSpam.Util.BillingConstants;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
@@ -43,7 +47,7 @@ public class BillingActivity extends JalapenoActivity {
 	@Inject
 	public SettingsService _settingsService;
 
-	private Sku _skuAccess;
+	private Sku _skuAccessToBuy;
 
 	@Inject
 	public AccessService _accessService;
@@ -63,12 +67,14 @@ public class BillingActivity extends JalapenoActivity {
 	Spiner spiner;
 	private JalapenoActivity _activity;
 	private UUID _clientId;
+	private boolean _accessIsAllowed;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Logger.Debug(LOG_TAG, "onCreate");
 
+		_skuAccessToBuy = null;
 		spiner = new Spiner(this);
 		_activity = this;
 		spiner.Show();
@@ -96,13 +102,14 @@ public class BillingActivity extends JalapenoActivity {
 		}
 
 		_clientId = _settingsService.GetClientId();
+		_accessIsAllowed = _accessService.AccessCheck();
 		SetDebugMode(Constants.VIEW_DEBUG_UI);
 	}
 
 	@Override
 	public void onBackPressed() {
 		Logger.Debug(LOG_TAG, "onBackPressed");
-		if (_accessService.AccessCheck()) {
+		if (_accessIsAllowed) {
 			UiUtils.NavigateTo(SettingsActivity.class);
 		} else {
 			UiUtils.NavigateToExit();
@@ -138,7 +145,7 @@ public class BillingActivity extends JalapenoActivity {
 		Logger.Debug(LOG_TAG, "Buy pressed");
 		spiner.Show();
 
-		purchase(_skuAccess);
+		purchase(_skuAccessToBuy);
 	}
 
 	private void ActivateAccess(boolean newBuy, String orderId) {
@@ -176,10 +183,16 @@ public class BillingActivity extends JalapenoActivity {
 		});
 	}
 
-	private void SetPriceInfo(String price) {
-		String info = _context.getString(R.string.PriceInfo, price);
-		textPriceInfo.setText(info);
-		textPriceInfo.setVisibility(View.VISIBLE);
+	private void SetPriceInfo(Sku sku) {
+		if (sku != null) {
+			String message = "Ready to buy " + _skuAccessToBuy.title + " price " + _skuAccessToBuy.price;
+			Logger.Debug(LOG_TAG, "InventoryLoadedListener " + message);
+			textPriceInfo.setText(String.format(Locale.getDefault(), "%s: %s", sku.title, sku.price));
+			textPriceInfo.setVisibility(View.VISIBLE);
+		} else {
+			Logger.Error(LOG_TAG, "SetPriceInfo failed find sku");
+			ShowToast(R.string.ErrorBilling);
+		}
 	}
 
 	private class PurchaseListener extends BaseRequestListener<Purchase> {
@@ -210,20 +223,19 @@ public class BillingActivity extends JalapenoActivity {
 	}
 
 	private class InventoryLoadedListener implements Inventory.Listener {
+		private String _purchaseOrderId;
+
 		@Override
 		public void onLoaded(@Nonnull Inventory.Products products) {
 			Logger.Debug(LOG_TAG, "InventoryLoadedListener onLoaded");
+
 			final Inventory.Product product = products.get(IN_APP);
 			if (product.isSupported()) {
-				_skuAccess = product.getSkus().get(0);
-				Logger.Debug(LOG_TAG, "InventoryLoadedListener isSupported " + _skuAccess.title + " cost " + _skuAccess.price);
-				SetPriceInfo(_skuAccess.price);
-				final Purchase purchase = product.getPurchaseInState(_skuAccess, Purchase.State.PURCHASED);
-				boolean isPurchased = purchase != null && !TextUtils.isEmpty(purchase.token);
-				String message = "Ready to buy " + _skuAccess.title + " and status Purch= " + isPurchased;
-				Logger.Debug(LOG_TAG, "InventoryLoadedListener " + message);
+				Logger.Debug(LOG_TAG, "InventoryLoadedListener isSupported");
+				boolean isPurchased = InspectPurchases(product);
+
 				if (isPurchased) {
-					ActivateAccess(false, purchase.orderId);
+					ActivateAccess(false, _purchaseOrderId);
 				} else {
 					spiner.Hide();
 				}
@@ -232,6 +244,55 @@ public class BillingActivity extends JalapenoActivity {
 				spiner.Hide();
 				ShowToast(R.string.ErrorBilling);
 			}
+		}
+
+		private boolean InspectPurchases(final Inventory.Product product) {
+			List<Sku> skus = product.getSkus();
+			Logger.Debug(LOG_TAG, "InspectPurchases skus count " + skus.size());
+			boolean isPurchased = CheckIsPurchased(skus, product);
+			Logger.Debug(LOG_TAG, "InspectPurchases isPurchased=" + isPurchased);
+			if (isPurchased)
+				return true;
+
+			_skuAccessToBuy = FindSkuForBuy(skus);
+			SetPriceInfo(_skuAccessToBuy);
+
+			return isPurchased;
+		}
+
+		private boolean CheckIsPurchased(List<Sku> skus, Product product) {
+			for (Sku sku : skus) {
+				final Purchase purchase = product.getPurchaseInState(sku, Purchase.State.PURCHASED);
+				boolean isPurchased = purchase != null && !TextUtils.isEmpty(purchase.token);
+				if (isPurchased) {
+					_purchaseOrderId = purchase.orderId;
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		private Sku FindSkuForBuy(List<Sku> skus) {
+			if (skus.size() == 1) {
+				Sku sku = skus.get(0);
+				Logger.Debug(LOG_TAG, "FindSkuForBuy single skuId=" + sku.id);
+				return sku;
+			}
+
+			for (Sku sku : skus) {
+				Logger.Debug(LOG_TAG, "FindSkuForBuy skuId=" + sku.id + " product=" + sku.product);
+				if (_accessIsAllowed && sku.id == BillingConstants.EARLY_ANTISPAM_ACCESS) {
+					Logger.Debug(LOG_TAG, "TrySetSkuForBuy set accessIsAllowed sku=" + sku.id);
+					return sku;
+				}
+				if (!_accessIsAllowed && sku.id == BillingConstants.ANTISPAM_ACCESS) {
+					Logger.Debug(LOG_TAG, "FindSkuForBuy set not accessIsAllowed sku=" + sku.id);
+					return sku;
+				}
+			}
+
+			return null;
 		}
 	}
 
