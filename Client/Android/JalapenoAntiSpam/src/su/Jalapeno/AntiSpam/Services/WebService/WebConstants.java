@@ -8,7 +8,7 @@ public class WebConstants {
 	public final static String COMPLAIN_URL = "Complain";
 
 	public final static String DOMAIN_URL_PRIMARY = "https://jalapenoapi.jalapeno.su/AntispamService.svc/";
-	public final static String DOMAIN_URL_SECONDARY = "http://10.0.2.2:33500/AntispamService.svc/";
+	public final static String DOMAIN_URL_SECONDARY = "https://jalapenoapi.tekhna.ru/AntispamService.svc/";
 	
 	//timeout in milliseconds 
 	public final static int CONNECTION_TIMEOUT = 30000;
