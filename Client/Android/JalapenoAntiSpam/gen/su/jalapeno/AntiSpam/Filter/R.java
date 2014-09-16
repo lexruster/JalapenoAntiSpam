@@ -1128,7 +1128,6 @@ containing a value of this type.
         public static final int ico_trash=0x7f020095;
         public static final int spam_ico=0x7f020096;
         public static final int state_background=0x7f020097;
-        public static final int test_bit=0x7f020098;
     }
     public static final class id {
         public static final int LinearLayout02=0x7f050037;
