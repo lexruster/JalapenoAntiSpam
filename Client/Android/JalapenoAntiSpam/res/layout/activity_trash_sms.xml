@@ -54,6 +54,14 @@
             android:onClick="DeleteSms"
             android:text="@string/DeleteButton" >
         </Button>
+        
+        <Button
+            android:id="@+id/btnTrashClearAll"
+            style="@style/BaseText.BaseControl.ButtonSms"
+            
+            android:onClick="ClearAll"
+            android:text="@string/ClearAll" >
+        </Button>
     </LinearLayout>
 
 </RelativeLayout>

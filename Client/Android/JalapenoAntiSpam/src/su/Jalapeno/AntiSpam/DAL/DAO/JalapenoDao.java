@@ -26,17 +26,17 @@ public class JalapenoDao<T extends Entity>  extends BaseDaoImpl<T, Integer>{
 			return new ArrayList<T>();
 		}
 		
-		public void Add(T entyti) {
+		public void Add(T entyty) {
 			try {
-				create(entyti);
+				create(entyty);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 
-		public void Delete(T entyti) {
+		public void Delete(T entyty) {
 			try {
-				delete(entyti);
+				delete(entyty);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

@@ -29,6 +29,10 @@
     <string name="NotSpamButton">Not spam</string>
     <string name="DeleteButton">Delete</string>
     <string name="EmptySmsList">No SMS to check...</string>
+    
+    <!-- Sms trash acticity -->
+    <string name="ClearAll">Clear</string>
+    <string name="ClearConfirmationMessage">Are you sure you want to clear trash?</string>
 
     <!-- Notification -->
     <string name="NotExistsUnknownSms">You have no spam!</string>
@@ -63,6 +67,8 @@
 
     <!-- Misc -->
     <string name="WaitMessage">Please, wait</string>
+    <string name="DialogYes">Yes</string>
+    <string name="DialogNo">No</string>
     <string name="DateFormat">dd MMM yyyy HH:mm</string>
     <string name="ParentActivity">su.Jalapeno.AntiSpam.Activities.SettingsActivity</string>
 

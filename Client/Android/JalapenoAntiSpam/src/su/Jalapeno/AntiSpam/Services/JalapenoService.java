@@ -42,7 +42,7 @@ public abstract class JalapenoService<T extends Entity> {
 	}
 
 	public void Clear() {
-		Repository.getSmsDao().Clear();
+		GetDao().Clear();
 	}
 
 	protected abstract JalapenoDao<T> GetDao();
