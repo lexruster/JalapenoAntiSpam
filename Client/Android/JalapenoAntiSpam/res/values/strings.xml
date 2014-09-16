@@ -13,6 +13,7 @@
     <string name="AccessFullInfo">Full version</string>
     <string name="AntiSpamOn">On</string>
     <string name="AntiSpamOff">Turn on</string>
+    <string name="EarlyAccessText"><a href="http://jalapeno.su">Buy now with special price</a></string>
 
     <!-- Debug acticity -->
     <string name="SoundSettings">Sounds</string>
@@ -29,7 +30,7 @@
     <string name="NotSpamButton">Not spam</string>
     <string name="DeleteButton">Delete</string>
     <string name="EmptySmsList">No SMS to check...</string>
-    
+
     <!-- Sms trash acticity -->
     <string name="ClearAll">Clear</string>
     <string name="ClearConfirmationMessage">Are you sure you want to clear trash?</string>
