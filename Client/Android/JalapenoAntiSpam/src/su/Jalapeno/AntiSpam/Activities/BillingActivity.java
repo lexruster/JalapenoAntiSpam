@@ -15,7 +15,6 @@ import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.MyApplication;
 import su.Jalapeno.AntiSpam.Activities.Tasks.PurchaseAntispamTask;
-import su.Jalapeno.AntiSpam.Activities.Tasks.TestPurchaseAntispamTask;
 import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.Services.AccessService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
@@ -30,7 +29,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.inject.Inject;
@@ -57,9 +55,6 @@ public class BillingActivity extends JalapenoActivity {
 
 	@Inject
 	JalapenoWebServiceWraper _jalapenoWebServiceWraper;
-
-	@InjectView(R.id.buttonDebugPurchase)
-	Button buttonDebug;
 
 	@InjectView(R.id.textPriceInfo)
 	TextView textPriceInfo;
@@ -111,7 +106,6 @@ public class BillingActivity extends JalapenoActivity {
 
 		_clientId = _settingsService.GetClientId();
 		_accessIsAllowed = _accessService.AccessCheck();
-		SetDebugMode(Constants.VIEW_DEBUG_UI);
 	}
 
 	@Override
@@ -142,14 +136,6 @@ public class BillingActivity extends JalapenoActivity {
 		return checkout;
 	}
 
-	public void BuyTest(View view) {
-		Logger.Debug(LOG_TAG, "BuyTest");
-		if (Constants.VIEW_DEBUG_UI) {
-			new TestPurchaseAntispamTask(this, _accessService,
-					_settingsService, _jalapenoWebServiceWraper).execute();
-		}
-	}
-
 	public void Buy(View view) {
 		Logger.Debug(LOG_TAG, "Buy pressed");
 		spiner.Show();
@@ -165,14 +151,6 @@ public class BillingActivity extends JalapenoActivity {
 			UUID clientId) {
 		return new PurchaseAntispamTask(_activity, _accessService,
 				_jalapenoWebServiceWraper, spiner, orderId, clientId);
-	}
-
-	private void SetDebugMode(boolean isDebug) {
-		if (isDebug) {
-			buttonDebug.setVisibility(View.VISIBLE);
-		} else {
-			buttonDebug.setVisibility(View.INVISIBLE);
-		}
 	}
 
 	private void purchase(@Nonnull final Sku sku) {
