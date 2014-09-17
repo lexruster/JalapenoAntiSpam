@@ -44,7 +44,8 @@ public class MyApplication extends Application {
 	static final String MAIL = "lexruster@gmail.com";
 
 	@Nonnull
-	private static final Products products = Products.create().add(IN_APP, asList(BillingConstants.ANTISPAM_ACCESS));
+	private static final Products products = Products.create().add(IN_APP, 
+			asList(BillingConstants.ANTISPAM_ACCESS, BillingConstants.EARLY_ANTISPAM_ACCESS));
 
 	@Nonnull
 	private final Billing billing = new Billing(this, new Billing.Configuration() {

@@ -16,6 +16,12 @@
     <TextView
         android:id="@+id/textPriceInfo"
         style="@style/BaseText.BaseControl.Text"
+        android:layout_marginBottom="15dp"
+        android:visibility="invisible" />
+    
+     <TextView
+        android:id="@+id/textFullPriceInfo"
+        style="@style/BaseText.BaseControl.Text"
         android:layout_marginBottom="0dp"
         android:visibility="invisible" />
 

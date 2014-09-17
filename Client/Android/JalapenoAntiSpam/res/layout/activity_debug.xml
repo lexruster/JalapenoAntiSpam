@@ -28,6 +28,11 @@
                     style="@style/BaseText.BaseControl.Text"
                     android:text="Info" />
                 
+                 <TextView
+                    android:id="@+id/textBillingInfo"
+                    style="@style/BaseText.BaseControl.Text"
+                    android:text="BillingInfo" />
+                
                 <TextView
                     android:id="@+id/textView"
                     style="@style/BaseText.BaseControl.TextHeader"
