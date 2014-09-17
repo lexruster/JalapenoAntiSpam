@@ -13,6 +13,7 @@
     <string name="AccessFullInfo">Full version</string>
     <string name="AntiSpamOn">On</string>
     <string name="AntiSpamOff">Turn on</string>
+    <string name="EarlyAccessText"><a href="http://jalapeno.su">Buy now at a lower price!</a></string>
 
     <!-- Debug acticity -->
     <string name="SoundSettings">Sounds</string>
@@ -29,10 +30,11 @@
     <string name="NotSpamButton">Not spam</string>
     <string name="DeleteButton">Delete</string>
     <string name="EmptySmsList">No SMS to check...</string>
-    
+
     <!-- Sms trash acticity -->
     <string name="ClearAll">Clear</string>
-    <string name="ClearConfirmationMessage">Are you sure you want to clear trash?</string>
+    <string name="ClearConfirmationMessage">Are you sure you want to clear Trash?</string>
+    <string name="EmptyTrash">Trash is empty</string>
 
     <!-- Notification -->
     <string name="NotExistsUnknownSms">You have no spam!</string>
@@ -56,6 +58,7 @@
     <!-- Buy acticity -->
     <string name="BillingBuyText">You can buy Jalapeno Antispam or restore your payment</string>
     <string name="BillingBuyButton">Buy</string>
+    <string name="FullPriceInfo">If you pay after trial expiration: %s</string>
     <string name="PriceInfo">Price: %s</string>
 
     <!-- Buy acticity message -->

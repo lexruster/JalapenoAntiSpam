@@ -18,9 +18,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.URLSpan;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -48,6 +53,9 @@ public class SettingsActivity extends JalapenoActivity {
 	@InjectView(R.id.textAccessInfo)
 	TextView textAccessInfo;
 
+	@InjectView(R.id.textEarlyAccess)
+	TextView linkEarlyAccess;
+
 	@InjectView(R.id.buttonSmsTrash)
 	Button buttonSmsTrash;
 
@@ -61,9 +69,9 @@ public class SettingsActivity extends JalapenoActivity {
 		super.onCreate(savedInstanceState);
 		Logger.Debug(LOG_TAG, "onCreate");
 		if (getIntent().getBooleanExtra("EXIT", false)) {
-            finish();
-            return;
-        }
+			finish();
+			return;
+		}
 		Init();
 	}
 
@@ -74,6 +82,14 @@ public class SettingsActivity extends JalapenoActivity {
 				new UpdateTrashTextAsync().execute();
 			}
 		};
+		
+		
+		linkEarlyAccess.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				UiUtils.NavigateTo(BillingActivity.class);
+			}
+		});
 
 		_intFilt = new IntentFilter(Constants.BROADCAST_TRASH_SMS_ACTION);
 	}
@@ -122,6 +138,7 @@ public class SettingsActivity extends JalapenoActivity {
 		AccessInfo accessInfo = _settingsService.GetAccessInfo();
 		if (accessInfo.IsUnlimitedAccess) {
 			textAccessInfo.setText(R.string.AccessFullInfo);
+			linkEarlyAccess.setVisibility(View.INVISIBLE);
 		} else {
 			ShowLimitedAccessInfo(accessInfo);
 		}
@@ -134,6 +151,7 @@ public class SettingsActivity extends JalapenoActivity {
 			String info = _context.getString(R.string.AccessInfo, accessInfo.EvaluationDaysLast);
 			textAccessInfo.setText(info);
 		}
+		linkEarlyAccess.setVisibility(View.VISIBLE);
 	}
 
 	private void UpdateOnOffButton(boolean antispamEnabled) {
