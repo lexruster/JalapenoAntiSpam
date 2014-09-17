@@ -8,15 +8,8 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
-import org.solovyev.android.checkout.ActivityCheckout;
-import org.solovyev.android.checkout.BillingRequests;
+import org.solovyev.android.checkout.*;
 import org.solovyev.android.checkout.Inventory.Product;
-import org.solovyev.android.checkout.Checkout;
-import org.solovyev.android.checkout.Inventory;
-import org.solovyev.android.checkout.Purchase;
-import org.solovyev.android.checkout.RequestListener;
-import org.solovyev.android.checkout.ResponseCodes;
-import org.solovyev.android.checkout.Sku;
 
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
