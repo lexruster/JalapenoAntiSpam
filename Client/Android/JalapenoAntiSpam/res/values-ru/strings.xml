@@ -57,7 +57,7 @@
 
     <!-- Buy acticity -->
     <string name="BillingBuyText">Вы можете купить Jalapeno Antispam или восстановить произведенную оплату</string>
-    <string name="BillingBuyButton">Купить лицензию</string>
+    <string name="BillingBuyButton">Купить доступ</string>
     <string name="FullPriceInfo">При оплате после окончания триала: %s</string>
     <string name="PriceInfo">Стоимость: %s</string>
 
