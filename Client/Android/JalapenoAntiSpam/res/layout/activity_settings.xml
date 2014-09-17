@@ -7,8 +7,20 @@
     <TextView
         android:id="@+id/textAccessInfo"
         style="@style/BaseText.BaseControl.Text"
-        android:layout_marginBottom="0dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center_horizontal" />
+    
+    <TextView
+        android:id="@+id/textEarlyAccess"
+        style="@style/BaseText.BaseControl"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="0dp"
+        android:autoLink="web"
+        android:linksClickable="true"
+        android:text="@string/EarlyAccessText"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:typeface="normal" />
 
     <LinearLayout
         android:layout_width="fill_parent"

@@ -1130,8 +1130,8 @@ containing a value of this type.
         public static final int state_background=0x7f020097;
     }
     public static final class id {
-        public static final int LinearLayout02=0x7f050037;
-        public static final int LinearLayout03=0x7f05003f;
+        public static final int LinearLayout02=0x7f050039;
+        public static final int LinearLayout03=0x7f050041;
         public static final int abs__action_bar=0x7f050024;
         public static final int abs__action_bar_container=0x7f050023;
         public static final int abs__action_bar_subtitle=0x7f050015;
@@ -1171,47 +1171,25 @@ containing a value of this type.
         public static final int abs__textButton=0x7f050017;
         public static final int abs__title=0x7f05001f;
         public static final int abs__up=0x7f05000b;
-        public static final int btnDeleteSms=0x7f05005e;
-        public static final int btnDeleteTrashSms=0x7f050060;
-        public static final int btnNeedSms=0x7f05005d;
-        public static final int btnNeedTrashSms=0x7f05005f;
-        public static final int btnSpamSms=0x7f05005c;
-        public static final int button32424InCont=0x7f05004d;
-        public static final int button7968InCont=0x7f05004b;
-        public static final int button8968InCont=0x7f05004c;
-        public static final int buttonAuthorization=0x7f050040;
-        public static final int buttonChangeDomain=0x7f05004e;
-        public static final int buttonClearSpam=0x7f050046;
-        public static final int buttonConsumeAccess=0x7f050045;
-        public static final int buttonDebug=0x7f05005b;
-        public static final int buttonDebugPurchase=0x7f05003b;
-        public static final int buttonDebugRegister=0x7f050053;
-        public static final int buttonDropBuy=0x7f050044;
-        public static final int buttonDropRegister=0x7f050043;
-        public static final int buttonFillSpam=0x7f050047;
-        public static final int buttonGoToDebugRegister=0x7f050054;
-        public static final int buttonInfo=0x7f050041;
-        public static final int buttonLocalhostRequest=0x7f05004f;
-        public static final int buttonNewSms=0x7f05003e;
-        public static final int buttonPurchase=0x7f050039;
-        public static final int buttonRecieve8888=0x7f05004a;
-        public static final int buttonRecieve9999=0x7f050049;
-        public static final int buttonRegister=0x7f050052;
-        public static final int buttonSendTokenToEmail=0x7f050042;
-        public static final int buttonSettingsTest=0x7f050050;
-        public static final int buttonSmsSpam=0x7f05003f;
-        public static final int buttonSmsTrash=0x7f050059;
-        public static final int buttonSmsValidate=0x7f050057;
-        public static final int buttonSpammerList=0x7f050056;
-        public static final int buttonTestInBaseSpam=0x7f050048;
-        public static final int cbIsSender=0x7f050062;
+        public static final int btnDeleteSms=0x7f050046;
+        public static final int btnDeleteTrashSms=0x7f050048;
+        public static final int btnNeedSms=0x7f050045;
+        public static final int btnNeedTrashSms=0x7f050047;
+        public static final int btnSpamSms=0x7f050044;
+        public static final int btnTrashClearAll=0x7f050049;
+        public static final int buttonPurchase=0x7f05003a;
+        public static final int buttonRegister=0x7f05003c;
+        public static final int buttonSmsTrash=0x7f050042;
+        public static final int buttonSmsValidate=0x7f050040;
+        public static final int buttonSpammerList=0x7f05003f;
+        public static final int cbIsSender=0x7f05004b;
         public static final int disableHome=0x7f050009;
         public static final int edit_query=0x7f05002a;
         public static final int homeAsUp=0x7f050006;
         public static final int hybrid=0x7f050013;
-        public static final int licenseLink=0x7f05003a;
+        public static final int licenseLink=0x7f05003b;
         public static final int listMode=0x7f050002;
-        public static final int llSmsItem=0x7f050063;
+        public static final int llSmsItem=0x7f05004c;
         public static final int none=0x7f050010;
         public static final int normal=0x7f050001;
         public static final int satellite=0x7f050011;
@@ -1220,14 +1198,16 @@ containing a value of this type.
         public static final int showTitle=0x7f050007;
         public static final int tabMode=0x7f050003;
         public static final int terrain=0x7f050012;
-        public static final int textAccessInfo=0x7f05003c;
-        public static final int textPriceInfo=0x7f050038;
+        public static final int textAccessInfo=0x7f05003d;
+        public static final int textEarlyAccess=0x7f05003e;
+        public static final int textFullPriceInfo=0x7f050038;
+        public static final int textPriceInfo=0x7f050037;
         public static final int textView=0x7f050036;
-        public static final int toggleEnabled=0x7f05005a;
-        public static final int tvSenderId=0x7f050061;
-        public static final int tvSmsDate=0x7f050066;
-        public static final int tvSmsSender=0x7f050065;
-        public static final int tvSmsText=0x7f050064;
+        public static final int toggleEnabled=0x7f050043;
+        public static final int tvSenderId=0x7f05004a;
+        public static final int tvSmsDate=0x7f05004f;
+        public static final int tvSmsSender=0x7f05004e;
+        public static final int tvSmsText=0x7f05004d;
         public static final int useLogo=0x7f050004;
         public static final int wrap_content=0x7f050000;
     }
@@ -1278,90 +1258,93 @@ containing a value of this type.
  Register acticity message 
  Register acticity message 
          */
-        public static final int BannedRegister=0x7f0a0043;
-        public static final int BillingBuyButton=0x7f0a0048;
+        public static final int BannedRegister=0x7f0a0045;
+        public static final int BillingBuyButton=0x7f0a004a;
         /**  Buy acticity 
  Buy acticity 
  Buy acticity 
          */
-        public static final int BillingBuyText=0x7f0a0047;
+        public static final int BillingBuyText=0x7f0a0049;
         /**  Sms trash acticity 
  Sms trash acticity 
  Sms trash acticity 
          */
-        public static final int ClearAll=0x7f0a003a;
-        public static final int ClearConfirmationMessage=0x7f0a003b;
-        public static final int DateFormat=0x7f0a0050;
-        public static final int DebugActivity=0x7f0a0031;
-        public static final int DeleteButton=0x7f0a0038;
-        public static final int DialogNo=0x7f0a004f;
-        public static final int DialogYes=0x7f0a004e;
-        public static final int EmptySmsList=0x7f0a0039;
-        public static final int EmptySpamerList=0x7f0a0034;
+        public static final int ClearAll=0x7f0a003b;
+        public static final int ClearConfirmationMessage=0x7f0a003c;
+        public static final int DateFormat=0x7f0a0053;
+        public static final int DebugActivity=0x7f0a0032;
+        public static final int DeleteButton=0x7f0a0039;
+        public static final int DialogNo=0x7f0a0052;
+        public static final int DialogYes=0x7f0a0051;
+        public static final int EarlyAccessText=0x7f0a0030;
+        public static final int EmptySmsList=0x7f0a003a;
+        public static final int EmptySpamerList=0x7f0a0035;
+        public static final int EmptyTrash=0x7f0a003d;
         /**  Buy acticity message 
  Buy acticity message 
  Buy acticity message 
          */
-        public static final int ErrorBilling=0x7f0a004a;
-        public static final int ErrorRegister=0x7f0a0044;
-        public static final int ExistsUnknownSms=0x7f0a003e;
+        public static final int ErrorBilling=0x7f0a004d;
+        public static final int ErrorRegister=0x7f0a0046;
+        public static final int ExistsUnknownSms=0x7f0a0040;
+        public static final int FullPriceInfo=0x7f0a004b;
         /**  main acticity 
  main acticity 
  main acticity 
          */
         public static final int KnownSpammerList=0x7f0a0028;
-        public static final int LicenseAgreement=0x7f0a0042;
-        public static final int LicenseAgreementUrl=0x7f0a0041;
-        public static final int NeedBuyAccessText=0x7f0a003d;
-        public static final int NeedPeekAccount=0x7f0a0045;
+        public static final int LicenseAgreement=0x7f0a0044;
+        public static final int LicenseAgreementUrl=0x7f0a0043;
+        public static final int NeedBuyAccessText=0x7f0a003f;
+        public static final int NeedPeekAccount=0x7f0a0047;
         /**  Notification 
  Notification 
  Notification 
          */
-        public static final int NotExistsUnknownSms=0x7f0a003c;
-        public static final int NotSpamButton=0x7f0a0037;
-        public static final int ParentActivity=0x7f0a0051;
-        public static final int PriceInfo=0x7f0a0049;
-        public static final int PurchaseComplete=0x7f0a004b;
+        public static final int NotExistsUnknownSms=0x7f0a003e;
+        public static final int NotSpamButton=0x7f0a0038;
+        public static final int ParentActivity=0x7f0a0054;
+        public static final int PriceInfo=0x7f0a004c;
+        public static final int PurchaseComplete=0x7f0a004e;
         /**  Register acticity 
  Register acticity 
  Register acticity 
          */
-        public static final int RegisterButton=0x7f0a003f;
-        public static final int RegisterText=0x7f0a0040;
+        public static final int RegisterButton=0x7f0a0041;
+        public static final int RegisterText=0x7f0a0042;
         /**  Sms list acticity 
  Sms list acticity 
  Sms list acticity 
          */
-        public static final int SmsList=0x7f0a0035;
+        public static final int SmsList=0x7f0a0036;
         public static final int SmsTrashList=0x7f0a002a;
         public static final int SmsValidateList=0x7f0a0029;
         /**  Debug acticity 
  Debug acticity 
  Debug acticity 
          */
-        public static final int SoundSettings=0x7f0a0030;
-        public static final int SpamButton=0x7f0a0036;
+        public static final int SoundSettings=0x7f0a0031;
+        public static final int SpamButton=0x7f0a0037;
         /**  Spamer list acticity 
  Spamer list acticity 
  Spamer list acticity 
          */
-        public static final int SpammerList=0x7f0a0032;
+        public static final int SpammerList=0x7f0a0033;
         /**  Buy debug acticity 
  Buy debug acticity 
  Buy debug acticity 
          */
-        public static final int TestBuyText=0x7f0a004c;
+        public static final int TestBuyText=0x7f0a004f;
         /**  Register debug acticity 
  Register debug acticity 
  Register debug acticity 
          */
-        public static final int TestRegister=0x7f0a0046;
+        public static final int TestRegister=0x7f0a0048;
         /**  Misc 
  Misc 
  Misc 
          */
-        public static final int WaitMessage=0x7f0a004d;
+        public static final int WaitMessage=0x7f0a0050;
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
          */
         public static final int abs__action_bar_home_description=0x7f0a0000;
@@ -1500,7 +1483,7 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f0a0020;
-        public static final int isspamer=0x7f0a0033;
+        public static final int isspamer=0x7f0a0034;
     }
     public static final class style {
         public static final int BaseLayout=0x7f0b005b;

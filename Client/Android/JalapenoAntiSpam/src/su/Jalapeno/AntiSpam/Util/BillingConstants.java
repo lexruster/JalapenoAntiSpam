@@ -9,4 +9,5 @@ public class BillingConstants {
 	public static final String Left = "b0f05ea4-b7ac-361e8512f824";
 
 	public static final String ANTISPAM_ACCESS = "antispam_unlimited_access";
+	public static final String EARLY_ANTISPAM_ACCESS = "early_antispam_access";
 }
