@@ -137,27 +137,6 @@ public class WebClient {
 		}
 	}
 
-	/*
-	 * private static void SetSSLPolicy() { // Create a trust manager that does
-	 * not validate certificate chains TrustManager[] trustAllCerts = new
-	 * TrustManager[] { new X509TrustManager() { public
-	 * java.security.cert.X509Certificate[] getAcceptedIssuers() { return null;
-	 * }
-	 * 
-	 * public void checkClientTrusted(java.security.cert.X509Certificate[]
-	 * certs, String authType) { Logger.Debug(LOG_TAG, "checkClientTrusted"); }
-	 * 
-	 * public void checkServerTrusted(java.security.cert.X509Certificate[]
-	 * certs, String authType) { Logger.Debug(LOG_TAG, "checkServerTrusted"); }
-	 * } };
-	 * 
-	 * // Install the all-trusting trust manager try { SSLContext sc =
-	 * SSLContext.getInstance("SSL"); sc.init(null, trustAllCerts, new
-	 * java.security.SecureRandom());
-	 * HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-	 * Logger.Debug(LOG_TAG, "SetSSLPolicy"); } catch (GeneralSecurityException
-	 * e) { } }
-	 */
 	private static HttpEntity CreateEntity(String value) {
 		StringEntity se = null;
 		try {
