@@ -1131,6 +1131,7 @@ containing a value of this type.
     }
     public static final class id {
         public static final int LinearLayout02=0x7f050039;
+        public static final int LinearLayout023=0x7f050044;
         public static final int LinearLayout03=0x7f050041;
         public static final int abs__action_bar=0x7f050024;
         public static final int abs__action_bar_container=0x7f050023;
@@ -1171,25 +1172,25 @@ containing a value of this type.
         public static final int abs__textButton=0x7f050017;
         public static final int abs__title=0x7f05001f;
         public static final int abs__up=0x7f05000b;
-        public static final int btnDeleteSms=0x7f050046;
-        public static final int btnDeleteTrashSms=0x7f050048;
-        public static final int btnNeedSms=0x7f050045;
-        public static final int btnNeedTrashSms=0x7f050047;
-        public static final int btnSpamSms=0x7f050044;
-        public static final int btnTrashClearAll=0x7f050049;
+        public static final int btnDeleteSms=0x7f050047;
+        public static final int btnDeleteTrashSms=0x7f050049;
+        public static final int btnNeedSms=0x7f050046;
+        public static final int btnNeedTrashSms=0x7f050048;
+        public static final int btnSpamSms=0x7f050045;
+        public static final int btnTrashClearAll=0x7f05004a;
         public static final int buttonPurchase=0x7f05003a;
         public static final int buttonRegister=0x7f05003c;
         public static final int buttonSmsTrash=0x7f050042;
         public static final int buttonSmsValidate=0x7f050040;
         public static final int buttonSpammerList=0x7f05003f;
-        public static final int cbIsSender=0x7f05004b;
+        public static final int cbIsSender=0x7f05004c;
         public static final int disableHome=0x7f050009;
         public static final int edit_query=0x7f05002a;
         public static final int homeAsUp=0x7f050006;
         public static final int hybrid=0x7f050013;
         public static final int licenseLink=0x7f05003b;
         public static final int listMode=0x7f050002;
-        public static final int llSmsItem=0x7f05004c;
+        public static final int llSmsItem=0x7f05004d;
         public static final int none=0x7f050010;
         public static final int normal=0x7f050001;
         public static final int satellite=0x7f050011;
@@ -1204,10 +1205,10 @@ containing a value of this type.
         public static final int textPriceInfo=0x7f050037;
         public static final int textView=0x7f050036;
         public static final int toggleEnabled=0x7f050043;
-        public static final int tvSenderId=0x7f05004a;
-        public static final int tvSmsDate=0x7f05004f;
-        public static final int tvSmsSender=0x7f05004e;
-        public static final int tvSmsText=0x7f05004d;
+        public static final int tvSenderId=0x7f05004b;
+        public static final int tvSmsDate=0x7f050050;
+        public static final int tvSmsSender=0x7f05004f;
+        public static final int tvSmsText=0x7f05004e;
         public static final int useLogo=0x7f050004;
         public static final int wrap_content=0x7f050000;
     }
