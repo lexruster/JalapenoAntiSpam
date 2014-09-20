@@ -77,11 +77,6 @@
         android:layout_weight="15"
         android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/buttonDebug"
-            style="@style/BaseText.BaseControl.Button.Debug"
-            android:onClick="NavigateToDebug"
-            android:visibility="invisible" />
     </LinearLayout>
 
 </LinearLayout>

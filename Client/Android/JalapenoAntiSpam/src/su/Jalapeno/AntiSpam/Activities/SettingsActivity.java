@@ -47,9 +47,6 @@ public class SettingsActivity extends JalapenoActivity {
 	@Inject
 	TrashSmsService _trashSmsService;
 
-	@InjectView(R.id.buttonDebug)
-	Button buttonDebug;
-
 	@InjectView(R.id.toggleEnabled)
 	Button toogleButton;
 
@@ -79,8 +76,6 @@ public class SettingsActivity extends JalapenoActivity {
 	}
 
 	private void Init() {
-		SetDebugMode(Constants.VIEW_DEBUG_UI);
-
 		_receiver = new BroadcastReceiver() {
 			public void onReceive(Context context, Intent intent) {
 				Logger.Debug(LOG_TAG, "BroadcastReceiver onReceive");
@@ -170,24 +165,10 @@ public class SettingsActivity extends JalapenoActivity {
 		}
 	}
 
-	private void SetDebugMode(boolean isDebug) {
-		if (isDebug) {
-			buttonDebug.setVisibility(View.VISIBLE);
-		} else {
-			buttonDebug.setVisibility(View.INVISIBLE);
-		}
-	}
-
 	@Override
 	public void onBackPressed() {
 		Logger.Debug(LOG_TAG, "onBackPressed");
 		finish();
-	}
-
-	public void NavigateToDebug(View v) {
-		if (Constants.VIEW_DEBUG_UI) {
-			UiUtils.NavigateTo(Debug.class);
-		}
 	}
 
 	public void ViewSpamerList(View v) {
