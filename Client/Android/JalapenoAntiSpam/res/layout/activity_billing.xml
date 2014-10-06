@@ -48,18 +48,4 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/LinearLayout023"
-        android:layout_width="fill_parent"
-        android:layout_height="30dp"
-        android:orientation="vertical" >
-
-        <Button
-            android:id="@+id/buttonDebugPurchase"
-            style="@style/BaseText.BaseControl.Button.Debug"
-            android:onClick="BuyTest"
-            android:text="@string/TestBuyText"
-            android:visibility="invisible" />
-    </LinearLayout>
-
 </LinearLayout>
