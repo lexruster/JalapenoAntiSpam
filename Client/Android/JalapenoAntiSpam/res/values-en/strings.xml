@@ -51,6 +51,7 @@
     <string name="BannedRegister">Sorry, this user was banned</string>
     <string name="ErrorRegister">Registration error. Please, check the Internet connection, then try again</string>
     <string name="NeedPeekAccount">You have to choose an account</string>
+    <string name="DeviceNotSupported">Sorry, this device is not supported</string>
 
     <!-- Register debug acticity -->
     <string name="TestRegister">Test registration</string>
