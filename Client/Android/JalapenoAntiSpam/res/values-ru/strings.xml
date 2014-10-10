@@ -51,6 +51,7 @@
     <string name="BannedRegister">К сожалению, этот пользователь был забанен</string>
     <string name="ErrorRegister">Ошибка регистрации. Пожалуйста, проверьте Интернет-подключение, затем повторите попытку</string>
     <string name="NeedPeekAccount">Выберите аккаунт</string>
+    <string name="DeviceNotSupported">К сожалению, это устройство не поддерживается</string>
 
     <!-- Register debug acticity -->
     <string name="TestRegister">Тестовая регистрация</string>
