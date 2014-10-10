@@ -1260,23 +1260,24 @@ containing a value of this type.
  Register acticity message 
          */
         public static final int BannedRegister=0x7f0a0045;
-        public static final int BillingBuyButton=0x7f0a004a;
+        public static final int BillingBuyButton=0x7f0a004b;
         /**  Buy acticity 
  Buy acticity 
  Buy acticity 
          */
-        public static final int BillingBuyText=0x7f0a0049;
+        public static final int BillingBuyText=0x7f0a004a;
         /**  Sms trash acticity 
  Sms trash acticity 
  Sms trash acticity 
          */
         public static final int ClearAll=0x7f0a003b;
         public static final int ClearConfirmationMessage=0x7f0a003c;
-        public static final int DateFormat=0x7f0a0053;
+        public static final int DateFormat=0x7f0a0054;
         public static final int DebugActivity=0x7f0a0032;
         public static final int DeleteButton=0x7f0a0039;
-        public static final int DialogNo=0x7f0a0052;
-        public static final int DialogYes=0x7f0a0051;
+        public static final int DeviceNotSupported=0x7f0a0048;
+        public static final int DialogNo=0x7f0a0053;
+        public static final int DialogYes=0x7f0a0052;
         public static final int EarlyAccessText=0x7f0a0030;
         public static final int EmptySmsList=0x7f0a003a;
         public static final int EmptySpamerList=0x7f0a0035;
@@ -1285,10 +1286,10 @@ containing a value of this type.
  Buy acticity message 
  Buy acticity message 
          */
-        public static final int ErrorBilling=0x7f0a004d;
+        public static final int ErrorBilling=0x7f0a004e;
         public static final int ErrorRegister=0x7f0a0046;
         public static final int ExistsUnknownSms=0x7f0a0040;
-        public static final int FullPriceInfo=0x7f0a004b;
+        public static final int FullPriceInfo=0x7f0a004c;
         /**  main acticity 
  main acticity 
  main acticity 
@@ -1304,9 +1305,9 @@ containing a value of this type.
          */
         public static final int NotExistsUnknownSms=0x7f0a003e;
         public static final int NotSpamButton=0x7f0a0038;
-        public static final int ParentActivity=0x7f0a0054;
-        public static final int PriceInfo=0x7f0a004c;
-        public static final int PurchaseComplete=0x7f0a004e;
+        public static final int ParentActivity=0x7f0a0055;
+        public static final int PriceInfo=0x7f0a004d;
+        public static final int PurchaseComplete=0x7f0a004f;
         /**  Register acticity 
  Register acticity 
  Register acticity 
@@ -1335,17 +1336,17 @@ containing a value of this type.
  Buy debug acticity 
  Buy debug acticity 
          */
-        public static final int TestBuyText=0x7f0a004f;
+        public static final int TestBuyText=0x7f0a0050;
         /**  Register debug acticity 
  Register debug acticity 
  Register debug acticity 
          */
-        public static final int TestRegister=0x7f0a0048;
+        public static final int TestRegister=0x7f0a0049;
         /**  Misc 
  Misc 
  Misc 
          */
-        public static final int WaitMessage=0x7f0a0050;
+        public static final int WaitMessage=0x7f0a0051;
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
          */
         public static final int abs__action_bar_home_description=0x7f0a0000;
