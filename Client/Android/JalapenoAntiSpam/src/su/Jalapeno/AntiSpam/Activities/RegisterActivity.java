@@ -25,12 +25,14 @@ import android.widget.TextView;
 import com.google.android.gms.auth.GooglePlayServicesAvailabilityException;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.AccountPicker;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.inject.Inject;
 
 @ContentView(R.layout.activity_register)
 public class RegisterActivity extends JalapenoActivity {
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "RegisterActivity";
+	static final int REQUEST_CODE_RECOVER_PLAY_SERVICES = 1001;
 	static final int REQUEST_CODE_PICK_ACCOUNT = 13000;
 	static final int REQUEST_CODE_RECOVER_FROM_AUTH_ERROR = 13001;
 	static final int REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR = 13002;
@@ -69,7 +71,8 @@ public class RegisterActivity extends JalapenoActivity {
 		_licenseLink.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri
+						.parse(link));
 				startActivity(browserIntent);
 			}
 		});
@@ -109,14 +112,34 @@ public class RegisterActivity extends JalapenoActivity {
 		Logger.Debug(LOG_TAG, "Register");
 		Email = "";
 		Token = "";
+		if (checkPlayServices()) {
+			getUsername();
+		}
+	}
 
-		getUsername();
+	private boolean checkPlayServices() {
+		int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+		if (status != ConnectionResult.SUCCESS) {
+			if (GooglePlayServicesUtil.isUserRecoverableError(status)) {
+				ShowErrorDialog(status);
+			} else {
+				ShowToast(R.string.DeviceNotSupported);
+			}
+			return false;
+		}
+		return true;
+	}
+
+	void ShowErrorDialog(int code) {
+		GooglePlayServicesUtil.getErrorDialog(code, this,
+				REQUEST_CODE_RECOVER_PLAY_SERVICES).show();
 	}
 
 	public void TestRegister(View view) {
 		Logger.Debug(LOG_TAG, "TestRegister");
 		if (Constants.VIEW_DEBUG_UI) {
-			new TestRegisterTask(this, _settingsService, _jalapenoWebServiceWraper).execute();
+			new TestRegisterTask(this, _settingsService,
+					_jalapenoWebServiceWraper).execute();
 		}
 	}
 
@@ -139,7 +162,8 @@ public class RegisterActivity extends JalapenoActivity {
 			}
 		} else if ((requestCode == REQUEST_CODE_RECOVER_FROM_AUTH_ERROR || requestCode == REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR)
 				&& resultCode == RESULT_OK) {
-			Logger.Debug(LOG_TAG, "onActivityResult REQUEST_CODE_RECOVER_FROM_AUTH_ERROR");
+			Logger.Debug(LOG_TAG,
+					"onActivityResult REQUEST_CODE_RECOVER_FROM_AUTH_ERROR");
 			handleAuthorizeResult(resultCode, data);
 			return;
 		}
@@ -163,7 +187,8 @@ public class RegisterActivity extends JalapenoActivity {
 	private void pickUserAccount() {
 		Logger.Debug(LOG_TAG, "pickUserAccount");
 		String[] accountTypes = new String[] { "com.google" };
-		Intent intent = AccountPicker.newChooseAccountIntent(null, null, accountTypes, false, null, null, null, null);
+		Intent intent = AccountPicker.newChooseAccountIntent(null, null,
+				accountTypes, false, null, null, null, null);
 		startActivityForResult(intent, REQUEST_CODE_PICK_ACCOUNT);
 	}
 
@@ -197,8 +222,10 @@ public class RegisterActivity extends JalapenoActivity {
 					// present.
 					// Show a dialog created by Google Play services that allows
 					// the user to update the APK
-					int statusCode = ((GooglePlayServicesAvailabilityException) e).getConnectionStatusCode();
-					Dialog dialog = GooglePlayServicesUtil.getErrorDialog(statusCode, RegisterActivity.this,
+					int statusCode = ((GooglePlayServicesAvailabilityException) e)
+							.getConnectionStatusCode();
+					Dialog dialog = GooglePlayServicesUtil.getErrorDialog(
+							statusCode, RegisterActivity.this,
 							REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR);
 					dialog.show();
 				} else if (e instanceof UserRecoverableAuthException) {
@@ -206,8 +233,10 @@ public class RegisterActivity extends JalapenoActivity {
 					// granted
 					// the app access to the account, but the user can fix this.
 					// Forward the user to an activity in Google Play services.
-					Intent intent = ((UserRecoverableAuthException) e).getIntent();
-					startActivityForResult(intent, REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR);
+					Intent intent = ((UserRecoverableAuthException) e)
+							.getIntent();
+					startActivityForResult(intent,
+							REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR);
 				}
 			}
 		});
@@ -215,7 +244,8 @@ public class RegisterActivity extends JalapenoActivity {
 
 	private RegisterTask GetRegiseterTask() {
 		Logger.Debug(LOG_TAG, "getTask");
-		return new RegisterTask(this, _settingsService, _jalapenoWebServiceWraper);
+		return new RegisterTask(this, _settingsService,
+				_jalapenoWebServiceWraper);
 	}
 
 	private void SetDebugMode(boolean isDebug) {
