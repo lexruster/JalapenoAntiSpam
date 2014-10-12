@@ -818,6 +818,8 @@ containing a value of this type.
         public static final int zOrderOnTop=0x7f010072;
     }
     public static final class bool {
+        public static final int KitkatOrMore=0x7f060006;
+        public static final int LessThenKitkat=0x7f060007;
         public static final int abs__action_bar_embed_tabs=0x7f060000;
         public static final int abs__action_bar_expanded_action_views_exclusive=0x7f060002;
         /**  Whether action menu items should be displayed in ALLCAPS or not.
@@ -2986,7 +2988,7 @@ containing a value of this type.
          */
         public static final int[] SherlockSpinner = {
             0x010100af, 0x01010175, 0x01010176, 0x0101017b,
-            0x01010262, 0x010102ac, 0x010102ad, 0x010103fd
+            0x01010262, 0x010102ac, 0x010102ad, 0x0101043a
         };
         /**
           <p>

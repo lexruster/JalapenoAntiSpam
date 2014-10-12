@@ -30,7 +30,7 @@ public class NotifyService {
 		_context.startService(new Intent(_context, AppService.class).putExtra(NotifyType.ExtraConstant, NotifyType.IncomeUnknownSms));
 	}
 
-	private void PlayRingtone() {
+	public void PlayRingtone() {
 		Uri notificationAlarm;
 		notificationAlarm = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 		if (notificationAlarm == null) {

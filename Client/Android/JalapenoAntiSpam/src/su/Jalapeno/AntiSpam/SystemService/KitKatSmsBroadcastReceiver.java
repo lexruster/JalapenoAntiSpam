@@ -15,22 +15,21 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
-public class SmsBroadcastReceiver extends BroadcastReceiver {
+public class KitKatSmsBroadcastReceiver extends BroadcastReceiver {
 
-	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "SmsBroadcastReceiver";
-
-	public SmsBroadcastReceiver() {
+	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "KitKatSmsBroadcastReceiver";
+	
+	public KitKatSmsBroadcastReceiver() {
 
 	}
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		Logger.Debug(LOG_TAG, "SMS income version " + Build.VERSION.SDK_INT);
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-			Logger.Debug(LOG_TAG, "SMS income in KitKat.");
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+			Logger.Debug(LOG_TAG, "SMS income in not KitKat.");
 			return;
 		}
-
+		
 		SmsService smsService = new SmsService(context);
 		Logger.Debug(LOG_TAG, "SMS income.");
 
@@ -58,5 +57,6 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 		}
 
 		Logger.Debug(LOG_TAG, "SMS received.");
+		smsService.PutSmsToDatabase(sms, false);
 	}
 }
