@@ -15,16 +15,9 @@ public class SmsQueueService extends JalapenoService<Sms> {
 	public SmsQueueService() {
 		super();
 	}
-	
+
 	public SmsQueueService(Repository<Sms> repository) {
 		super(repository);
-	}
-
-	public ArrayList<String> GetAllSenders() {
-		ArrayList<String> list = new ArrayList<String>();
-		list.addAll(GetSmsDao().GetAllSenders());
-
-		return list;
 	}
 
 	public ArrayList<Sms> GetAllBySender(String sender) {
@@ -46,5 +39,4 @@ public class SmsQueueService extends JalapenoService<Sms> {
 	protected JalapenoDao<Sms> GetDao() {
 		return GetSmsDao();
 	}
-
 }
