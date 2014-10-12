@@ -1,12 +1,32 @@
 package su.Jalapeno.AntiSpam.Util.UI;
 
-import roboguice.activity.RoboListActivity;
+import su.Jalapeno.AntiSpam.Activities.SettingsActivity;
+import su.Jalapeno.AntiSpam.Util.Constants;
+import su.Jalapeno.AntiSpam.Util.Logger;
 
-public class JalapenoListActivity extends RoboListActivity {
+import com.actionbarsherlock.view.MenuItem;
+import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockListActivity;
 
-    protected UiControlsUtil UiUtils;
+public class JalapenoListActivity extends RoboSherlockListActivity {
+	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "JalapenoListActivity";
 
-    public JalapenoListActivity() {
-        UiUtils = new UiControlsUtil(this);
-    }
+	protected UiControlsUtil UiUtils;
+
+	public JalapenoListActivity() {
+		UiUtils = new UiControlsUtil(this);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			Logger.Debug(LOG_TAG, "onOptionsItemSelected to parent");
+			
+			UiUtils.NavigateAndClearHistory(SettingsActivity.class);
+			
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
 }

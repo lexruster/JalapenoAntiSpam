@@ -2,7 +2,7 @@ package su.Jalapeno.AntiSpam.Adapters;
 
 import java.util.ArrayList;
 
-import su.Jalapeno.AntiSpam.R;
+import su.Jalapeno.AntiSpam.Filter.R;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
 import su.Jalapeno.AntiSpam.Services.SenderService;
 import android.content.Context;
@@ -25,6 +25,7 @@ public class SenderAdapter extends BaseAdapter {
 
 	@Inject
 	public SenderAdapter(Context context, SenderService senderService) {
+		
 		_context = context;
 		_senderService = senderService;
 		lInflater = (LayoutInflater) _context

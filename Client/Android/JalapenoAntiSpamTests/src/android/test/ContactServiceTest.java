@@ -35,9 +35,9 @@ public class ContactServiceTest extends AndroidTestCase {
 				ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null,
 				null, null);
 		while (cursor.moveToNext()) {
-			String name = cursor
+			/*String name = cursor
 					.getString(cursor
-							.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+							.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));*/
 			String phoneNumber = cursor
 					.getString(cursor
 							.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));

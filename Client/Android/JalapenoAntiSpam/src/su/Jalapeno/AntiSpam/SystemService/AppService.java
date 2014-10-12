@@ -1,105 +1,125 @@
 package su.Jalapeno.AntiSpam.SystemService;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import su.Jalapeno.AntiSpam.R;
-import su.Jalapeno.AntiSpam.Activities.SmsAnalyzerActivity;
-import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
+import roboguice.service.RoboService;
+import su.Jalapeno.AntiSpam.Services.RequestQueue;
+import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsQueueService;
 import su.Jalapeno.AntiSpam.Util.Constants;
+import su.Jalapeno.AntiSpam.Util.Logger;
+import su.Jalapeno.AntiSpam.Util.UI.NotifyBuilder;
 import android.app.Notification;
-import android.app.Notification.Builder;
-import android.app.PendingIntent;
-import android.app.Service;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.IBinder;
-import android.util.Log;
 
-public class AppService extends Service {
+import com.google.inject.Inject;
+
+public class AppService extends RoboService {
 	private final int NOTIFY_ID = 731957691;
+	private ScheduledExecutorService scheduleTaskExecutor;
 
-	private SmsQueueService _smsQueueService;
-	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "AppService";
+	@Inject
 	Context _context;
+	@Inject
+	private SmsQueueService _smsQueueService;
+	@Inject
+	private RequestQueue _requestQueue;
+	@Inject
+	private SettingsService _settingsService;
+
+	NotificationManager nm;
+
+	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "AppService";
 
 	public void onCreate() {
 		super.onCreate();
-		_context = this;
-		_smsQueueService = new SmsQueueService(
-				RepositoryFactory.getRepository());
-		Log.d(LOG_TAG, "onCreate");
+		StartSchedule();
+		Logger.Debug(LOG_TAG, "onCreate");
+		nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+	}
+
+	private void StartSchedule() {
+		scheduleTaskExecutor = Executors.newSingleThreadScheduledExecutor();
+		scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
+			public void run() {
+				_requestQueue.ProceedComplainRequests();
+			}
+		}, 0, Constants.COMPLAINS_INTERVAL_SECONDS, TimeUnit.SECONDS);
+		Logger.Debug(LOG_TAG, "StartSchedule");
 	}
 
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Log.d(LOG_TAG, "onStartCommand flag " + flags + " start " + startId);
+		if (intent == null)
+			return START_STICKY;
+		int notifyType = intent.getIntExtra(NotifyType.ExtraConstant, NotifyType.RefreshSmsNotify);
+		Logger.Debug(LOG_TAG, "onStartCommand flag " + flags + " start " + startId + " notifyType " + notifyType);
 
-		if (_smsQueueService != null) {
-			long count = _smsQueueService.Count();
-			Notification notification = CreateNotifacation(count);
-			Log.d(LOG_TAG, "Start notify count " + count);
-			startForeground(NOTIFY_ID, notification);
-		} else {
-			Log.d(LOG_TAG, "onStartCommand _smsQueueService = null ");
+		switch (notifyType) {
+		case NotifyType.AccessFailAlarm:
+			StartNotifyNotAccess();
+			break;
+		case NotifyType.IncomeUnknownSms:
+		case NotifyType.RefreshSmsNotify:
+			if (_settingsService.AntispamEnabled()) {
+				ShowNotifyForSms(notifyType);
+			} else {
+				StopNotify();
+			}
+			break;
 		}
-		someTask();
 
 		return START_STICKY;
-		// return super.onStartCommand(intent, flags, startId);
 	}
 
-	private Notification CreateNotifacation(long count) {
-		Bitmap bm = BitmapFactory.decodeResource(_context.getResources(),
-				R.drawable.mailb);
+	private void ShowNotifyForSms(int notifyType) {
+		switch (notifyType) {
+		case NotifyType.IncomeUnknownSms:
+			StartNotifyForSms(true);
+			break;
+		case NotifyType.RefreshSmsNotify:
+			StartNotifyForSms(false);
+			break;
+		}
+	}
 
-		Builder notifBuilder = new Notification.Builder(_context)
-				.setOngoing(true).setContentTitle("New sms")
-				.setContentText("sms received").setSmallIcon(R.drawable.mail)
-				.setLargeIcon(bm).setWhen(System.currentTimeMillis())
-				.setContentInfo(Long.toString(count)).setAutoCancel(false)
-				.setNumber((int) count);
+	private void StopNotify() {
+		Logger.Debug(LOG_TAG, "StopNotify");
+		stopForeground(true);
+	}
 
-		Intent notificationIntent = new Intent(_context,
-				SmsAnalyzerActivity.class);
+	private void StartNotifyForSms(boolean needAlarm) {
+		Logger.Debug(LOG_TAG, "StartNotifyForSms alarm" + needAlarm);
+		if (_smsQueueService != null) {
+			long count = _smsQueueService.Count();
+			Notification notification = NotifyBuilder.CreateNotifacation(_context, count, needAlarm);
+			Logger.Debug(LOG_TAG, "Start notify count " + count);
+			startForeground(NOTIFY_ID, notification);
+		} else {
+			Logger.Debug(LOG_TAG, "onStartCommand _smsQueueService = null ");
+		}
+	}
 
-		PendingIntent pendingIntent = PendingIntent.getActivity(_context, 131,
-				notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-		notifBuilder.setContentIntent(pendingIntent);
-
-		Notification notification = notifBuilder.getNotification();
-
-		// notification.flags |= Notification.FLAG_AUTO_CANCEL;
-		notification.defaults |= Notification.DEFAULT_VIBRATE;
-		notification.defaults |= Notification.DEFAULT_LIGHTS;
-		notification.flags |= Notification.FLAG_SHOW_LIGHTS;
-		notification.flags |= Notification.FLAG_NO_CLEAR;
-
-		// NotificationManager notificationManager = (NotificationManager)
-		// _context.getSystemService(Context.NOTIFICATION_SERVICE);
-		// notificationManager.notify(0, notification);
-
-		return notification;
+	private void StartNotifyNotAccess() {
+		Logger.Debug(LOG_TAG, "StartNotifyNotAccess");
+		StopNotify();
+		Notification notification = NotifyBuilder.CreateNotifacationNotAccess(_context);
+		nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		nm.notify(NOTIFY_ID, notification);
 	}
 
 	public void onDestroy() {
 		super.onDestroy();
-		Log.d(LOG_TAG, "onDestroy");
+		Logger.Debug(LOG_TAG, "onDestroy");
 		stopForeground(false);
 	}
 
 	public IBinder onBind(Intent intent) {
-		Log.d(LOG_TAG, "onBind");
+		Logger.Debug(LOG_TAG, "onBind");
 		return null;
-	}
-
-	void someTask() {
-		/*
-		 * new Thread(new Runnable() { public void run() { for (int i = 1; i <=
-		 * 5; i++) { Log.d(LOG_TAG, "i = " + i); try {
-		 * TimeUnit.SECONDS.sleep(1); } catch (InterruptedException e) {
-		 * e.printStackTrace(); } } stopSelf(); } }).start();
-		 */
 	}
 }

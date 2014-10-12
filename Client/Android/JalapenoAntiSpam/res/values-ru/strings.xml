@@ -1,22 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="isspamer">Спамер</string>
-    <string name="app_name">Jalapeno Антиспам</string>
-    <string name="SettingsTitle">Настройки</string>
-    <string name="KnownSpammerList">Адресаты</string>
-    <string name="SoundSettings">Звук</string>
-    <string name="SpammerList">Адресаты</string>
-    <string name="DebugActivity">Отладка</string>
-    <string name="EmptySpamerList">Пусто</string>
-    <string name="SmsList">Смс</string>
-    <string name="EmptySmsList">Пусто</string>
-    <string name="SmsValidateList">Смс на проверку</string>
-    
-    <string name="NotSpamButton">Не спам</string>
-    <string name="SpamButton">Спам</string>
-    <string name="DeleteButton">Удалить</string>
-    <string name="DateFormat">dd:MM:yyyy HH:mm:ss</string>
+    <!-- app name -->
+    <string name="app_name">Jalapeno Antispam</string>
+
+    <!-- main acticity -->
+    <string name="KnownSpammerList">Спамеры</string>
+    <string name="SmsValidateList">СМС</string>
+    <string name="SmsTrashList">Корзина</string>
+    <string name="AccessInfo">Пробный период: %d дней</string>
+    <string name="AccessLastDay">Пробный период истекает сегодня</string>
+    <string name="AccessFullInfo">Полная версия</string>
     <string name="AntiSpamOn">Включено</string>
-    <string name="AntiSpamOff">Выключено</string>
+    <string name="AntiSpamOff">Включить</string>
+    <string name="EarlyAccessText"><a href="http://jalapeno.su">Купите сейчас и получите скидку!</a></string>
+
+    <!-- Debug acticity -->
+    <string name="SoundSettings">Звуки</string>
+    <string name="DebugActivity">Отладка</string>
+
+    <!-- Spamer list acticity -->
+    <string name="SpammerList">Спамеры</string>
+    <string name="isspamer">Спамер?</string>
+    <string name="EmptySpamerList">Скоро здесь появятся спамеры...</string>
+
+    <!-- Sms list acticity -->
+    <string name="SmsList">СМС</string>
+    <string name="SpamButton">Cпам!</string>
+    <string name="NotSpamButton">Не спам</string>
+    <string name="DeleteButton">Удалить</string>
+    <string name="EmptySmsList">Подозрительных СМС пока нет...</string>
+
+    <!-- Sms trash acticity -->
+    <string name="ClearAll">Очистить</string>
+    <string name="ClearConfirmationMessage">Вы уверены, что хотите очистить Корзину?</string>
+    <string name="EmptyTrash">Корзина пуста</string>
+
+    <!-- Notification -->
+    <string name="NotExistsUnknownSms">Спама нет!</string>
+    <string name="NeedBuyAccessText">Пробный период истек. Пожалуйста, купите лицензию</string>
+    <string name="ExistsUnknownSms">Есть подозрительные СМС</string>
+
+    <!-- Register acticity -->
+    <string name="RegisterButton">Войти</string>
+    <string name="RegisterText">Пожалуйста, войдите через ваш Google-аккаунт. Входя, вы принимаете условия Лицензионного Соглашения</string>
+    <string name="LicenseAgreementUrl">http://jalapeno.su/license.ru.html</string>
+    <string name="LicenseAgreement"><a href="http://jalapeno.su/license.ru.html">Лицензионное соглашение</a></string>
+
+    <!-- Register acticity message -->
+    <string name="BannedRegister">К сожалению, этот пользователь был забанен</string>
+    <string name="ErrorRegister">Ошибка регистрации. Пожалуйста, проверьте Интернет-подключение, затем повторите попытку</string>
+    <string name="NeedPeekAccount">Выберите аккаунт</string>
+    <string name="DeviceNotSupported">К сожалению, это устройство не поддерживается</string>
+
+    <!-- Register debug acticity -->
+    <string name="TestRegister">Тестовая регистрация</string>
+
+    <!-- Buy acticity -->
+    <string name="BillingBuyText">Вы можете купить Jalapeno Antispam или восстановить произведенную оплату</string>
+    <string name="BillingBuyButton">Купить доступ</string>
+    <string name="FullPriceInfo">При оплате после окончания пробного периода: %s</string>
+    <string name="PriceInfo">Стоимость: %s</string>
+
+    <!-- Buy acticity message -->
+    <string name="ErrorBilling">Ошибка оплаты. Пожалуйста, проверьте Интернет-подключение, затем повторите попытку</string>
+    <string name="PurchaseComplete">Поздравляем! Покупка успешно завершена</string>
+
+    <!-- Buy debug acticity -->
+    <string name="TestBuyText">Тестовая покупка</string>
+
+    <!-- Misc -->
+    <string name="WaitMessage">Ожидание&#8230;</string>
+    <string name="DialogYes">Да</string>
+    <string name="DialogNo">Нет</string>
+    <string name="DateFormat">dd MMM yyyy HH:mm</string>
+    <string name="ParentActivity">su.Jalapeno.AntiSpam.Activities.SettingsActivity</string>
+
 </resources>

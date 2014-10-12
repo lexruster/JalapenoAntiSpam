@@ -1,29 +1,43 @@
 package su.Jalapeno.AntiSpam.Activities;
 
-import su.Jalapeno.AntiSpam.R;
+import roboguice.inject.ContentView;
+import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.Adapters.SmsAdapter;
-import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
+import su.Jalapeno.AntiSpam.Filter.R;
+import su.Jalapeno.AntiSpam.Services.AccessService;
+import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsAnalyzerService;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
-import su.Jalapeno.AntiSpam.Util.DebugMessage;
+import su.Jalapeno.AntiSpam.SystemService.NotifyType;
+import su.Jalapeno.AntiSpam.Util.Constants;
+import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoListActivity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.inject.Inject;
 
+@ContentView(R.layout.activity_sms_analyzer)
 public class SmsAnalyzerActivity extends JalapenoListActivity {
+	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "SmsAnalyzerActivity";
 
+	BroadcastReceiver _receiver;
+	IntentFilter _intFilt;
+
+	@Inject
 	private Context _context;
-	private Sms _selectedSms;
+
+	@InjectView(R.id.btnNeedSms)
 	Button _needSmsButton;
+	@InjectView(R.id.btnSpamSms)
 	Button _spamButton;
+	@InjectView(R.id.btnDeleteSms)
 	Button _deleteButton;
 
 	@Inject
@@ -32,51 +46,101 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 	@Inject
 	SmsAnalyzerService _smsAnalyzerService;
 
+	@Inject
+	SettingsService _settingsService;
+
+	@Inject
+	AccessService _accessService;
+
+	boolean FirstRun;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_sms_analyzer);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		Init();
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// getMenuInflater().inflate(R.menu.sms_analyzer, menu);
-		return true;
+	protected void onResume() {
+		super.onResume();
+		Logger.Debug(LOG_TAG, "onResume");
+		Resume();
 	}
 
-	private void Init() {
-		_context = this.getApplicationContext();
-		_context.startService(new Intent(_context, AppService.class));
-		_needSmsButton = (Button) findViewById(R.id.btnNeedSms);
-		_spamButton = (Button) findViewById(R.id.btnSpamSms);
-		_deleteButton = (Button) findViewById(R.id.btnDeleteSms);
+	@Override
+	public void onBackPressed() {
+		Logger.Debug(LOG_TAG, "onBackPressed");
+		UiUtils.NavigateAndClearHistory(SettingsActivity.class);
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		Logger.Debug(LOG_TAG, "onPause");
+		unregisterReceiver(_receiver);
+	}
+
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		SetSelected(position);
+	}
+
+	private void Resume() {
+		boolean clientIsRegistered = _settingsService.ClientIsRegistered();
+		Logger.Debug(LOG_TAG, "Resume ClientRegistered " + clientIsRegistered);
+		if (clientIsRegistered) {
+
+		} else {
+			_settingsService.HandleClientNotRegistered();
+			Logger.Debug(LOG_TAG, "Resume NavigateTo RegisterActivity");
+			UiUtils.NavigateTo(RegisterActivity.class);
+			return;
+		}
+
+		if (!_accessService.AccessCheck()) {
+			Logger.Debug(LOG_TAG, "Resume NavigateTo BillingActivity");
+			UiUtils.NavigateTo(BillingActivity.class);
+		}
+
+		registerReceiver(_receiver, _intFilt);
+
+		_context.startService(new Intent(_context, AppService.class).putExtra(NotifyType.ExtraConstant, NotifyType.RefreshSmsNotify));
+		_smsAdapter.LoadData();
+		HandleFirstRun();
 		LoadList();
 		UpdateButtons();
 	}
 
-	/*
-	 * setOnItemSelectedListener(new OnItemSelectedListener() { public void
-	 * onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-	 * Log.d(LOG_TAG, "itemSelect: position = " + position + ", id = " + id); }
-	 */
-
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		v.setSelected(true);
-		Sms item = (Sms) getListAdapter().getItem(position);
-		SetSelected(item);
+	private void HandleFirstRun() {
+		if (FirstRun) {
+			FirstRun = false;
+			if (_smsAdapter.getCount() > 0) {
+				SetSelected(0);
+			}
+		}
 	}
 
-	private void SetSelected(Sms item) {
-		DebugMessage.Debug(_context, item.SenderId + " " + item.Text);
-		_selectedSms = item;
+	private void Init() {
+		_receiver = new BroadcastReceiver() {
+			public void onReceive(Context context, Intent intent) {
+				Logger.Debug(LOG_TAG, "BroadcastReceiver onReceive");
+				UpdateList();
+			}
+		};
+
+		_intFilt = new IntentFilter(Constants.BROADCAST_SMS_ANALYZER_ACTION);
+		FirstRun = true;
+	}
+
+	private void SetSelected(int position) {
+		_smsAdapter.SetSelectedIndex(position);
 		UpdateButtons();
+		_smsAdapter.notifyDataSetChanged();
 	}
 
 	private void UpdateButtons() {
-		if (_selectedSms != null) {
+		if (_smsAdapter.HasCurrentItem()) {
 			SetButtonEnabled(true);
 
 		} else {
@@ -95,29 +159,29 @@ public class SmsAnalyzerActivity extends JalapenoListActivity {
 	}
 
 	public void NeedSms(View view) {
-		if (_selectedSms != null) {
-			_smsAnalyzerService.SetSenderAsTrusted(_selectedSms.SenderId);
+		if (_smsAdapter.HasCurrentItem()) {
+			_smsAnalyzerService.SetSenderAsTrusted(_smsAdapter.GetSelectedItem().SenderId);
 			UpdateList();
 		}
 	}
 
 	public void ToSpam(View view) {
-		if (_selectedSms != null) {
-			_smsAnalyzerService.SetSenderAsSpamer(_selectedSms.SenderId);
+		if (_smsAdapter.HasCurrentItem()) {
+			_smsAnalyzerService.SetSenderAsSpamer(_smsAdapter.GetSelectedItem().SenderId);
 			UpdateList();
 		}
 	}
 
 	public void DeleteSms(View view) {
-		if (_selectedSms != null) {
-			_smsAnalyzerService.DeleteSms(_selectedSms);
+		if (_smsAdapter.HasCurrentItem()) {
+			_smsAnalyzerService.DeleteSms(_smsAdapter.GetSelectedItem());
 			UpdateList();
 		}
 	}
 
 	private void UpdateList() {
-		_smsAdapter.Regresh();
-		_selectedSms = null;
+		_smsAdapter.Refresh();
 		UpdateButtons();
+		_context.startService(new Intent(_context, AppService.class).putExtra(NotifyType.ExtraConstant, NotifyType.RefreshSmsNotify));
 	}
 }

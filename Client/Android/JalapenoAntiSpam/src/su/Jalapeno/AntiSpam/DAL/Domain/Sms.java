@@ -28,5 +28,4 @@ public class Sms extends Entity {
 		Status = 0;
 		Text = "";
 	}
-
 }

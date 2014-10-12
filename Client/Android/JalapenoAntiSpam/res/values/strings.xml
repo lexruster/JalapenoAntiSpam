@@ -1,7 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="title_activity_sms_analyzer">SmsAnalyzerActivity</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <!-- app name -->
+    <string name="app_name">Jalapeno Antispam</string>
+
+    <!-- main acticity -->
+    <string name="KnownSpammerList">Spammers</string>
+    <string name="SmsValidateList">SMS</string>
+    <string name="SmsTrashList">Trash</string>
+    <string name="AccessInfo">Evaluation period: %d days</string>
+    <string name="AccessLastDay">Trial expires today</string>
+    <string name="AccessFullInfo">Full version</string>
+    <string name="AntiSpamOn">On</string>
+    <string name="AntiSpamOff">Turn on</string>
+    <string name="EarlyAccessText"><a href="http://jalapeno.su">Buy now at a lower price!</a></string>
+
+    <!-- Debug acticity -->
+    <string name="SoundSettings">Sounds</string>
+    <string name="DebugActivity">Debug</string>
+
+    <!-- Spamer list acticity -->
+    <string name="SpammerList">Spammers</string>
+    <string name="isspamer">Spammer?</string>
+    <string name="EmptySpamerList">No Spammers...</string>
+
+    <!-- Sms list acticity -->
+    <string name="SmsList">SMS</string>
+    <string name="SpamButton">Spam!</string>
+    <string name="NotSpamButton">Not spam</string>
+    <string name="DeleteButton">Delete</string>
+    <string name="EmptySmsList">No SMS to check...</string>
+
+    <!-- Sms trash acticity -->
+    <string name="ClearAll">Clear</string>
+    <string name="ClearConfirmationMessage">Are you sure you want to clear Trash?</string>
+    <string name="EmptyTrash">Trash is empty</string>
+
+    <!-- Notification -->
+    <string name="NotExistsUnknownSms">You have no spam!</string>
+    <string name="NeedBuyAccessText">Trial expired. Please, buy it</string>
+    <string name="ExistsUnknownSms">You have some SMS to check</string>
+
+    <!-- Register acticity -->
+    <string name="RegisterButton">Sign up</string>
+    <string name="RegisterText">Please, sign up via your Google account. Note: performing registration, you accept the terms of the License Agreement</string>
+    <string name="LicenseAgreementUrl">http://jalapeno.su/license.en.html</string>
+    <string name="LicenseAgreement"><a href="http://jalapeno.su/license.en.html">License agreement</a></string>
+
+    <!-- Register acticity message -->
+    <string name="BannedRegister">Sorry, this user was banned</string>
+    <string name="ErrorRegister">Registration error. Please, check the Internet connection, then try again</string>
+    <string name="NeedPeekAccount">You have to choose an account</string>
+    <string name="DeviceNotSupported">Sorry, this device is not supported</string>
+
+    <!-- Register debug acticity -->
+    <string name="TestRegister">Test registration</string>
+
+    <!-- Buy acticity -->
+    <string name="BillingBuyText">You can buy Jalapeno Antispam or restore your payment</string>
+    <string name="BillingBuyButton">Buy</string>
+    <string name="FullPriceInfo">If you pay after trial expiration: %s</string>
+    <string name="PriceInfo">Price: %s</string>
+
+    <!-- Buy acticity message -->
+    <string name="ErrorBilling">Payment error. Please, check the Internet connection, then try again</string>
+    <string name="PurchaseComplete">Congratulations! Your payment was successfully completed</string>
+
+    <!-- Buy debug acticity -->
+    <string name="TestBuyText">Test payment</string>
+
+    <!-- Misc -->
+    <string name="WaitMessage">Please, wait</string>
+    <string name="DialogYes">Yes</string>
+    <string name="DialogNo">No</string>
+    <string name="DateFormat">dd MMM yyyy HH:mm</string>
+    <string name="ParentActivity">su.Jalapeno.AntiSpam.Activities.SettingsActivity</string>
 
 </resources>

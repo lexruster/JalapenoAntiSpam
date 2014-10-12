@@ -1,42 +1,36 @@
 package su.Jalapeno.AntiSpam.Services;
 
 import su.Jalapeno.AntiSpam.SystemService.AppService;
+import su.Jalapeno.AntiSpam.SystemService.NotifyType;
 import su.Jalapeno.AntiSpam.Util.Constants;
-import su.Jalapeno.AntiSpam.Util.DebugMessage;
+import su.Jalapeno.AntiSpam.Util.Logger;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.util.Log;
 
 import com.google.inject.Inject;
 
 public class NotifyService {
-	private SettingsService _settingsService;
 	private Context _context;
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "NotifyService";
 
 	@Inject
-	public NotifyService(Context context, SettingsService settingsService) {
+	public NotifyService(Context context) {
 		_context = context;
-		_settingsService = settingsService;
 	}
 
 	public void ContactRingtone() {
-
 	}
 
 	public void OnIncomeSms() {
-		Log.i(LOG_TAG, "OnIncomeSms.");
+		Logger.Debug(LOG_TAG, "OnIncomeSms.");
 		PlayRingtone();
-
-		_context.startService(new Intent(_context, AppService.class));
-
-		DebugMessage.Debug(_context, "Def ringtone");
+		_context.startService(new Intent(_context, AppService.class).putExtra(NotifyType.ExtraConstant, NotifyType.IncomeUnknownSms));
 	}
 
-	private void PlayRingtone() {
+	public void PlayRingtone() {
 		Uri notificationAlarm;
 		notificationAlarm = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 		if (notificationAlarm == null) {
@@ -50,5 +44,16 @@ public class NotifyService {
 		if (ringtone != null) {
 			ringtone.play();
 		}
+	}
+
+	public void OnAccessNotAllowed() {
+		Logger.Debug(LOG_TAG, "OnAccessNotAllowed.");
+		PlayRingtone();
+		_context.startService(new Intent(_context, AppService.class).putExtra(NotifyType.ExtraConstant, NotifyType.AccessFailAlarm));
+	}
+
+	public void OnAccessAllowed() {
+		Logger.Debug(LOG_TAG, "OnAccessAllowed.");
+		_context.startService(new Intent(_context, AppService.class).putExtra(NotifyType.ExtraConstant, NotifyType.RefreshSmsNotify));
 	}
 }
