@@ -5,7 +5,6 @@
     android:versionName="1.0.0.2" >
 
     <uses-sdk
-        android:maxSdkVersion="18"
         android:minSdkVersion="9"
         android:targetSdkVersion="16" />
 
@@ -95,20 +94,77 @@
         </activity>
 
         <receiver
-            android:name="su.Jalapeno.AntiSpam.SystemService.SmsBroadcastReceiver"
-            android:enabled="true"
-            android:exported="true" >
-            <intent-filter android:priority="2147483631" >
-                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-            </intent-filter>
-        </receiver>
-        <receiver
             android:name="su.Jalapeno.AntiSpam.SystemService.ServiceBroadcastReceiver"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name="su.Jalapeno.AntiSpam.SystemService.SmsBroadcastReceiver"
+            android:enabled="@bool/LessThenKitkat"
+            android:exported="@bool/LessThenKitkat" >
+            <intent-filter android:priority="2147483631" >
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- KitKat service -->
+        <receiver
+            android:name="su.Jalapeno.AntiSpam.SystemService.KitKatSmsBroadcastReceiver"
+            android:enabled="@bool/KitkatOrMore"
+            android:permission="android.permission.BROADCAST_SMS" >
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_DELIVER" />
+            </intent-filter>
+        </receiver>
+
+        <!-- kit kat requirement -->
+        <!-- BroadcastReceiver that listens for incoming MMS messages -->
+        <receiver
+            android:name=".MmsReceiver"
+            android:enabled="@bool/KitkatOrMore"
+            android:permission="android.permission.BROADCAST_WAP_PUSH" >
+            <intent-filter>
+                <action android:name="android.provider.Telephony.WAP_PUSH_DELIVER" />
+
+                <data android:mimeType="application/vnd.wap.mms-message" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Activity that allows the user to send new SMS/MMS messages -->
+        <activity android:name=".ComposeSmsActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.action.SENDTO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+                <data android:scheme="mms" />
+                <data android:scheme="mmsto" />
+            </intent-filter>
+        </activity>
+
+        <!-- Service that delivers messages from the phone "quick response" -->
+        <service
+            android:name=".HeadlessSmsSendService"
+            android:exported="true"
+            android:permission="android.permission.SEND_RESPOND_VIA_MESSAGE" >
+            <intent-filter>
+                <action android:name="android.intent.action.RESPOND_VIA_MESSAGE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+                <data android:scheme="mms" />
+                <data android:scheme="mmsto" />
+            </intent-filter>
+        </service>
+        <!-- END kit kat requirement -->
 
         <service
             android:name="su.Jalapeno.AntiSpam.SystemService.AppService"

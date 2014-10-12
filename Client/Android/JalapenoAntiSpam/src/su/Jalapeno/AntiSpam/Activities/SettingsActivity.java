@@ -14,13 +14,18 @@ import su.Jalapeno.AntiSpam.Util.AccessInfo;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
+import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Telephony;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.URLSpan;
@@ -87,8 +92,7 @@ public class SettingsActivity extends JalapenoActivity {
 				new UpdateTrashTextAsync().execute();
 			}
 		};
-		
-		
+
 		linkEarlyAccess.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -136,7 +140,66 @@ public class SettingsActivity extends JalapenoActivity {
 		ShowAccessInfo();
 		registerReceiver(_receiver, _intFilt);
 		reciverRegistered = true;
+
+		CheckForKitKat();
+
 		new UpdateTrashTextAsync().execute();
+	}
+
+	private void CheckForKitKat() {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			Logger.Debug(LOG_TAG, "It KitKat.");
+			SetKitKat();
+		}
+
+	}
+
+	@TargetApi(Build.VERSION_CODES.KITKAT)
+	private void SetKitKat() {
+		final String myPackageName = getPackageName();
+		if (!Telephony.Sms.getDefaultSmsPackage(this).equals(myPackageName)) {
+			ShowKitKatAlert(myPackageName);
+			// App is not default.
+			// Show the "not currently set as the default SMS app" interface
+			/*
+			 * View viewGroup = findViewById(R.id.not_default_app);
+			 * viewGroup.setVisibility(View.VISIBLE);
+			 * 
+			 * // Set up a button that allows the user to change the default SMS
+			 * app Button button = (Button)
+			 * findViewById(R.id.change_default_app);
+			 * button.setOnClickListener(new View.OnClickListener() { public
+			 * void onClick(View v) { Intent intent = new
+			 * Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
+			 * intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME,
+			 * myPackageName); startActivity(intent); } });
+			 */
+		} else {
+			// App is the default.
+			// Hide the "not currently set as the default SMS app" interface
+			// View viewGroup = findViewById(R.id.not_default_app);
+			// viewGroup.setVisibility(View.GONE);
+		}
+
+	}
+
+	@TargetApi(Build.VERSION_CODES.KITKAT)
+	private void ShowKitKatAlert(final String myPackageName) {
+		new AlertDialog.Builder(this)
+		.setIcon(android.R.drawable.ic_dialog_alert)
+		.setMessage(R.string.ClearConfirmationMessage)
+		.setCancelable(false)
+		.setPositiveButton(R.string.DialogYes, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				Logger.Debug(LOG_TAG, "try set default");
+				Intent intent = new Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
+				intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME, myPackageName);
+				startActivity(intent);
+			}
+
+		}).setNegativeButton(R.string.DialogNo, null).show();
+		
 	}
 
 	private void ShowAccessInfo() {
