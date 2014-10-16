@@ -49,13 +49,6 @@
                 android:value="su.Jalapeno.AntiSpam.Activities.SettingsActivity" />
         </activity>
         <activity
-            android:name="su.Jalapeno.AntiSpam.Activities.Debug"
-            android:parentActivityName="@string/ParentActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="su.Jalapeno.AntiSpam.Activities.SettingsActivity" />
-        </activity>
-        <activity
             android:name="su.Jalapeno.AntiSpam.Activities.SpamerList"
             android:launchMode="singleInstance"
             android:parentActivityName="@string/ParentActivity" >
