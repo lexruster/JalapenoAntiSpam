@@ -28,11 +28,6 @@
                     style="@style/BaseText.BaseControl.Text"
                     android:text="Info" />
                 
-                 <TextView
-                    android:id="@+id/textBillingInfo"
-                    style="@style/BaseText.BaseControl.Text"
-                    android:text="BillingInfo" />
-                
                 <TextView
                     android:id="@+id/textView"
                     style="@style/BaseText.BaseControl.TextHeader"
@@ -79,17 +74,6 @@
                     android:onClick="DropRegister"
                     android:text="Drop registration" />
                  
-                 <Button
-                    android:id="@+id/buttonDropBuy"
-                    style="@style/BaseText.BaseControl.Button"
-                    android:onClick="GoToBuy"
-                    android:text="Drop buy" />
-                 
-                 <Button
-                    android:id="@+id/buttonConsumeAccess"
-                    style="@style/BaseText.BaseControl.Button"
-                    android:onClick="Consume"
-                    android:text="Consume access" />
             </LinearLayout>
 
             <LinearLayout

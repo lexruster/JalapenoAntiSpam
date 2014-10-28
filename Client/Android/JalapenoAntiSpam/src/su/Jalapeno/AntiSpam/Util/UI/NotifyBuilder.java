@@ -1,7 +1,6 @@
 package su.Jalapeno.AntiSpam.Util.UI;
 
-import su.Jalapeno.AntiSpam.Filter.R;
-import su.Jalapeno.AntiSpam.Activities.BillingActivity;
+import su.Jalapeno.AntiSpam.FilterPro.R;
 import su.Jalapeno.AntiSpam.Activities.SmsAnalyzerActivity;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -53,34 +52,6 @@ public class NotifyBuilder {
 		}
 
 		notification.flags |= Notification.FLAG_NO_CLEAR;
-
-		return notification;
-	}
-
-	@SuppressWarnings("deprecation")
-	public static Notification CreateNotifacationNotAccess(Context context) {
-		Bitmap iconNotifyWhitePepper = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_notif_white_pepper);
-		String title = context.getResources().getString(R.string.app_name);
-
-		NotificationCompat.Builder notifBuilder = new NotificationCompat
-				.Builder(context)
-				.setLargeIcon(iconNotifyWhitePepper)
-				.setWhen(System.currentTimeMillis())
-				.setAutoCancel(false)
-				.setContentTitle(title);
-
-		String smsStatus = context.getResources().getString(R.string.NeedBuyAccessText);
-		notifBuilder.setSmallIcon(R.drawable.spam_ico);
-		notifBuilder.setContentText(smsStatus);
-
-		Intent notificationIntent = new Intent(context, BillingActivity.class);
-		PendingIntent pendingIntent = PendingIntent.getActivity(context, 131, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-		notifBuilder.setContentIntent(pendingIntent);
-
-		Notification notification = notifBuilder.getNotification();
-		notification.defaults |= Notification.DEFAULT_VIBRATE;
-		notification.defaults |= Notification.DEFAULT_LIGHTS;
-		notification.flags |= Notification.FLAG_SHOW_LIGHTS;
 
 		return notification;
 	}

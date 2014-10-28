@@ -45,15 +45,4 @@ public class NotifyService {
 			ringtone.play();
 		}
 	}
-
-	public void OnAccessNotAllowed() {
-		Logger.Debug(LOG_TAG, "OnAccessNotAllowed.");
-		PlayRingtone();
-		_context.startService(new Intent(_context, AppService.class).putExtra(NotifyType.ExtraConstant, NotifyType.AccessFailAlarm));
-	}
-
-	public void OnAccessAllowed() {
-		Logger.Debug(LOG_TAG, "OnAccessAllowed.");
-		_context.startService(new Intent(_context, AppService.class).putExtra(NotifyType.ExtraConstant, NotifyType.RefreshSmsNotify));
-	}
 }

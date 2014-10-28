@@ -2,7 +2,6 @@ package su.Jalapeno.AntiSpam.Util;
 
 import su.Jalapeno.AntiSpam.DAL.Repository;
 import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
-import su.Jalapeno.AntiSpam.Services.AccessService;
 import su.Jalapeno.AntiSpam.Services.ConfigService;
 import su.Jalapeno.AntiSpam.Services.ContactsService;
 import su.Jalapeno.AntiSpam.Services.RequestQueue;
@@ -38,14 +37,10 @@ public class ServiceFactory {
 		SmsQueueService smsQueueService = new SmsQueueService(repository);
 		NotifyService notifyService = new NotifyService(context);
 
-		AccessService accessService = new AccessService(context,
-				smsQueueService, settingsService, notifyService, smsService);
-
 		JalapenoHttpService jalapenoHttpService = new JalapenoHttpService(
 				context, encodeService);
 		JalapenoWebServiceWraper jalapenoWebServiceWraper = new JalapenoWebServiceWraper(
-				jalapenoHttpService, settingsService, encodeService,
-				accessService);
+				jalapenoHttpService, settingsService, encodeService);
 
 		RequestQueue _requestQueue = new RequestQueue(repository,
 				jalapenoWebServiceWraper, settingsService);
@@ -68,14 +63,8 @@ public class ServiceFactory {
 		EncoderService encodeService = new EncoderService();
 		JalapenoHttpService jalapenoHttpService = new JalapenoHttpService(
 				context, encodeService);
-		SmsService smsService = new SmsService(context);
-		SmsQueueService smsQueueService = new SmsQueueService(repository);
-		NotifyService notifyService = new NotifyService(context);
-		AccessService accessService = new AccessService(context,
-				smsQueueService, settingsService, notifyService, smsService);
 		JalapenoWebServiceWraper jalapenoWebServiceWraper = new JalapenoWebServiceWraper(
-				jalapenoHttpService, settingsService, encodeService,
-				accessService);
+				jalapenoHttpService, settingsService, encodeService);
 		RequestQueue requestQueue = new RequestQueue(repository,
 				jalapenoWebServiceWraper, settingsService);
 

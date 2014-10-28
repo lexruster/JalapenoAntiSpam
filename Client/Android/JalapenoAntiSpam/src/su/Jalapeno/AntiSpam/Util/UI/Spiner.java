@@ -1,6 +1,6 @@
 package su.Jalapeno.AntiSpam.Util.UI;
 
-import su.Jalapeno.AntiSpam.Filter.R;
+import su.Jalapeno.AntiSpam.FilterPro.R;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import android.app.ProgressDialog;

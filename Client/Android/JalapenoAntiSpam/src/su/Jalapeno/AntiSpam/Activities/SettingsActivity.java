@@ -4,13 +4,11 @@ import java.util.Locale;
 
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
-import su.Jalapeno.AntiSpam.Filter.R;
-import su.Jalapeno.AntiSpam.Services.AccessService;
+import su.Jalapeno.AntiSpam.FilterPro.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.Sms.TrashSmsService;
 import su.Jalapeno.AntiSpam.SystemService.AppService;
 import su.Jalapeno.AntiSpam.SystemService.NotifyType;
-import su.Jalapeno.AntiSpam.Util.AccessInfo;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
@@ -18,16 +16,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.URLSpan;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.google.inject.Inject;
 
@@ -37,9 +29,6 @@ public class SettingsActivity extends JalapenoActivity {
 
 	@Inject
 	Context _context;
-
-	@Inject
-	AccessService _accessService;
 
 	@Inject
 	SettingsService _settingsService;
@@ -52,12 +41,6 @@ public class SettingsActivity extends JalapenoActivity {
 
 	@InjectView(R.id.toggleEnabled)
 	Button toogleButton;
-
-	@InjectView(R.id.textAccessInfo)
-	TextView textAccessInfo;
-
-	@InjectView(R.id.textEarlyAccess)
-	TextView linkEarlyAccess;
 
 	@InjectView(R.id.buttonSmsTrash)
 	Button buttonSmsTrash;
@@ -87,14 +70,6 @@ public class SettingsActivity extends JalapenoActivity {
 				new UpdateTrashTextAsync().execute();
 			}
 		};
-		
-		
-		linkEarlyAccess.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				UiUtils.NavigateTo(BillingActivity.class);
-			}
-		});
 
 		_intFilt = new IntentFilter(Constants.BROADCAST_TRASH_SMS_ACTION);
 	}
@@ -127,38 +102,11 @@ public class SettingsActivity extends JalapenoActivity {
 		}
 
 		UpdateOnOffButton(_settingsService.AntispamEnabled());
-
-		if (!_accessService.AccessCheck()) {
-			Logger.Debug(LOG_TAG, "Init NavigateTo BillingActivity");
-			UiUtils.NavigateAndClearHistory(BillingActivity.class);
-			return;
-		}
-		ShowAccessInfo();
 		registerReceiver(_receiver, _intFilt);
 		reciverRegistered = true;
 		new UpdateTrashTextAsync().execute();
 	}
-
-	private void ShowAccessInfo() {
-		AccessInfo accessInfo = _settingsService.GetAccessInfo();
-		if (accessInfo.IsUnlimitedAccess) {
-			textAccessInfo.setText(R.string.AccessFullInfo);
-			linkEarlyAccess.setVisibility(View.INVISIBLE);
-		} else {
-			ShowLimitedAccessInfo(accessInfo);
-		}
-	}
-
-	private void ShowLimitedAccessInfo(AccessInfo accessInfo) {
-		if (accessInfo.EvaluationDaysLast < 1) {
-			textAccessInfo.setText(R.string.AccessLastDay);
-		} else {
-			String info = _context.getString(R.string.AccessInfo, accessInfo.EvaluationDaysLast);
-			textAccessInfo.setText(info);
-		}
-		linkEarlyAccess.setVisibility(View.VISIBLE);
-	}
-
+	
 	private void UpdateOnOffButton(boolean antispamEnabled) {
 		Logger.Debug(LOG_TAG, "UpdateOnOffButton enabled: " + antispamEnabled);
 		if (antispamEnabled) {

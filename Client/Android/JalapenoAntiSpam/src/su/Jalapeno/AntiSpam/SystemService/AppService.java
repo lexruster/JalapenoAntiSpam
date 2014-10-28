@@ -60,9 +60,6 @@ public class AppService extends RoboService {
 		Logger.Debug(LOG_TAG, "onStartCommand flag " + flags + " start " + startId + " notifyType " + notifyType);
 
 		switch (notifyType) {
-		case NotifyType.AccessFailAlarm:
-			StartNotifyNotAccess();
-			break;
 		case NotifyType.IncomeUnknownSms:
 		case NotifyType.RefreshSmsNotify:
 			if (_settingsService.AntispamEnabled()) {
@@ -102,14 +99,6 @@ public class AppService extends RoboService {
 		} else {
 			Logger.Debug(LOG_TAG, "onStartCommand _smsQueueService = null ");
 		}
-	}
-
-	private void StartNotifyNotAccess() {
-		Logger.Debug(LOG_TAG, "StartNotifyNotAccess");
-		StopNotify();
-		Notification notification = NotifyBuilder.CreateNotifacationNotAccess(_context);
-		nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-		nm.notify(NOTIFY_ID, notification);
 	}
 
 	public void onDestroy() {
