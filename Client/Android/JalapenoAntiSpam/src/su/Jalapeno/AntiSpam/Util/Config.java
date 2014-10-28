@@ -1,6 +1,5 @@
 package su.Jalapeno.AntiSpam.Util;
 
-import java.util.Date;
 import java.util.UUID;
 
 public class Config {
@@ -20,12 +19,4 @@ public class Config {
 	public String NAME_DomainUrlPrimary = "DomainUrlPrimary";
 	public boolean DomainUrlPrimary;
 	public boolean DEFAULT_DomainUrlPrimary = true;
-
-	public String NAME_ExpirationDate = "ExpirationDate";
-	public Date ExpirationDate;
-	public Date DEFAULT_ExpirationDate = DateUtil.addDays(new Date(), 30);
-	
-	public String NAME_UnlimitedAccess = "UnlimitedAccess";
-	public boolean UnlimitedAccess;
-	public boolean DEFAULT_UnlimitedAccess = false;
 }

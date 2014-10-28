@@ -1,33 +1,14 @@
 package su.Jalapeno.AntiSpam.Activities;
 
-import static org.solovyev.android.checkout.ProductTypes.IN_APP;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-import javax.annotation.Nonnull;
-
-import org.solovyev.android.checkout.ActivityCheckout;
-import org.solovyev.android.checkout.BillingRequests;
-import org.solovyev.android.checkout.Checkout;
-import org.solovyev.android.checkout.Inventory;
-import org.solovyev.android.checkout.Purchase;
-import org.solovyev.android.checkout.RequestListener;
-import org.solovyev.android.checkout.ResponseCodes;
-import org.solovyev.android.checkout.Sku;
-import org.solovyev.android.checkout.Inventory.Product;
-
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
-import su.Jalapeno.AntiSpam.MyApplication;
 import su.Jalapeno.AntiSpam.DAL.RepositoryFactory;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sms;
-import su.Jalapeno.AntiSpam.Filter.R;
-import su.Jalapeno.AntiSpam.Services.AccessService;
+import su.Jalapeno.AntiSpam.FilterPro.R;
 import su.Jalapeno.AntiSpam.Services.ContactsService;
 import su.Jalapeno.AntiSpam.Services.EmailSender;
 import su.Jalapeno.AntiSpam.Services.NotifyService;
@@ -37,7 +18,6 @@ import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiver;
 import su.Jalapeno.AntiSpam.Services.Sms.SmsReceiverLogic;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
 import su.Jalapeno.AntiSpam.Services.WebService.WebClient;
-import su.Jalapeno.AntiSpam.Util.BillingConstants;
 import su.Jalapeno.AntiSpam.Util.Constants;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.ServiceFactory;
@@ -50,7 +30,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,26 +51,12 @@ public class Debug extends JalapenoActivity {
 	@Inject
 	SettingsService _settingsService;
 
-	@Inject
-	AccessService _accessService;
-
-	private Sku _skuAccessToBuy;
 	private String _token;
 
 	@InjectView(R.id.textDeviceInfo)
 	TextView textDeviceInfo;
 
-	@InjectView(R.id.textBillingInfo)
-	TextView textBillingInfo;
-
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "DebugActivity";
-
-	@Nonnull
-	protected final ActivityCheckout checkout = Checkout.forActivity(this,
-			MyApplication.get().getCheckout());
-
-	@Nonnull
-	protected Inventory inventory;
 
 	SmsReceiverLogic _smsService;
 	SmsReceiver _smsReceiver;
@@ -111,12 +76,6 @@ public class Debug extends JalapenoActivity {
 		super.onCreate(savedInstanceState);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		SetEvent();
-
-		checkout.start();
-		Logger.Debug(LOG_TAG, "onCreate createPurchaseFlow");
-		inventory = checkout.loadInventory();
-		inventory.whenLoaded(new InventoryLoadedListener());
-
 		Init();
 	}
 
@@ -151,35 +110,12 @@ public class Debug extends JalapenoActivity {
 
 	private void SetText() {
 		String info = String
-				.format("Enabled: %b, Registered: %b, AccesAllowed: %b, DaysLast: %d, Unlimited: %b, ClientId: %s, Domain: %s",
+				.format("Enabled: %b, Registered: %b, ClientId: %s, Domain: %s",
 						_settingsService.AntispamEnabled(),
 						_settingsService.ClientIsRegistered(),
-						_settingsService.GetAccessInfo().AccessIsAllowed,
-						_settingsService.GetAccessInfo().EvaluationDaysLast,
-						_settingsService.GetAccessInfo().IsUnlimitedAccess,
 						_settingsService.GetClientId(),
 						_settingsService.GetDomain());
 		textDeviceInfo.setText(info);
-	}
-
-	private void SetBillingText(boolean checkPurchase, List<Sku> skus,
-			Sku skuBuy) {
-		String skuInfo = "";
-		for (Sku sku : skus) {
-			skuInfo = skuInfo
-					+ String.format("Sku descr %s, price %s\n",
-							sku.description, sku.price);
-		}
-
-		String info = "";
-		if (checkPurchase) {
-			info = String.format("Purchase: TRUE\nSku: %s\nSkus: %s",
-					skuBuy.description, skuInfo);
-		} else {
-			info = String.format("Purchase: FALSE\nSkus: %s", skuInfo);
-
-		}
-		textBillingInfo.setText(info);
 	}
 
 	private void SetEvent() {
@@ -305,24 +241,6 @@ public class Debug extends JalapenoActivity {
 
 	public void ChangeDomain(View v) {
 		_settingsService.ChangeDomain();
-	}
-
-	public void Consume(View v) {
-		Consume(_token, new ConsumeListener());
-	}
-
-	private void Consume(@Nonnull final String token,
-			@Nonnull final RequestListener<Object> onConsumed) {
-		checkout.whenReady(new Checkout.ListenerAdapter() {
-			@Override
-			public void onReady(@Nonnull BillingRequests requests) {
-				requests.consume(token, onConsumed);
-			}
-		});
-	}
-
-	public void GoToBuy(View v) {
-		_accessService.HandleAccessNotAllowed();
 	}
 
 	protected void InContacts(String ph) {
@@ -530,85 +448,4 @@ public class Debug extends JalapenoActivity {
 
 		task.execute();
 	}
-
-	private class InventoryLoadedListener implements Inventory.Listener {
-
-		@Override
-		public void onLoaded(@Nonnull Inventory.Products products) {
-			Logger.Debug(LOG_TAG, "InventoryLoadedListener onLoaded");
-			final Inventory.Product product = products.get(IN_APP);
-			if (product.isSupported()) {
-				Logger.Debug(LOG_TAG, "InventoryLoadedListener isSupported");
-				InspectPurchases(product);
-			} else {
-				Logger.Error(LOG_TAG, "InventoryLoadedListener  support false");
-				List<Sku> list = new ArrayList<Sku>();
-				SetBillingText(false, list, null);
-				ShowToast(R.string.ErrorBilling);
-			}
-		}
-
-		private void InspectPurchases(final Inventory.Product product) {
-			List<Sku> skus = product.getSkus();
-			Logger.Debug(LOG_TAG, "InspectPurchases skus count " + skus.size());
-			_skuAccessToBuy = FindIsPurchased(skus, product);
-			boolean purch = _skuAccessToBuy != null;
-			Logger.Debug(LOG_TAG, "InspectPurchases isPurchased=" + purch);
-			if (purch) {
-				SetBillingText(true, skus, _skuAccessToBuy);
-			} else {
-				SetBillingText(false, skus, _skuAccessToBuy);
-			}
-		}
-
-		private Sku FindIsPurchased(List<Sku> skus, Product product) {
-			for (Sku sku : skus) {
-				final Purchase purchase = product.getPurchaseInState(sku,
-						Purchase.State.PURCHASED);
-				boolean isPurchased = purchase != null
-						&& !TextUtils.isEmpty(purchase.token);
-				if (isPurchased) {
-					_token = purchase.token;
-					return sku;
-				}
-			}
-
-			return null;
-		}
-	}
-
-	private abstract class BaseRequestListener<Req> implements
-			RequestListener<Req> {
-
-		@Override
-		public void onError(int response, @Nonnull Exception ex) {
-			Logger.Error(LOG_TAG,
-					"PurchaseListener BaseRequestListener onError", ex);
-			ShowToast(R.string.ErrorBilling);
-		}
-	}
-
-	private class ConsumeListener extends BaseRequestListener<Object> {
-		@Override
-		public void onSuccess(@Nonnull Object result) {
-			onConsumed();
-		}
-
-		private void onConsumed() {
-			inventory.load().whenLoaded(new InventoryLoadedListener());
-			ShowToast("Success consume");
-		}
-
-		@Override
-		public void onError(int response, @Nonnull Exception e) {
-			// it is possible that our data is not synchronized with data on
-			// Google Play => need to handle some errors
-			if (response == ResponseCodes.ITEM_NOT_OWNED) {
-				onConsumed();
-			} else {
-				super.onError(response, e);
-			}
-		}
-	}
-
 }

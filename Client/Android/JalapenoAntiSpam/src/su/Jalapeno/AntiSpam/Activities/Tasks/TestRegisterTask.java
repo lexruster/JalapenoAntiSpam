@@ -4,10 +4,12 @@ import java.util.UUID;
 
 import su.Jalapeno.AntiSpam.Activities.RegisterActivity;
 import su.Jalapeno.AntiSpam.Activities.SettingsActivity;
-import su.Jalapeno.AntiSpam.Filter.R;
+import su.Jalapeno.AntiSpam.FilterPro.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.NotifyAboutPaymentRequest;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Request.RegisterClientRequest;
+import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.NotifyAboutPaymentResponse;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.RegisterClientResponse;
 import su.Jalapeno.AntiSpam.Services.WebService.Dto.Response.WebErrorEnum;
 import su.Jalapeno.AntiSpam.Util.Constants;
@@ -35,7 +37,7 @@ public class TestRegisterTask extends
 	@Override
 	protected void onPostExecute(RegisterClientResponse registerClient) {
 		if (registerClient.WasSuccessful) {
-			_settingsService.RegisterClient(registerClient.ExpirationDate, registerClient.UnlimitedAccess);
+			_settingsService.RegisterClient();
 			Logger.Debug(LOG_TAG,
 					"Test Register with guid " + _settingsService.GetClientId());
 			spiner.Hide();
@@ -70,6 +72,17 @@ public class TestRegisterTask extends
 		request.Token = "Test_token";
 
 		registerClient = _jalapenoWebServiceWraper.RegisterTestClient(request);
+		if (registerClient.WasSuccessful) {
+			String message = "";
+			String orderId = "dfsdf";
+			message = String.format("PrePaid app ClientId:%s, OrderId:%s",
+					uuid.toString(), orderId);
+			NotifyAboutPaymentResponse notifyAboutPayment = _jalapenoWebServiceWraper
+					.NotifyAboutPayment(new NotifyAboutPaymentRequest(message,
+							uuid));
+			registerClient.WasSuccessful = notifyAboutPayment.WasSuccessful;
+			registerClient.ErrorMessage = notifyAboutPayment.ErrorMessage;
+		}
 
 		return registerClient;
 	}

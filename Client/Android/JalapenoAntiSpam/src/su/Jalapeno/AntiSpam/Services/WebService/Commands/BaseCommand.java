@@ -1,6 +1,5 @@
 package su.Jalapeno.AntiSpam.Services.WebService.Commands;
 
-import su.Jalapeno.AntiSpam.Services.AccessService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.EncoderService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
@@ -22,7 +21,6 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 	public TResp Response;
 	protected JalapenoHttpService _httpService;
 	protected SettingsService _settingsService;
-	protected AccessService _accessService;
 	protected String _domain;
 	private Gson _gson;
 
@@ -32,12 +30,10 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 	@Inject
 	public BaseCommand(JalapenoHttpService httpService,
 			SettingsService settingsService, EncoderService encoderService,
-			AccessService accessService,
 			Class<TResp> respClazz) {
 		_httpService = httpService;
 		_settingsService = settingsService;
 		_encoderService = encoderService;
-		_accessService=accessService;
 		_respClazz = respClazz;
 		Init();
 	}
@@ -151,7 +147,7 @@ public abstract class BaseCommand<TReq extends BaseRequest, TResp extends BaseRe
 		}
 
 		if (response.ErrorMessage == WebErrorEnum.PaymentRequired) {
-			_accessService.HandleAccessNotAllowed();
+			_settingsService.DropRegistration();
 		}
 
 		return false;

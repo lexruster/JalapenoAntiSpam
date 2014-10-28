@@ -4,7 +4,7 @@ import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import su.Jalapeno.AntiSpam.Activities.Tasks.RegisterTask;
 import su.Jalapeno.AntiSpam.Activities.Tasks.TestRegisterTask;
-import su.Jalapeno.AntiSpam.Filter.R;
+import su.Jalapeno.AntiSpam.FilterPro.R;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoWebServiceWraper;
 import su.Jalapeno.AntiSpam.Util.Constants;

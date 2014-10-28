@@ -1,6 +1,5 @@
 package su.Jalapeno.AntiSpam.Services.WebService.Commands;
 
-import su.Jalapeno.AntiSpam.Services.AccessService;
 import su.Jalapeno.AntiSpam.Services.SettingsService;
 import su.Jalapeno.AntiSpam.Services.WebService.EncoderService;
 import su.Jalapeno.AntiSpam.Services.WebService.JalapenoHttpService;
@@ -14,9 +13,8 @@ public class NotifyAboutPaymentCommand extends
 
 	public NotifyAboutPaymentCommand(JalapenoHttpService httpService,
 			SettingsService settingsService, EncoderService encoderService,
-			AccessService accessService,
 			Class<NotifyAboutPaymentResponse> respClazz) {
-		super(httpService, settingsService, encoderService, accessService,
+		super(httpService, settingsService, encoderService,
 				respClazz);
 	}
 

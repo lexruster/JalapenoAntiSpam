@@ -1,6 +1,5 @@
 package su.Jalapeno.AntiSpam.Services;
 
-import java.util.Date;
 import java.util.UUID;
 
 import su.Jalapeno.AntiSpam.Util.Config;
@@ -34,9 +33,6 @@ public class ConfigService {
 
 	private void FillConfig(Config config, SharedPreferences jalapenoSettings) {
 		config.Enabled = jalapenoSettings.getBoolean(config.NAME_Enabled, config.DEFAULT_Enabled);
-		config.UnlimitedAccess = jalapenoSettings.getBoolean(config.NAME_UnlimitedAccess, config.DEFAULT_UnlimitedAccess);
-		config.ExpirationDate = new Date(jalapenoSettings.getLong(config.NAME_ExpirationDate, config.DEFAULT_ExpirationDate.getTime()));
-
 		String clientId = jalapenoSettings.getString(config.NAME_ClientId, config.DEFAULT_ClientId);
 		if (clientId.length() > 0) {
 			config.ClientId = UUID.fromString(clientId);
@@ -50,10 +46,6 @@ public class ConfigService {
 		SharedPreferences jalapenoSettings = _context.getSharedPreferences(APP_PREFERENCES, ContextMode);
 		SharedPreferences.Editor editor = jalapenoSettings.edit();
 		editor.putBoolean(config.NAME_Enabled, config.Enabled);
-		editor.putBoolean(config.NAME_UnlimitedAccess, config.UnlimitedAccess);
-		if (config.ExpirationDate != null) {
-			editor.putLong(config.NAME_ExpirationDate, config.ExpirationDate.getTime());
-		}
 
 		if (config.ClientId != null) {
 			editor.putString(config.NAME_ClientId, config.ClientId.toString());
@@ -68,11 +60,9 @@ public class ConfigService {
 	private void SetDefault(Config config, SharedPreferences jalapenoSettings) {
 		SharedPreferences.Editor editor = jalapenoSettings.edit();
 		editor.putBoolean(config.NAME_Enabled, config.DEFAULT_Enabled);
-		editor.putBoolean(config.NAME_UnlimitedAccess, config.DEFAULT_UnlimitedAccess);
 		editor.putString(config.NAME_ClientId, config.DEFAULT_ClientId);
 		editor.putBoolean(config.NAME_ClientRegistered, config.DEFAULT_ClientRegistered);
 		editor.putBoolean(config.NAME_DomainUrlPrimary, config.DEFAULT_DomainUrlPrimary);
-		editor.putLong(config.NAME_ExpirationDate, config.DEFAULT_ExpirationDate.getTime());
 
 		editor.commit();
 	}

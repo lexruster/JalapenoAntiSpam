@@ -1,13 +1,10 @@
 package su.Jalapeno.AntiSpam.Services;
 
-import java.util.Date;
 import java.util.UUID;
 
 import su.Jalapeno.AntiSpam.Services.WebService.WebConstants;
-import su.Jalapeno.AntiSpam.Util.AccessInfo;
 import su.Jalapeno.AntiSpam.Util.Config;
 import su.Jalapeno.AntiSpam.Util.Constants;
-import su.Jalapeno.AntiSpam.Util.DateUtil;
 
 import com.google.inject.Inject;
 
@@ -49,36 +46,7 @@ public class SettingsService {
 	public boolean AntispamEnabled() {
 		Config config = LoadSettings();
 
-		return config.Enabled && config.ClientRegistered
-				&& AccessAllowed(config);
-	}
-
-	private boolean AccessAllowed(Config config) {
-		if (config.UnlimitedAccess) {
-			return true;
-		}
-
-		if (config.ExpirationDate.after(new Date())) {
-			return true;
-		}
-
-		return false;
-	}
-
-	public void DropUnlimitedAccess() {
-		Config config = LoadSettings();
-		config.UnlimitedAccess = false;
-		config.Enabled = false;
-		config.ExpirationDate = DateUtil.addDays(new Date(), -1);
-		SaveSettings(config);
-	}
-
-	public void ActivateUnlimitedAccess() {
-		Config config = LoadSettings();
-		config.UnlimitedAccess = true;
-		config.Enabled = true;
-		config.ExpirationDate = DateUtil.addDays(new Date(), 30);
-		SaveSettings(config);
+		return config.Enabled && config.ClientRegistered;
 	}
 
 	public void ChangeDomain() {
@@ -92,24 +60,21 @@ public class SettingsService {
 		return config.ClientRegistered;
 	}
 
-	public void RegisterClient(UUID uuid, Date expirationDate, boolean unlimitedAccess) {
+	public void RegisterClient(UUID uuid) {
 		Config config = LoadSettings();
 		config.ClientId = uuid;
-		RegisterClient(expirationDate, unlimitedAccess, config);
+		RegisterClient(config);
 		SaveSettings(config);
 	}
 
-	public void RegisterClient(Date expirationDate, boolean unlimitedAccess) {
+	public void RegisterClient() {
 		Config config = LoadSettings();
-		RegisterClient(expirationDate, unlimitedAccess, config);
 		SaveSettings(config);
 	}
 
-	private void RegisterClient(Date expirationDate, boolean unlimitedAccess, Config config) {
+	private void RegisterClient(Config config) {
 		config.ClientRegistered = true;
 		config.Enabled = true;
-		config.ExpirationDate = expirationDate;
-		config.UnlimitedAccess = unlimitedAccess;
 	}
 
 	public void PrepareClientForRegister(UUID uuid) {
@@ -147,18 +112,5 @@ public class SettingsService {
 		config.Enabled = !config.Enabled;
 		SaveSettings(config);
 		return config.Enabled;
-	}
-
-	public AccessInfo GetAccessInfo() {
-		Config config = LoadSettings();
-		AccessInfo info = new AccessInfo();
-		info.AccessIsAllowed = AccessAllowed(config);
-		info.IsUnlimitedAccess = config.UnlimitedAccess;
-		if (!config.UnlimitedAccess) {
-			info.EvaluationDaysLast = DateUtil.DiffInDays(new Date(),
-					config.ExpirationDate);
-		}
-
-		return info;
 	}
 }
