@@ -1,0 +1,63 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BaseLayout"
+    tools:context=".RegisterActivity" >
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/BaseText.BaseControl.Text"
+        android:layout_marginBottom="15dp"
+        android:text="@string/RegisterText" />
+
+    <TextView
+        android:id="@+id/licenseLink"
+        style="@style/BaseText.BaseControl"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="0dp"
+        android:autoLink="web"
+        android:linksClickable="true"
+        android:text="@string/LicenseAgreement"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:typeface="normal" />
+
+    <LinearLayout
+        android:id="@+id/LinearLayout02"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/buttonRegister"
+            style="@style/BaseText.JalapenoImageButton"
+            android:layout_width="wrap_content"
+            android:drawableTop="@drawable/ico_register"
+            android:onClick="Register"
+            android:text="@string/RegisterButton" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout023"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/buttonDebugRegister"
+            style="@style/BaseText.BaseControl.Button.Debug"
+            android:onClick="TestRegister"
+            android:text="@string/TestRegister"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/buttonGoToDebugRegister"
+            style="@style/BaseText.BaseControl.Button.Debug"
+            android:onClick="NavigateToDebug"
+            android:text="@string/DebugActivity"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+</LinearLayout>

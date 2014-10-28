@@ -1,0 +1,1 @@
+zipalign.exe -f
