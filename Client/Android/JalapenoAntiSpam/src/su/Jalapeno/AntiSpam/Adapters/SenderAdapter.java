@@ -8,8 +8,10 @@ import su.Jalapeno.AntiSpam.Services.SenderService;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -70,6 +72,9 @@ public class SenderAdapter extends BaseAdapter {
 		cbBuy.setChecked(sender.IsSpammer);
 
 		cbBuy.setOnCheckedChangeListener(myCheckChangList);
+		
+		Button btnSms = (Button) view.findViewById(R.id.btnViewSpammerSms);
+		btnSms.setOnClickListener(spamerSmsClick);
 
 		return view;
 	}
@@ -84,6 +89,14 @@ public class SenderAdapter extends BaseAdapter {
 			Sender sender = getSender((Integer) buttonView.getTag());
 			sender.IsSpammer = isChecked;
 			_senderService.AddOrUpdateSender(sender);
+		}
+	};
+	
+	OnClickListener spamerSmsClick = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			Sender sender = getSender((Integer) v.getTag());
+			
 		}
 	};
 }
