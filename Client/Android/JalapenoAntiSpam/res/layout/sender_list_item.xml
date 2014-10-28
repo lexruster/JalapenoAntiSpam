@@ -33,6 +33,17 @@
             android:text="@string/isspamer"
             >
         </CheckBox>
+        <Button
+            android:id="@+id/btnViewSpammerSms"
+            style="@style/BaseText.BaseControl.ButtonSms"
+            android:onClick="DeleteSms"
+            android:layout_width="10dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="2dp"
+            android:layout_height="wrap_content"
+            android:text="@string/SpammersSmses" >
+        </Button>
     </LinearLayout>
 
 </LinearLayout>

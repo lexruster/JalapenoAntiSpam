@@ -23,6 +23,7 @@
     <string name="SpammerList">Spammers</string>
     <string name="isspamer">Spammer?</string>
     <string name="EmptySpamerList">No Spammers...</string>
+    <string name="SpammersSmses">Sms</string>
 
     <!-- Sms list acticity -->
     <string name="SmsList">SMS</string>
