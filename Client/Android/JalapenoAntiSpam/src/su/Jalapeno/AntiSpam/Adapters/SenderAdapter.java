@@ -3,9 +3,12 @@ package su.Jalapeno.AntiSpam.Adapters;
 import java.util.ArrayList;
 
 import su.Jalapeno.AntiSpam.FilterPro.R;
+import su.Jalapeno.AntiSpam.Activities.SettingsActivity;
+import su.Jalapeno.AntiSpam.Activities.TrashSmsActivity;
 import su.Jalapeno.AntiSpam.DAL.Domain.Sender;
 import su.Jalapeno.AntiSpam.Services.SenderService;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,6 +19,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.inject.Inject;
 
@@ -27,7 +31,6 @@ public class SenderAdapter extends BaseAdapter {
 
 	@Inject
 	public SenderAdapter(Context context, SenderService senderService) {
-		
 		_context = context;
 		_senderService = senderService;
 		lInflater = (LayoutInflater) _context
@@ -96,7 +99,11 @@ public class SenderAdapter extends BaseAdapter {
 		@Override
 		public void onClick(View v) {
 			Sender sender = getSender((Integer) v.getTag());
+			Toast.makeText(_context, sender.SenderId, 2000);
 			
+			Intent intent = new Intent(_context, TrashSmsActivity.class);
+			intent.putExtra("SenderId", sender.SenderId);
+			_activity.startActivity(intent);
 		}
 	};
 }
