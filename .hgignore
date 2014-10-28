@@ -33,3 +33,5 @@ Client/Android/Artifacts/Tools/IconSorter/IconSorter.v11.suo
 Client/Android/Artifacts/Tools/IconSorter/IconSorter/bin/*
 Client/Android/Artifacts/Tools/IconSorter/IconSorter/obj/*
 Client/Android/Artifacts/Themes/Icons/DrawRes/*
+Client/Android/Artifacts/Libs/play_licensing/bin/*
+Client/Android/Artifacts/Libs/play_licensing/gen/*
