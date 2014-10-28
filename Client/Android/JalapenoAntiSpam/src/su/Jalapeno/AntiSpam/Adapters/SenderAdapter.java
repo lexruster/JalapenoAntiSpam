@@ -103,7 +103,7 @@ public class SenderAdapter extends BaseAdapter {
 			
 			Intent intent = new Intent(_context, TrashSmsActivity.class);
 			intent.putExtra("SenderId", sender.SenderId);
-			_activity.startActivity(intent);
+			_context.startActivity(intent);
 		}
 	};
 }
