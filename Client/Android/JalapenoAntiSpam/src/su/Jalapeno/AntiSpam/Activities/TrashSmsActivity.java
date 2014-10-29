@@ -21,6 +21,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -57,12 +58,24 @@ public class TrashSmsActivity extends JalapenoListActivity {
 
 	boolean FirstRun;
 
+	boolean FilterSenderId;
+	String SenderId;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Logger.Debug(LOG_TAG, "onCreate");
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		Init();
 	}
+
+	 @Override
+	 protected void onNewIntent(Intent intent) {
+	     super.onNewIntent(intent);
+	     Logger.Debug(LOG_TAG, "onNewIntent");
+	     setIntent(intent);
+	     CheckSenderId();
+	 }
 
 	@Override
 	protected void onResume() {
@@ -80,11 +93,16 @@ public class TrashSmsActivity extends JalapenoListActivity {
 
 	private void Resume() {
 		registerReceiver(_receiver, _intFilt);
+		if (FilterSenderId) {
+			_smsAdapter.SetFilter(SenderId);
+		} else {
+			_smsAdapter.ClearFilter();
+		}
 		_smsAdapter.LoadData();
 		HandleFirstRun();
 		LoadList();
 		UpdateButtons();
-		Logger.Debug(LOG_TAG, "loaded");
+		Logger.Debug(LOG_TAG, "Loaded");
 	}
 
 	private void HandleFirstRun() {
@@ -96,13 +114,9 @@ public class TrashSmsActivity extends JalapenoListActivity {
 		}
 	}
 
-	@Override
-	public void onBackPressed() {
-		Logger.Debug(LOG_TAG, "onBackPressed");
-		UiUtils.NavigateAndClearHistory(SettingsActivity.class);
-	}
-
 	private void Init() {
+		CheckSenderId();
+
 		_receiver = new BroadcastReceiver() {
 			public void onReceive(Context context, Intent intent) {
 				Logger.Debug(LOG_TAG, "BroadcastReceiver onReceive");
@@ -112,6 +126,18 @@ public class TrashSmsActivity extends JalapenoListActivity {
 
 		_intFilt = new IntentFilter(Constants.BROADCAST_TRASH_SMS_ACTION);
 		FirstRun = true;
+	}
+
+	private void CheckSenderId() {
+		String senderId = getIntent().getStringExtra("SenderId");
+		Logger.Debug(LOG_TAG, "CheckSenderId " + senderId);
+		if (TextUtils.isEmpty(senderId)) {
+			FilterSenderId = false;
+			SenderId = "";
+		} else {
+			FilterSenderId = true;
+			SenderId = senderId;
+		}
 	}
 
 	@Override
@@ -162,7 +188,8 @@ public class TrashSmsActivity extends JalapenoListActivity {
 	}
 
 	private void SaveSms(TrashSms trashSms) {
-		List<Sms> smsList = _trashSmsService.GetAllBySender(trashSms.SenderId);
+		List<Sms> smsList = _trashSmsService
+				.GetAllSmsBySender(trashSms.SenderId);
 		_smsService.SaveSmsToPhoneBase(smsList);
 		_senderService.AddOrUpdateSender(trashSms.SenderId, false);
 
@@ -184,16 +211,20 @@ public class TrashSmsActivity extends JalapenoListActivity {
 	}
 
 	private void OnClearAll() {
-		new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setMessage(R.string.ClearConfirmationMessage)
-				.setPositiveButton(R.string.DialogYes, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						_trashSmsService.Clear();
-						UpdateList();
-						Logger.Debug(LOG_TAG, "Trash cleared");
-					}
+		new AlertDialog.Builder(this)
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.setMessage(R.string.ClearConfirmationMessage)
+				.setPositiveButton(R.string.DialogYes,
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								_trashSmsService.Clear();
+								UpdateList();
+								Logger.Debug(LOG_TAG, "Trash cleared");
+							}
 
-				}).setNegativeButton(R.string.DialogNo, null).show();
+						}).setNegativeButton(R.string.DialogNo, null).show();
 	}
 
 	private void UpdateList() {
