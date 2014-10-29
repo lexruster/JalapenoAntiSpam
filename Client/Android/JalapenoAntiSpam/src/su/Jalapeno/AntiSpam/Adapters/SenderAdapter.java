@@ -73,10 +73,10 @@ public class SenderAdapter extends BaseAdapter {
 		CheckBox cbBuy = (CheckBox) view.findViewById(R.id.cbIsSender);
 		cbBuy.setTag(position);
 		cbBuy.setChecked(sender.IsSpammer);
-
 		cbBuy.setOnCheckedChangeListener(myCheckChangList);
-		
+
 		Button btnSms = (Button) view.findViewById(R.id.btnViewSpammerSms);
+		btnSms.setTag(position);
 		btnSms.setOnClickListener(spamerSmsClick);
 
 		return view;
@@ -94,15 +94,16 @@ public class SenderAdapter extends BaseAdapter {
 			_senderService.AddOrUpdateSender(sender);
 		}
 	};
-	
+
 	OnClickListener spamerSmsClick = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			Sender sender = getSender((Integer) v.getTag());
 			Toast.makeText(_context, sender.SenderId, 2000);
-			
+
 			Intent intent = new Intent(_context, TrashSmsActivity.class);
 			intent.putExtra("SenderId", sender.SenderId);
+			//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 			_context.startActivity(intent);
 		}
 	};

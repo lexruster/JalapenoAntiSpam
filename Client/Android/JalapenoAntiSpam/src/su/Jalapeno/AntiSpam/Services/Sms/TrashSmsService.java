@@ -43,8 +43,15 @@ public class TrashSmsService extends JalapenoService<TrashSms> {
 		_context.sendBroadcast(intent);
 	}
 	
-	public ArrayList<Sms> GetAllBySender(String sender) {
+	public ArrayList<Sms> GetAllSmsBySender(String sender) {
 		ArrayList<Sms> list = new ArrayList<Sms>();
+		list.addAll(GetTrashSmsDao().FindSmsBySender(sender));
+
+		return list;
+	}
+	
+	public ArrayList<TrashSms> GetAllTrashSmsBySender(String sender) {
+		ArrayList<TrashSms> list = new ArrayList<TrashSms>();
 		list.addAll(GetTrashSmsDao().FindSmsBySender(sender));
 
 		return list;
