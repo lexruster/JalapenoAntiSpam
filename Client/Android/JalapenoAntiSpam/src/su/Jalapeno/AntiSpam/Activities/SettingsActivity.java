@@ -18,9 +18,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.google.inject.Inject;
 
 @ContentView(R.layout.activity_settings)
@@ -106,14 +110,16 @@ public class SettingsActivity extends JalapenoActivity {
 		reciverRegistered = true;
 		new UpdateTrashTextAsync().execute();
 	}
-	
+
 	private void UpdateOnOffButton(boolean antispamEnabled) {
 		Logger.Debug(LOG_TAG, "UpdateOnOffButton enabled: " + antispamEnabled);
 		if (antispamEnabled) {
-			toogleButton.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ico_switch_on, 0, 0);
+			toogleButton.setCompoundDrawablesWithIntrinsicBounds(0,
+					R.drawable.ico_switch_on, 0, 0);
 			toogleButton.setText(R.string.AntiSpamOn);
 		} else {
-			toogleButton.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ico_switch_off, 0, 0);
+			toogleButton.setCompoundDrawablesWithIntrinsicBounds(0,
+					R.drawable.ico_switch_off, 0, 0);
 			toogleButton.setText(R.string.AntiSpamOff);
 		}
 	}
@@ -123,6 +129,55 @@ public class SettingsActivity extends JalapenoActivity {
 			buttonDebug.setVisibility(View.VISIBLE);
 		} else {
 			buttonDebug.setVisibility(View.INVISIBLE);
+		}
+	}
+	 @Override
+	    public boolean onCreateOptionsMenu(Menu menu) {
+	        super.onCreateOptionsMenu(menu);
+	        getSupportMenuInflater().inflate(R.menu.settings_action_provider, menu);
+	        return true;
+	    }
+
+ 
+/*	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		
+		  com.actionbarsherlock.view.MenuInflater inflater =
+		  getSupportMenuInflater(); inflater.inflate(R.menu.menu, menu); return
+		  super.onCreateOptionsMenu(menu);
+		 
+
+		menu.add("Save").setIcon(R.drawable.ic_notif_white_pepper)
+				.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+		return true;
+	}
+	*/
+	 @Override
+	    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+	        menu.add("One");
+	        menu.add("Two");
+	        menu.add("Three");
+	        menu.add("Four");
+	    }
+	 
+	 @Override
+	    public boolean onContextItemSelected(android.view.MenuItem item) {
+	        //Note how this callback is using the fully-qualified class name
+	        Toast.makeText(this, "Got click: " + item.toString(), Toast.LENGTH_SHORT).show();
+	        return true;
+	    }
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		String str = " - " + item.getItemId() + " - ";
+		ShowToast(str);
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			UiUtils.NavigateAndClearHistory(SettingsActivity.class);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
 	}
 
@@ -145,7 +200,8 @@ public class SettingsActivity extends JalapenoActivity {
 	public void toggleClick(View view) {
 		boolean enabled = _settingsService.ToggleAntispamEnabled();
 		UpdateOnOffButton(enabled);
-		startService(new Intent(this, AppService.class).putExtra(NotifyType.ExtraConstant, NotifyType.RefreshSmsNotify));
+		startService(new Intent(this, AppService.class).putExtra(
+				NotifyType.ExtraConstant, NotifyType.RefreshSmsNotify));
 	}
 
 	public void smsTrash(View view) {
@@ -159,7 +215,8 @@ public class SettingsActivity extends JalapenoActivity {
 	class UpdateTrashTextAsync extends AsyncTask<Void, Void, Integer> {
 		@Override
 		protected Integer doInBackground(Void... params) {
-			startService(new Intent(_context, AppService.class).putExtra(NotifyType.ExtraConstant, NotifyType.RefreshSmsNotify));
+			startService(new Intent(_context, AppService.class).putExtra(
+					NotifyType.ExtraConstant, NotifyType.RefreshSmsNotify));
 			Integer i = (int) _trashSmsService.Count();
 			Logger.Debug(LOG_TAG, "UpdateTrashTextAsync trash " + i);
 			return i;
@@ -169,9 +226,12 @@ public class SettingsActivity extends JalapenoActivity {
 		protected void onPostExecute(Integer result) {
 			super.onPostExecute(result);
 			if (result > 0) {
-				Logger.Debug(LOG_TAG, "UpdateTrashTextAsync onPostExecute trash " + result);
-				String trashText = _context.getResources().getString(R.string.SmsTrashList);
-				String newTrashText = String.format(Locale.getDefault(), "%s (%d)", trashText, result);
+				Logger.Debug(LOG_TAG,
+						"UpdateTrashTextAsync onPostExecute trash " + result);
+				String trashText = _context.getResources().getString(
+						R.string.SmsTrashList);
+				String newTrashText = String.format(Locale.getDefault(),
+						"%s (%d)", trashText, result);
 				buttonSmsTrash.setText(newTrashText);
 			} else {
 				buttonSmsTrash.setText(R.string.SmsTrashList);
