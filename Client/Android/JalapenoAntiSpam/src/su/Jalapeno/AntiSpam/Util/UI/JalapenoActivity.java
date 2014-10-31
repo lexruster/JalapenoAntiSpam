@@ -41,7 +41,8 @@ public class JalapenoActivity extends RoboSherlockActivity {
 		case android.R.id.home:
 			UiUtils.NavigateAndClearHistory(SettingsActivity.class);
 			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
-		return super.onOptionsItemSelected(item);
 	}
 }
