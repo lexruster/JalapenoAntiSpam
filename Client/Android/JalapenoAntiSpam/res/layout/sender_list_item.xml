@@ -35,7 +35,26 @@
             android:textSize="13sp" >
         </CheckBox>
 
-        <Button
+          <ImageButton
+            android:id="@+id/imgViewSpammerSms"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            
+            
+            android:layout_gravity="right"
+            android:scaleType="fitXY"
+            android:src="@drawable/ico_sms"
+            android:padding="5dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="0dp"
+            android:contentDescription="@string/SpammersSmses" 
+            
+            android:background="@drawable/state_background"
+            />
+          
+        <!--Button
             android:id="@+id/btnViewSpammerSms"
             style="@style/BaseText.BaseControl.ButtonSms"
             android:layout_width="wrap_content"
@@ -49,7 +68,7 @@
             android:padding="2dp"
             android:text="@string/SpammersSmses"
             android:textSize="13sp" >
-        </Button>
+        </Button-->
     </LinearLayout>
 
 </LinearLayout>

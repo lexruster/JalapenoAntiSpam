@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,7 +76,7 @@ public class SenderAdapter extends BaseAdapter {
 		cbBuy.setChecked(sender.IsSpammer);
 		cbBuy.setOnCheckedChangeListener(myCheckChangList);
 
-		Button btnSms = (Button) view.findViewById(R.id.btnViewSpammerSms);
+		ImageButton btnSms = (ImageButton) view.findViewById(R.id.imgViewSpammerSms);
 		btnSms.setTag(position);
 		btnSms.setOnClickListener(spamerSmsClick);
 
