@@ -24,6 +24,7 @@
     <string name="isspamer">Спамер?</string>
     <string name="EmptySpamerList">Скоро здесь появятся спамеры...</string>
     <string name="SpammersSmses">Смс</string>
+    <string name="SpamFromIncome">Проверить входящие</string>
 
     <!-- Sms list acticity -->
     <string name="SmsList">СМС</string>

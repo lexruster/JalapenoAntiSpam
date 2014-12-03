@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/add_item"
+        android:icon="@drawable/spam_ico"
+        android:showAsAction="ifRoom"
+        android:title="@string/SpamButton"
+        android:titleCondensed="@string/SpamButton">
+    </item>
+    
+    <item
+        android:id="@+id/about"
+        android:icon="@drawable/gray_jalapeno"
+        android:showAsAction="ifRoom"
+        android:title="@string/ClearAll"
+        android:titleCondensed="@string/ClearAll">
+    </item>
+
+</menu>

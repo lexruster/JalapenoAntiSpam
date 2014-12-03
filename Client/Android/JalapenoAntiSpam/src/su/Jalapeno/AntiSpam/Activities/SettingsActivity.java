@@ -131,13 +131,14 @@ public class SettingsActivity extends JalapenoActivity {
 			buttonDebug.setVisibility(View.INVISIBLE);
 		}
 	}
-	 @Override
+	 
+	/*@Override
 	    public boolean onCreateOptionsMenu(Menu menu) {
-	        super.onCreateOptionsMenu(menu);
-	        getSupportMenuInflater().inflate(R.menu.settings_action_provider, menu);
+	        //super.onCreateOptionsMenu(menu);
+	        getSupportMenuInflater().inflate(R.menu.activity_itemlist, menu);
 	        return true;
 	    }
-
+*/
  
 /*	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -153,14 +154,14 @@ public class SettingsActivity extends JalapenoActivity {
 		return true;
 	}
 	*/
-	 @Override
+	/* @Override
 	    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
 	        menu.add("One");
 	        menu.add("Two");
 	        menu.add("Three");
 	        menu.add("Four");
-	    }
-	 
+	    }*/
+	 /*
 	 @Override
 	    public boolean onContextItemSelected(android.view.MenuItem item) {
 	        //Note how this callback is using the fully-qualified class name
@@ -180,7 +181,7 @@ public class SettingsActivity extends JalapenoActivity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-
+*/
 	@Override
 	public void onBackPressed() {
 		Logger.Debug(LOG_TAG, "onBackPressed");
