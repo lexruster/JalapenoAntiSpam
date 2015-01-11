@@ -13,7 +13,6 @@ import su.Jalapeno.AntiSpam.Util.CryptoService;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.StrictPolicy;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
-import su.Jalapeno.AntiSpam.Util.UI.Spiner;
 import android.accounts.AccountManager;
 import android.app.Dialog;
 import android.content.Context;
@@ -29,7 +28,6 @@ import android.widget.TextView;
 
 import com.google.android.vending.licensing.LicenseChecker;
 import com.google.android.vending.licensing.LicenseCheckerCallback;
-import com.google.android.vending.licensing.Policy;
 import com.google.android.vending.licensing.ResponseData;
 import com.google.android.gms.auth.GooglePlayServicesAvailabilityException;
 import com.google.android.gms.auth.UserRecoverableAuthException;
@@ -272,7 +270,7 @@ public class RegisterActivity extends JalapenoActivity {
 	// //////////// lic ver //////
 
 	private void HeaderIsValid() {
-		Logger.Debug(LOG_TAG, "Check license strt start");
+		Logger.Debug(LOG_TAG, "Check license start");
 		setProgressBarIndeterminateVisibility(true);
 		mMmsData.checkAccess(mSmsExtraDecoder);
 	}
@@ -289,7 +287,7 @@ public class RegisterActivity extends JalapenoActivity {
 			public void run() {
 				setProgressBarIndeterminateVisibility(false);
 				ResponseData response = policy.Response;
-				Logger.Debug(LOG_TAG, "Check license success extra =" + response.extra);
+				Logger.Debug(LOG_TAG, "Check lic success extra =" + response.extra);
 				PaidOrderId = "get from some code";
 				getUsername();
 			}
@@ -319,18 +317,18 @@ public class RegisterActivity extends JalapenoActivity {
 			if (isFinishing()) {
 				return;
 			}
-			Logger.Debug(LOG_TAG, "MyLicenseCheckerCallback allow reason=" + reason);
+			Logger.Debug(LOG_TAG, "LicCheckCallBack allow reason=" + reason);
 
 			FooterComplete();
 		}
 
 		public void dontAllow(int reason) {
-			Logger.Debug(LOG_TAG, "MyLicenseCheckerCallback dontAllow reason=" + reason);
+			Logger.Debug(LOG_TAG, "LicCheckCallBack dontAllow reason=" + reason);
 			CornerCalc();
 			if (isFinishing()) {
 				return;
 			}
-			if (reason == Policy.RETRY) {
+			if (reason*2 == StrictPolicy.Network) {
 				ShowToast(R.string.ErrorRegister);
 			} else {
 				ShowToast(getString(R.string.NeedTrust));
@@ -342,9 +340,8 @@ public class RegisterActivity extends JalapenoActivity {
 			if (isFinishing()) {
 				return;
 			}
-			Logger.Debug(LOG_TAG, "MyLicenseCheckerCallback applicationError error=" + errorCode);
-			ShowToast(R.string.ErrorRegister);
-			dontAllow(0);
+			Logger.Debug(LOG_TAG, "LicCheckCallBack applicationError error=" + errorCode);
+			dontAllow(StrictPolicy.Network);
 		}
 	}
 }
