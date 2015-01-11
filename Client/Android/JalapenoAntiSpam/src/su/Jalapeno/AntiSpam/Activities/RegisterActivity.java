@@ -291,8 +291,8 @@ public class RegisterActivity extends JalapenoActivity {
 			public void run() {
 				spiner.Hide();
 				ResponseData response = policy.Response;
-				Logger.Debug(LOG_TAG, "Check lic success extra =" + response.extra);
-				PaidOrderId = "get from some code";
+				PaidOrderId = String.format("E:%s, T:%s", response.extra, response.toString());
+				Logger.Debug(LOG_TAG, "Check lic success info =" + PaidOrderId);
 				getUsername();
 			}
 		});
@@ -322,7 +322,6 @@ public class RegisterActivity extends JalapenoActivity {
 				return;
 			}
 			Logger.Debug(LOG_TAG, "LicCheckCallBack allow reason=" + reason);
-
 			FooterComplete();
 		}
 
