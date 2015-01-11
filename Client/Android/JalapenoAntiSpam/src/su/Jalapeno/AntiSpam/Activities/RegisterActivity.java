@@ -134,6 +134,8 @@ public class RegisterActivity extends JalapenoActivity {
 		Token = "";
 		if (checkPlayServices()) {
 			HeaderIsValid();
+			//PaidOrderId = "get from some code";
+			//getUsername();
 		}
 	}
 

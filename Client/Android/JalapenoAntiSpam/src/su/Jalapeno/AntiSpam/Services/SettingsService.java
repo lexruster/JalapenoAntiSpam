@@ -69,6 +69,7 @@ public class SettingsService {
 
 	public void RegisterClient() {
 		Config config = LoadSettings();
+		RegisterClient(config);
 		SaveSettings(config);
 	}
 
