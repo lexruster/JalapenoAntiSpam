@@ -86,7 +86,6 @@ public class RegisterTask extends
 		if (TextUtils.isEmpty(_activity.Token)) {
 			return registerClient;
 		}
-
 		UUID uuid = UUID.randomUUID();
 		_settingsService.PrepareClientForRegister(uuid);
 
@@ -97,7 +96,7 @@ public class RegisterTask extends
 		
 		if (registerClient.WasSuccessful) {
 			String message = "";
-			String orderId = "dfsdf";
+			String orderId = _activity.PaidOrderId;
 			message = String.format("PrePaid app ClientId:%s, OrderId:%s",
 					uuid.toString(), orderId);
 			NotifyAboutPaymentResponse notifyAboutPayment = _jalapenoWebServiceWraper

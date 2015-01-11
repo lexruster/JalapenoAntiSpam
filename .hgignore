@@ -6,6 +6,7 @@ Research/Android/Test2/bin/*
 Research/Android/Test2/gen/*
 Client/Android/JalapenoAntiSpam/bin/*
 Client/Android/JalapenoAntiSpam/gen/*
+Client/Android/JalapenoAntiSpam/gen/su/jalapeno/AntiSpam/Filter/R.java
 Client/Android/JalapenoAntiSpam/Tests/bin/*
 Client/JalapenoAntiSpamTestsTest/bin/*
 Client/JalapenoAntiSpamTestsTest/gen/*
