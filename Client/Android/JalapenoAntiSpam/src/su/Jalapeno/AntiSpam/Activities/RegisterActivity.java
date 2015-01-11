@@ -341,7 +341,7 @@ public class RegisterActivity extends JalapenoActivity {
 				return;
 			}
 			Logger.Debug(LOG_TAG, "LicCheckCallBack applicationError error=" + errorCode);
-			dontAllow(StrictPolicy.Network);
+			dontAllow(StrictPolicy.Network/2);
 		}
 	}
 }
