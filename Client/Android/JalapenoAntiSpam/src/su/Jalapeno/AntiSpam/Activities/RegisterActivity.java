@@ -13,6 +13,7 @@ import su.Jalapeno.AntiSpam.Util.CryptoService;
 import su.Jalapeno.AntiSpam.Util.Logger;
 import su.Jalapeno.AntiSpam.Util.StrictPolicy;
 import su.Jalapeno.AntiSpam.Util.UI.JalapenoActivity;
+import su.Jalapeno.AntiSpam.Util.UI.Spiner;
 import android.accounts.AccountManager;
 import android.app.Dialog;
 import android.content.Context;
@@ -74,13 +75,14 @@ public class RegisterActivity extends JalapenoActivity {
 	private Handler mHandler;
 	public String PaidOrderId;
 	private StrictPolicy policy;
+	Spiner spiner;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		SetDebugMode(Constants.VIEW_DEBUG_UI);
 
-		// spiner=new Spiner(this);
+		spiner=new Spiner(this);
 		link = _context.getResources().getString(R.string.LicenseAgreementUrl);
 		_licenseLink.setOnClickListener(new OnClickListener() {
 			@Override
@@ -271,7 +273,7 @@ public class RegisterActivity extends JalapenoActivity {
 
 	private void HeaderIsValid() {
 		Logger.Debug(LOG_TAG, "Check license start");
-		setProgressBarIndeterminateVisibility(true);
+		spiner.Show();
 		mMmsData.checkAccess(mSmsExtraDecoder);
 	}
 
@@ -285,7 +287,7 @@ public class RegisterActivity extends JalapenoActivity {
 	private void FooterComplete() {
 		mHandler.post(new Runnable() {
 			public void run() {
-				setProgressBarIndeterminateVisibility(false);
+				spiner.Hide();
 				ResponseData response = policy.Response;
 				Logger.Debug(LOG_TAG, "Check lic success extra =" + response.extra);
 				PaidOrderId = "get from some code";
@@ -297,7 +299,7 @@ public class RegisterActivity extends JalapenoActivity {
 	private void CornerCalc() {
 		mHandler.post(new Runnable() {
 			public void run() {
-				setProgressBarIndeterminateVisibility(false);
+				spiner.Hide();
 			}
 		});
 	}
