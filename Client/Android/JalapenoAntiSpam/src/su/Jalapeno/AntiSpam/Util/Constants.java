@@ -1,7 +1,7 @@
 package su.Jalapeno.AntiSpam.Util;
 
 public class Constants {
-	public final static String BEGIN_LOG_TAG = "JalLog ";
+	public final static String BEGIN_LOG_TAG = "JalLogP ";
 
 	public final static String BROADCAST_SMS_ANALYZER_ACTION = "su.Jalapeno.AntiSpam.BROADCAST_SMS_ANALYZER_ACTION";
 	public final static String BROADCAST_TRASH_SMS_ACTION = "su.Jalapeno.AntiSpam.BROADCAST_TRASH_SMS_ACTION";
