@@ -25,6 +25,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.inject.Inject;
 
@@ -34,6 +35,9 @@ public class TrashSmsActivity extends JalapenoListActivity {
 	IntentFilter _intFilt;
 
 	final String LOG_TAG = Constants.BEGIN_LOG_TAG + "TrashSmsActivity";
+
+	@InjectView(R.id.textView)
+	TextView _header;
 
 	@InjectView(R.id.btnNeedTrashSms)
 	Button _needSmsButton;
@@ -69,13 +73,13 @@ public class TrashSmsActivity extends JalapenoListActivity {
 		Init();
 	}
 
-	 @Override
-	 protected void onNewIntent(Intent intent) {
-	     super.onNewIntent(intent);
-	     Logger.Debug(LOG_TAG, "onNewIntent");
-	     setIntent(intent);
-	     CheckSenderId();
-	 }
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		Logger.Debug(LOG_TAG, "onNewIntent");
+		setIntent(intent);
+		CheckSenderId();
+	}
 
 	@Override
 	protected void onResume() {
@@ -134,9 +138,11 @@ public class TrashSmsActivity extends JalapenoListActivity {
 		if (TextUtils.isEmpty(senderId)) {
 			FilterSenderId = false;
 			SenderId = "";
+			_header.setText(R.string.SmsTrashList);
 		} else {
 			FilterSenderId = true;
 			SenderId = senderId;
+			_header.setText(getText(R.string.SmsTrashList) + ": " + SenderId);
 		}
 	}
 
@@ -188,8 +194,7 @@ public class TrashSmsActivity extends JalapenoListActivity {
 	}
 
 	private void SaveSms(TrashSms trashSms) {
-		List<Sms> smsList = _trashSmsService
-				.GetAllSmsBySender(trashSms.SenderId);
+		List<Sms> smsList = _trashSmsService.GetAllSmsBySender(trashSms.SenderId);
 		_smsService.SaveSmsToPhoneBase(smsList);
 		_senderService.AddOrUpdateSender(trashSms.SenderId, false);
 
@@ -211,20 +216,23 @@ public class TrashSmsActivity extends JalapenoListActivity {
 	}
 
 	private void OnClearAll() {
-		new AlertDialog.Builder(this)
-				.setIcon(android.R.drawable.ic_dialog_alert)
-				.setMessage(R.string.ClearConfirmationMessage)
-				.setPositiveButton(R.string.DialogYes,
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								_trashSmsService.Clear();
-								UpdateList();
-								Logger.Debug(LOG_TAG, "Trash cleared");
-							}
+		new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setMessage(R.string.ClearConfirmationMessage)
+				.setPositiveButton(R.string.DialogYes, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						ProceedClearing();
+					}
+				}).setNegativeButton(R.string.DialogNo, null).show();
+	}
 
-						}).setNegativeButton(R.string.DialogNo, null).show();
+	private void ProceedClearing() {
+		if (FilterSenderId) {
+			_trashSmsService.DeleteBySender(SenderId);
+		} else {
+			_trashSmsService.Clear();
+		}
+		UpdateList();
+		Logger.Debug(LOG_TAG, "Trash cleared");
 	}
 
 	private void UpdateList() {
