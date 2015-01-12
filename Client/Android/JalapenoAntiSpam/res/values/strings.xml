@@ -2,7 +2,7 @@
 <resources>
 
     <!-- app name -->
-    <string name="app_name">Jalapeno Antispam</string>
+    <string name="app_name">Jalapeno Antispam Pro</string>
 
     <!-- main acticity -->
     <string name="KnownSpammerList">Spammers</string>
@@ -54,6 +54,7 @@
     <string name="ErrorRegister">Registration error. Please, check the Internet connection, then try again</string>
     <string name="NeedPeekAccount">You have to choose an account</string>
     <string name="DeviceNotSupported">Sorry, this device is not supported</string>
+    <string name="NeedTrust">Sorry, wrong license</string>
 
     <!-- Register debug acticity -->
     <string name="TestRegister">Test registration</string>
