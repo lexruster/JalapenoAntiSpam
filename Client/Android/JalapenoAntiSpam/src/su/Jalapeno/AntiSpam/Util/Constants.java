@@ -14,7 +14,7 @@ public class Constants {
 	public final static int MIN_MESSAGE_LENGTH = 50;
 
 	// debug configs
-	public static final boolean FULL_DEBUG = true;
+	public static final boolean FULL_DEBUG = false;
 	public static final boolean LOG_DEBUG = FULL_DEBUG;
 	public static final boolean VIEW_DEBUG_UI = FULL_DEBUG;
 }
